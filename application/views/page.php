@@ -7,10 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentelella Alela! | </title>
+    <!-- <title>Gentelella Alelaaaaa! | </title> -->
 
     <!-- Bootstrap -->
-    <link href="./assets/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="./assets/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <!-- Font Awesome -->
     <link href="./assets/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
