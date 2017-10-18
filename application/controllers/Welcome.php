@@ -21,14 +21,13 @@ class Welcome extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->helper(array('form', 'url'));
-		$this->output->set_title(':: FA-AP ::');
+		$this->output->set_title(':: OHEC ::');
 	}
 
 	public function index()
 	{
 		$this->_init();
-		$this->_init_assets(array('bootstrap'));
-		$this->data['Title'] = "Hello World";
-		$this->load->view('page',$this->data);
+		// $this->_init_assets(array('bootstrap'));
+		$this->load->view('page');
 	}
 }
