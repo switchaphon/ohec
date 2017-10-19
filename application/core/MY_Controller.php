@@ -27,8 +27,9 @@ class MY_Controller extends CI_Controller {
     // $this->only_auth_completed();
     // $this->output->set_output_data('user', $this->auth_ldap->row());
 
-    $this->_init_assets( array('jquery', 'bootstrap', 'font-awesome', 'fastclick', 'nprogress', 'custom') );
-    // $this->load->css('assets/css/core.css');
+    $this->_init_assets( array('jquery', 'bootstrap', 'font-awesome', 'fastclick', 'nprogress') );
+    $this->load->css('assets/css/custom.min.css');
+    $this->load->js('assets/js/custom.min.js');
   }
 
   protected function _init_assets($name = array())
@@ -62,11 +63,54 @@ class MY_Controller extends CI_Controller {
           $this->load->js('assets/bower_components/nprogress/nprogress.js');
           break;
         
-        case 'custom':
-          $this->load->css('assets/css/custom.min.css');
-          // $this->load->js('assets/js/custom.min.js');
+        case 'datatables':
+          /*  */
+          $this->load->js('assets/bower_components/datatables.net/js/jquery.dataTables.min.js');
+        
+          /*  */
+          $this->load->css('assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css');
+          $this->load->js('assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js');
+
+          /*  */
+          $this->load->css('assets/bower_components/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css');
+          $this->load->js('assets/bower_components/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js');      
+          
+          /*  */
+          $this->load->css('assets/bower_components/datatables.net-responsive-bs/css/responsive.bootstrap.min.css');
+          $this->load->js('assets/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js');   
+          $this->load->js('assets/bower_components/datatables.net-responsive-bs/js/responsive.bootstrap.js');   
+          
+          /*  */
+          $this->load->css('assets/bower_components/datatables.net-scroller-bs/css/scroller.bootstrap.min.css');
+          $this->load->js('assets/bower_components/datatables.net-scroller/js/dataTables.scroller.min.js');   
+ 
+          /*  */
+          $this->load->css('assets/bower_components/datatables.net-buttons-bs/css/buttons.bootstrap.min.css');
+          $this->load->js('assets/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js');   
+          $this->load->js('assets/bower_components/datatables.net-buttons-bs/js/buttons.bootstrap.min.js');   
+          
+          $this->load->js('assets/bower_components/datatables.net-buttons/js/buttons.flash.min.js');   
+          $this->load->js('assets/bower_components/datatables.net-buttons/js/buttons.html5.min.js');   
+          $this->load->js('assets/bower_components/datatables.net-buttons/js/buttons.print.min.js');   
+          $this->load->js('assets/bower_components/datatables.net-keytable/js/dataTables.keyTable.min.js');                       
           break;
 
+        case 'icheck':
+          $this->load->js('assets/bower_components/iCheck/icheck.min.js');
+          break;     
+
+        case 'jszip':
+          $this->load->js('assets/bower_components/jszip/dist/jszip.min.js');
+          break;         
+          
+        case 'pdfmake':
+          $this->load->js('assets/bower_components/pdfmake/build/pdfmake.min.js');
+          $this->load->js('assets/bower_components/pdfmake/build/vfs_fonts.js');
+          break; 
+
+        case 'smartwizard':
+          $this->load->js('assets/bower_components/jQuery-Smart-Wizard/js/jquery.smartWizard.js');
+          break;              
 
         // case 'jquery_ui':
         //   $this->load->css('assets/bower_components/jquery-ui/themes/base/jquery-ui.min.css');
@@ -102,22 +146,6 @@ class MY_Controller extends CI_Controller {
         //   $this->load->js('assets/bower_components/moment/min/moment.min.js');
         //   $this->load->css('assets/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css');
         //   $this->load->js('assets/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js');
-        //   break;
-
-
-
-        // case 'datatable':
-        //   // #############  main datatable  #############
-        //   $this->load->js('assets/bower_components/datatables.net/js/jquery.dataTables.min.js');
-        //   // #############  bootstarp datatable  #############
-        //   $this->load->css('assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css');
-        //   $this->load->js('assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js');
-        //   // #############  fixedHeader  #############
-        //   $this->load->css('assets/bower_components/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css');
-        //   $this->load->js('assets/bower_components/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js');
-        //   // #############  select  #############
-        //   $this->load->css('assets/bower_components/datatables.net-select-dt/css/select.dataTables.min.css');
-        //   $this->load->js('assets/bower_components/datatables.net-select/js/dataTables.select.min.js');
         //   break;
 
         default:

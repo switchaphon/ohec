@@ -9,7 +9,7 @@
 
     <title><? echo $title; ?> </title>
 
-    <!-- Load stylesheet and script -->
+    <!-- Load assets -->
     <?  
       if(!empty($meta))
       foreach($meta as $name=>$content):
@@ -21,25 +21,18 @@
         echo "\n\t\t";
         echo "<link rel='canonical' href='".$canonical."' />\n";
       }
-      // echo "\r\n\r\n";
+
       if(!empty($css)){
-        echo "<!-- Stylesheet -->";
+        echo "<!-- Load stylesheet -->";
         foreach($css as $file){
           echo "\n\t\t";
           echo "<link rel='stylesheet' href='".$file."' type='text/css' />\n";
-        } 
+        }
+        echo "<!-- /Load stylesheet -->"; 
       }
-      // echo "\r\n\r\n";
-      if(!empty($js)){
-        echo "<!-- Script -->";
-        foreach($js as $file){
-          echo "\n\t\t";
-          echo "<script src='".$file."' /></script>";
-        } 
-      }
-      // echo "\n\t";
     ?>
-    <!-- /Load stylesheet and script -->
+    <!-- /Load assets -->
+
   </head>
 
   <body class="nav-md">
@@ -70,7 +63,16 @@
 
     </div>
 
-    <!-- Custom Theme Scripts -->
-    <script src="./assets/js/custom.min.js"></script>
+    <?
+      if(!empty($js)){
+        echo "<!-- Load script -->";
+        foreach($js as $file){
+          echo "\n\t\t";
+          echo "<script src='".$file."' /></script>";
+        }
+        echo "<!-- /Load script -->"; 
+      }
+    ?>
+
   </body>
 </html>

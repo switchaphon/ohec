@@ -26,8 +26,7 @@ class Welcome extends MY_Controller {
 
 	public function index()
 	{
-		$this->_init();
-		// $this->_init_assets(array('bootstrap'));
-		$this->load->view('page');
+		// $this->_init();
+		$this->load->view('login');
 	}
 }
