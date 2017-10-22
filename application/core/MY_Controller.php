@@ -96,6 +96,7 @@ class MY_Controller extends CI_Controller {
           break;
 
         case 'icheck':
+          $this->load->css('assets/bower_components/iCheck/skins/flat/green.css');        
           $this->load->js('assets/bower_components/iCheck/icheck.min.js');
           break;     
 

@@ -40,6 +40,13 @@ class Ef extends MY_Controller {
 		$this->_init();
         $this->_init_assets( array('smartwizard') );
         $this->load->view('ef/create3');
+	}
+	
+	public function eform()
+	{
+		$this->_init();
+        $this->_init_assets( array('icheck','smartwizard') );
+        $this->load->view('ef/eform');
     }
         
 }
