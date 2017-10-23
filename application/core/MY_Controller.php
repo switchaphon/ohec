@@ -118,16 +118,16 @@ class MY_Controller extends CI_Controller {
         //   $this->load->js('assets/bower_components/jquery-ui/jquery-ui.min.js');
         //   break;
 
-        // case 'bootstrap_select':
-        //   $this->load->css('assets/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css');
-        //   $this->load->js('assets/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js');
-        //   $this->load->js('assets/bower_components/bootstrap-select/dist/js/i18n/defaults-en_US.min.js');
-        //   break;
+        case 'bootstrap_select':
+          $this->load->css('assets/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css');
+          $this->load->js('assets/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js');
+          $this->load->js('assets/bower_components/bootstrap-select/dist/js/i18n/defaults-en_US.min.js');
+          break;
 
-        // case 'bootstrap_select_ajax':
-        //   $this->load->css('assets/bower_components/ajax-bootstrap-select/dist/css/ajax-bootstrap-select.min.css');
-        //   $this->load->js('assets/bower_components/ajax-bootstrap-select/dist/js/ajax-bootstrap-select.min.js');
-        //   break;
+        case 'bootstrap_select_ajax':
+          $this->load->css('assets/bower_components/ajax-bootstrap-select/dist/css/ajax-bootstrap-select.min.css');
+          $this->load->js('assets/bower_components/ajax-bootstrap-select/dist/js/ajax-bootstrap-select.min.js');
+          break;
 
         // case 'bootstrap_switch':
         //   $this->load->css('assets/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css');

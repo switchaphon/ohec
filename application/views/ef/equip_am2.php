@@ -1,15 +1,19 @@
-<h4>ผลการตรวจอุปกรณ์</h4>
+<!-- <h4>ผลการตรวจอุปกรณ์</h4> -->
+<div class="row">
+    <div class="col-md-1 col-sm-1 col-xs-12 "></div>
+    <div class="col-md-9 col-sm-9 col-xs-12 "><span class="section">ผลการตรวจอุปกรณ์</span></div>    
+</div>
 
 <form class="form-horizontal form-label-left input_mask">
   
 <!-- Router -->
   <div class="form-group">
-    <label class="col-md-2 col-sm-2 col-xs-12 control-label" style="text-align: left"></label>
-    <label class="col-md-5 col-sm-5 col-xs-12 control-label" style="text-align: left">Router</label>
+    <label class="col-md-2 col-sm-2 col-xs-12"></label>
+    <div class="col-md-8 col-sm-8 col-xs-12"><span class="section">Router</span></div>
   </div>
 
   <div class="form-group">
-    <label class="col-md-3 col-sm-3 col-xs-12 control-label" style="text-align: left"></label>
+    <label class="col-md-2 col-sm-2 col-xs-12"></label>
     <label class="col-md-5 col-sm-5 col-xs-12 control-label" style="text-align: left">การจัดการสายสัญญาน (Cabeling)</label>
     <div class="col-md-2 col-sm-2 col-xs-12">
       <div class="radio">
@@ -28,7 +32,7 @@
   </div>
 
   <div class="form-group">
-    <label class="col-md-3 col-sm-3 col-xs-12 control-label" style="text-align: left"></label>
+    <label class="col-md-2 col-sm-2 col-xs-12"></label>
     <label class="col-md-5 col-sm-5 col-xs-12 control-label" style="text-align: left">การจัดการป้ายชื่อ (Labeling)</label>
     <div class="col-md-2 col-sm-2 col-xs-12">
       <div class="radio">
@@ -47,7 +51,7 @@
   </div>
 
   <div class="form-group">
-    <label class="col-md-3 col-sm-3 col-xs-12 control-label" style="text-align: left"></label>
+    <label class="col-md-2 col-sm-2 col-xs-12"></label>
     <label class="col-md-5 col-sm-5 col-xs-12 control-label" style="text-align: left">สถานะการทำงาน (Status)</label>
     <div class="col-md-2 col-sm-2 col-xs-12">
       <div class="radio">
@@ -66,22 +70,21 @@
   </div>
 
   <div class="form-group">
-  <label class="col-md-3 col-sm-3 col-xs-12 control-label" style="text-align: left"></label>
-    <!-- <label class="col-md-2 col-sm-2 col-xs-12 control-label" style="text-align: left">ข้อเสนอแนะอื่น ๆ</label> -->
-    <div class="col-md-9 col-sm-9 col-xs-12">
+  <label class="col-md-2 col-sm-2 col-xs-12"></label>
+    <div class="col-md-8 col-sm-8 col-xs-12">
       <textarea name= "equip_am2_4" class="resizable_textarea form-control" placeholder="ข้อเสนอแนะอื่น ๆ ..."></textarea>
     </div>
   </div>
 <!-- /Router -->
 
 <!-- Switch -->
-<div class="form-group">
-    <label class="col-md-2 col-sm-2 col-xs-12 control-label" style="text-align: left"></label>
-    <label class="col-md-5 col-sm-5 col-xs-12 control-label" style="text-align: left">Switch</label>
+  <div class="form-group">
+    <label class="col-md-2 col-sm-2 col-xs-12"></label>
+    <div class="col-md-8 col-sm-8 col-xs-12"><span class="section">Switch</span></div>
   </div>
 
   <div class="form-group">
-    <label class="col-md-3 col-sm-3 col-xs-12 control-label" style="text-align: left"></label>
+    <label class="col-md-2 col-sm-2 col-xs-12"></label>
     <label class="col-md-5 col-sm-5 col-xs-12 control-label" style="text-align: left">การจัดการสายสัญญาน (Cabeling)</label>
     <div class="col-md-2 col-sm-2 col-xs-12">
       <div class="radio">
@@ -100,7 +103,7 @@
   </div>
 
   <div class="form-group">
-    <label class="col-md-3 col-sm-3 col-xs-12 control-label" style="text-align: left"></label>
+    <label class="col-md-2 col-sm-2 col-xs-12"></label>
     <label class="col-md-5 col-sm-5 col-xs-12 control-label" style="text-align: left">การจัดการป้ายชื่อ (Labeling)</label>
     <div class="col-md-2 col-sm-2 col-xs-12">
       <div class="radio">
@@ -119,7 +122,7 @@
   </div>
 
   <div class="form-group">
-    <label class="col-md-3 col-sm-3 col-xs-12 control-label" style="text-align: left"></label>
+    <label class="col-md-2 col-sm-2 col-xs-12"></label>
     <label class="col-md-5 col-sm-5 col-xs-12 control-label" style="text-align: left">สถานะการทำงาน (Status)</label>
     <div class="col-md-2 col-sm-2 col-xs-12">
       <div class="radio">
@@ -138,9 +141,8 @@
   </div>
 
   <div class="form-group">
-  <label class="col-md-3 col-sm-3 col-xs-12 control-label" style="text-align: left"></label>
-    <!-- <label class="col-md-2 col-sm-2 col-xs-12 control-label" style="text-align: left">ข้อเสนอแนะอื่น ๆ</label> -->
-    <div class="col-md-9 col-sm-9 col-xs-12">
+  <label class="col-md-2 col-sm-2 col-xs-12"></label>
+    <div class="col-md-8 col-sm-8 col-xs-12">
       <textarea name= "equip_am2_8" class="resizable_textarea form-control" placeholder="ข้อเสนอแนะอื่น ๆ ..."></textarea>
     </div>
   </div>
@@ -148,12 +150,11 @@
 
 <!-- DWDM -->
   <div class="form-group">
-    <label class="col-md-2 col-sm-2 col-xs-12 control-label" style="text-align: left"></label>
-    <label class="col-md-5 col-sm-5 col-xs-12 control-label" style="text-align: left">DWDM</label>
+    <label class="col-md-2 col-sm-2 col-xs-12"></label>
+    <div class="col-md-8 col-sm-8 col-xs-12"><span class="section">DWDM</span></div>
   </div>
-
   <div class="form-group">
-    <label class="col-md-3 col-sm-3 col-xs-12 control-label" style="text-align: left"></label>
+    <label class="col-md-2 col-sm-2 col-xs-12"></label>
     <label class="col-md-5 col-sm-5 col-xs-12 control-label" style="text-align: left">การจัดการสายสัญญาน (Cabeling)</label>
     <div class="col-md-2 col-sm-2 col-xs-12">
       <div class="radio">
@@ -172,7 +173,7 @@
   </div>
 
   <div class="form-group">
-    <label class="col-md-3 col-sm-3 col-xs-12 control-label" style="text-align: left"></label>
+    <label class="col-md-2 col-sm-2 col-xs-12"></label>
     <label class="col-md-5 col-sm-5 col-xs-12 control-label" style="text-align: left">การจัดการป้ายชื่อ (Labeling)</label>
     <div class="col-md-2 col-sm-2 col-xs-12">
       <div class="radio">
@@ -191,7 +192,7 @@
   </div>
 
   <div class="form-group">
-    <label class="col-md-3 col-sm-3 col-xs-12 control-label" style="text-align: left"></label>
+    <label class="col-md-2 col-sm-2 col-xs-12"></label>
     <label class="col-md-5 col-sm-5 col-xs-12 control-label" style="text-align: left">สถานะการทำงาน (Status)</label>
     <div class="col-md-2 col-sm-2 col-xs-12">
       <div class="radio">
@@ -210,7 +211,7 @@
   </div>
 
   <div class="form-group">
-    <label class="col-md-3 col-sm-3 col-xs-12 control-label" style="text-align: left"></label>
+    <label class="col-md-2 col-sm-2 col-xs-12"></label>
     <label class="col-md-5 col-sm-5 col-xs-12 control-label" style="text-align: left">สถานะการทำงานระบบโทรศัพท์ (Order Wire) </label>
     <div class="col-md-2 col-sm-2 col-xs-12">
       <div class="radio">
@@ -229,22 +230,21 @@
   </div>
 
   <div class="form-group">
-  <label class="col-md-3 col-sm-3 col-xs-12 control-label" style="text-align: left"></label>
-    <!-- <label class="col-md-2 col-sm-2 col-xs-12 control-label" style="text-align: left">ข้อเสนอแนะอื่น ๆ</label> -->
-    <div class="col-md-9 col-sm-9 col-xs-12">
+  <label class="col-md-2 col-sm-2 col-xs-12"></label>
+    <div class="col-md-8 col-sm-8 col-xs-12">
       <textarea name= "equip_am2_13" class="resizable_textarea form-control" placeholder="ข้อเสนอแนะอื่น ๆ ..."></textarea>
     </div>
   </div>
 <!-- /DWDM -->
 
 <!-- /Electric -->
-<div class="form-group">
-    <label class="col-md-2 col-sm-2 col-xs-12 control-label" style="text-align: left"></label>
-    <label class="col-md-5 col-sm-5 col-xs-12 control-label" style="text-align: left">ระบบไฟฟ้า</label>
+  <div class="form-group">
+    <label class="col-md-2 col-sm-2 col-xs-12"></label>
+    <div class="col-md-8 col-sm-8 col-xs-12"><span class="section">ระบบไฟฟ้า</span></div>
   </div>
 
   <div class="form-group">
-    <label class="col-md-3 col-sm-3 col-xs-12 control-label" style="text-align: left"></label>
+    <label class="col-md-2 col-sm-2 col-xs-12"></label>
     <label class="col-md-5 col-sm-5 col-xs-12 control-label" style="text-align: left">การจัดการสายสัญญาน (Cabeling)</label>
     <div class="col-md-2 col-sm-2 col-xs-12">
       <div class="radio">
@@ -263,7 +263,7 @@
   </div>
 
   <div class="form-group">
-    <label class="col-md-3 col-sm-3 col-xs-12 control-label" style="text-align: left"></label>
+    <label class="col-md-2 col-sm-2 col-xs-12"></label>
     <label class="col-md-5 col-sm-5 col-xs-12 control-label" style="text-align: left">การจัดการป้ายชื่อ (Labeling)</label>
     <div class="col-md-2 col-sm-2 col-xs-12">
       <div class="radio">
@@ -282,7 +282,7 @@
   </div>
 
   <div class="form-group">
-    <label class="col-md-3 col-sm-3 col-xs-12 control-label" style="text-align: left"></label>
+    <label class="col-md-2 col-sm-2 col-xs-12"></label>
     <label class="col-md-5 col-sm-5 col-xs-12 control-label" style="text-align: left">สถานะการทำงาน (Status)</label>
     <div class="col-md-2 col-sm-2 col-xs-12">
       <div class="radio">
@@ -301,7 +301,7 @@
   </div>
 
   <div class="form-group">
-    <label class="col-md-3 col-sm-3 col-xs-12 control-label" style="text-align: left"></label>
+    <label class="col-md-2 col-sm-2 col-xs-12"></label>
     <label class="col-md-5 col-sm-5 col-xs-12 control-label" style="text-align: left">ระบบสายดิน (Ground)</label>
     <div class="col-md-2 col-sm-2 col-xs-12">
       <div class="radio">
@@ -320,9 +320,8 @@
   </div>
 
   <div class="form-group">
-  <label class="col-md-3 col-sm-3 col-xs-12 control-label" style="text-align: left"></label>
-    <!-- <label class="col-md-2 col-sm-2 col-xs-12 control-label" style="text-align: left">ข้อเสนอแนะอื่น ๆ</label> -->
-    <div class="col-md-9 col-sm-9 col-xs-12">
+  <label class="col-md-2 col-sm-2 col-xs-12"></label>
+    <div class="col-md-8 col-sm-8 col-xs-12">
       <textarea name= "equip_am2_18" class="resizable_textarea form-control" placeholder="ข้อเสนอแนะอื่น ๆ ..."></textarea>
     </div>
   </div>

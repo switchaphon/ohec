@@ -93,7 +93,7 @@
 
                   <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12">สถานที่</label>
-                      <div class="col-md-9 col-sm-9 col-xs-12">
+                      <div class="col-md-7 col-sm-7 col-xs-12">
                           <select class="select2_group form-control">
                           <optgroup label="ภาคเหนือ">
                               <option value="1450100400">มหาวิทยาลัยเชียงใหม่</option>
@@ -112,7 +112,7 @@
                   
                   <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12">หมายเลขเคส</label>
-                      <div class="col-md-9 col-sm-9 col-xs-12">
+                      <div class="col-md-7 col-sm-7 col-xs-12">
                           <select class="form-control">
                           <option>Choose option</option>
                           <option>Option one</option>
@@ -125,7 +125,7 @@
 
                   <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12">ประเภทงาน</label>
-                      <div class="col-md-9 col-sm-9 col-xs-12">
+                      <div class="col-md-7 col-sm-7 col-xs-12">
                           <select class="form-control">
                           <option value="AM">ตรวจสอบการแก้ไขปรับปรุง/ปรับเปลี่ยน/โยกย้าย (AM)</option>
                           <option value="CM">ตรวจสอบการบำรุงรักษาแบบกะทันหัน (CM)</option>
@@ -157,7 +157,7 @@
               </div>
 
               <div id="step-2">
-                <? $this->load->view('ef/equip_am1'); ?>
+                <? $this->load->view('ef/equip_cm1'); ?>
               </div>
               
               <div id="step-3">

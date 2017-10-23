@@ -1,4 +1,7 @@
-<h4>สรุปผลการตรวจสอบ</h4>
+<div class="row">
+    <div class="col-md-1 col-sm-1 col-xs-12 "></div>
+    <div class="col-md-9 col-sm-9 col-xs-12 "><span class="section">สรุปผลการตรวจสอบ</span></div>    
+</div>
 
 <form class="form-horizontal form-label-left input_mask">
   
