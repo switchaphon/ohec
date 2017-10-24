@@ -3,7 +3,7 @@
 
     <div class="page-title">
       <div class="title_left">
-        <h3>Plain Page</h3>
+        <h3></h3>
       </div>
 
       <div class="title_right">
@@ -165,7 +165,7 @@
               </div>
 
               <div id="step-2">
-                <? $this->load->view('ef/equip_cm1'); ?>
+                <? $this->load->view('ef/equip_am1'); ?>
               </div>
               
               <div id="step-3">

@@ -37,7 +37,7 @@ $config['base_url'] = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}";
 |
 */
 // $config['index_page'] = 'index.php';
-$config['index_page'] = '';
+$config['index_page'] = 'index.php';
 
 /*
 |--------------------------------------------------------------------------

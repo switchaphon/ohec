@@ -42,7 +42,7 @@
       <ul class="nav side-menu">
         <li><a><i class="fa fa-home"></i> หน้าหลัก </a></li> 
         <li><a href="<?=site_url('/ef');?>"><i class="fa fa-edit"></i> แบบตรวจสอบออนไลน์ </a></li> 
-        <li><a href="<?=site_url('/am');?>"><i class="fa fa-desktop"></i> ทรัพย์สิน </a></li> 
+        <!-- <li><a href="<?=site_url('/am');?>"><i class="fa fa-desktop"></i> ทรัพย์สิน </a></li>  -->
         <!-- <li><a><i class="fa fa-edit"></i> แบบตรวจสอบออนไลน์ <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="<?=site_url('/ef/equip');?>">อุปกรณ์และระบบเครือข่าย</a></li>

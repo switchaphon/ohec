@@ -1,4 +1,5 @@
 <!-- page content -->
+<article>
 <div class="right_col" role="main">
   <div class="">
     <div class="page-title">
@@ -46,6 +47,9 @@
                     <!-- <p class="text-muted font-13 m-b-30">
                       The Buttons extension for DataTables provides a common set of options, API methods and styling to display buttons on a page that will interact with a DataTable. The core library provides the based framework upon which plug-ins can built.
                     </p> -->
+                    <span id="controlPanel">
+                      <a class="btn btn-xs btn-info" href="<?=site_url('ef/equip')?>" name='create'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> สร้างใหม่</a>
+                    </span>
                     <table id="datatable-responsive" class="table table-striped table-bordered">
                       <thead>
                         <tr>
@@ -56,9 +60,10 @@
                           <th>ประเภทการตรวจสอบ</th>
                           <th>ผู้ตรวจสอบ</th>
                           <th>วันที่ตรวจสอบ</th>
+                          <th></th>
                         </tr>
                       </thead>
-
+                      
                       <tbody>
                         <tr>
                           <td>fibre-pm-2017101000</td>
@@ -68,6 +73,10 @@
                           <td>PM</td>
                           <td>วิชญ์พล แสงอร่าม</td>
                           <td>2017-10-10</td>
+                          <td>
+                            <a href="<?=site_url('/ef/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
+                            <a href="<?=site_url('/ef/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
+                          </td>
                         </tr>
                         <tr>
                           <td>fibre-pm-2017100100</td>
@@ -77,6 +86,10 @@
                           <td>PM</td>
                           <td>วิชญ์พล แสงอร่าม</td>
                           <td>2017-10-01</td>
+                          <td>
+                            <a href="<?=site_url('/ef/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
+                            <a href="<?=site_url('/ef/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
+                          </td>
                         </tr>
                         <tr>
                           <td>equip-pm-2017100100</td>
@@ -86,6 +99,10 @@
                           <td>PM</td>
                           <td>วิชญ์พล แสงอร่าม</td>
                           <td>2017-10-01</td>
+                          <td>
+                            <a href="<?=site_url('/ef/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
+                            <a href="<?=site_url('/ef/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
+                          </td>
                         </tr>
                         <tr>
                           <td>fibre-am-2017103100</td>
@@ -95,6 +112,10 @@
                           <td>AM</td>
                           <td>หยาดรุ้ง สุทธิวารี</td>
                           <td>2017-10-31</td>
+                          <td>
+                            <a href="<?=site_url('/ef/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
+                            <a href="<?=site_url('/ef/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
+                          </td>
                         </tr>
                         <tr>
                           <td>fibre-am-2017090100</td>
@@ -104,6 +125,10 @@
                           <td>AM</td>
                           <td>มนัส บุญเลิศ</td>
                           <td>2017-09-01</td>
+                          <td>
+                            <a href="<?=site_url('/ef/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
+                            <a href="<?=site_url('/ef/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
+                          </td>
                         </tr>
                         <tr>
                           <td>equip-cm-2017090100</td>
@@ -113,6 +138,10 @@
                           <td>CM</td>
                           <td>มณีรัตน อิ่มอยู่</td>
                           <td>2017-09-01</td>
+                          <td>
+                            <a href="<?=site_url('/ef/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
+                            <a href="<?=site_url('/ef/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
+                          </td>
                         </tr>   
                         <tr>
                           <td>fibre-cm-2017080100</td>
@@ -122,6 +151,10 @@
                           <td>CM</td>
                           <td>คุณภัครพล อาจอาสา</td>
                           <td>2017-08-01</td>
+                          <td>
+                            <a href="<?=site_url('/ef/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
+                            <a href="<?=site_url('/ef/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
+                          </td>
                         </tr>
                         <tr>
                           <td>equip-cm-2017080100</td>
@@ -131,6 +164,10 @@
                           <td>CM</td>
                           <td>คุณภัครพล อาจอาสา</td>
                           <td>2017-08-01</td>
+                          <td>
+                            <a href="<?=site_url('/ef/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
+                            <a href="<?=site_url('/ef/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
+                          </td>
                         </tr>
                         <tr>
                           <td>fibre-cm-2017092200</td>
@@ -140,6 +177,10 @@
                           <td>CM</td>
                           <td>สุรศักดิ์ สุภาสุธากุล</td>
                           <td>2017-09-22</td>
+                          <td>
+                            <a href="<?=site_url('/ef/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
+                            <a href="<?=site_url('/ef/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
+                          </td>
                         </tr>
                         <tr>
                           <td>fibre-cm-2017092200</td>
@@ -149,6 +190,10 @@
                           <td>CM</td>
                           <td>คจิรวัฒน์ นนตระอุดร </td>
                           <td>2017-09-22</td>
+                          <td>
+                            <a href="<?=site_url('/ef/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
+                            <a href="<?=site_url('/ef/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
+                          </td>
                         </tr>
                         <tr>
                           <td>equip-cm-2017092200</td>
@@ -158,6 +203,10 @@
                           <td>CM</td>
                           <td>มณีรัตน อิ่มอยู่</td>
                           <td>2017-09-22</td>
+                          <td>
+                            <a href="<?=site_url('/ef/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
+                            <a href="<?=site_url('/ef/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
+                          </td>
                         </tr>                                                  
                       </tbody>
                     
@@ -169,4 +218,25 @@
     </div>
   </div>
 </div>
+</article>
 <!-- /page content -->
+
+<script>
+
+    $(document).ready(function(){
+        $('#datatable-responsive').DataTable({
+          "pageLength": 50,
+          "paging":   true,
+          "ordering": false,
+          "dom": '<"toolbar">frtip'
+         });
+         $("div.toolbar").html('<span id="datatable-responsive_filter2" class="dataTables_filter"></span>');
+         $('#datatable-responsive_filter').css('float','left','form-inline');
+         $('#datatable-responsive_filter2').css('float','right');
+         $('#datatable-responsive_filter2').append($('#controlPanel'));
+         $("div.toolbar").append($('#datatable-responsive_filter'));
+
+         $('#datatable-responsive').removeClass('hidden');
+    });
+
+  </script>

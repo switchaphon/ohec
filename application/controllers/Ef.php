@@ -19,33 +19,19 @@ class Ef extends MY_Controller {
 		$this->_init();
         $this->_init_assets( array('datatables', 'icheck', 'jszip', 'pdfmake') );
         $this->load->view('ef/index');
-    }
-    
-    // public function create()
-	// {
-	// 	$this->_init();
-    //     // $this->_init_assets( array('datatables', 'icheck', 'jszip', 'pdfmake') );
-    //     $this->load->view('ef/create');
-    // }
-    
-    // public function create2()
-	// {
-	// 	$this->_init();
-    //     $this->_init_assets( array('smartwizard') );
-    //     $this->load->view('ef/create2');
-    // }
-    
-    // public function create3()
-	// {
-	// 	$this->_init();
-    //     $this->_init_assets( array('smartwizard') );
-    //     $this->load->view('ef/create3');
-	// }
+	}
+	
+	public function view()
+	{
+		$this->_init();
+        $this->_init_assets( array('datatables', 'icheck', 'jszip', 'pdfmake') );
+        $this->load->view('ef/view');
+	}
 	
 	public function equip()
 	{
 		$this->_init();
-        $this->_init_assets( array('icheck','smartwizard') );
+        $this->_init_assets( array('icheck','smartwizard','dropzone') );
         $this->load->view('ef/equip_eform');
     }
 	

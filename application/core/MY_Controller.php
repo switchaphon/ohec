@@ -129,6 +129,13 @@ class MY_Controller extends CI_Controller {
           $this->load->js('assets/bower_components/ajax-bootstrap-select/dist/js/ajax-bootstrap-select.min.js');
           break;
 
+        case 'dropzone':
+          $this->load->css('assets/bower_components/dropzone/dist/min/dropzone.min.css');
+          $this->load->js('assets/bower_components/dropzone/dist/min/dropzone.min.js');
+          break;          
+
+
+
         // case 'bootstrap_switch':
         //   $this->load->css('assets/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css');
         //   $this->load->js('assets/bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js');
