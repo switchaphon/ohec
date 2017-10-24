@@ -95,16 +95,17 @@
                       <label class="control-label col-md-3 col-sm-3 col-xs-12">สถานที่</label>
                       <div class="col-md-7 col-sm-7 col-xs-12">
                           <select class="select2_group form-control">
+                            <option>เลือก</option>
                           <optgroup label="ภาคเหนือ">
                               <option value="1450100400">มหาวิทยาลัยเชียงใหม่</option>
                               <option value="1456102700">มหาวิทยาลัยพะเยา</option>
                               <option value="1454101301">มหายวิทยาลัยแม่โจ้ วิทยาเขตแพร่</option>
                           </optgroup>
-                          <optgroup label="Pacific Time Zone">
-                              <option value="CA">California</option>
-                              <option value="NV">Nevada</option>
-                              <option value="OR">Oregon</option>
-                              <option value="WA">Washington</option>
+                          <optgroup label="ภาคกลาง">
+                              <option value="1410100200">มหาวิทยาลัยเกษตรศาสตร์</option>
+                              <option value="1410100100">จุฬาลงกรณ์มหาวิทยาลัย</option>
+                              <option value="1410101400">มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี</option>
+                              <option value="1410100500">มหาวิทยาลัยธรรมศาสตร์ (ท่าพระจันทร์)</option>
                           </optgroup>
                           </select>
                       </div>
@@ -114,11 +115,11 @@
                       <label class="control-label col-md-3 col-sm-3 col-xs-12">หมายเลขเคส</label>
                       <div class="col-md-7 col-sm-7 col-xs-12">
                           <select class="form-control">
-                          <option>Choose option</option>
-                          <option>Option one</option>
-                          <option>Option two</option>
-                          <option>Option three</option>
-                          <option>Option four</option>
+                          <option>เลือก</option>
+                          <option value="NT-Fiber-2017-10-0001">NT-Fiber-2017-10-0001</option>
+                          <option value="NT-Fiber-2017-10-0100">NT-Fiber-2017-10-0100</option>
+                          <option value="NT-Fiber-2017-10-0040">NT-Fiber-2017-10-0040</option>
+                          <option value="NT-Fiber-2017-10-0124">NT-Fiber-2017-10-0124</option>
                           </select>
                       </div>
                   </div>
@@ -127,6 +128,7 @@
                       <label class="control-label col-md-3 col-sm-3 col-xs-12">ประเภทงาน</label>
                       <div class="col-md-7 col-sm-7 col-xs-12">
                           <select class="form-control">
+                          <option>เลือก</option>
                           <option value="AM">ตรวจสอบการแก้ไขปรับปรุง/ปรับเปลี่ยน/โยกย้าย (AM)</option>
                           <option value="CM">ตรวจสอบการบำรุงรักษาแบบกะทันหัน (CM)</option>
                           <option value="PM">ตรวจสอบการบำรุงรักษาเชิงป้องกัน (PM)</option>
@@ -135,21 +137,27 @@
                   </div>
 
                   <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">เจ้าหน้าที่ประจำหน่วยงาน<span class="required">*</span>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">พิกัด:
                       </label>
-                      <label class="control-label col-md-3">คุณวิชญ์พล แสงอร่าม</label>
+                      <label class="control-label col-md-3" style="text-align: left">13.651736,100.493667</label>
                   </div>
 
                   <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">หมายเลขโทรศัพท์<span class="required">*</span>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">เจ้าหน้าที่ประจำหน่วยงาน:
                       </label>
-                      <label class="control-label col-md-3">0-89-718-7998</label>
+                      <label class="control-label col-md-3" style="text-align: left">คุณเกษม วงศ์แสน</label>
+                  </div>
+
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">หมายเลขโทรศัพท์:
+                      </label>
+                      <label class="control-label col-md-3" style="text-align: left">02-354-5678#5005</label>
                   </div>
                   
                   <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">อีเมล<span class="required">*</span>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">อีเมล:
                       </label>
-                      <label class="control-label col-md-3">s.witchaphon@abc.com</label>
+                      <label class="control-label col-md-3" style="text-align: left">-</label>
                   </div>
 
                 </form>

@@ -1,4 +1,5 @@
 <!-- page content -->
+<article>
 <div class="right_col" role="main">
   <div class="">
     <div class="page-title">
@@ -43,11 +44,12 @@
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-              Add content to the page ... xoxo
+              Add content to the page ...
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+</artical>
 <!-- /page content -->

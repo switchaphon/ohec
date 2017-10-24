@@ -21,26 +21,26 @@ class Ef extends MY_Controller {
         $this->load->view('ef/index');
     }
     
-    public function create()
-	{
-		$this->_init();
-        // $this->_init_assets( array('datatables', 'icheck', 'jszip', 'pdfmake') );
-        $this->load->view('ef/create');
-    }
+    // public function create()
+	// {
+	// 	$this->_init();
+    //     // $this->_init_assets( array('datatables', 'icheck', 'jszip', 'pdfmake') );
+    //     $this->load->view('ef/create');
+    // }
     
-    public function create2()
-	{
-		$this->_init();
-        $this->_init_assets( array('smartwizard') );
-        $this->load->view('ef/create2');
-    }
+    // public function create2()
+	// {
+	// 	$this->_init();
+    //     $this->_init_assets( array('smartwizard') );
+    //     $this->load->view('ef/create2');
+    // }
     
-    public function create3()
-	{
-		$this->_init();
-        $this->_init_assets( array('smartwizard') );
-        $this->load->view('ef/create3');
-	}
+    // public function create3()
+	// {
+	// 	$this->_init();
+    //     $this->_init_assets( array('smartwizard') );
+    //     $this->load->view('ef/create3');
+	// }
 	
 	public function equip()
 	{
@@ -61,7 +61,7 @@ class Ef extends MY_Controller {
 		// $this->_init();
 		$this->_init_assets( array('icheck','smartwizard') );
 		$this->load->library( array('Ef_action') );
-		$this->load->model('ef_model');
+		$this->load->model('Ef_model');
 		
 		$this->ef_action->load_checklist('fibre', 'cm');
 		$this->data['form'] = $this->ef_model->get_form();
