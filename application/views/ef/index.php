@@ -48,7 +48,10 @@
                       The Buttons extension for DataTables provides a common set of options, API methods and styling to display buttons on a page that will interact with a DataTable. The core library provides the based framework upon which plug-ins can built.
                     </p> -->
                     <span id="controlPanel">
-                      <a class="btn btn-xs btn-info" href="<?=site_url('ef/equip')?>" name='create'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> สร้างใหม่</a>
+                    <!-- <a class="btn btn-app pull-right" href="<?=site_url('ef/equip')?>" name='create'>
+                      <i class="fa fa-edit"></i> สร้างใหม่
+                    </a> -->
+                      <a class="btn btn-round btn-default pull-right" href="<?=site_url('ef/equip')?>" name='create'><span class="fa fa-edit" aria-hidden="true"></span> สร้างใหม่</a>
                     </span>
                     <table id="datatable-responsive" class="table table-striped table-bordered">
                       <thead>
@@ -225,7 +228,7 @@
 
     $(document).ready(function(){
         $('#datatable-responsive').DataTable({
-          "pageLength": 50,
+          // "pageLength": 50,
           "paging":   true,
           "ordering": false,
           "dom": '<"toolbar">frtip'
@@ -238,5 +241,4 @@
 
          $('#datatable-responsive').removeClass('hidden');
     });
-
-  </script>
+</script>
