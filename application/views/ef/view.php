@@ -412,10 +412,11 @@
                     <!-- /.col -->
                     <div class="col-xs-6 col-xs-6 col-xs-12">
                         <p class="lead">ภาพประกอบ</p>
+                        <h7>&nbsp;</h7>
                         <div class="row">    
 
-                            <div class="col-md-55">
-                                <div class="thumbnail">
+                            <div class="col-xs-6 col-xs-6 col-xs-12">
+                                <!-- <div class="thumbnail"> -->
                                     <div class="image view view-first">
                                         <img style="width: 100%; display: block;" src="<?=base_url('assets/img/media.jpg');?>" alt="image" />
                                         <div class="mask no-caption">
@@ -429,11 +430,11 @@
                                     <div class="caption">
                                         <p><strong>ภาพด้านหน้า</strong></p>
                                     </div>
-                                </div>
+                                <!-- </div> -->
                             </div>
 
-                            <div class="col-md-55">
-                                <div class="thumbnail">
+                            <div class="col-xs-6 col-xs-6 col-xs-12">
+                                <!-- <div class="thumbnail"> -->
                                     <div class="image view view-first">
                                         <img style="width: 100%; display: block;" src="<?=base_url('assets/img/media.jpg');?>" alt="image" />
                                         <div class="mask no-caption">
@@ -447,12 +448,12 @@
                                     <div class="caption">
                                         <p><strong>ภาพข้างซ้าย</strong></p>
                                     </div>
-                                </div>
+                                <!-- </div> -->
                             </div>
                         </div>
                         <div class="row">  
-                            <div class="col-md-55">
-                                <div class="thumbnail">
+                            <div class="col-xs-6 col-xs-6 col-xs-12">
+                                <!-- <div class="thumbnail"> -->
                                     <div class="image view view-first">
                                         <img style="width: 100%; display: block;" src="<?=base_url('assets/img/media.jpg');?>" alt="image" />
                                         <div class="mask no-caption">
@@ -466,11 +467,11 @@
                                     <div class="caption">
                                         <p><strong>ภาพด้านหน้า</strong></p>
                                     </div>
-                                </div>
+                                <!-- </div> -->
                             </div>
                             
-                            <div class="col-md-55">
-                                <div class="thumbnail">
+                            <div class="col-xs-6 col-xs-6 col-xs-12">
+                                <!-- <div class="thumbnail"> -->
                                     <div class="image view view-first">
                                         <img style="width: 100%; display: block;" src="<?=base_url('assets/img/media.jpg');?>" alt="image" />
                                         <div class="mask no-caption">
@@ -484,7 +485,7 @@
                                     <div class="caption">
                                         <p><strong>ภาพด้านหน้า</strong></p>
                                     </div>
-                                </div>
+                                <!-- </div> -->
                             </div>                            
 
                         </div>

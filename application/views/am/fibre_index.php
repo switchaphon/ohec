@@ -53,10 +53,13 @@
                       <tr>
                         <th>ลำดับ</th>
                         <th>หมายเลขทรัพย์สิน</th>
+                        <th>ประเภท</th>
                         <th>ต้นทาง</th>
                         <th>ปลายทาง/เชื่อมต่อกับ</th>
-                        <th>ชนิดเคเบิล</th>
-                        <th>ระยะทาง</th>
+                        <th>โซน</th>
+                        <th>พื้นที่</th>
+                        <th>เคเบิล</th>
+                        <th>ระยะ (กม.)</th>
                         <!-- <th>สถานะ</th> -->
                       </tr>
                     </thead>
@@ -64,52 +67,81 @@
                     <tbody>
                       <tr>
                         <td>1</td>
-                        <td>FHK145272VY</td>
-                        <td>R892-CMI_2-Pai</td>
-                        <td>Router</td>
-                        <td>CISCO892W-AGN-E-K9</td>
-                        <td>ใช้งาน</td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>FHK1452737F</td>
-                        <td>R892-CRI_2-Maejedee</td>
-                        <td>Router</td>
-                        <td>CISCO892W-AGN-E-K9</td>
-                        <td>ใช้งาน</td>
+                        <td>D153005</td>
+                        <td>Distribute</td>
+                        <td>วิทยาลัยอาชีวศึกษาลำปาง</td>
+                        <td>เชื่อมต่อจากเส้นวิทยาลัยเทคนิคลำพูน-มหาวิทยาลัยราชภัฏลำปาง</td>
+                        <td>1</td>
+                        <td>NN</td>
+                        <td>DropWire 12C</td>
+                        <td>5.02</td>
                       </tr>  
                       <tr>
+                        <td>2</td>
+                        <td>D113001</td>
+                        <td>Distribute</td>
+                        <td>มหาวิทยาลัยราชภัฏเชียงราย</td>
+                        <td>เชื่อมต่อจากเส้นมหาวิทยาลัยเชียงใหม่-มหาวิทยาลัยแม่ฟ้าหลวง</td>
+                        <td>1</td>
+                        <td>NN</td>
+                        <td>DropWire 12C</td>
+                        <td>2.797</td>
+                      </tr>   
+                      <tr>
                         <td>3</td>
-                        <td>FGL152829JJ</td>
-                        <td>R892-TC_SK_SMN</td>
-                        <td>Router</td>
-                        <td>CISCO892W-AGN-E-K9</td>
-                        <td>ใช้งาน</td>
-                      </tr>                                             
+                        <td>D113002</td>
+                        <td>Distribute</td>
+                        <td>วิทยาลัยเกษตรและเทคโนโลยีเชียงราย</td>
+                        <td>เชื่อมต่อจากเส้นมหาวิทยาลัยเชียงใหม่-มหาวิทยาลัยแม่ฟ้าหลวง</td>
+                        <td>1</td>
+                        <td>NN</td>
+                        <td>DropWire 12C</td>
+                        <td>17.718</td>
+                      </tr>      
                       <tr>
                         <td>4</td>
-                        <td>FDO1446X38Z</td>
-                        <td>SW-PC_SDC_SKA</td>
-                        <td>Switch</td>
-                        <td>WS-C3750G-12S</td>
-                        <td>ว่าง</td>
-                      </tr>
+                        <td>D113003</td>
+                        <td>Distribute</td>
+                        <td>สนง.เขตพื้นที่การศึกษาเชียงราย  เขต 1</td>
+                        <td>เชื่อมต่อจากเส้นมหาวิทยาลัยเชียงใหม่-มหาวิทยาลัยแม่ฟ้าหลวง</td>
+                        <td>1</td>
+                        <td>NN</td>
+                        <td>DropWire 12C</td>
+                        <td>3.094</td>
+                      </tr>     
                       <tr>
                         <td>5</td>
-                        <td>FDO1446X38Z</td>
-                        <td>SW-TC_SK_SKT</td>
-                        <td>Switch</td>
-                        <td>WS-C3750G-12S</td>
-                        <td>ว่าง</td>
-                      </tr>
+                        <td>B114001</td>
+                        <td>BlackBone</td>
+                        <td>มหาวิทยาลัยเชียงใหม่</td>
+                        <td>รร.ปายวิทยา (จ.แม่ฮ่องสอน)</td>
+                        <td>1</td>
+                        <td>NN</td>
+                        <td>ADSS 24C</td>
+                        <td>126.095</td>
+                      </tr>     
                       <tr>
                         <td>6</td>
-                        <td>FDO1448Y1A8</td>
-                        <td>SW-ESA-02-CPN</td>
-                        <td>Switch</td>
-                        <td>WS-C3750G-12S</td>
-                        <td>ส่งซ่อม</td>
-                      </tr>
+                        <td>B145001</td>
+                        <td>BlackBone</td>
+                        <td>รร.ปายวิทยา (จ.แม่ฮ่องสอน)</td>
+                        <td>วิทยาลัยชุมชนแม่ฮ่องสอน</td>
+                        <td>1</td>
+                        <td>NN</td>
+                        <td>ADSS 24C</td>
+                        <td>105.22</td>
+                      </tr> 
+                      <tr>
+                        <td>7</td>
+                        <td>50042006</td>
+                        <td>LastMile</td>
+                        <td>โรงเรียนสองแคววิทยาคม</td>
+                        <td></td>
+                        <td>1</td>
+                        <td>NN</td>
+                        <td></td>
+                        <td>2.293</td>
+                      </tr>                                                                                                        
                     </tbody>
                   
                   </table>
