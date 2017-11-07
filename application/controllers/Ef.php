@@ -55,4 +55,17 @@ class Ef extends MY_Controller {
 		$this->load->view('ef/fibre_cm',$this->data);
 	}
 
+	public function bottomline()
+	{
+		$this->_init();
+		$this->_init_assets( array('icheck','smartwizard') );
+		$this->load->library( array('Ef_action') );
+		$this->load->model('Ef_model');
+		
+		// $this->ef_action->load_checklist('fibre', 'cm');
+		// $this->data['form'] = $this->ef_model->get_form();
+		
+		$this->load->view('ef/bottomline');
+	}
+
 }
