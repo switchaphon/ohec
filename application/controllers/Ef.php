@@ -62,10 +62,23 @@ class Ef extends MY_Controller {
 		$this->load->library( array('Ef_action') );
 		$this->load->model('Ef_model');
 		
-		// $this->ef_action->load_checklist('fibre', 'cm');
+		$this->ef_action->load_checklist('equipment', 'pm');
 		// $this->data['form'] = $this->ef_model->get_form();
 		
 		$this->load->view('ef/bottomline');
+	}
+
+	public function create()
+	{
+		$this->_init();
+		$this->_init_assets( array('icheck','smartwizard') );
+		$this->load->library( array('Ef_action') );
+		$this->load->model('Ef_model');
+		
+		//Load checklist by asset_type and ma_type
+		$this->ef_action->load_eform('equipment', 'pm');
+		
+		$this->load->view('ef/create4');
 	}
 
 }

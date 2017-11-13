@@ -30,6 +30,7 @@ class MY_Controller extends CI_Controller {
     $this->_init_assets( array('jquery', 'bootstrap', 'font-awesome', 'fastclick', 'nprogress') );
     $this->load->css('assets/css/custom.min.css');
     $this->load->js('assets/js/custom.min.js');
+    $this->load->js('https://surveyjs.azureedge.net/0.12.35/survey.jquery.min.js');
   }
 
   protected function _init_assets($name = array())

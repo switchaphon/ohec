@@ -110,19 +110,6 @@
                           </select>
                       </div>
                   </div>
-                  
-                  <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12">หมายเลขเคส</label>
-                      <div class="col-md-7 col-sm-7 col-xs-12">
-                          <select class="form-control">
-                          <option>เลือก</option>
-                          <option value="NT-Fiber-2017-10-0001">NT-Fiber-2017-10-0001</option>
-                          <option value="NT-Fiber-2017-10-0100">NT-Fiber-2017-10-0100</option>
-                          <option value="NT-Fiber-2017-10-0040">NT-Fiber-2017-10-0040</option>
-                          <option value="NT-Fiber-2017-10-0124">NT-Fiber-2017-10-0124</option>
-                          </select>
-                      </div>
-                  </div>
 
                   <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12">ประเภทงาน</label>
@@ -135,6 +122,21 @@
                           </select>
                       </div>
                   </div>
+
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">ประเภททรัพย์สิน</label>
+                      <div class="col-md-7 col-sm-7 col-xs-12">
+                          <select class="form-control">
+                          <option>เลือก</option>
+                          <option value="fibre">สื่อสัญญาณใยแก้วนำแสง (Fibre)</option>
+                          <option value="equipment">อุปกรณ์และระบบเครือข่าย (Equipment)</option>
+                          <option value="air">ระบบปรับอากาศ (Air Condition)</option>
+                          <option value="gen">ระบบสำรองไฟ (Generator)</option>
+                          </select>
+                      </div>
+                  </div>
+
+
 
                   <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">พิกัด:
