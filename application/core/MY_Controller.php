@@ -13,12 +13,12 @@ class MY_Controller extends CI_Controller {
     case 'dmc':
       $this->output->set_template('dmc');
       break;
-    case 'bap':
-      $this->output->set_template('default');
-      break;
-    case 'nttyg':
-      $this->output->set_template('default');
-      break;
+    // case 'bap':
+    //   $this->output->set_template('default');
+    //   break;
+    // case 'nttyg':
+    //   $this->output->set_template('default');
+    //   break;
     default :
       $this->output->set_template('default');
       break;
@@ -27,10 +27,10 @@ class MY_Controller extends CI_Controller {
     // $this->only_auth_completed();
     // $this->output->set_output_data('user', $this->auth_ldap->row());
 
-    $this->_init_assets( array('jquery', 'bootstrap', 'font-awesome', 'fastclick', 'nprogress') );
-    $this->load->css('assets/css/custom.min.css');
-    $this->load->js('assets/js/custom.min.js');
-    $this->load->js('https://surveyjs.azureedge.net/0.12.35/survey.jquery.min.js');
+    $this->_init_assets( array('jquery', 'bootstrap', 'font-awesome', 'fastclick', 'nprogress','moment','custom',) );
+    // $this->load->css('assets/css/custom.min.css');
+    // $this->load->js('assets/js/custom.min.js');
+
   }
 
   protected function _init_assets($name = array())
@@ -41,6 +41,11 @@ class MY_Controller extends CI_Controller {
       endforeach;
     }else{
       switch ($name) {
+
+        case 'custom':
+          $this->load->css('assets/css/custom.css');
+          $this->load->js('assets/js/custom.js');
+          break;
 
         case 'jquery':
           $this->load->js('assets/bower_components/jquery/dist/jquery.min.js');
@@ -112,12 +117,12 @@ class MY_Controller extends CI_Controller {
 
         case 'smartwizard':
           $this->load->js('assets/bower_components/jQuery-Smart-Wizard/js/jquery.smartWizard.js');
-          break;              
+          break;   
 
-        // case 'jquery_ui':
-        //   $this->load->css('assets/bower_components/jquery-ui/themes/base/jquery-ui.min.css');
-        //   $this->load->js('assets/bower_components/jquery-ui/jquery-ui.min.js');
-        //   break;
+        case 'moment':
+          $this->load->js('assets/bower_components/moment/moment.js');
+          break;    
+
 
         case 'bootstrap_select':
           $this->load->css('assets/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css');
@@ -135,6 +140,24 @@ class MY_Controller extends CI_Controller {
           $this->load->js('assets/bower_components/dropzone/dist/min/dropzone.min.js');
           break;          
 
+        case 'validator':
+          $this->load->js('assets/bower_components/validator/validator.js');
+          // $this->load->js('assets/bower_components/dropzone/dist/min/dropzone.min.js');
+          break;           
+
+        case 'bootstrap-daterangepicker':
+          $this->load->js('assets/bower_components/bootstrap-daterangepicker/daterangepicker.js');
+          $this->load->css('assets/bower_components/bootstrap-daterangepicker/daterangepicker.css');
+          break;    
+
+        case 'bootstrap_validator':
+          $this->load->js('assets/bower_components/bootstrap-validator/dist/validator.js');
+          break;
+
+        // case 'jquery_ui':
+        //   $this->load->css('assets/bower_components/jquery-ui/themes/base/jquery-ui.min.css');
+        //   $this->load->js('assets/bower_components/jquery-ui/jquery-ui.min.js');
+        //   break;
 
 
         // case 'bootstrap_switch':
@@ -142,9 +165,7 @@ class MY_Controller extends CI_Controller {
         //   $this->load->js('assets/bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js');
         //   break;
 
-        // case 'bootstrap_validator':
-        //   $this->load->js('assets/bower_components/bootstrap-validator/dist/validator.js');
-        //   break;
+
 
         // case 'flatpickr':
         //   $this->load->css('assets/bower_components/flatpickr/dist/flatpickr.min.css');

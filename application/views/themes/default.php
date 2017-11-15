@@ -30,6 +30,16 @@
         }
         echo "<!-- /Load stylesheet -->"; 
       }
+
+      if(!empty($js)){
+        echo "<!-- Load script -->";
+        foreach($js as $file){
+          echo "\n\t\t";
+          echo "<script src='".$file."' /></script>";
+        }
+        echo "<!-- /Load script -->"; 
+      }
+    
     ?>
     <!-- /Load assets -->
 
@@ -64,14 +74,14 @@
     </div>
 
     <?
-      if(!empty($js)){
-        echo "<!-- Load script -->";
-        foreach($js as $file){
-          echo "\n\t\t";
-          echo "<script src='".$file."' /></script>";
-        }
-        echo "<!-- /Load script -->"; 
-      }
+      // if(!empty($js)){
+      //   echo "<!-- Load script -->";
+      //   foreach($js as $file){
+      //     echo "\n\t\t";
+      //     echo "<script src='".$file."' /></script>";
+      //   }
+      //   echo "<!-- /Load script -->"; 
+      // }
     ?>
 
   </body>

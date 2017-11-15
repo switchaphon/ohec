@@ -76,9 +76,9 @@ class Ef extends MY_Controller {
 		$this->load->model('Ef_model');
 		
 		//Load checklist by asset_type and ma_type
-		$this->ef_action->load_eform('equipment', 'pm');
+		$this->data['checklist'] = $this->ef_action->load_eform('equipment', 'pm');
 		
-		$this->load->view('ef/create4');
+		$this->load->view('ef/create4',$this->data);
 	}
 
 }
