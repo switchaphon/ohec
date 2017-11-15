@@ -48,10 +48,23 @@ class Site extends MY_Controller {
     //JSON
     function get_province_by_region()
 	{
-        // echo $_POST['region'];
+		// echo $_POST['region'];
+		$region = null;
+		$i = 0;		
+		$post = explode(',',$_POST['region']);
+
+		foreach($post as $key => $val):	
+			if($i == 0){
+				$region = "'".$val."'";
+			}else{
+				$region = $region.",'".$val."'";
+			}
+
+			$i++;
+		endforeach;
+
         $this->load->model( array('Site_model'));
-		header('Content-Type: application/x-json; charset=utf-8');
-		echo(json_encode($this->Site_model->get_province_by_region($_POST['region'])));
+		echo(json_encode($this->Site_model->get_province_by_region($region)));
 	}
 
 }

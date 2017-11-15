@@ -26,148 +26,129 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-
-                        <form class="form-horizontal form-label-left" novalidate="">
-
-                        <!-- <span class="section"><small>ข้อมูลตารางตรวจงาน</small></span> -->
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Schdule <span class="required">*</span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <fieldset>
-                                    <div class="control-group">
-                                    <div class="controls">
-                                        <div class="input-prepend input-group">
-                                        <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-                                        <input type="text" name="schedule-time" id="schedule-time" class="form-control" value="01/01/2016 - 01/25/2016" />
+                        <form role="form" id="createSchedule" name="createSchedule" class="form-horizontal form-label-left" data-toggle="validator" action="<?=site_url('schedule/create_ops');?>" method="POST">
+                            <!-- <span class="section"><small>ข้อมูลตารางตรวจงาน</small></span> -->
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Schdule <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <fieldset>
+                                        <div class="control-group">
+                                        <div class="controls">
+                                            <div class="input-prepend input-group">
+                                            <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                            <input type="text" name="schedule-time" id="schedule-time" class="form-control" value="01/01/2016 - 01/25/2016" required/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    </div>
-                                </fieldset>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Detail <span class="required">*</span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea id="textarea" required="required" name="textarea" class="form-control col-md-7 col-xs-12"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Ticket <span class="required">*</span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <fieldset>
-                                    <div class="control-group">
-                                    <div class="controls">
-                                        <div class="input-prepend input-group">
-                                        <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-                                        <input type="text" name="ticket-time" id="ticket-time" class="form-control" value="01/01/2016 - 01/25/2016" />
                                         </div>
-                                    </div>
-                                    </div>
-                                </fieldset>
+                                    </fieldset>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Region <span class="required">*</span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <?
-                                    echo "<select name=\"region\" id=\"region\" class=\"form-control selectpicker show-tick\" title=\"select \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" multiple required>";
-                                    foreach($region as $reg_key => $reg_val):
-                                        echo "<option value=\"".$reg_key."\">".$reg_val."</option>\"";
-                                    endforeach;
-                                    echo "</select>";
-                                ?>                      
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Detail <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <textarea id="description"  name="description" class="form-control col-md-7 col-xs-12" required></textarea>
+                                </div>
                             </div>
-                        </div>                        
 
-                        <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Province <span class="required">*</span></label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <!-- <select class="selectpicker form-control" data-live-search="true" multiple title="กรุณาเลือกจังหวัดที่ต้องการลงตรวจ (เลือกได้มากกว่าหนึ่ง)">
-                            <optgroup label="Picnic">
-                                <option>Mustard</option>
-                                <option>Ketchup</option>
-                                <option>Relish</option>
-                            </optgroup>
-                            <optgroup label="Camping">
-                                <option>Tent</option>
-                                <option>Flashlight</option>
-                                <option>Toilet Paper</option>
-                            </optgroup>
-                            </select> -->
-                            <?
-                                echo "<select name=\"province\" id=\"province\" class=\"form-control selectpicker show-tick\" title=\"select \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" multiple required>";
-                                // foreach($region as $reg_key => $reg_val):
-                                //     echo "<option value=\"".$reg_key."\">".$reg_val."</option>\"";
-                                // endforeach;
-                                echo "</select>";
-                            ?>        
-                        </div>
-                    </div>        
-
-                        <? //echo "<pre>"; print_r($province); echo "</pre>"; ?>
-
-
-                        <div class="ln_solid"></div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-sm-6 col-xs-12 pull-right">
-                            <button type="submit" class="btn btn-primary">Cancel</button>
-                            <button id="send" type="submit" class="btn btn-success">Submit</button>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Ticket <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <fieldset>
+                                        <div class="control-group">
+                                        <div class="controls">
+                                            <div class="input-prepend input-group">
+                                            <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                            <input type="text" name="ticket-time" id="ticket-time" class="form-control" value="01/01/2016 - 01/25/2016" />
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
                             </div>
-                        </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Region <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <?
+                                        echo "<select name=\"region[]\" id=\"region\" class=\"form-control selectpicker show-tick\" title=\"select \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" multiple required>";
+                                        foreach($region as $reg_key => $reg_val):
+                                            echo "<option value=\"".$reg_key."\">".$reg_val."</option>\"";
+                                        endforeach;
+                                        echo "</select>";
+                                    ?>                      
+                                </div>
+                            </div>                        
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Province <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <?
+                                        echo "<select name=\"province[]\" id=\"province\" class=\"form-control selectpicker show-tick\" title=\"select \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" multiple required></select>";
+                                    ?>        
+                                </div>
+                            </div>        
+
+                            <div class="ln_solid"></div>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-12 pull-right">
+                                <button type="submit" class="btn btn-primary">Cancel</button>
+                                <button id="send" type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
                         </form>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-
 </artical>
 <!-- /page content -->
 
-<!-- script content -->
-
-
-    
-
-
-
+<!-- page script -->
 <script type="text/javascript">
 
     $('input[name="schedule-time"]').daterangepicker();
     $('input[name="ticket-time"]').daterangepicker();
 
     $(document).ready(function(){
+
         //Once region changed, re-query province
         $('#region').change(function(){
+        
             $("#province").html('');
-            
+        
             $.ajax({
                 type: "POST",
                 dataType: 'json',
                 url: "<?=site_url('/Site/get_province_by_region');?>",
                 data: "region="+ $('#region').val(),
-                success: function(province)
+                success: function(result)
                 {
-                    console.log(province);
-                    // var i=0;
-                    // $.each(serviceType,function(index,name)
-                    // {
-                    //     $("#mrtgServType").append('<option value='+serviceType[''+i+'']['serviceType_value']+'>'+serviceType[''+i+'']['serviceType_name']+'</option>');
-                    // i=i+1;
-                    // });//end each
-                    // $('#mrtgServType').selectpicker('refresh');
+                    $.each(result,function(region,province){
+                        var str = '';
+                        var opt = '';
+                        for(i = 0; i<province.length; i++) {
+                            opt += '<option value="'+province[i]+'">'+province[i]+'</option>';                       
+                        }
+
+                        str += '<optgroup label="'+region+'">'+opt+'</optgroup>';
+
+                        $("#province").append(str);
+                    });//end each
+
+                    $('#province').selectpicker('refresh');
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
                 }
             });
+
         });
+
     });
 
 </script>
-<!-- /script content -->
+<!-- /page script -->
