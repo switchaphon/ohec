@@ -43,7 +43,7 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-
+                    <? echo "<pre>"; print_r($schedule); echo "</pre>"; ?>
                     </div>
                 </div>
             </div>

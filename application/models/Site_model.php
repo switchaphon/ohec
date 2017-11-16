@@ -59,7 +59,7 @@ class Site_model extends CI_Model {
         $sql ="
             SELECT region,province
             FROM ohec.tb_site
-            WHERE region IN ($region) AND site_status = '1'
+            WHERE region IN ('$region') AND site_status = '1'
             GROUP BY region,province
             ORDER BY region,province ASC
             ";

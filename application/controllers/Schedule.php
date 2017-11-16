@@ -18,15 +18,25 @@ class Schedule extends MY_Controller {
 	public function index()
 	{
 		$this->_init();
-        $this->_init_assets( array('datatables', 'icheck', 'jszip', 'pdfmake') );
-        $this->load->view('schedule/index');
+		$this->_init_assets( array('datatables') );
+		$this->load->model( array('Schedule_model'));
+
+		//Get schedule
+		$this->data['schedule'] = $this->Schedule_model->list_open_schedule();
+
+        $this->load->view('schedule/index',$this->data);
 	}
 	
-	public function view()
+	public function view($id=null)
 	{
 		$this->_init();
-        $this->_init_assets( array('datatables', 'icheck', 'jszip', 'pdfmake') );
-        $this->load->view('schedule/view');
+		$this->_init_assets( array('datatables') );
+		$this->load->model( array('Schedule_model'));
+
+		//Get schedule
+		$this->data['schedule'] = $this->Schedule_model->view_schedule($id);
+
+        $this->load->view('schedule/view',$this->data);
 	}
 
 	public function create()
@@ -37,7 +47,7 @@ class Schedule extends MY_Controller {
 		// $this->load->library( array('Eform_action') );
 		$this->load->model( array('Site_model'));
 		
-		//Load region
+		//Get region
 		$this->data['region'] = $this->Site_model->get_region();
 
 		//Load checklist by asset_type and ma_type
@@ -49,9 +59,12 @@ class Schedule extends MY_Controller {
 	
 	public function create_ops()
 	{
+		$this->load->model( array('Schedule_model'));
+
 		echo "<pre>"; print_r($_POST); echo "</pre>";
 		$region = $provice = null;
-
+		
+		//Region
 		foreach($_POST['region'] as $r_key => $r_val):
 			if(empty($region)){
 				$region = $r_val;
@@ -60,6 +73,7 @@ class Schedule extends MY_Controller {
 			}
 		endforeach;
 
+		//Province
 		foreach($_POST['province'] as $p_key => $p_val):
 			if(empty($province)){
 				$province = $p_val;
@@ -67,22 +81,39 @@ class Schedule extends MY_Controller {
 				$province = $province.",".$p_val;
 			}
 		endforeach;		
-		
-		$new = array(
-			'id' => '1'
-			,'description' => $_POST['description']
+
+		//Schedule date
+		$start_date = explode(" - ",$_POST['schedule-time'])[0];
+		$end_date = explode(" - ",$_POST['schedule-time'])[1];
+
+		//Ticket date
+		$ticket_start_date = explode(" - ",$_POST['ticket-time'])[0];
+		$ticket_end_date = explode(" - ",$_POST['ticket-time'])[1];
+
+		$schedule_id = $this->Schedule_model->get_schedule_id(date("Ymd",time()));
+
+		if(!$schedule_id){
+			$schedule_id = date("Ymd",time())."01";
+		}else{
+			$schedule_id = $schedule_id + 1;
+		}
+
+		$data = array(
+			'schedule_id' => $schedule_id
+			,'schedule_name' => $_POST['name']
+			,'schedule_description' => $_POST['description']
 			,'region' => $region
 			,'province' => $province
-			// ,'start_date' => $start_date
-			// ,'end_date' => $end_date
-			// ,'ticket_start_date' => $ticket_start_date
-			// ,'ticket_end_date' => $ticket_end_date
+			,'start_date' => $start_date
+			,'end_date' => $end_date
+			,'ticket_start_date' => $ticket_start_date
+			,'ticket_end_date' => $ticket_end_date
 			,'created_date' => date("Y-m-d H:i:s",time())
 			,'created_by' => 'wichaphon.sa'
 			,'status' => '1'
 		);
 		
-		echo "<pre>"; print_r($new); echo "</pre>";
+		echo $this->Schedule_model->_insert_array('tb_schedule',$data);
 	}
 
 }

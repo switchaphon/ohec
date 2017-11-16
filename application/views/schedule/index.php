@@ -57,40 +57,32 @@
                       <thead>
                         <tr>
                           <th>หมายเลข</th>
+                          <th>ชื่อ</th>
+                          <th>รายละเอียด</th>
                           <th>วันเดินทาง</th>
                           <th>พื้นที่</th>
                           <th>จังหวัด</th>
-                          <th>สร้างโดย</th>
-                          <th>วันที่สร้าง</th>
                           <th></th>
                         </tr>
                       </thead>
                       
                       <tbody>
+                      <?
+                        foreach($schedule as $row):
+                      ?>
                         <tr>
-                          <td>20171010-01</td>
-                          <td>12 - 20 ธันวาคม 2560</td>
-                          <td>NN,NC</td>
-                          <td>เชียงราย,เชียงใหม่,แพร่</td>
-                          <td>วิชญ์พล แสงอร่าม</td>
-                          <td>2017-10-10</td>
-                          <td>
-                            <a href="<?=site_url('/schedule/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
-                            <a href="<?=site_url('/schedule/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
-                          </td>
-                        </tr>   
-                        <tr>
-                          <td>20171010-02</td>
-                          <td>1 - 10 ธันวาคม 2560</td>
-                          <td>S,SE</td>
-                          <td>ภูเก็ต,กระบี่,ตรัง</td>
-                          <td>วิทยา มีสุข</td>
-                          <td>2017-10-10</td>
-                          <td>
-                            <a href="<?=site_url('/schedule/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
-                            <a href="<?=site_url('/schedule/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
-                          </td>
-                        </tr>                                           
+                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['row_id'];?>"><?=$row['schedule_id'];?></a></td>
+                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['row_id'];?>"><?=$row['schedule_name'];?></a></td>
+                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['row_id'];?>"><?=$row['schedule_description'];?></a></td>
+                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['row_id'];?>"><?=$row['start_date'];?>-<?=$row['end_date'];?></a></td>
+                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['row_id'];?>"><?=$row['region'];?></a></td>
+                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['row_id'];?>"><?=$row['province'];?></a></td>
+                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['row_id'];?>"></td>
+                        </tr>
+
+                      <?
+                        endforeach;
+                      ?>                                         
                       </tbody>
                     
                     </table>

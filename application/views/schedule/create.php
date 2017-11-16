@@ -29,7 +29,21 @@
                         <form role="form" id="createSchedule" name="createSchedule" class="form-horizontal form-label-left" data-toggle="validator" action="<?=site_url('schedule/create_ops');?>" method="POST">
                             <!-- <span class="section"><small>ข้อมูลตารางตรวจงาน</small></span> -->
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Schdule <span class="required">*</span></label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">ชื่อ <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="name"  name="name" class="form-control col-md-7 col-xs-12" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">รายละเอียด <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <textarea id="description"  name="description" class="form-control col-md-7 col-xs-12" required></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">กำหนดการ <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <fieldset>
                                         <div class="control-group">
@@ -41,13 +55,6 @@
                                         </div>
                                         </div>
                                     </fieldset>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Detail <span class="required">*</span></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <textarea id="description"  name="description" class="form-control col-md-7 col-xs-12" required></textarea>
                                 </div>
                             </div>
 
@@ -68,7 +75,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Region <span class="required">*</span></label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">พื้นที่ <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <?
                                         echo "<select name=\"region[]\" id=\"region\" class=\"form-control selectpicker show-tick\" title=\"select \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" multiple required>";
@@ -81,7 +88,7 @@
                             </div>                        
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Province <span class="required">*</span></label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">จังหวัด <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <?
                                         echo "<select name=\"province[]\" id=\"province\" class=\"form-control selectpicker show-tick\" title=\"select \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" multiple required></select>";
@@ -109,8 +116,23 @@
 <!-- page script -->
 <script type="text/javascript">
 
-    $('input[name="schedule-time"]').daterangepicker();
-    $('input[name="ticket-time"]').daterangepicker();
+    $('input[name="schedule-time"]').daterangepicker({
+        timePicker: false,
+        locale: {
+            format: 'YYYY-MM-DD'
+        },
+        startDate: moment().subtract(29, 'days'),
+        endDate: moment()
+    });
+
+    $('input[name="ticket-time"]').daterangepicker({
+        timePicker: false,
+        locale: {
+            format: 'YYYY-MM-DD'
+        },
+        startDate: moment().subtract(29, 'days'),
+        endDate: moment()
+    });
 
     $(document).ready(function(){
 
