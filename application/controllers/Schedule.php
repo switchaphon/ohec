@@ -11,7 +11,7 @@ class Schedule extends MY_Controller {
     
 	public function __construct() {
 		parent::__construct();
-		$this->load->helper(array('form', 'url'));
+		$this->load->helper(array('form', 'url' , 'datetime_helper'));
 		$this->output->set_title('OHEC : Schedule');
 	}
 
@@ -61,7 +61,7 @@ class Schedule extends MY_Controller {
 	{
 		$this->load->model( array('Schedule_model'));
 
-		echo "<pre>"; print_r($_POST); echo "</pre>";
+		// echo "<pre>"; print_r($_POST); echo "</pre>";
 		$region = $provice = null;
 		
 		//Region
@@ -113,7 +113,16 @@ class Schedule extends MY_Controller {
 			,'status' => '1'
 		);
 		
-		echo $this->Schedule_model->_insert_array('tb_schedule',$data);
+		$res = $this->Schedule_model->_insert_array('tb_schedule',$data);
+		
+		//Log
+
+		//Redirect
+		$x = '/schedule/view/'.$schedule_id;
+		// redirect('schedule/view');
+		redirect($x,'refresh');
+
+		
 	}
 
 }
