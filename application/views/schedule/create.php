@@ -144,7 +144,7 @@
             $.ajax({
                 type: "POST",
                 dataType: 'json',
-                url: "<?=site_url('/Site/get_province_by_region');?>",
+                url: "<?=site_url('/Site/list_province_by_region');?>",
                 data: "region="+ $('#region').val(),
                 success: function(result)
                 {
@@ -163,8 +163,8 @@
                     $('#province').selectpicker('refresh');
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status);
-                    alert(thrownError);
+                    console.log(xhr.status);
+                    console.log(thrownError);
                 }
             });
 

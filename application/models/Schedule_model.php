@@ -26,13 +26,32 @@ class Schedule_model extends CI_Model {
         $sql ="
             Select *
             FROM ohec.tb_schedule
-            WHERE row_id = '$id'
+            WHERE schedule_id = '$id'
             ";
         $query = $this->db->query($sql);
         
         return $query->result_array();
     }
 
+    function get_schedule_task($schedule_id = null) {
+        $sql ="
+            SELECT no,destination.site_id AS site_id,site_name,ma_project,ma_type,ticket_id
+            FROM ohec.tb_schedule_destination destination
+                LEFT JOIN ohec.tb_site site ON destination.site_id = site.site_id
+                LEFT JOIN ohec.tb_schedule_task task ON destination.schedule_id = task.schedule_id AND destination.site_id = task.site_id
+            WHERE destination.schedule_id = '$schedule_id'
+            ";
+        $query = $this->db->query($sql);
+        
+        return $query->result_array();
+    }
+    /*
+    SELECT no,destination.site_id AS site_id,site_name,ma_project,ma_type,ticket_id
+FROM ohec.tb_schedule_destination destination
+  LEFT JOIN ohec.tb_site site ON destination.site_id = site.site_id
+  LEFT JOIN ohec.tb_schedule_task task ON destination.schedule_id = task.schedule_id AND destination.site_id = task.site_id
+WHERE destination.schedule_id = '2017111601'
+    */
     function _insert_array($table = null, $data=null) {
         // echo $table;
         // echo "<pre>"; print_r($data); echo "</pre>";

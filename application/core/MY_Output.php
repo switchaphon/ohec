@@ -19,7 +19,7 @@ class MY_Output extends CI_Output {
     function set_template($template_view){
         $this->set_mode(self::OUTPUT_MODE_TEMPLATE);
         $template_view = str_replace(".php", "", $template_view);
-        $this->_template = self::TEMPLATE_ROOT . $template_view;     
+        $this->_template = self::TEMPLATE_ROOT . $template_view."/".$template_view;     
     }
 
     function unset_template(){

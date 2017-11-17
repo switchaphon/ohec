@@ -27,14 +27,19 @@ class Schedule extends MY_Controller {
         $this->load->view('schedule/index',$this->data);
 	}
 	
-	public function view($id=null)
+	public function view($id = null)
 	{
 		$this->_init();
-		$this->_init_assets( array('datatables') );
-		$this->load->model( array('Schedule_model'));
+		$this->_init_assets( array('datatables','bootstrap_validator','bootstrap_select') );
+		$this->load->model( array('Schedule_model','Site_model'));
 
 		//Get schedule
 		$this->data['schedule'] = $this->Schedule_model->view_schedule($id);
+		
+		$province_list = str_replace("," , "','" , $this->data['schedule'][0]['province']);
+
+		$this->data['site_list'] = $this->Site_model->list_site_by_province($province_list);
+		$this->data['task_list'] = $this->Schedule_model->get_schedule_task($id);
 
         $this->load->view('schedule/view',$this->data);
 	}
@@ -48,7 +53,7 @@ class Schedule extends MY_Controller {
 		$this->load->model( array('Site_model'));
 		
 		//Get region
-		$this->data['region'] = $this->Site_model->get_region();
+		$this->data['region'] = $this->Site_model->list_region();
 
 		//Load checklist by asset_type and ma_type
 		// $this->data['checklist'] = $this->eform_action->load_eform('equipment', 'pm');
@@ -120,9 +125,28 @@ class Schedule extends MY_Controller {
 		//Redirect
 		$x = '/schedule/view/'.$schedule_id;
 		// redirect('schedule/view');
-		redirect($x,'refresh');
-
-		
+		redirect($x,'refresh');	
 	}
+
+	public function add_task( $id = null)
+	{
+		$this->_init('modal');
+		// $this->_init_assets( array('bootstrap_validator','bootstrap_select') );
+		$this->load->model( array('Schedule_model','Site_model'));
+		
+		//Get schedule
+		$schedule = $this->Schedule_model->view_schedule($id);
+
+		//Get provice list
+		$province_list = str_replace("," , "','" , $schedule[0]['province']);
+		$this->data['site_list'] = $this->Site_model->list_site_by_province($province_list);
+
+		$this->load->view('schedule/add_task_modal',$this->data);
+		
+		//Log
+
+		//Redirect
+	}
+
 
 }

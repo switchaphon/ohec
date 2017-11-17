@@ -9,7 +9,7 @@ class Site_model extends CI_Model {
         parent::__construct();
     }
 
-    function get_region() {
+    function list_region() {
         $sql ="
             SELECT region
             FROM ohec.tb_site
@@ -32,7 +32,7 @@ class Site_model extends CI_Model {
             }
     }
 
-    function get_province() {
+    function list_province() {
         $sql ="
             SELECT region,province
             FROM ohec.tb_site
@@ -55,7 +55,7 @@ class Site_model extends CI_Model {
             }
     } 
  
-    function get_province_by_region($region = null) {
+    function list_province_by_region($region = null) {
         $sql ="
             SELECT region,province
             FROM ohec.tb_site
@@ -77,6 +77,39 @@ class Site_model extends CI_Model {
                 return FALSE;
             }
     }    
+
+    function list_site_by_province($province = null) {
+        $sql ="
+        Select province,site_id,site_name
+        FROM ohec.tb_site
+        WHERE province IN ('$province') AND site_status = '1'
+        GROUP BY province,site_id,site_name
+        ORDER BY province,site_name ASC
+            ";
+
+        $query = $this->db->query($sql);
+
+        $site = array();
+
+        if($query->result()){
+            foreach ($query->result_array() as $key => $value) {
+                if(!isset($site[$value['province']])){
+                    $site[$value['province']][] = array(
+                        'site_id' => $value['site_id']
+                        ,'site_name' => $value['site_name']
+                    );
+                }else{
+                    $site[$value['province']][] = array(
+                        'site_id' => $value['site_id']
+                        ,'site_name' => $value['site_name']
+                    );
+                }
+            }
+                return $site;
+            }else{
+                return FALSE;
+            }
+    }        
 /*
 SELECT region,province
 FROM ohec.tb_site

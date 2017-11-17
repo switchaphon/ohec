@@ -27,7 +27,7 @@
               <div class="col-md-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>รายละเอียด<small>different form elements</small></h2>
+                    <h4>รายละเอียด <i class="fa fa-info-circle"></i> </h4>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -46,11 +46,7 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <br />
-
                     <? echo "<pre>"; print_r($schedule); echo "</pre>"; ?>
-
-
                       <div class="ln_solid"></div>
 
                       <!-- <div class="form-group">
@@ -71,7 +67,7 @@
               <div class="col-md-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>สถานที่ <small>different form elements</small></h2>
+                    <h4>สถานที่ <i class="fa fa-university"></i></h4>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -91,47 +87,46 @@
                   </div>
                   <div class="x_content">
                     <!-- start form for validation -->
-                    <? echo "<pre>"; print_r($schedule); echo "</pre>"; ?>
+                    <? //echo "<pre>"; print_r($task_list); echo "</pre>"; ?>
+                    <span id="controlPanel">
+                    <!-- $schedule['schedule_id'] -->
+               
+                      <a href="#" class="btn btn-round btn-default pull-right" name='addTaskbtn' data-toggle="modal" data-target="#addTaskModal" ><span class="fa fa-plus-circle" aria-hidden="true"></span> เพิ่ม</a>
+                    </span>
+                    <table id="scheduleTask" name="scheduleTask" class="table table-striped">
+                        <thead>
+                            <tr>
+                            <th>จังหวัด</th>
+                            <th>สถานที่</th>
+                            <th>ทรัพย์สิน</th>
+                            <th>ประเภทการตรวจสอบ</th>
+                            <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>            
+                        </tbody>
+                        
+                        </table>
+                    
                     <!-- end form for validations -->
                   </div>
-                </div>
 
-                <!-- <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Star Rating</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <h4>Star Ratings<small> Hover and click on a star</small></h4>
-                    <div>
-                      <div class="starrr stars"></div>
-                      You gave a rating of <span class="stars-count">0</span> star(s)
+                  <!-- addTaskModal -->
+                  <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="addTaskModal">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                            <!-- load->view('schedule/add_task_modal'); -->
+                            <? $this->load->view('schedule/add_task_modal'); ?>
+                      </div>
                     </div>
-
-                    <p>Also you can give a default rating by adding attribute data-rating</p>
-                    <div class="starrr stars-existing" data-rating='4'></div>
-                    You gave a rating of <span class="stars-count-existing">4</span> star(s)
                   </div>
-                </div> -->
+                  <!-- /addTaskModal -->
+                
+                </div>
 
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>กรรมการ <small>Click to validate</small></h2>
+                    <h4>กรรมการ <i class="fa fa-users"></i></h4>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -152,7 +147,7 @@
                   <div class="x_content">
 
                     <!-- start form for validation -->
-                    <? echo "<pre>"; print_r($schedule); echo "</pre>"; ?>
+                    
                     <!-- end form for validations -->
 
                   </div>
@@ -173,7 +168,7 @@
             <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>รายการแบบตรวจสอบออนไลน์</h2>
+                        <h2><small>รายการแบบตรวจสอบออนไลน์</small></h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -192,7 +187,24 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-
+                        <table id="scheduleEform" name="scheduleEform" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                            <th>หมายเลข</th>
+                            <th>ชื่อหน่วยงาน</th>
+                            <th>จังหวัด</th>
+                            <th>ทรัพย์สิน</th>
+                            <th>ประเภทการตรวจสอบ</th>
+                            <th>ผู้ตรวจสอบ</th>
+                            <th>วันที่ตรวจสอบ</th>
+                            <th></th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>                            
+                        </tbody>
+                        
+                        </table>
                     </div>
                 </div>
             </div>
@@ -202,3 +214,33 @@
     </div>
 </artical>
 <!-- /page content -->
+
+<!-- page script -->
+<script type="text/javascript">
+ $(document).ready(function(){
+
+    $('#scheduleTask').DataTable({
+          // "pageLength": 50,
+          "paging":   true,
+          "ordering": true,
+          language: { search: "_INPUT_" , searchPlaceholder: "ค้นหา..." }, //remove "search" label and put in placeholder
+          "dom": '<"toolbar">frtip'
+         });
+
+    $("div.toolbar").html('<span id="scheduleTask_filter2" class="dataTables_filter"></span>');
+    //Search box
+    $('#scheduleTask_filter').css('float','left');
+    $('#scheduleTask_filter').css('text-align','left');
+
+    $('#scheduleTask_filter2').css('float','right');
+    $('#scheduleTask_filter2').append($('#controlPanel'));
+    $("div.toolbar").append($('#scheduleTask_filter'));
+
+    $('#scheduleTask').removeClass('hidden');
+
+ });
+
+
+
+</script>
+<!-- /page script -->

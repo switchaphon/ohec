@@ -37,16 +37,16 @@ class Site extends MY_Controller {
 	// 	$this->load->model( array('Site_model','Eform_model'));
 		
 	// 	//Load region
-	// 	$this->data['region'] = $this->Site_model->get_region();
+	// 	$this->data['region'] = $this->Site_model->list_region();
 
 	// 	//Load province
-	// 	$this->data['province'] = $this->Site_model->get_province();
+	// 	$this->data['province'] = $this->Site_model->list_province();
 
 	// 	$this->load->view('schedule/create',$this->data);
     // }   
 
     //JSON
-    function get_province_by_region()
+    function list_province_by_region()
 	{
 		// Solution I //
 		// $region = null;
@@ -67,7 +67,7 @@ class Site extends MY_Controller {
 		$region = str_replace("," , "','" , $_POST['region']);
 
         $this->load->model( array('Site_model'));
-		echo(json_encode($this->Site_model->get_province_by_region($region)));
+		echo(json_encode($this->Site_model->list_province_by_region($region)));
 	}
 
 }

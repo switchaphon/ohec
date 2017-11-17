@@ -10,8 +10,8 @@ class MY_Controller extends CI_Controller {
 
   protected function _init($themes  = null){
     switch ($themes){
-    case 'dmc':
-      $this->output->set_template('dmc');
+    case 'modal':
+      $this->output->set_template('modal');
       break;
     // case 'bap':
     //   $this->output->set_template('default');

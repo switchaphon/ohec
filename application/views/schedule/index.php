@@ -71,13 +71,13 @@
                         foreach($schedule as $row):
                       ?>
                         <tr>
-                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['row_id'];?>"><?=$row['schedule_id'];?></a></td>
-                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['row_id'];?>"><?=$row['schedule_name'];?></a></td>
-                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['row_id'];?>"><?=$row['schedule_description'];?></a></td>
-                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['row_id'];?>"><?=convert_to_yyyymmdd($row['start_date']);?> ถึง <?=convert_to_yyyymmdd($row['end_date']);?></a></td>
-                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['row_id'];?>"><?=$row['region'];?></a></td>
-                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['row_id'];?>"><?=$row['province'];?></a></td>
-                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['row_id'];?>"></td>
+                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['schedule_id'];?></a></td>
+                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['schedule_name'];?></a></td>
+                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['schedule_description'];?></a></td>
+                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=convert_to_yyyymmdd($row['start_date']);?> ถึง <?=convert_to_yyyymmdd($row['end_date']);?></a></td>
+                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['region'];?></a></td>
+                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['province'];?></a></td>
+                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"></td>
                         </tr>
 
                       <?
