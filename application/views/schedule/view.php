@@ -87,11 +87,7 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <!-- start form for validation -->
-                    <? //echo "<pre>"; print_r($task_list); echo "</pre>"; ?>
                     <span id="controlPanel">
-                    <!-- $schedule['schedule_id'] -->
-               
                       <a href="#" class="btn btn-round btn-default pull-right" name='addTaskbtn' data-toggle="modal" data-target="#addTaskModal" ><span class="fa fa-plus-circle" aria-hidden="true"></span> เพิ่ม</a>
                     </span>
                     <table id="scheduleTask" name="scheduleTask" class="table table-striped">
@@ -100,7 +96,6 @@
                             <th>สถานที่</th>
                             <th>ทรัพย์สิน</th>
                             <th>หมายเลขเคส</th>
-                            <!-- <th>ประเภทการตรวจสอบ</th> -->
                             <th></th>
                             </tr>
                         </thead>
@@ -119,8 +114,7 @@
                           endforeach;
                         ?>       
                         </tbody>
-                        </table>
-                    
+                      </table>             
                     <!-- end form for validations -->
                   </div>
 
@@ -128,7 +122,6 @@
                   <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="addTaskModal">
                     <div class="modal-dialog modal-lg">
                       <div class="modal-content">
-                            <!-- load->view('schedule/add_task_modal'); -->
                             <? $this->load->view('schedule/add_task_modal'); ?>
                       </div>
                     </div>
@@ -166,7 +159,6 @@
                   </div>
                 </div>
 
-
               </div>
             <!-- /right card -->
 
@@ -181,7 +173,8 @@
             <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2><small>รายการแบบตรวจสอบออนไลน์</small></h2>
+                        <!-- <h2><small>รายการแบบตรวจสอบออนไลน์</small></h2> -->
+                        <h2>App Versions</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -224,6 +217,7 @@
 
         </div>         
         <!-- /bottom row -->
+        
     </div>
 </artical>
 <!-- /page content -->
