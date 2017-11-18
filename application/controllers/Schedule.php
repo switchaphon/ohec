@@ -15,8 +15,7 @@ class Schedule extends MY_Controller {
 		$this->output->set_title('OHEC : Schedule');
 	}
 
-	public function index()
-	{
+	public function index(){
 		$this->_init();
 		$this->_init_assets( array('datatables') );
 		$this->load->model( array('Schedule_model'));
@@ -27,8 +26,7 @@ class Schedule extends MY_Controller {
         $this->load->view('schedule/index',$this->data);
 	}
 	
-	public function view($id = null)
-	{
+	public function view($id = null){
 		$this->_init();
 		$this->_init_assets( array('datatables','bootstrap_validator','bootstrap_select') );
 		$this->load->model( array('Schedule_model','Site_model'));
@@ -37,15 +35,17 @@ class Schedule extends MY_Controller {
 		$this->data['schedule'] = $this->Schedule_model->view_schedule($id);
 		
 		$province_list = str_replace("," , "','" , $this->data['schedule'][0]['province']);
+		$this->data['ticket_start_date'] = $ticket_start_date = $this->data['schedule'] [0]['ticket_start_date'];
+		$this->data['ticket_end_date'] = $ticket_end_date = $this->data['schedule'] [0]['ticket_end_date'];
 
-		$this->data['site_list'] = $this->Site_model->list_site_by_province($province_list);
+		// $this->data['site_list'] = $this->Site_model->list_site_by_province($province_list);
+		$this->data['site_list'] = $this->Site_model->list_site_by_province($province_list,$ticket_start_date,$ticket_end_date);
 		$this->data['task_list'] = $this->Schedule_model->get_schedule_task($id);
 
         $this->load->view('schedule/view',$this->data);
 	}
 
-	public function create()
-	{
+	public function create(){
 		$this->_init();
 		$this->_init_assets( array('icheck','smartwizard','bootstrap-daterangepicker','bootstrap_validator','bootstrap_select') );
 		
@@ -62,8 +62,7 @@ class Schedule extends MY_Controller {
 		$this->load->view('schedule/create',$this->data);
 	}  
 	
-	public function create_ops()
-	{
+	public function create_ops(){
 		$this->load->model( array('Schedule_model'));
 
 		// echo "<pre>"; print_r($_POST); echo "</pre>";
@@ -127,25 +126,69 @@ class Schedule extends MY_Controller {
 		// redirect('schedule/view');
 		redirect($x,'refresh');	
 	}
-
-	public function add_task( $id = null)
-	{
-		$this->_init('modal');
-		// $this->_init_assets( array('bootstrap_validator','bootstrap_select') );
-		$this->load->model( array('Schedule_model','Site_model'));
+/*
+	// public function add_task( $id = null)
+	// {
+	// 	$this->_init('modal');
+	// 	// $this->_init_assets( array('bootstrap_validator','bootstrap_select') );
+	// 	$this->load->model( array('Schedule_model','Site_model'));
 		
-		//Get schedule
-		$schedule = $this->Schedule_model->view_schedule($id);
+	// 	//Get schedule
+	// 	$schedule = $this->Schedule_model->view_schedule($id);
 
-		//Get provice list
-		$province_list = str_replace("," , "','" , $schedule[0]['province']);
-		$this->data['site_list'] = $this->Site_model->list_site_by_province($province_list);
+	// 	//Get provice list
+	// 	$province_list = str_replace("," , "','" , $schedule[0]['province']);
+	// 	$ticket_start_date = $schedule[0]['ticket_start_time'];
+	// 	$ticket_end_date = $schedule[0]['ticket_end_time'];
 
-		$this->load->view('schedule/add_task_modal',$this->data);
+	// 	$this->data['site_list'] = $this->Site_model->list_site_by_province($province_list,$ticket_start_time,$ticket_end_time);
+	// 	// print_r($this->data['site_list']);
+	// 	// $this->load->view('schedule/add_task_modal',$this->data);
+		
+	// 	//Log
+
+	// 	//Redirect
+	// }
+*/	
+	public function add_task_ops(){
+		
+		$this->load->model( array('Ticket_model','Site_model','Schedule_model'));
+
+		foreach($_POST['site'] as $key => $val):
+
+			//Get site detail
+			$site = $this->Site_model->view_site($_POST['site'][$key]);
+			
+			//Get ticket detail
+			$ticket = $this->Ticket_model->view_ticket($_POST['ticket'][$key]);
+
+			$destination = array(
+				'schedule_id' => $_POST['schedule_id']
+				,'site_id' => $site[0]['site_id']
+				,'province' => $site[0]['province']
+				,'region' => $site[0]['region']
+				,'contact_name' => $site[0]['name']." ".$site[0]['surname'] //what is contact more than 1
+				,'contact_tel' => $site[0]['tel_no']
+				,'contact_mobile' => $site[0]['mobile_no']
+				,'contact_email' => $site[0]['email'] 
+			);
+
+			$task = array(
+				'schedule_id' => $_POST['schedule_id']
+				,'site_id' => $site[0]['site_id']
+				,'ma_project' => $ticket[0]['contract']
+				,'ticket_id' => $ticket[0]['case_id']
+				,'ma_type' => $ticket[0]['case_category']
+			);
+
+			$res = $this->Schedule_model->_insert_array('tb_schedule_destination',$destination);
+			$res = $this->Schedule_model->_insert_array('tb_schedule_task',$task);
+		endforeach;
 		
 		//Log
 
 		//Redirect
+		
 	}
 
 

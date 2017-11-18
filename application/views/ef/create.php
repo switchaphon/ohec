@@ -1,8 +1,9 @@
 <!-- page content -->
 <div class="right_col" role="main">
+
     <div class="page-title">
       <div class="title_left">
-        <h3>Plain Page</h3>
+        <h3></h3>
       </div>
 
       <div class="title_right">
@@ -22,322 +23,176 @@
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Form Basic Elements <small>different form elements</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <br />
-                    <form class="form-horizontal form-label-left">
+          <div class="x_title">
+            <h2>แบบตรวจสอบออนไลน์</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Settings 1</a>
+                  </li>
+                  <li><a href="#">Settings 2</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
 
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Default Input</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" placeholder="Default Input">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Disabled Input </label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" disabled="disabled" placeholder="Disabled Input">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Read-Only Input</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" readonly="readonly" placeholder="Read-Only Input">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth <span class="required">*</span>
-                        </label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <textarea class="form-control" rows="3" placeholder='rows="3"'></textarea>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Password</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="password" class="form-control" value="passwordonetwo">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">AutoComplete</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" name="country" id="autocomplete-custom-append" class="form-control col-md-10"/>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <select class="form-control">
-                            <option>Choose option</option>
-                            <option>Option one</option>
-                            <option>Option two</option>
-                            <option>Option three</option>
-                            <option>Option four</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Custom</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <select class="select2_single form-control" tabindex="-1">
-                            <option></option>
-                            <option value="AK">Alaska</option>
-                            <option value="HI">Hawaii</option>
-                            <option value="CA">California</option>
-                            <option value="NV">Nevada</option>
-                            <option value="OR">Oregon</option>
-                            <option value="WA">Washington</option>
-                            <option value="AZ">Arizona</option>
-                            <option value="CO">Colorado</option>
-                            <option value="ID">Idaho</option>
-                            <option value="MT">Montana</option>
-                            <option value="NE">Nebraska</option>
-                            <option value="NM">New Mexico</option>
-                            <option value="ND">North Dakota</option>
-                            <option value="UT">Utah</option>
-                            <option value="WY">Wyoming</option>
-                            <option value="AR">Arkansas</option>
-                            <option value="IL">Illinois</option>
-                            <option value="IA">Iowa</option>
-                            <option value="KS">Kansas</option>
-                            <option value="KY">Kentucky</option>
-                            <option value="LA">Louisiana</option>
-                            <option value="MN">Minnesota</option>
-                            <option value="MS">Mississippi</option>
-                            <option value="MO">Missouri</option>
-                            <option value="OK">Oklahoma</option>
-                            <option value="SD">South Dakota</option>
-                            <option value="TX">Texas</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Grouped</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
+
+            <!-- Smart Wizard -->
+            <!-- <p>This is a basic form wizard example that inherits the colors from the selected scheme.</p> -->
+            <div id="wizard" class="form_wizard wizard_horizontal">
+              <ul class="wizard_steps">
+                <li>
+                  <a href="#step-1">
+                      <span class="step_no">1</span>
+                      <!-- <span class="step_descr"> -->
+                          <!-- <small>เลือกสถานที่/หมายเลขเคส</small> -->
+                      <!-- </span> -->
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#step-2">
+                      <span class="step_no">2</span>
+                      <!-- <span class="step_descr"> -->
+                          <!-- <small>เลือกสถานที่/หมายเลขเคส</small> -->
+                      <!-- </span> -->
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#step-3">
+                      <span class="step_no">3</span>
+                      <!-- <span class="step_descr"> -->
+                          <!-- <small>เลือกสถานที่/หมายเลขเคส</small> -->
+                      <!-- </span> -->
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#step-4">
+                      <span class="step_no">4</span>
+                      <!-- <span class="step_descr"> -->
+                          <!-- <small>เลือกสถานที่/หมายเลขเคส</small> -->
+                      <!-- </span> -->
+                  </a>
+                </li>             
+
+              </ul>
+              
+              <div id="step-1">
+
+                <form class="form-horizontal form-label-left">
+
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">สถานที่</label>
+                      <div class="col-md-7 col-sm-7 col-xs-12">
                           <select class="select2_group form-control">
-                            <optgroup label="Alaskan/Hawaiian Time Zone">
-                              <option value="AK">Alaska</option>
-                              <option value="HI">Hawaii</option>
-                            </optgroup>
-                            <optgroup label="Pacific Time Zone">
-                              <option value="CA">California</option>
-                              <option value="NV">Nevada</option>
-                              <option value="OR">Oregon</option>
-                              <option value="WA">Washington</option>
-                            </optgroup>
-                            <optgroup label="Mountain Time Zone">
-                              <option value="AZ">Arizona</option>
-                              <option value="CO">Colorado</option>
-                              <option value="ID">Idaho</option>
-                              <option value="MT">Montana</option>
-                              <option value="NE">Nebraska</option>
-                              <option value="NM">New Mexico</option>
-                              <option value="ND">North Dakota</option>
-                              <option value="UT">Utah</option>
-                              <option value="WY">Wyoming</option>
-                            </optgroup>
-                            <optgroup label="Central Time Zone">
-                              <option value="AL">Alabama</option>
-                              <option value="AR">Arkansas</option>
-                              <option value="IL">Illinois</option>
-                              <option value="IA">Iowa</option>
-                              <option value="KS">Kansas</option>
-                              <option value="KY">Kentucky</option>
-                              <option value="LA">Louisiana</option>
-                              <option value="MN">Minnesota</option>
-                              <option value="MS">Mississippi</option>
-                              <option value="MO">Missouri</option>
-                              <option value="OK">Oklahoma</option>
-                              <option value="SD">South Dakota</option>
-                              <option value="TX">Texas</option>
-                              <option value="TN">Tennessee</option>
-                              <option value="WI">Wisconsin</option>
-                            </optgroup>
-                            <optgroup label="Eastern Time Zone">
-                              <option value="CT">Connecticut</option>
-                              <option value="DE">Delaware</option>
-                              <option value="FL">Florida</option>
-                              <option value="GA">Georgia</option>
-                              <option value="IN">Indiana</option>
-                              <option value="ME">Maine</option>
-                              <option value="MD">Maryland</option>
-                              <option value="MA">Massachusetts</option>
-                              <option value="MI">Michigan</option>
-                              <option value="NH">New Hampshire</option>
-                              <option value="NJ">New Jersey</option>
-                              <option value="NY">New York</option>
-                              <option value="NC">North Carolina</option>
-                              <option value="OH">Ohio</option>
-                              <option value="PA">Pennsylvania</option>
-                              <option value="RI">Rhode Island</option>
-                              <option value="SC">South Carolina</option>
-                              <option value="VT">Vermont</option>
-                              <option value="VA">Virginia</option>
-                              <option value="WV">West Virginia</option>
-                            </optgroup>
+                            <option>เลือก</option>
+                          <optgroup label="ภาคเหนือ">
+                              <option value="1450100400">มหาวิทยาลัยเชียงใหม่</option>
+                              <option value="1456102700">มหาวิทยาลัยพะเยา</option>
+                              <option value="1454101301">มหายวิทยาลัยแม่โจ้ วิทยาเขตแพร่</option>
+                          </optgroup>
+                          <optgroup label="ภาคกลาง">
+                              <option value="1410100200">มหาวิทยาลัยเกษตรศาสตร์</option>
+                              <option value="1410100100">จุฬาลงกรณ์มหาวิทยาลัย</option>
+                              <option value="1410101400">มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี</option>
+                              <option value="1410100500">มหาวิทยาลัยธรรมศาสตร์ (ท่าพระจันทร์)</option>
+                          </optgroup>
                           </select>
-                        </div>
                       </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Multiple</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <select class="select2_multiple form-control" multiple="multiple">
-                            <option>Choose option</option>
-                            <option>Option one</option>
-                            <option>Option two</option>
-                            <option>Option three</option>
-                            <option>Option four</option>
-                            <option>Option five</option>
-                            <option>Option six</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div class="control-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Input Tags</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input id="tags_1" type="text" class="tags form-control" value="social, adverts, sales" />
-                          <div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-md-3 col-sm-3 col-xs-12 control-label">Checkboxes and radios
-                          <br>
-                          <small class="text-navy">Normal Bootstrap elements</small>
-                        </label>
-
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox" value=""> Option one. select more than one options
-                            </label>
-                          </div>
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox" value=""> Option two. select more than one options
-                            </label>
-                          </div>
-                          <div class="radio">
-                            <label>
-                              <input type="radio" checked="" value="option1" id="optionsRadios1" name="optionsRadios"> Option one. only select one option
-                            </label>
-                          </div>
-                          <div class="radio">
-                            <label>
-                              <input type="radio" value="option2" id="optionsRadios2" name="optionsRadios"> Option two. only select one option
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="col-md-3 col-sm-3 col-xs-12 control-label">Checkboxes and radios
-                          <br>
-                          <small class="text-navy">Normal Bootstrap elements</small>
-                        </label>
-
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox" class="flat" checked="checked"> Checked
-                            </label>
-                          </div>
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox" class="flat"> Unchecked
-                            </label>
-                          </div>
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox" class="flat" disabled="disabled"> Disabled
-                            </label>
-                          </div>
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox" class="flat" disabled="disabled" checked="checked"> Disabled & checked
-                            </label>
-                          </div>
-                          <div class="radio">
-                            <label>
-                              <input type="radio" class="flat" checked name="iCheck"> Checked
-                            </label>
-                          </div>
-                          <div class="radio">
-                            <label>
-                              <input type="radio" class="flat" name="iCheck"> Unchecked
-                            </label>
-                          </div>
-                          <div class="radio">
-                            <label>
-                              <input type="radio" class="flat" name="iCheck" disabled="disabled"> Disabled
-                            </label>
-                          </div>
-                          <div class="radio">
-                            <label>
-                              <input type="radio" class="flat" name="iCheck3" disabled="disabled" checked> Disabled & Checked
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Switch</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <div class="">
-                            <label>
-                              <input type="checkbox" class="js-switch" checked /> Checked
-                            </label>
-                          </div>
-                          <div class="">
-                            <label>
-                              <input type="checkbox" class="js-switch" /> Unchecked
-                            </label>
-                          </div>
-                          <div class="">
-                            <label>
-                              <input type="checkbox" class="js-switch" disabled="disabled" /> Disabled
-                            </label>
-                          </div>
-                          <div class="">
-                            <label>
-                              <input type="checkbox" class="js-switch" disabled="disabled" checked="checked" /> Disabled Checked
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-
-
-                      <div class="ln_solid"></div>
-                      <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                          <button type="button" class="btn btn-primary">Cancel</button>
-                          <button type="reset" class="btn btn-primary">Reset</button>
-                          <button type="submit" class="btn btn-success">Submit</button>
-                        </div>
-                      </div>
-
-                    </form>
                   </div>
-                </div>
+                  
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">หมายเลขเคส</label>
+                      <div class="col-md-7 col-sm-7 col-xs-12">
+                          <select class="form-control">
+                          <option>เลือก</option>
+                          <option value="NT-Fiber-2017-10-0001">NT-Fiber-2017-10-0001</option>
+                          <option value="NT-Fiber-2017-10-0100">NT-Fiber-2017-10-0100</option>
+                          <option value="NT-Fiber-2017-10-0040">NT-Fiber-2017-10-0040</option>
+                          <option value="NT-Fiber-2017-10-0124">NT-Fiber-2017-10-0124</option>
+                          </select>
+                      </div>
+                  </div>
+
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">ประเภททรัพย์สิน</label>
+                      <div class="col-md-7 col-sm-7 col-xs-12">
+                          <select class="form-control">
+                          <option>เลือก</option>
+                          <option value="equipment">อุปกรณ์ระบบเครือข่าย</option>
+                          <option value="fibre">สื่อสัญญาณใยแก้วนำแสง</option>
+                          </select>
+                      </div>
+                  </div>
+
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">ประเภทงาน</label>
+                      <div class="col-md-7 col-sm-7 col-xs-12">
+                          <select class="form-control">
+                          <option>เลือก</option>
+                          <option value="AM">ตรวจสอบการแก้ไขปรับปรุง/ปรับเปลี่ยน/โยกย้าย (AM)</option>
+                          <option value="CM">ตรวจสอบการบำรุงรักษาแบบกะทันหัน (CM)</option>
+                          <option value="PM">ตรวจสอบการบำรุงรักษาเชิงป้องกัน (PM)</option>
+                          </select>
+                      </div>
+                  </div>
+
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">พิกัด:
+                      </label>
+                      <label class="control-label col-md-3" style="text-align: left">13.651736,100.493667</label>
+                  </div>
+
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">เจ้าหน้าที่ประจำหน่วยงาน:
+                      </label>
+                      <label class="control-label col-md-3" style="text-align: left">คุณเกษม วงศ์แสน</label>
+                  </div>
+
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">หมายเลขโทรศัพท์:
+                      </label>
+                      <label class="control-label col-md-3" style="text-align: left">02-354-5678#5005</label>
+                  </div>
+                  
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">อีเมล:
+                      </label>
+                      <label class="control-label col-md-3" style="text-align: left">-</label>
+                  </div>
+
+                </form>
+
+              </div>
+
+              <div id="step-2">
+                <? $this->load->view('ef/equip_am1'); ?>
+              </div>
+              
+              <div id="step-3">
+                <? $this->load->view('ef/equip_am2'); ?>
+              </div>
+
+              <div id="step-4">
+                <? $this->load->view('ef/equip_am3'); ?>
+              </div>
+
+            </div>
+            <!-- End SmartWizard Content -->
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+
 </div>
 <!-- /page content -->

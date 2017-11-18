@@ -76,6 +76,9 @@
     "animate.css": "^3.5.1",
     "jqvmap": "https://github.com/christianesperar/jqvmap.git#master",
     "DateJS": "^1.0.0-rc3",
+    "flot.curvedlines": "^1.1.1",
+    "flot.orderbars": "*",
+    "flot-spline": "^0.8.2",
     "bootstrap-validator": "^0.11.5"
 
   },

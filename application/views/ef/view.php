@@ -75,7 +75,7 @@
                         <br><br><b>ผู้ตรวจสอบ</b> วิชญ์พล แสงอร่าม
                         <br><b>วันที่ตรวจสอบ</b> 2017-10-01
                         <br><br><button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> พิมพ์</button> 
-                        <button class="btn btn-success pull-right"><i class="fa fa-edit"></i> แก้ไข</button>
+                        <a href="<?=site_url('/ef/edit');?>"><button class="btn btn-success pull-right"><i class="fa fa-edit"></i> แก้ไข</button></a>
                         <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> PDF</button>
                     </div>
                     <!-- /.col -->
@@ -499,7 +499,7 @@
                     <div class="col-sm-9 invoice-col"></div>
                     <div class="col-xs-3">
                         <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> พิมพ์</button>
-                        <button class="btn btn-success pull-right"><i class="fa fa-edit"></i> แก้ไข</button>
+                        <a href="<?=site_url('/ef/edit');?>"><button class="btn btn-success pull-right"><i class="fa fa-edit"></i> แก้ไข</button></a>
                         <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> PDF</button>
                     </div>
                     </div>

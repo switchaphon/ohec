@@ -47,6 +47,7 @@
                   </div>
                   <div class="x_content">
                     <? echo "<pre>"; print_r($schedule); echo "</pre>"; ?>
+                    
                       <div class="ln_solid"></div>
 
                       <!-- <div class="form-group">
@@ -96,16 +97,28 @@
                     <table id="scheduleTask" name="scheduleTask" class="table table-striped">
                         <thead>
                             <tr>
-                            <th>จังหวัด</th>
                             <th>สถานที่</th>
                             <th>ทรัพย์สิน</th>
-                            <th>ประเภทการตรวจสอบ</th>
+                            <th>หมายเลขเคส</th>
+                            <!-- <th>ประเภทการตรวจสอบ</th> -->
                             <th></th>
                             </tr>
                         </thead>
-                        <tbody>            
+                        <tbody>        
+                        <?
+                        foreach($task_list as $row):
+                        ?>
+                          <tr>
+                              <td class="text-center"><a href="#"><?=$row['site_name'];?></a></td>
+                              <td class="text-center"><a href="#"><?=$row['ma_type'];?></a></td>
+                              <td class="text-center"><a href="#"><?=$row['ticket_id'];?></a></td>
+                              <td class="text-center"><a href="#"></td>
+                          </tr>
+
+                        <?
+                          endforeach;
+                        ?>       
                         </tbody>
-                        
                         </table>
                     
                     <!-- end form for validations -->
