@@ -122,7 +122,7 @@
                   <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="addTaskModal">
                     <div class="modal-dialog modal-lg">
                       <div class="modal-content">
-                            <? $this->load->view('schedule/add_task_modal'); ?>
+                        <? $this->load->view('schedule/add_task_modal'); ?>
                       </div>
                     </div>
                   </div>

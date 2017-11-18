@@ -6,48 +6,48 @@
     </div>
     <div class="modal-body">
 
-    <div class="panel panel-default">
-    <!-- <div class="panel-heading">Dynamic Form Fields - Add & Remove Multiple fields</div>
-    <div class="panel-heading">Education Experience</div> -->
-        <div class="panel-body">
-    
+        <div class="panel panel-default">
+        <!-- <div class="panel-heading">Dynamic Form Fields - Add & Remove Multiple fields</div> -->
+            <div class="panel-body">
+        
 
-                <div class="form-group col-md-5 col-sm-5 col-xs-12">
-                    <?  //print_r($site_list);
-                        $str = $opt = null;
+                    <div class="form-group col-md-5 col-sm-5 col-xs-12">
+                        <?  //print_r($site_list);
+                            $str = $opt = null;
 
-                        echo "<select id=\"site\" name=\"site[]\" class=\"form-control selectpicker show-tick\" title=\"select \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" required>";
-                        foreach($site_list as $provice => $site):
-                            echo '<optgroup label="'.$provice.'">';
-                            for($i = 0; $i < count($site); $i++){
-                                echo '<option value="'.$site[$i]['site_id'].'">'.$site[$i]['site_name'].'</option>';
-                            }
-                            echo '</optgroup>';
-                        endforeach;
-                        echo "</select>";
+                            echo "<select id=\"site\" name=\"site[]\" class=\"form-control selectpicker show-tick\" title=\"select \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" required>";
+                            foreach($site_list as $provice => $site):
+                                echo '<optgroup label="'.$provice.'">';
+                                for($i = 0; $i < count($site); $i++){
+                                    echo '<option value="'.$site[$i]['site_id'].'">'.$site[$i]['site_name'].'</option>';
+                                }
+                                echo '</optgroup>';
+                            endforeach;
+                            echo "</select>";
+                    
+                        ?>
+                    </div>
+
+                    <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                        <select id="ticket" name="ticket[]" class="form-control selectpicker show-tick" title="select" data-live-search="true" data-size="10" data-width="css-width" required></select>
+                    </div>
+
+                    <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                        <button class="btn btn-success" type="button"  onclick="add_task_fields();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
+                    </div>
+
+                    <div class="clear"></div>
+
+                    <div id="task_fields"></div>
+
+                    <input type="hidden" id="schedule_id" name="schedule_id" value="<?=$schedule[0]['schedule_id'];?>" />
+                    <input type="hidden" id="ticket_start_date" name="ticket_start_date" value="<?=$ticket_start_date;?>" />
+                    <input type="hidden" id="ticket_end_date" name="ticket_end_date" value="<?=$ticket_end_date;?>" />
                 
-                    ?>
-                </div>
-
-                <div class="form-group col-md-4 col-sm-4 col-xs-12">
-                    <select id="ticket" name="ticket[]" class="form-control selectpicker show-tick" title="select" data-live-search="true" data-size="10" data-width="css-width" required></select>
-                </div>
-
-                <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                    <button class="btn btn-success" type="button"  onclick="add_task_fields();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
-                </div>
-
-                <div class="clear"></div>
-
-                <div id="task_fields"></div>
-
-                <input type="hidden" id="schedule_id" name="schedule_id" value="<?=$schedule[0]['schedule_id'];?>" />
-                <input type="hidden" id="ticket_start_date" name="ticket_start_date" value="<?=$ticket_start_date;?>" />
-                <input type="hidden" id="ticket_end_date" name="ticket_end_date" value="<?=$ticket_end_date;?>" />
-            
-                <div class="clear"></div>
-            
-                <div class="panel-footer"><small>กด <span class="glyphicon glyphicon-plus gs"></span> เพื่อเพิ่มแถว</small>, <small>กด <span class="glyphicon glyphicon-minus gs"></span> เพื่อลบแถว</small></div>
+                    <div class="clear"></div>
+                
+                    <div class="panel-footer"><small>กด <span class="glyphicon glyphicon-plus gs"></span> เพื่อเพิ่มแถว</small>, <small>กด <span class="glyphicon glyphicon-minus gs"></span> เพื่อลบแถว</small></div>
+            </div>
         </div>
     </div>
 

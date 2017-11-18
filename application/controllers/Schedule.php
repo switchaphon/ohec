@@ -122,9 +122,7 @@ class Schedule extends MY_Controller {
 		//Log
 
 		//Redirect
-		$x = '/schedule/view/'.$schedule_id;
-		// redirect('schedule/view');
-		redirect($x,'refresh');	
+		redirect( site_url('/schedule/view/'.$schedule_id) );
 	}
 /*
 	// public function add_task( $id = null)
@@ -203,15 +201,17 @@ class Schedule extends MY_Controller {
 			//Insert DB
 			$res = $this->Schedule_model->_insert_array('tb_schedule_task',$task);
 
-			echo $res;
+			// echo $res;
 
 		endforeach;
 		
 		//Log
 
 		//Redirect
+		redirect( site_url('/schedule/view/'.$_POST['schedule_id']) );
 		
 	}
 
 
 }
+?>
