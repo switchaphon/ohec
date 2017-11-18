@@ -46,13 +46,7 @@ class Schedule_model extends CI_Model {
         
         return $query->result_array();
     }
-    /*
-    SELECT no,destination.site_id AS site_id,site_name,ma_project,ma_type,ticket_id
-FROM ohec.tb_schedule_destination destination
-  LEFT JOIN ohec.tb_site site ON destination.site_id = site.site_id
-  LEFT JOIN ohec.tb_schedule_task task ON destination.schedule_id = task.schedule_id AND destination.site_id = task.site_id
-WHERE destination.schedule_id = '2017111601'
-    */
+
     function _insert_array($table = null, $data=null) {
         // echo $table;
         // echo "<pre>"; print_r($data); echo "</pre>";
@@ -68,6 +62,7 @@ WHERE destination.schedule_id = '2017111601'
             ";
 
         $query = $this->db->query($sql);
+
         $row = $query->row();
 
         // print_r($row->schedule_id);
@@ -76,6 +71,29 @@ WHERE destination.schedule_id = '2017111601'
         }else{
             return FALSE;
         }
-    }   
+    }
+    
+    function get_schedule_destination($schedule_id = null) {
+        $sql ="
+            Select site_id
+            FROM ohec.tb_schedule_destination
+            WHERE schedule_id = '$schedule_id'
+            ORDER BY site_id ASC
+            ";
+
+        $query = $this->db->query($sql);
+            
+        $destination = array();
+            
+        if($query->result()){
+            foreach ($query->result_array() as $key => $value) {
+                $destination[] = $value['site_id'];
+            }
+                return $destination;
+            }else{
+                return FALSE;
+            }
+    }
+
 }
 ?>

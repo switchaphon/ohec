@@ -161,17 +161,31 @@ class Schedule extends MY_Controller {
 			
 			//Get ticket detail
 			$ticket = $this->Ticket_model->view_ticket($_POST['ticket'][$key]);
+			
+			//Validate contact name
+			if( empty($site[0]['name']) AND empty($site[0]['surname']) ){
+				$contact = NULL;
+			}else{
+				$contact = $site[0]['name']." ".$site[0]['surname'];
+			}
+			
+			//Check destination of this schedule
+			$destination_list = $this->Schedule_model->get_schedule_destination($_POST['schedule_id']);
 
-			$destination = array(
-				'schedule_id' => $_POST['schedule_id']
-				,'site_id' => $site[0]['site_id']
-				,'province' => $site[0]['province']
-				,'region' => $site[0]['region']
-				,'contact_name' => $site[0]['name']." ".$site[0]['surname'] //what is contact more than 1
-				,'contact_tel' => $site[0]['tel_no']
-				,'contact_mobile' => $site[0]['mobile_no']
-				,'contact_email' => $site[0]['email'] 
-			);
+			if ( !in_array($site[0]['site_id'], $destination_list) ) {
+				$destination = array(
+					'schedule_id' => $_POST['schedule_id']
+					,'site_id' => $site[0]['site_id']
+					,'province' => $site[0]['province']
+					,'region' => $site[0]['region']
+					,'contact_name' => $contact //what is contact more than 1
+					,'contact_tel' => $site[0]['tel_no']
+					,'contact_mobile' => $site[0]['mobile_no']
+					,'contact_email' => $site[0]['email'] 
+				);
+
+				$this->Schedule_model->_insert_array('tb_schedule_destination',$destination);
+			}
 
 			$task = array(
 				'schedule_id' => $_POST['schedule_id']
@@ -180,9 +194,10 @@ class Schedule extends MY_Controller {
 				,'ticket_id' => $ticket[0]['case_id']
 				,'ma_type' => $ticket[0]['case_category']
 			);
-
-			$res = $this->Schedule_model->_insert_array('tb_schedule_destination',$destination);
+			
+			//Insert DB
 			$res = $this->Schedule_model->_insert_array('tb_schedule_task',$task);
+
 		endforeach;
 		
 		//Log
