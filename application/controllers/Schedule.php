@@ -112,8 +112,8 @@ class Schedule extends MY_Controller {
 			,'end_date' => $end_date
 			,'ticket_start_date' => $ticket_start_date
 			,'ticket_end_date' => $ticket_end_date
-			,'created_date' => date("Y-m-d H:i:s",time())
-			,'created_by' => 'wichaphon.sa'
+			// ,'created_date' => date("Y-m-d H:i:s",time())
+			,'created_by' => 'Witchaphon Saengaram'
 			,'status' => '1'
 		);
 		
@@ -177,6 +177,8 @@ class Schedule extends MY_Controller {
 				,'contact_tel' => $site[0]['tel_no']
 				,'contact_mobile' => $site[0]['mobile_no']
 				,'contact_email' => $site[0]['email'] 
+				// ,'created_date' => date(time())
+				,'created_by' => 'Witchaphon Saengaram'
 			);
 
 			$task = array(
@@ -185,8 +187,12 @@ class Schedule extends MY_Controller {
 				,'ma_project' => $ticket[0]['contract']
 				,'ticket_id' => $ticket[0]['case_id']
 				,'ma_type' => $ticket[0]['case_category']
+				// ,'created_date' => date(time())
+				,'created_by' => 'Witchaphon Saengaram'
 			);
-			
+			// echo "<pre>"; print_r($destination); echo "</pre>";
+			// echo "<pre>"; print_r($task); echo "</pre>";
+			// echo date("Ymd",'1511083344');
 			//Check destination of this schedule
 			$destination_list = $this->Schedule_model->get_schedule_destination($_POST['schedule_id']);
 			
