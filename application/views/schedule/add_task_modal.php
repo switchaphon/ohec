@@ -12,7 +12,7 @@
         
 
                     <div class="form-group col-md-5 col-sm-5 col-xs-12">
-                        <?  //print_r($site_list);
+                        <?  
                             $str = $opt = null;
 
                             echo "<select id=\"site\" name=\"site[]\" class=\"form-control selectpicker show-tick\" title=\"select \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" required>";
@@ -24,7 +24,6 @@
                                 echo '</optgroup>';
                             endforeach;
                             echo "</select>";
-                    
                         ?>
                     </div>
 

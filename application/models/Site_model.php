@@ -10,13 +10,14 @@ class Site_model extends CI_Model {
     }
 
     function list_region() {
-        $sql ="
-            SELECT region
-            FROM ohec.tb_site
+        $sql = "
+            SELECT region,region_name
+            FROM ohec.tb_site site
+            LEFT JOIN ohec.tb_region region ON region.region_id = site.region
             WHERE site_status = '1'
-            GROUP BY region
-            ORDER BY region ASC
-            ";
+            GROUP BY region,region_name
+            ORDER BY region_name ASC        
+        ";
 
         $query = $this->db->query($sql);
 
@@ -24,7 +25,7 @@ class Site_model extends CI_Model {
 
         if($query->result()){
             foreach ($query->result_array() as $key => $value) {
-                $region[$value['region']] = $value['region'];
+                $region[$value['region']] = "[".$value['region']."] ".$value['region_name'];
             }
                 return $region;
             }else{
@@ -57,8 +58,9 @@ class Site_model extends CI_Model {
  
     function list_province_by_region($region = null) {
         $sql ="
-            SELECT region,province
-            FROM ohec.tb_site
+            SELECT region,region_name,province
+            FROM ohec.tb_site site
+            LEFT JOIN ohec.tb_region region ON region.region_id = site.region
             WHERE region IN ('$region') AND site_status = '1'
             GROUP BY region,province
             ORDER BY region,province ASC
@@ -70,7 +72,7 @@ class Site_model extends CI_Model {
 
         if($query->result()){
             foreach ($query->result_array() as $key => $value) {
-                $province[$value['region']][] = $value['province'];
+                $province['['.$value['region'].'] '.$value['region_name']][] = $value['province'];
             }
                 return $province;
             }else{
