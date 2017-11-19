@@ -25,7 +25,8 @@ class Schedule_model extends CI_Model {
     function view_schedule($id = null) {
         $sql ="
             Select *
-            FROM ohec.tb_schedule
+            FROM ohec.tb_schedule schedule
+            LEFT JOIN ohec.tb_region region ON region.region_id = schedule.region
             WHERE schedule_id = '$id'
             ";
         $query = $this->db->query($sql);

@@ -43,7 +43,7 @@ class MY_Controller extends CI_Controller {
       switch ($name) {
 
         case 'custom':
-          $this->load->css('assets/css/custom.css');
+          $this->load->css('assets/css/custom.min.css');
           $this->load->js('assets/js/custom.js');
           break;
 

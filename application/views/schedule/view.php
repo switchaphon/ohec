@@ -1,9 +1,9 @@
 <!-- page content -->
-<article>
+<!-- <article> -->
     <div class="right_col" role="main">
         <div class="page-title">
             <div class="title_left">
-                <h3>ตารางการตรวจงาน</h3>
+                <h3>ตารางการตรวจงาน Basic elements</h3>
             </div>
 
             <!-- <div class="title_right">
@@ -27,7 +27,7 @@
               <div class="col-md-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h4>รายละเอียด <i class="fa fa-info-circle"></i> </h4>
+                    <h2>รายละเอียด <i class="fa fa-info-circle"></i><small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -68,7 +68,7 @@
               <div class="col-md-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h4>สถานที่ <i class="fa fa-university"></i></h4>
+                    <h2>สถานที่ <i class="fa fa-university"></i><small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -132,7 +132,7 @@
 
                 <div class="x_panel">
                   <div class="x_title">
-                    <h4>กรรมการ <i class="fa fa-users"></i></h4>
+                    <h2>กรรมการ <i class="fa fa-users"></i><small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -173,8 +173,7 @@
             <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <!-- <h2><small>รายการแบบตรวจสอบออนไลน์</small></h2> -->
-                        <h2>App Versions</h2>
+                        <h2>รายการแบบตรวจสอบออนไลน์ <i class="fa fa-file-text"></i><small></small></h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -219,7 +218,7 @@
         <!-- /bottom row -->
         
     </div>
-</artical>
+<!-- </artical> -->
 <!-- /page content -->
 
 <!-- page script -->
