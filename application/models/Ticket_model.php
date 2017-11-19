@@ -9,14 +9,27 @@ class Ticket_model extends CI_Model {
         parent::__construct();
     }
 
-    function list_ticket_by_site($site = null , $ticket_start_date = null , $ticket_end_date = null) {
-        $sql ="
+    function list_ticket_by_site($schedule_id = null , $site_id = null , $ticket_start_date = null , $ticket_end_date = null) {
+        // $sql ="
+        // SELECT case_sub_category,contract,case_id
+        // FROM tb_ticket
+        // WHERE site_id = '$site' AND created_date BETWEEN '$ticket_start_date' AND '$ticket_end_date' AND (case_id LIKE 'NT-Fibre%' OR case_id LIKE 'NT-Equip%' ) AND case_status = 'Closed'
+        // GROUP BY case_sub_category,contract,case_id
+        // ORDER BY case_id ASC
+        //     ";
+
+        $sql="
         SELECT case_sub_category,contract,case_id
         FROM tb_ticket
-        WHERE site_id = '$site' AND created_date BETWEEN '$ticket_start_date' AND '$ticket_end_date' AND (case_id LIKE 'NT-Fibre%' OR case_id LIKE 'NT-Equip%' ) AND case_status = 'Closed'
+        WHERE site_id = '$site_id' AND created_date BETWEEN '$ticket_start_date' AND '$ticket_end_date' AND (case_id LIKE 'NT-Fibre%' OR case_id LIKE 'NT-Equip%' ) AND case_status = 'Closed' 
+        AND case_id NOT IN (
+        	SELECT ticket_id
+            FROM ohec.tb_schedule_task
+            WHERE schedule_id = '$schedule_id' AND site_id = '$site_id'
+        )
         GROUP BY case_sub_category,contract,case_id
-        ORDER BY case_id ASC
-            ";
+        ORDER BY case_id ASC        
+        ";
 
         $query = $this->db->query($sql);
 

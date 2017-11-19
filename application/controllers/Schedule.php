@@ -26,21 +26,21 @@ class Schedule extends MY_Controller {
         $this->load->view('schedule/index',$this->data);
 	}
 	
-	public function view($id = null){
+	public function view($schedule_id = null){
 		$this->_init();
 		$this->_init_assets( array('datatables','bootstrap_validator','bootstrap_select') );
 		$this->load->model( array('Schedule_model','Site_model'));
 
 		//Get schedule
-		$this->data['schedule'] = $this->Schedule_model->view_schedule($id);
+		$this->data['schedule'] = $this->Schedule_model->view_schedule($schedule_id);
 		
 		$province_list = str_replace("," , "','" , $this->data['schedule'][0]['province']);
 		$this->data['ticket_start_date'] = $ticket_start_date = $this->data['schedule'] [0]['ticket_start_date'];
 		$this->data['ticket_end_date'] = $ticket_end_date = $this->data['schedule'] [0]['ticket_end_date'];
 
 		// $this->data['site_list'] = $this->Site_model->list_site_by_province($province_list);
-		$this->data['site_list'] = $this->Site_model->list_site_by_province($province_list,$ticket_start_date,$ticket_end_date);
-		$this->data['task_list'] = $this->Schedule_model->get_schedule_task($id);
+		$this->data['site_list'] = $this->Site_model->list_site_by_province($province_list,$ticket_start_date,$ticket_end_date,$schedule_id);
+		$this->data['task_list'] = $this->Schedule_model->get_schedule_task($schedule_id);
 
         $this->load->view('schedule/view',$this->data);
 	}
@@ -190,9 +190,7 @@ class Schedule extends MY_Controller {
 				// ,'created_date' => date(time())
 				,'created_by' => 'Witchaphon Saengaram'
 			);
-			// echo "<pre>"; print_r($destination); echo "</pre>";
-			// echo "<pre>"; print_r($task); echo "</pre>";
-			// echo date("Ymd",'1511083344');
+
 			//Check destination of this schedule
 			$destination_list = $this->Schedule_model->get_schedule_destination($_POST['schedule_id']);
 			

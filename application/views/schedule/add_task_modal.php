@@ -92,7 +92,7 @@
                 type: "POST",
                 dataType: 'json',
                 url: "<?=site_url('/Ticket/list_ticket_by_site');?>",
-                data: "site="+ $('#site').val()+"&ticket_start_date="+$('#ticket_start_date').val()+"&ticket_end_date="+$('#ticket_end_date').val(),
+                data: "site="+ $('#site').val()+"&schedule_id="+$('#schedule_id').val()+"&ticket_start_date="+$('#ticket_start_date').val()+"&ticket_end_date="+$('#ticket_end_date').val(),
                 success: function(result)
                 {
                     $.each(result,function(index,val){
