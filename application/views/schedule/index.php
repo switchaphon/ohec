@@ -53,16 +53,16 @@
                     </a> -->
                       <a class="btn btn-round btn-default pull-right" href="<?=site_url('schedule/create')?>" name='create'><span class="fa fa-edit" aria-hidden="true"></span> สร้างใหม่</a>
                     </span>
-                    <table id="datatable-responsive" class="table table-striped table-bordered">
+                    <table id="tbSchedule" name="tbSchedule" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>หมายเลข</th>
-                          <th>ชื่อ</th>
-                          <th>รายละเอียด</th>
-                          <th>วันเดินทาง</th>
-                          <th>พื้นที่</th>
-                          <th>จังหวัด</th>
-                          <th></th>
+                          <th class="text-center">หมายเลข</th>
+                          <!-- <th class="text-center">ชื่อ</th> -->
+                          <th class="text-center">รายละเอียด</th>
+                          <th class="text-center">วันเดินทาง</th>
+                          <!-- <th class="text-center">พื้นที่</th> -->
+                          <th class="text-center">จังหวัด</th>
+                          <th class="text-center">Action</th>
                         </tr>
                       </thead>
                       
@@ -72,12 +72,15 @@
                       ?>
                         <tr>
                             <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['schedule_id'];?></a></td>
-                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['schedule_name'];?></a></td>
+                            <!-- <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['schedule_name'];?></a></td> -->
                             <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['schedule_description'];?></a></td>
                             <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=convert_to_yyyymmdd($row['start_date']);?> ถึง <?=convert_to_yyyymmdd($row['end_date']);?></a></td>
-                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['region'];?></a></td>
+                            <!-- <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['region'];?></a></td> -->
                             <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['province'];?></a></td>
-                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"></td>
+                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>">
+                            <a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>" class="btn btn-round btn-primary btn-xs"><i class="fa fa-folder"></i>  </a>
+                            <a href="#" class="btn btn-round btn-info btn-xs"><i class="fa fa-pencil"></i>  </a>
+                            <a href="#" class="btn btn-round btn-danger btn-xs"><i class="fa fa-trash-o"></i>  </a></td>
                         </tr>
 
                       <?
@@ -97,20 +100,24 @@
 <!-- /page content -->
 
 <script>
-
     $(document).ready(function(){
-        $('#datatable-responsive').DataTable({
+        $('#tbSchedule').DataTable({
           // "pageLength": 50,
           "paging":   true,
           "ordering": false,
+          language: { search: "_INPUT_" , searchPlaceholder: "ค้นหา..." },
           "dom": '<"toolbar">frtip'
          });
-         $("div.toolbar").html('<span id="datatable-responsive_filter2" class="dataTables_filter"></span>');
-         $('#datatable-responsive_filter').css('float','left','form-inline');
-         $('#datatable-responsive_filter2').css('float','right');
-         $('#datatable-responsive_filter2').append($('#controlPanel'));
-         $("div.toolbar").append($('#datatable-responsive_filter'));
+         $("div.toolbar").html('<span id="tbSchedule_filter2" class="dataTables_filter"></span>');
+          //Search box
+          $('#tbSchedule_filter').css('float','left');
+          $('#tbSchedule_filter').css('text-align','left');
 
-         $('#datatable-responsive').removeClass('hidden');
+          $('#tbSchedule_filter').css('float','left','form-inline');
+          $('#tbSchedule_filter2').css('float','right');
+          $('#tbSchedule_filter2').append($('#controlPanel'));
+          $("div.toolbar").append($('#tbSchedule_filter'));
+
+          $('#tbSchedule').removeClass('hidden');
     });
 </script>

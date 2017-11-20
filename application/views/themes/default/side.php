@@ -26,8 +26,8 @@
       <img src="<?=base_url('assets/img/img.jpg');?>" alt="..." class="img-circle profile_img">
     </div>
     <div class="profile_info">
-      <span>สวัสดี,</span>
-      <h2>วิชญ์พล แสงอร่าม</h2>
+      <span>Hi!,</span>
+      <h2><?=$this->session->userdata('cn');?></h2>
     </div>
     <div class="clearfix"></div>
   </div>

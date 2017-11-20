@@ -41,6 +41,7 @@ class Schedule extends MY_Controller {
 		// $this->data['site_list'] = $this->Site_model->list_site_by_province($province_list);
 		$this->data['site_list'] = $this->Site_model->list_site_by_province($province_list,$ticket_start_date,$ticket_end_date,$schedule_id);
 		$this->data['task_list'] = $this->Schedule_model->get_schedule_task($schedule_id);
+		$this->data['committee_list'] = $this->Schedule_model->get_committee($schedule_id);
 
         $this->load->view('schedule/view',$this->data);
 	}
@@ -216,6 +217,47 @@ class Schedule extends MY_Controller {
 		
 	}
 
+	public function join_schedule_ops(){
+		
+		$this->load->model( array('Schedule_model'));
+		
+		//Prepare data
+		$committee = array(
+			'schedule_id' => $_GET['schedule_id']
+			,'name' => $_GET['name']
+		);
+
+		//Insert DB
+		$res = $this->Schedule_model->_insert_array('tb_schedule_member',$committee);
+		
+		// echo $res;
+				
+		//Log
+
+		//Redirect
+		redirect( site_url('/schedule/view/'.$_GET['schedule_id']) );
+	}
+
+	public function disjoin_schedule_ops(){
+		
+		$this->load->model( array('Schedule_model'));
+
+		//Prepare data
+		$committee = array(
+			'schedule_id' => $_GET['schedule_id']
+			,'name' => $_GET['name']
+		);
+
+		//Insert DB
+		$res = $this->Schedule_model->_delete('tb_schedule_member',$committee);
+		
+		// echo $res;
+				
+		//Log
+
+		//Redirect
+		redirect( site_url('/schedule/view/'.$_GET['schedule_id']) );
+	}	
 
 }
 ?>

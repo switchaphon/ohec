@@ -1,9 +1,9 @@
 <!-- page content -->
-<!-- <article> -->
+<article>
     <div class="right_col" role="main">
         <div class="page-title">
             <div class="title_left">
-                <h3>ตารางการตรวจงาน Basic elements</h3>
+                <h3>ตารางการตรวจงาน</h3>
             </div>
 
             <!-- <div class="title_right">
@@ -46,17 +46,66 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <? echo "<pre>"; print_r($schedule); echo "</pre>"; ?>
-                    
-                      <div class="ln_solid"></div>
+                    <? //echo "<pre>"; print_r($schedule); echo "</pre>"; 
+                      foreach($schedule as $key => $val):
+                    ?>
 
-                      <!-- <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                          <button type="button" class="btn btn-primary">Cancel</button>
-                          <button type="reset" class="btn btn-primary">Reset</button>
-                          <button type="submit" class="btn btn-success">Submit</button>
+                    <!-- <div class="row">
+                      <label class="col-md-3 control-label text-left"><span class='label label-default'>Far Side Info.</span></label>
+                    </div> -->
+
+                    <div class="row">
+                      <label class="col-md-4 control-label text-right">ชื่อ</label>
+                      <div class="col-md-8 text-left"><?=$val['schedule_name'];?></div>
+                    </div>
+
+                    <div class="row">
+                      <label class="col-md-4 control-label text-right">รายละเอียด</label>
+                      <div class="col-md-8 text-left"><?=$val['schedule_description'];?></div>
+                    </div>
+          
+                    <div class="row">
+                      <label class="col-md-4 control-label text-right">กำหนดการเดินทาง</label>
+                      <div class="col-md-8 text-left"><?=convert_to_yyyymmdd( $val['start_date'] );?> ถึง <?=convert_to_yyyymmdd( $val['end_date'] );?></div>
+                    </div>
+
+                    <div class="row">
+                      <label class="col-md-4 control-label text-right">Ticket</label>
+                      <div class="col-md-8 text-left"><?=convert_to_yyyymmdd( $val['ticket_start_date'] );?> ถึง <?=convert_to_yyyymmdd( $val['ticket_end_date'] );?></div>
+                    </div>
+
+                    <div class="row">
+                      <label class="col-md-4 control-label text-right">พื้นที่</label>
+                      <div class="col-md-8 text-left"><?=$val['region_name'];?></div>
+                    </div>
+
+                    <div class="row">
+                      <label class="col-md-4 control-label text-right">จังหวัด</label>
+                      <div class="col-md-8 text-left"><?=$val['province'];?></div>
+                    </div>
+
+                    <div class="row">
+                      <label class="col-md-4 control-label text-right">สร้างเมื่อ</label>
+                      <div class="col-md-8 text-left"><?=convert_to_yyyymmdd( $val['created_date'] );?></div>
+                    </div>
+
+                    <div class="row">
+                      <label class="col-md-4 control-label text-right">สร้างโดย</label>
+                      <div class="col-md-8 text-left"><?=$val['created_by'];?></div>
+                    </div>
+
+                    <? endforeach; ?>
+
+                    <!-- <div id="map-canvas" style="width: 100%; height: 100%">xxx</div> -->
+
+                    <div class="ln_solid"></div>
+
+                      <div class="form-group">
+                        <div class="col-md-12 text-right">
+                          <button type="reset" class="btn btn-primary">กลับ</button>
+                          <button type="submit" class="btn btn-success">แก้ไข</button>
                         </div>
-                      </div> -->
+                      </div>
 
                     </form>
                   </div>
@@ -66,99 +115,128 @@
 
             <!-- right card -->
               <div class="col-md-6 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>สถานที่ <i class="fa fa-university"></i><small></small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <span id="controlPanel">
-                      <a href="#" class="btn btn-round btn-default pull-right" name='addTaskbtn' data-toggle="modal" data-target="#addTaskModal" ><span class="fa fa-plus-circle" aria-hidden="true"></span> เพิ่ม</a>
-                    </span>
-                    <table id="scheduleTask" name="scheduleTask" class="table table-striped">
+
+                <!-- committee card -->  
+                  <div class="x_panel">
+                    <div class="x_title">
+                      <h2>กรรมการ <i class="fa fa-users"></i><small></small></h2>
+                      <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Settings 1</a>
+                            </li>
+                            <li><a href="#">Settings 2</a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                      </ul>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+
+                    <!-- start form for validation -->
+                      <span id="panelCommittee">
+                        <? if( !in_array($this->session->userdata('cn'), $committee_list) ) {?>
+                          <a href="<?=site_url('schedule/join_schedule_ops?schedule_id='.$schedule[0]['schedule_id'])."&name=".$this->session->userdata('cn');?>" class="btn btn-round btn-info pull-right" id='joinSchedulebtn' name='joinSchedulebtn' ><span class="fa fa-plus-circle" aria-hidden="true"></span> เข้าร่วม</a>
+                        <?}?>
+                      </span>
+                      <table id="tbCommittee" name="tbCommittee" class="table table-hover">
                         <thead>
                             <tr>
-                            <th>สถานที่</th>
-                            <th>ทรัพย์สิน</th>
-                            <th>หมายเลขเคส</th>
+                            <th class="text-left">ชือ - นามสกุล</th>
                             <th></th>
                             </tr>
                         </thead>
                         <tbody>        
-                        <?
-                        foreach($task_list as $row):
-                        ?>
+                        <? foreach($committee_list as $row): ?>
                           <tr>
-                              <td class="text-center"><a href="#"><?=$row['site_name'];?></a></td>
-                              <td class="text-center"><a href="#"><?=$row['ma_type'];?></a></td>
-                              <td class="text-center"><a href="#"><?=$row['ticket_id'];?></a></td>
-                              <td class="text-center"><a href="#"></td>
+                              <td class="text-left"><a href="#"><?=$row;?></a></td>
+                              <? if($row == $this->session->userdata('cn')){ ?>
+                                <td class="text-left"><a href="<?=site_url('schedule/disjoin_schedule_ops')."?schedule_id=".$schedule[0]['schedule_id']."&name=".$this->session->userdata('cn') ?>" class="btn btn-round btn-warning btn-xs pull-right" id="cancelSchedulebtn" name="cancelSchedulebtn"><span class="fa fa-minus-circle" aria-hidden="true"></span> ยกเลิก</a></td>
+                              <? }else{ ?>
+                                <td class="text-left"></td>
+                              <?}?>
                           </tr>
 
-                        <?
-                          endforeach;
-                        ?>       
+                        <? endforeach; ?>       
                         </tbody>
-                      </table>             
+                      </table>       
                     <!-- end form for validations -->
-                  </div>
 
-                  <!-- addTaskModal -->
-                  <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="addTaskModal">
-                    <div class="modal-dialog modal-lg">
-                      <div class="modal-content">
-                        <? $this->load->view('schedule/add_task_modal'); ?>
-                      </div>
                     </div>
                   </div>
-                  <!-- /addTaskModal -->
-                
-                </div>
+                <!-- /committee card -->
 
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>กรรมการ <i class="fa fa-users"></i><small></small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
+                <!-- destination card -->
+                  <div class="x_panel">
+                    <div class="x_title">
+                      <h2>สถานที่ <i class="fa fa-university"></i><small></small></h2>
+                      <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Settings 1</a>
+                            </li>
+                            <li><a href="#">Settings 2</a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                      </ul>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                      <span id="panelTask">
+                        <a href="#" class="btn btn-round btn-info pull-right" name='addTaskbtn' data-toggle="modal" data-target="#addTaskModal" ><span class="fa fa-plus-circle" aria-hidden="true"></span> เพิ่มสถานที่</a>
+                      </span>
+                      <table id="tbTask" name="tbTask" class="table table-hover">
+                          <thead>
+                              <tr>
+                              <th class="text-center">สถานที่</th>
+                              <th class="text-center">ทรัพย์สิน</th>
+                              <th class="text-center">หมายเลขเคส</th>
+                              <th class="text-center"></th>
+                              </tr>
+                          </thead>
+                          <tbody>        
+                          <?
+                          foreach($task_list as $row):
+                          ?>
+                            <tr>
+                                <td class="text-left"><a href="#"><?=$row['site_name'];?></a></td>
+                                <td class="text-left"><a href="#"><?=$row['ma_type'];?></a></td>
+                                <td class="text-left"><a href="#"><?=$row['ticket_id'];?></a></td>
+                                <td class="text-left"><a href="#" class="btn btn-round btn-info btn-xs pull-right" name='addTaskbtn'><span class="fa fa-plus-circle" aria-hidden="true"></span> แบบตรวจ</a></td>
+                            </tr>
+
+                          <?
+                            endforeach;
+                          ?>       
+                          </tbody>
+                        </table>             
+                    </div>
+
+                    <!-- addTaskModal -->
+                    <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="addTaskModal">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                          <? $this->load->view('schedule/add_task_modal'); ?>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /addTaskModal -->
+                  
                   </div>
-                  <div class="x_content">
-
-                    <!-- start form for validation -->
-                    
-                    <!-- end form for validations -->
-
-                  </div>
-                </div>
-
+                <!-- /destination card -->
+              
               </div>
             <!-- /right card -->
 
@@ -192,17 +270,17 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <table id="scheduleEform" name="scheduleEform" class="table table-striped table-bordered">
+                        <table id="scheduleEform" name="scheduleEform" class="table table-striped">
                         <thead>
                             <tr>
-                            <th>หมายเลข</th>
-                            <th>ชื่อหน่วยงาน</th>
-                            <th>จังหวัด</th>
-                            <th>ทรัพย์สิน</th>
-                            <th>ประเภทการตรวจสอบ</th>
-                            <th>ผู้ตรวจสอบ</th>
-                            <th>วันที่ตรวจสอบ</th>
-                            <th></th>
+                            <th class="text-center">หมายเลข</th>
+                            <th class="text-center">ชื่อหน่วยงาน</th>
+                            <th class="text-center">จังหวัด</th>
+                            <th class="text-center">ทรัพย์สิน</th>
+                            <th class="text-center">ประเภทการตรวจสอบ</th>
+                            <th class="text-center">ผู้ตรวจสอบ</th>
+                            <th class="text-center">วันที่ตรวจสอบ</th>
+                            <th class="text-center"></th>
                             </tr>
                         </thead>
                         
@@ -218,35 +296,69 @@
         <!-- /bottom row -->
         
     </div>
-<!-- </artical> -->
+</artical>
 <!-- /page content -->
 
 <!-- page script -->
 <script type="text/javascript">
  $(document).ready(function(){
 
-    $('#scheduleTask').DataTable({
-          // "pageLength": 50,
-          "paging":   true,
-          "ordering": true,
-          language: { search: "_INPUT_" , searchPlaceholder: "ค้นหา..." }, //remove "search" label and put in placeholder
-          "dom": '<"toolbar">frtip'
-         });
+    $('#tbTask').DataTable({
+      "pageLength": 10,
+      "paging":   true,
+      "ordering": true,
+      language: { search: "_INPUT_" , searchPlaceholder: "ค้นหา..." }, //remove "search" label and put in placeholder
+      "dom": '<"toolbarTask">frtip'
+    });
 
-    $("div.toolbar").html('<span id="scheduleTask_filter2" class="dataTables_filter"></span>');
+    $("div.toolbarTask").html('<span id="tbTask_filter2" class="dataTables_filter"></span>');
     //Search box
-    $('#scheduleTask_filter').css('float','left');
-    $('#scheduleTask_filter').css('text-align','left');
+    $('#tbTask_filter').css('float','left');
+    $('#tbTask_filter').css('text-align','left');
 
-    $('#scheduleTask_filter2').css('float','right');
-    $('#scheduleTask_filter2').append($('#controlPanel'));
-    $("div.toolbar").append($('#scheduleTask_filter'));
+    $('#tbTask_filter2').css('float','right');
+    $('#tbTask_filter2').append($('#panelTask'));
+    $("div.toolbarTask").append($('#tbTask_filter'));
 
-    $('#scheduleTask').removeClass('hidden');
+    $('#tbTask').removeClass('hidden');
+
+    $('#tbCommittee').DataTable({
+      searching: false,
+      "paging":   false,
+      "ordering": false,
+      language: { search: "_INPUT_" , searchPlaceholder: "ค้นหา..." }, //remove "search" label and put in placeholder
+      "dom": '<"toolbarCommittee">frtip'
+    });
+
+    $("div.toolbarCommittee").html('<span id="tbCommittee_filter2" class="dataTables_filter"></span>');
+    //Search box
+    $('#tbCommittee_filter').css('float','left');
+    $('#tbCommittee_filter').css('text-align','left');
+
+    $('#tbCommittee_filter2').css('float','right');
+    $('#tbCommittee_filter2').append($('#panelCommittee'));
+    $("div.toolbarCommittee").append($('#tbCommittee_filter'));
+
+    $('#tbCommittee').removeClass('hidden');
 
  });
 
-
-
 </script>
+
+
+<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTumdnMNt9AoCnkbx-YlfTHJYTj7iV6UI&sensor=TRUE"></script>
+
+<script type="text/javascript">
+    function initialize() {
+      var mapOptions = {
+        center: new google.maps.LatLng(-34.397, 150.644),
+        zoom: 8
+      };
+      var map = new google.maps.Map(document.getElementById("map-canvas"),
+          mapOptions);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+</script> -->
 <!-- /page script -->

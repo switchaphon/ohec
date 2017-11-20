@@ -25,8 +25,8 @@ class Welcome extends MY_Controller {
 	}
 
 	public function index()
-	{
-		// $this->_init();
+	{	
+		// $this->_init_assets( array('jquery', 'bootstrap', 'font-awesome', 'fastclick', 'nprogress','moment','custom',) );
 		$this->load->view('login');
 	}
 }

@@ -49,9 +49,22 @@ class Schedule_model extends CI_Model {
     }
 
     function _insert_array($table = null, $data=null) {
-        // echo $table;
-        // echo "<pre>"; print_r($data); echo "</pre>";
+        
         $this->db->insert($table, $data);
+
+        return $this->db->affected_rows();
+    }
+/*
+
+*/
+    function _delete($table = null, $data=null) {
+
+        foreach($data as $key => $val):
+            $this->db->where($key, $val);
+        endforeach;
+
+        $this->db->delete($table); 
+
         return $this->db->affected_rows();
     }
 
@@ -94,6 +107,28 @@ class Schedule_model extends CI_Model {
             }else{
                 return FALSE;
             }
+    }
+
+    function get_committee($schedule_id = null) {
+        $sql ="
+            Select name
+            FROM ohec.tb_schedule_member
+            WHERE schedule_id = '$schedule_id'
+            ORDER BY name ASC
+            ";
+
+        $query = $this->db->query($sql);
+            
+        $member = array();
+        
+    if($query->result()){
+        foreach ($query->result_array() as $key => $value) {
+            $member[] = $value['name'];
+        }
+            return $member;
+        }else{
+            return FALSE;
+        }
     }
 
 }
