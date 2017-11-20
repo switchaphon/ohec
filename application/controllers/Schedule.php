@@ -13,6 +13,15 @@ class Schedule extends MY_Controller {
 		parent::__construct();
 		$this->load->helper(array('form', 'url' , 'datetime_helper'));
 		$this->output->set_title('OHEC : Schedule');
+
+		//Fixed value
+		$customdata = array(
+			'username' => 'witchaphon.sa'
+			,'cn' => 'Witchaphon Saeng-aram'
+			,'role' => 'Administrator'
+			,'logged_in' => TRUE
+		);                            
+		$this->session->set_userdata($customdata);		
 	}
 
 	public function index(){
