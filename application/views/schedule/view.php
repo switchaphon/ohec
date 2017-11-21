@@ -155,12 +155,12 @@
                             if( !in_array($this->session->userdata('cn'), $committee_list) ) {
                         ?>
                           <!-- <a href="<?=site_url('schedule/join_schedule_ops?schedule_id='.$schedule[0]['schedule_id'])."&name=".$this->session->userdata('cn');?>" class="btn btn-round btn-info pull-right" id='joinSchedulebtn' name='joinSchedulebtn' ><span class="fa fa-plus-circle" aria-hidden="true"></span> เข้าร่วม</a> -->
-                          <a href="#" class="btn btn-round btn-info pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus-circle" aria-hidden="true"></span> เข้าร่วม</a>
+                          <a href="#" class="btn btn-round btn-info pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
                         <?  
                             }
                           }else{ 
                         ?>
-                          <a href="#" class="btn btn-round btn-info pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus-circle" aria-hidden="true"></span> เข้าร่วม</a>
+                          <a href="#" class="btn btn-round btn-info pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
                         <?  
                           }
                         ?>
@@ -182,7 +182,8 @@
                               <? if($val['name'] == $this->session->userdata('cn')){ ?>
                                 <td class="text-left">
                                   <!-- <a href="<?=site_url('schedule/disjoin_schedule_ops')."?schedule_id=".$schedule[0]['schedule_id']."&name=".$this->session->userdata('cn') ?>" class="btn btn-round btn-warning btn-xs pull-right" id="cancelSchedulebtn" name="cancelSchedulebtn"><span class="fa fa-minus-circle" aria-hidden="true"></span> ยกเลิก</a> -->
-                                  <a href="#" class="btn btn-round btn-warning btn-xs pull-right" id='disjoinSchedulebtn' name='disjoinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#disjoinScheduleModal"  ><span class="fa fa-plus-circle" aria-hidden="true"></span> ยกเลิก</a>                                
+                                  <a href="#" class="btn btn-round btn-danger btn-xs" id='disjoinSchedulebtn' name='disjoinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#disjoinScheduleModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
+                                  <!-- <a href="#" class="btn btn-round btn-danger btn-xs"><i class="fa fa-trash-o"></i>  </a> -->
                                 </td>
                                 
                               <? }else{ ?>
@@ -224,7 +225,7 @@
                     </div>
                     <div class="x_content">
                       <span id="panelTask">
-                        <a href="#" class="btn btn-round btn-info pull-right" name='addTaskbtn' data-toggle="modal" data-target="#addTaskModal" ><span class="fa fa-plus-circle" aria-hidden="true"></span> เพิ่มสถานที่</a>
+                        <a href="#" class="btn btn-round btn-info pull-right" name='addTaskbtn' data-toggle="modal" data-target="#addTaskModal" ><span class="fa fa-plus" aria-hidden="true"></span> เพิ่มสถานที่</a>
                       </span>
                       <table id="tbTask" name="tbTask" class="table table-hover">
                           <thead>
@@ -243,7 +244,12 @@
                                 <td class="text-left"><a href="#"><?=$val['site_name'];?></a></td>
                                 <td class="text-left"><a href="#"><?=$val['ma_type'];?></a></td>
                                 <td class="text-left"><a href="#"><?=$val['ticket_id'];?></a></td>
-                                <td class="text-left"><a href="#" class="btn btn-round btn-info btn-xs pull-right" name='addTaskbtn'><span class="fa fa-plus-circle" aria-hidden="true"></span> แบบตรวจ</a></td>
+                                <td class="text-left">
+                                  <!-- <a href="#" class="btn btn-round btn-primary btn-xs"><i class="fa fa-folder"></i>  </a> -->
+                                  <a href="#" class="btn btn-round btn-success btn-xs"><i class="fa fa-pencil"></i> ตรวจ </a>
+                                  <a href="#" class="btn btn-round btn-danger btn-xs"><i class="fa fa-trash-o"></i> ยกเลิก </a>
+                                  <!-- <a href="#" class="btn btn-round btn-info btn-xs pull-right" name='addTaskbtn'><span class="fa fa-plus-circle" aria-hidden="true"></span> แบบตรวจ</a> -->
+                                </td>
                             </tr>
 
                           <?

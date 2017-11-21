@@ -78,9 +78,10 @@
                             <!-- <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['region'];?></a></td> -->
                             <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['province'];?></a></td>
                             <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>">
-                            <a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>" class="btn btn-round btn-primary btn-xs"><i class="fa fa-folder"></i>  </a>
-                            <a href="#" class="btn btn-round btn-info btn-xs"><i class="fa fa-pencil"></i>  </a>
-                            <a href="#" class="btn btn-round btn-danger btn-xs"><i class="fa fa-trash-o"></i>  </a></td>
+                              <a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>" class="btn btn-round btn-primary btn-xs"><i class="fa fa-folder-open"></i> ดู </a>
+                              <a href="#" class="btn btn-round btn-info btn-xs"><i class="fa fa-pencil"></i> แก้ไข </a>
+                              <a href="#" class="btn btn-round btn-danger btn-xs"><i class="fa fa-trash-o"> ยกเลิก</i>  </a>
+                            </td>
                         </tr>
 
                       <?
