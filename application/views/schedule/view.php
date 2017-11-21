@@ -1,3 +1,11 @@
+<!-- page style -->
+  <style>
+  .modal-sm {
+      width: 350px;
+  }
+  </style>
+<!-- /page style -->
+
 <!-- page content -->
 <article>
     <div class="right_col" role="main">
@@ -20,6 +28,7 @@
         </div>
 
         <div class="clearfix"></div>
+
         <!-- top row -->
         <div class="row">
 
@@ -141,9 +150,20 @@
 
                     <!-- start form for validation -->
                       <span id="panelCommittee">
-                        <? if( !in_array($this->session->userdata('cn'), $committee_list) ) {?>
-                          <a href="<?=site_url('schedule/join_schedule_ops?schedule_id='.$schedule[0]['schedule_id'])."&name=".$this->session->userdata('cn');?>" class="btn btn-round btn-info pull-right" id='joinSchedulebtn' name='joinSchedulebtn' ><span class="fa fa-plus-circle" aria-hidden="true"></span> เข้าร่วม</a>
-                        <?}?>
+                        <? 
+                          if(!empty($committee_list)){  
+                            if( !in_array($this->session->userdata('cn'), $committee_list) ) {
+                        ?>
+                          <!-- <a href="<?=site_url('schedule/join_schedule_ops?schedule_id='.$schedule[0]['schedule_id'])."&name=".$this->session->userdata('cn');?>" class="btn btn-round btn-info pull-right" id='joinSchedulebtn' name='joinSchedulebtn' ><span class="fa fa-plus-circle" aria-hidden="true"></span> เข้าร่วม</a> -->
+                          <a href="#" class="btn btn-round btn-info pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus-circle" aria-hidden="true"></span> เข้าร่วม</a>
+                        <?  
+                            }
+                          }else{ 
+                        ?>
+                          <a href="#" class="btn btn-round btn-info pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus-circle" aria-hidden="true"></span> เข้าร่วม</a>
+                        <?  
+                          }
+                        ?>
                       </span>
                       <table id="tbCommittee" name="tbCommittee" class="table table-hover">
                         <thead>
@@ -153,17 +173,26 @@
                             </tr>
                         </thead>
                         <tbody>        
-                        <? foreach($committee_list as $row): ?>
+                        <? 
+                          // if(!empty($committee_list)){ 
+                            foreach($committee_list as $key => $val): 
+                        ?>
                           <tr>
-                              <td class="text-left"><a href="#"><?=$row;?></a></td>
-                              <? if($row == $this->session->userdata('cn')){ ?>
-                                <td class="text-left"><a href="<?=site_url('schedule/disjoin_schedule_ops')."?schedule_id=".$schedule[0]['schedule_id']."&name=".$this->session->userdata('cn') ?>" class="btn btn-round btn-warning btn-xs pull-right" id="cancelSchedulebtn" name="cancelSchedulebtn"><span class="fa fa-minus-circle" aria-hidden="true"></span> ยกเลิก</a></td>
+                              <td class="text-left"><a href="#"><?=$val['name'];?></a></td>
+                              <? if($val['name'] == $this->session->userdata('cn')){ ?>
+                                <td class="text-left">
+                                  <!-- <a href="<?=site_url('schedule/disjoin_schedule_ops')."?schedule_id=".$schedule[0]['schedule_id']."&name=".$this->session->userdata('cn') ?>" class="btn btn-round btn-warning btn-xs pull-right" id="cancelSchedulebtn" name="cancelSchedulebtn"><span class="fa fa-minus-circle" aria-hidden="true"></span> ยกเลิก</a> -->
+                                  <a href="#" class="btn btn-round btn-warning btn-xs pull-right" id='disjoinSchedulebtn' name='disjoinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#disjoinScheduleModal"  ><span class="fa fa-plus-circle" aria-hidden="true"></span> ยกเลิก</a>                                
+                                </td>
+                                
                               <? }else{ ?>
                                 <td class="text-left"></td>
                               <?}?>
                           </tr>
-
-                        <? endforeach; ?>       
+                        <? 
+                            endforeach; 
+                          // }
+                        ?>       
                         </tbody>
                       </table>       
                     <!-- end form for validations -->
@@ -208,12 +237,12 @@
                           </thead>
                           <tbody>        
                           <?
-                          foreach($task_list as $row):
+                          foreach($task_list as $key => $val):
                           ?>
                             <tr>
-                                <td class="text-left"><a href="#"><?=$row['site_name'];?></a></td>
-                                <td class="text-left"><a href="#"><?=$row['ma_type'];?></a></td>
-                                <td class="text-left"><a href="#"><?=$row['ticket_id'];?></a></td>
+                                <td class="text-left"><a href="#"><?=$val['site_name'];?></a></td>
+                                <td class="text-left"><a href="#"><?=$val['ma_type'];?></a></td>
+                                <td class="text-left"><a href="#"><?=$val['ticket_id'];?></a></td>
                                 <td class="text-left"><a href="#" class="btn btn-round btn-info btn-xs pull-right" name='addTaskbtn'><span class="fa fa-plus-circle" aria-hidden="true"></span> แบบตรวจ</a></td>
                             </tr>
 
@@ -224,24 +253,13 @@
                         </table>             
                     </div>
 
-                    <!-- addTaskModal -->
-                    <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="addTaskModal">
-                      <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                          <? $this->load->view('schedule/add_task_modal'); ?>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- /addTaskModal -->
+
                   
                   </div>
                 <!-- /destination card -->
               
               </div>
             <!-- /right card -->
-
-
-
 
         </div>
         <!-- /top row -->
@@ -299,6 +317,39 @@
 </artical>
 <!-- /page content -->
 
+<!-- modal content -->
+  <!-- addTaskModal -->
+  <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="addTaskModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <? $this->load->view('schedule/add_task_modal'); ?>
+      </div>
+    </div>
+  </div>
+  <!-- /addTaskModal -->
+
+  <!-- joinScheduleModal -->
+  <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="joinScheduleModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <? $this->load->view('schedule/join_schedule_modal'); ?>
+      </div>
+    </div>
+  </div>
+  <!-- /joinScheduleModal -->
+
+  <!-- disjoinScheduleModal -->
+  <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="disjoinScheduleModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <? $this->load->view('schedule/disjoin_schedule_modal'); ?>
+      </div>
+    </div>
+  </div>
+  <!-- /disjoinScheduleModal -->
+
+<!-- /modal content -->  
+
 <!-- page script -->
 <script type="text/javascript">
  $(document).ready(function(){
@@ -341,6 +392,44 @@
 
     $('#tbCommittee').removeClass('hidden');
 
+
+    $('#joinScheduleModal').on('show.bs.modal', function(e) {
+      var schedule_id = $(e.relatedTarget).data('schedule_id')
+      var schedule_name = $(e.relatedTarget).data('schedule_name')
+      var schedule_description = $(e.relatedTarget).data('schedule_description')
+      var name = $(e.relatedTarget).data('name')
+
+      $("#joinScheduleModal .modal-header .modal-title").html('เข้าร่วมการตรวจงานนี้');
+      $("#joinScheduleModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการเข้าร่วมเป็นกรรมการการตรวจงาน<BR><BR><b>'+schedule_description+'</b><BR><BR>ใช่หรือไม่ ?</div>');
+
+      $(e.currentTarget).find('input[name="schedule_id"]').val(schedule_id);
+      $(e.currentTarget).find('input[name="name"]').val(name);
+    });
+
+    $('#disjoinScheduleModal').on('show.bs.modal', function(e) {
+      var schedule_id = $(e.relatedTarget).data('schedule_id')
+      var schedule_name = $(e.relatedTarget).data('schedule_name')
+      var schedule_description = $(e.relatedTarget).data('schedule_description')
+      var name = $(e.relatedTarget).data('name')
+
+      $("#disjoinScheduleModal .modal-header .modal-title").html('ยกเลิกเข้าร่วมการตรวจงานนี้');
+      $("#disjoinScheduleModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกเป็นกรรมการการตรวจงาน<BR><BR><b>'+schedule_description+'</b><BR><BR>ใช่หรือไม่ ?</div>');
+
+      $(e.currentTarget).find('input[name="schedule_id"]').val(schedule_id);
+      $(e.currentTarget).find('input[name="name"]').val(name);
+    });
+
+    // $('#addTaskModal').on('hidden.bs.modal', '.modal', function () {
+    //  $(this).removeData('bs.modal');
+    // });
+
+    // $('#joinScheduleModal').on('hidden.bs.modal', '.modal', function () {
+    //  $(this).removeData('bs.modal');
+    // });
+
+    // $('#disjoinScheduleModal').on('hidden.bs.modal', '.modal', function () {
+    //  $(this).removeData('bs.modal');
+    // });
  });
 
 </script>

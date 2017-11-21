@@ -1,5 +1,5 @@
 <!-- modal content -->
-<form role="form" id="addTask" name="addTask" class="form-inline" data-toggle="validator" action="<?=site_url('schedule/add_task_ops');?>" method="POST">    
+<form role="form" id="joinSchedule" name="joinSchedule" class="form-inline" data-toggle="validator" action="<?=site_url('schedule/add_task_ops');?>" method="POST">    
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
         <h4 class="modal-title" id="myModalLabel">Modal title</h4>
@@ -69,7 +69,7 @@
         var rdiv = 'removeclass'+row;
 
         var site = document.getElementById( 'site' ).cloneNode( true );
-        document.getElementById( 'addTask' ).appendChild( site );
+        document.getElementById( 'joinSchedule' ).appendChild( site );
         // divtest.innerHTML = ' <div class="form-group col-md-5 col-sm-5 col-xs-12"><select id="site" name="site[]" class="form-control show-tick" title="select "data-live-search="true" data-size="10" data-width="css-width" required ><option value="">Date</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018">2018</option></select></div><div class="form-group col-md-4 col-sm-4 col-xs-12"> <input type="text" class="form-control" id="Schoolname" name="Schoolname[]" value="" placeholder="School name"></div><div class="form-group col-md-2 col-sm-2 col-xs-12"><button class="btn btn-danger" type="button" onclick="remove_task_fields('+ row +');"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></div></div><div class="clear"></div>';
         divtest.innerHTML = ' <div class="form-group col-md-5 col-sm-5 col-xs-12"></div><div class="form-group col-md-4 col-sm-4 col-xs-12"> <input type="text" class="form-control" id="Schoolname" name="Schoolname[]" value="" placeholder="School name"></div><div class="form-group col-md-2 col-sm-2 col-xs-12"><button class="btn btn-danger" type="button" onclick="remove_task_fields('+ row +');"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></div></div><div class="clear"></div>';
         

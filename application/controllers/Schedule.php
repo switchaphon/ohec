@@ -134,6 +134,7 @@ class Schedule extends MY_Controller {
 		//Redirect
 		redirect( site_url('/schedule/view/'.$schedule_id) );
 	}
+
 /*
 	// public function add_task( $id = null)
 	// {
@@ -157,7 +158,8 @@ class Schedule extends MY_Controller {
 
 	// 	//Redirect
 	// }
-*/	
+*/
+
 	public function add_task_ops(){
 		
 		$this->load->model( array('Ticket_model','Site_model','Schedule_model'));
@@ -229,11 +231,11 @@ class Schedule extends MY_Controller {
 	public function join_schedule_ops(){
 		
 		$this->load->model( array('Schedule_model'));
-		
+		// echo "<pre>"; print_r($_POST); echo "</pre>";
 		//Prepare data
 		$committee = array(
-			'schedule_id' => $_GET['schedule_id']
-			,'name' => $_GET['name']
+			'schedule_id' => $_POST['schedule_id']
+			,'name' => $_POST['name']
 		);
 
 		//Insert DB
@@ -244,17 +246,17 @@ class Schedule extends MY_Controller {
 		//Log
 
 		//Redirect
-		redirect( site_url('/schedule/view/'.$_GET['schedule_id']) );
+		redirect( site_url('/schedule/view/'.$_POST['schedule_id']) );
 	}
 
 	public function disjoin_schedule_ops(){
 		
 		$this->load->model( array('Schedule_model'));
-
+		// echo "<pre>"; print_r($_POST); echo "</pre>";
 		//Prepare data
 		$committee = array(
-			'schedule_id' => $_GET['schedule_id']
-			,'name' => $_GET['name']
+			'schedule_id' => $_POST['schedule_id']
+			,'name' => $_POST['name']
 		);
 
 		//Insert DB
@@ -265,7 +267,7 @@ class Schedule extends MY_Controller {
 		//Log
 
 		//Redirect
-		redirect( site_url('/schedule/view/'.$_GET['schedule_id']) );
+		redirect( site_url('/schedule/view/'.$_POST['schedule_id']) );
 	}	
 
 }

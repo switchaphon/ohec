@@ -118,18 +118,19 @@ class Schedule_model extends CI_Model {
             ";
 
         $query = $this->db->query($sql);
-            
-        $member = array();
         
-    if($query->result()){
-        foreach ($query->result_array() as $key => $value) {
-            $member[] = $value['name'];
+        return $query->result_array();        
+        // $member = array();
+        
+        // if($query->result()){
+        //     foreach ($query->result_array() as $key => $value) {
+        //         $member[] = $value['name'];
+        //     }
+        //         return $member;
+        //     }else{
+        //         return FALSE;
+        //     }
         }
-            return $member;
-        }else{
-            return FALSE;
-        }
-    }
 
 }
 ?>
