@@ -92,17 +92,30 @@
                       <label class="col-md-4 control-label text-right">จังหวัด</label>
                       <div class="col-md-8 text-left"><?=$val['province'];?></div>
                     </div>
-
+                    <div class="ln_solid"></div>    
                     <div class="row">
                       <label class="col-md-4 control-label text-right">สร้างเมื่อ</label>
-                      <div class="col-md-8 text-left"><?=convert_to_yyyymmdd( $val['created_date'] );?></div>
+                      <div class="col-md-8 text-left"><?=$val['created_date'];?></div>
                     </div>
 
                     <div class="row">
                       <label class="col-md-4 control-label text-right">สร้างโดย</label>
                       <div class="col-md-8 text-left"><?=$val['created_by'];?></div>
                     </div>
+                    
+                    <? if($val['updated_date'] != NULL){?>
 
+                    <div class="row">
+                      <label class="col-md-4 control-label text-right">แก้ไขเมื่อ</label>
+                      <div class="col-md-8 text-left"><?=$val['updated_date'];?></div>
+                    </div>
+
+                    <div class="row">
+                      <label class="col-md-4 control-label text-right">แก้ไขโดย</label>
+                      <div class="col-md-8 text-left"><?=$val['updated_by'];?></div>
+                    </div>
+
+                    <? } ?>
                     <? endforeach; ?>
 
                     <!-- <div id="map-canvas" style="width: 100%; height: 100%">xxx</div> -->
@@ -148,14 +161,18 @@
                       </ul>
                       <div class="clearfix"></div>
                     </div>
-                    <div class="x_content">
-
+                    <div class="x_content"><?
+                            // echo $this->session->userdata('cn');
+                            // echo "<pre>"; print_r($committee_list); echo "</pre>";
+                            ?>
                     <!-- start form for validation -->
                       <span id="panelCommittee">
                         <? 
                           if(!empty($committee_list)){  
-                            if( !in_array($this->session->userdata('cn'), $committee_list) ) {
+
+                            if( !in_array($this->session->userdata('cn'), $committee_list, true) ) {
                         ?>
+                          xo
                           <!-- <a href="<?=site_url('schedule/join_schedule_ops?schedule_id='.$schedule[0]['schedule_id'])."&name=".$this->session->userdata('cn');?>" class="btn btn-round btn-info pull-right" id='joinSchedulebtn' name='joinSchedulebtn' ><span class="fa fa-plus-circle" aria-hidden="true"></span> เข้าร่วม</a> -->
                           <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
                         <?  
@@ -180,8 +197,8 @@
                             foreach($committee_list as $key => $val): 
                         ?>
                           <tr>
-                              <td class="text-left"><a href="#"><?=$val['name'];?></a></td>
-                              <? if($val['name'] == $this->session->userdata('cn')){ ?>
+                              <td class="text-left"><a href="#"><?=$val;?></a></td>
+                              <? if($val == $this->session->userdata('cn')){ ?>
                                 <td class="text-left">
                                   <!-- <a href="<?=site_url('schedule/disjoin_schedule_ops')."?schedule_id=".$schedule[0]['schedule_id']."&name=".$this->session->userdata('cn') ?>" class="btn btn-round btn-warning btn-xs pull-right" id="cancelSchedulebtn" name="cancelSchedulebtn"><span class="fa fa-minus-circle" aria-hidden="true"></span> ยกเลิก</a> -->
                                   <a href="#" class="btn btn-round btn-danger btn-xs" id='disjoinSchedulebtn' name='disjoinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#disjoinScheduleModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
@@ -227,7 +244,7 @@
                     </div>
                     <div class="x_content">
                       <span id="panelTask">
-                        <!-- <a href="#" class="btn btn-round btn-info pull-right" name='addTaskbtn' data-toggle="modal" data-target="#addTaskModal" ><span class="fa fa-plus" aria-hidden="true"></span> เพิ่มสถานที่</a> -->
+                        <a href="#" class="btn btn-round btn-info pull-right" name='addTaskbtn' data-toggle="modal" data-target="#addTaskModal" ><span class="fa fa-plus" aria-hidden="true"></span> เพิ่มสถานที่</a>
                       </span>
                       <table id="tbTask" name="tbTask" class="table table-hover">
                           <thead>
@@ -249,7 +266,7 @@
                                 <td class="text-left">
                                   <!-- <a href="#" class="btn btn-round btn-primary btn-xs"><i class="fa fa-folder"></i>  </a> -->
                                   <a href="#" class="btn btn-round btn-success btn-xs"><i class="fa fa-file-text"></i> ตรวจ </a>
-                                  <!-- <a href="#" class="btn btn-round btn-danger btn-xs" id='cancelTaskbtn' name='cancelTaskbtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-site_id="<?=$val['site_id'];?>" data-site_name="<?=$val['site_name'];?>" data-ticket_id="<?=$val['ticket_id'];?>" data-toggle="modal" data-target="#cancelTaskModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                 -->
+                                  <a href="#" class="btn btn-round btn-danger btn-xs" id='cancelTaskbtn' name='cancelTaskbtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-site_id="<?=$val['site_id'];?>" data-site_name="<?=$val['site_name'];?>" data-ticket_id="<?=$val['ticket_id'];?>" data-toggle="modal" data-target="#cancelTaskModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
                                   
                                   <!-- <a href="#" class="btn btn-round btn-info btn-xs pull-right" name='addTaskbtn'><span class="fa fa-plus-circle" aria-hidden="true"></span> แบบตรวจ</a> -->
                                 </td>
@@ -327,16 +344,6 @@
 <!-- /page content -->
 
 <!-- modal content -->
-  <!-- addTaskModal -->
-  <!-- <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="addTaskModal">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <? //$this->load->view('schedule/add_task_modal'); ?>
-      </div>
-    </div>
-  </div> -->
-  <!-- /addTaskModal -->
-
   <!-- joinScheduleModal -->
   <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="joinScheduleModal">
     <div class="modal-dialog modal-sm">
@@ -357,14 +364,24 @@
   </div>
   <!-- /disjoinScheduleModal -->
 
-  <!-- cancelTaskModal -->
-  <!-- <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="cancelTaskModal">
-    <div class="modal-dialog modal-sm">
+  <!-- addTaskModal -->
+  <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="addTaskModal">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <? //$this->load->view('schedule/cancel_task_modal'); ?>
+        <? $this->load->view('schedule/add_task_modal'); ?>
       </div>
     </div>
-  </div> -->
+  </div>
+  <!-- /addTaskModal -->
+
+  <!-- cancelTaskModal -->
+  <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="cancelTaskModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <? $this->load->view('schedule/cancel_task_modal'); ?>
+      </div>
+    </div>
+  </div>
   <!-- /cancelTaskModal -->
 
 <!-- /modal content -->  
@@ -438,19 +455,19 @@
       $(e.currentTarget).find('input[name="name"]').val(name);
     });
 
-    // $('#cancelTaskModal').on('show.bs.modal', function(e) {
-    //   var schedule_id = $(e.relatedTarget).data('schedule_id')
-    //   var site_id = $(e.relatedTarget).data('site_id')
-    //   var site_name = $(e.relatedTarget).data('site_name')
-    //   var ticket_id = $(e.relatedTarget).data('ticket_id')
+    $('#cancelTaskModal').on('show.bs.modal', function(e) {
+      var schedule_id = $(e.relatedTarget).data('schedule_id')
+      var site_id = $(e.relatedTarget).data('site_id')
+      var site_name = $(e.relatedTarget).data('site_name')
+      var ticket_id = $(e.relatedTarget).data('ticket_id')
 
-    //   $("#cancelTaskModal .modal-header .modal-title").html('ยกเลิกรายการตรวจงานนี้');
-    //   $("#cancelTaskModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกรายการการตรวจงาน<BR><BR><b>'+ticket_id+'</b><BR>ของ<BR><b>'+site_name+'</b><BR><BR>ใช่หรือไม่ ?</div>');
+      $("#cancelTaskModal .modal-header .modal-title").html('ยกเลิกรายการตรวจงานนี้');
+      $("#cancelTaskModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกรายการการตรวจงาน<BR><BR><b>'+ticket_id+'</b><BR>ของ<BR><b>'+site_name+'</b><BR><BR>ใช่หรือไม่ ?</div>');
 
-    //   $(e.currentTarget).find('input[name="schedule_id"]').val(schedule_id);
-    //   $(e.currentTarget).find('input[name="site_id"]').val(site_id);
-    //   $(e.currentTarget).find('input[name="ticket_id"]').val(ticket_id);
-    // });
+      $(e.currentTarget).find('input[name="schedule_id"]').val(schedule_id);
+      $(e.currentTarget).find('input[name="site_id"]').val(site_id);
+      $(e.currentTarget).find('input[name="ticket_id"]').val(ticket_id);
+    });
 
     // $('#addTaskModal').on('hidden.bs.modal', '.modal', function () {
     //  $(this).removeData('bs.modal');

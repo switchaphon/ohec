@@ -54,6 +54,15 @@ class Schedule_model extends CI_Model {
 
         return $this->db->affected_rows();
     }
+    //_update_array
+    function _update_array($table = null, $data=null) {
+        
+        // $this->db->insert($table, $data);
+        $this->db->where('schedule_id', $data['schedule_id']);
+        $this->db->update($table, $data); 
+
+        return $this->db->affected_rows();
+    }    
 /*
 
 */
@@ -130,17 +139,17 @@ class Schedule_model extends CI_Model {
 
         $query = $this->db->query($sql);
 
-        return $query->result_array();        
-        // $member = array();
+        // return $query->result_array();        
+        $member = array();
         
-        // if($query->result()){
-        //     foreach ($query->result_array() as $key => $value) {
-        //         $member[] = $value['name'];
-        //     }
-        //         return $member;
-        //     }else{
-        //         return FALSE;
-        //     }
+        if($query->result()){
+            foreach ($query->result_array() as $key => $value) {
+                $member[] = $value['name'];
+            }
+                return $member;
+            }else{
+                return FALSE;
+            }
         }
 
 }

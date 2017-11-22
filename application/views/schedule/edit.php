@@ -55,6 +55,8 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+                  <form role="form" id="editSchedule" name="editSchedule" class="form-horizontal form-label-left" data-toggle="validator" action="<?=site_url('schedule/edit_ops');?>" method="POST">
+                        
                     <? //echo "<pre>"; print_r($schedule); echo "</pre>"; 
                       foreach($schedule as $key => $val):
                     ?>
@@ -63,45 +65,98 @@
                       <label class="col-md-3 control-label text-left"><span class='label label-default'>Far Side Info.</span></label>
                     </div> -->
 
-                    <div class="row">
-                      <label class="col-md-4 control-label text-right">ชื่อ</label>
-                      <div class="col-md-8 text-left"><?=$val['schedule_name'];?></div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label text-right" >ชื่อ <span class="required">*</span></label>
+                        <div class="col-md-8 text-left">
+                            <input type="text" id="name"  name="name" class="form-control" value="<?=$val['schedule_name'];?>" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-md-4 control-label text-right" for="textarea">รายละเอียด <span class="required">*</span></label>
+                        <div class="col-md-8 text-left">
+                            <textarea id="description"  name="description" class="form-control" required><?=$val['schedule_description'];?></textarea>
+                        </div>
                     </div>
 
-                    <div class="row">
-                      <label class="col-md-4 control-label text-right">รายละเอียด</label>
-                      <div class="col-md-8 text-left"><?=$val['schedule_description'];?></div>
-                    </div>
-          
-                    <div class="row">
-                      <label class="col-md-4 control-label text-right">กำหนดการเดินทาง</label>
-                      <div class="col-md-8 text-left"><?=convert_to_yyyymmdd( $val['start_date'] );?> ถึง <?=convert_to_yyyymmdd( $val['end_date'] );?></div>
-                    </div>
-
-                    <div class="row">
-                      <label class="col-md-4 control-label text-right">Ticket</label>
-                      <div class="col-md-8 text-left"><?=convert_to_yyyymmdd( $val['ticket_start_date'] );?> ถึง <?=convert_to_yyyymmdd( $val['ticket_end_date'] );?></div>
-                    </div>
-
-                    <div class="row">
-                      <label class="col-md-4 control-label text-right">พื้นที่</label>
-                      <div class="col-md-8 text-left"><?=$val['region_name'];?></div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label text-right" for="name">กำหนดการเดินทาง <span class="required">*</span></label>
+                        <div class="col-md-8 text-left">
+                            <input type="hidden" name="start_date" id="start_date" value="<?=convert_to_yyyymmdd( $val['start_date'] );?>" />  
+                            <input type="hidden" name="end_date" id="end_date" value="<?=convert_to_yyyymmdd( $val['end_date'] );?>" />                          
+                            <fieldset>
+                                <div class="control-group">
+                                <div class="controls">
+                                    <div class="input-prepend input-group">
+                                    <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    <input type="text" name="schedule-time" id="schedule-time" class="form-control" value="01/01/2016 - 01/25/2016" required/>
+                                    </div>
+                                </div>
+                                </div>
+                            </fieldset>
+                        </div>
                     </div>
 
-                    <div class="row">
-                      <label class="col-md-4 control-label text-right">จังหวัด</label>
-                      <div class="col-md-8 text-left"><?=$val['province'];?></div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label text-right" for="name">Ticket <span class="required">*</span></label>
+                        <div class="col-md-8 text-left">
+                            <input type="hidden" name="ticket_start_date" id="ticket_start_date" value="<?=convert_to_yyyymmdd( $val['ticket_start_date'] );?>" />  
+                            <input type="hidden" name="ticket_end_date" id="ticket_end_date" value="<?=convert_to_yyyymmdd( $val['ticket_end_date'] );?>" />  
+                            <fieldset>
+                                <div class="control-group">
+                                <div class="controls">
+                                    <div class="input-prepend input-group">
+                                    <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    <input type="text" name="ticket-time" id="ticket-time" class="form-control" value="01/01/2016 - 01/25/2016" />
+                                    </div>
+                                </div>
+                                </div>
+                            </fieldset>
+                        </div>
                     </div>
 
-                    <div class="row">
-                      <label class="col-md-4 control-label text-right">สร้างเมื่อ</label>
-                      <div class="col-md-8 text-left"><?=convert_to_yyyymmdd( $val['created_date'] );?></div>
-                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label text-right" for="name">พื้นที่ <span class="required">*</span></label>
+                        <div class="col-md-8 text-left">
+                            <?
+                                echo "<select name=\"region[]\" id=\"region\" class=\"form-control selectpicker show-tick\" title=\"select \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" multiple required>";
+                                foreach($region_list as $reg_key => $reg_val):
+                                    if($reg_key == $val['region']){
+                                        echo "<option value=\"".$reg_key."\" selected>".$reg_val."</option>\"";
+                                    }else{
+                                        echo "<option value=\"".$reg_key."\">".$reg_val."</option>\"";
+                                    }
+                                endforeach;
+                                echo "</select>";
+                            ?>                      
+                        </div>
+                    </div>         
 
-                    <div class="row">
-                      <label class="col-md-4 control-label text-right">สร้างโดย</label>
-                      <div class="col-md-8 text-left"><?=$val['created_by'];?></div>
-                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label text-right" for="name">จังหวัด <span class="required">*</span></label>
+                        <div class="col-md-8 text-left">
+                            <input type="hidden" name="province_list" id="province_list" value="<?=$val['province'];?>" />        
+                            <?
+                                $province_array = explode("," , $val['province']);
+
+                                echo "<select name=\"province[]\" id=\"province\" class=\"form-control selectpicker show-tick\" title=\"select \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" multiple required>";
+                                foreach($province_list as $key => $pval):
+
+                                    $opt = '';
+                                    for($i = 0; $i < count($pval); $i++) {
+                                        if( in_array($pval[$i], $province_array) ){
+                                            $opt = $opt."<option value=\"".$pval[$i]."\" selected>".$pval[$i]."</option>"; 
+                                        }else{
+                                            $opt = $opt."<option value=\"".$pval[$i]."\">".$pval[$i]."</option>";     
+                                        }
+                                    }
+                                    echo '<optgroup label="'.$key.'">'.$key.$opt.'</optgroup>';
+
+                                endforeach;
+                                echo "</select>";
+                            ?>                                  
+                        </div>
+                    </div>   
 
                     <? endforeach; ?>
 
@@ -111,13 +166,12 @@
 
                       <div class="form-group">
                         <div class="col-md-12 text-right">
-                            <!-- <button type="reset" class="btn btn-round btn-primary">ย้อนกลับ</button> -->
-                            <!-- <button type="submit" class="btn btn-round btn btn-success">แก้ไข</button> -->
                             <a href="<?=site_url('schedule/view')?>/<?=$val['schedule_id'];?>" class="btn btn-round btn-default" id='backSchedulebtn' name='backSchedulebtn' ><span class="fa fa-edit" aria-hidden="true"></span> ย้อนกลับ</a>
-                            <a href="<?=site_url('schedule/edit')?>/<?=$val['schedule_id'];?>" class="btn btn-round btn-primary" id='editSchedulebtn' name='editSchedulebtn' ><span class="fa fa-edit" aria-hidden="true"></span> บันทึก</a>
+                            <button id="submit" type="submit" class="btn btn-round btn-primary">บันทึก</button>
+                            <!-- <a href="<?=site_url('schedule/edit')?>/<?=$val['schedule_id'];?>" class="btn btn-round btn-primary" id='editSchedulebtn' name='editSchedulebtn' ><span class="fa fa-edit" aria-hidden="true"></span> บันทึก</a> -->
                         </div>
                       </div>
-
+                      <input type="hidden" name="schedule_id" id="schedule_id" value="<?=$val['schedule_id'];?>" />              
                     </form>
                   </div>
                 </div>
@@ -180,8 +234,8 @@
                             foreach($committee_list as $key => $val): 
                         ?>
                           <tr>
-                              <td class="text-left"><a href="#"><?=$val['name'];?></a></td>
-                              <? if($val['name'] == $this->session->userdata('cn')){ ?>
+                              <td class="text-left"><a href="#"><?=$val;?></a></td>
+                              <? if($val == $this->session->userdata('cn')){ ?>
                                 <td class="text-left">
                                   <!-- <a href="<?=site_url('schedule/disjoin_schedule_ops')."?schedule_id=".$schedule[0]['schedule_id']."&name=".$this->session->userdata('cn') ?>" class="btn btn-round btn-warning btn-xs pull-right" id="cancelSchedulebtn" name="cancelSchedulebtn"><span class="fa fa-minus-circle" aria-hidden="true"></span> ยกเลิก</a> -->
                                   <a href="#" class="btn btn-round btn-danger btn-xs" id='disjoinSchedulebtn' name='disjoinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#disjoinScheduleModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
@@ -372,6 +426,67 @@
 <!-- page script -->
 <script type="text/javascript">
  $(document).ready(function(){
+
+    //Check element of array
+    function isInArray(value, array) {
+        return array.indexOf(value) > -1;
+    }
+
+    $('input[name="schedule-time"]').daterangepicker({
+        timePicker: false,
+        locale: {
+            format: 'YYYY-MM-DD'
+        },
+        startDate: $('#start_date').val(),
+        endDate: $('#end_date').val()
+    });
+
+    $('input[name="ticket-time"]').daterangepicker({
+        timePicker: false,
+        locale: {
+            format: 'YYYY-MM-DD'
+        },
+        startDate: $('#ticket_start_date').val(),
+        endDate: $('#ticket_end_date').val()
+    });
+
+    //Once region changed, re-query province
+    $('#region').change(function(){
+
+        var province_list = $('#province_list').val().split(",");
+
+        $("#province").html('');
+    
+        $.ajax({
+            type: "POST",
+            dataType: 'json',
+            url: "<?=site_url('/Site/list_province_by_region');?>",
+            data: "region="+ $('#region').val(),
+            success: function(result)
+            {
+                $.each(result,function(region,province){
+                    var str = '';
+                    var opt = '';
+                    for(i = 0; i<province.length; i++) {
+                        if(isInArray(province[i], province_list)){
+                            opt += '<option value="'+province[i]+'" selected>'+province[i]+'</option>';    
+                        }else{
+                            opt += '<option value="'+province[i]+'">'+province[i]+'</option>';         
+                        }              
+                    }
+                    str += '<optgroup label="'+region+'">'+opt+'</optgroup>';
+                    $("#province").append(str);
+                });//end each
+
+                $('#province').selectpicker('refresh');
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+
+    });
 
     $('#tbTask').DataTable({
       "pageLength": 10,

@@ -101,7 +101,7 @@
                             <div class="form-group">
                                 <div class="col-md-9 text-right">
                                 <button type="submit" class="btn btn-round btn-default">ยกเลิก</button>
-                                <button id="send" type="submit" class="btn btn-round btn-primary">บันทึก</button>
+                                <button id="submit" type="submit" class="btn btn-round btn-primary">บันทึก</button>
                                 </div>
                             </div>
                         </form>
