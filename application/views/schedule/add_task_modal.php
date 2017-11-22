@@ -2,50 +2,49 @@
 <form role="form" id="joinSchedule" name="joinSchedule" class="form-inline" data-toggle="validator" action="<?=site_url('schedule/add_task_ops');?>" method="POST">    
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        <h4 class="modal-title" id="myModalLabel">เพิ่มสถานที่/เพิ่มงานตรวจ</h4>
     </div>
     <div class="modal-body">
 
-        <div class="panel panel-default">
+        <div class="panel panel-default text-center">
         <!-- <div class="panel-heading">Dynamic Form Fields - Add & Remove Multiple fields</div> -->
             <div class="panel-body">
-        
+                <div class="form-group col-md-1 col-md-1 col-md-12"></div>
+                <div class="form-group col-md-5 col-md-5 col-md-12">
+                    <?  
+                        $str = $opt = null;
 
-                    <div class="form-group col-md-5 col-sm-5 col-xs-12">
-                        <?  
-                            $str = $opt = null;
+                        echo "<select id=\"site\" name=\"site[]\" class=\"form-control selectpicker show-tick\" title=\"select \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" required>";
+                        foreach($site_list as $provice => $site):
+                            echo '<optgroup label="'.$provice.'">';
+                            for($i = 0; $i < count($site); $i++){
+                                echo '<option value="'.$site[$i]['site_id'].'">'.$site[$i]['site_name'].'</option>';
+                            }
+                            echo '</optgroup>';
+                        endforeach;
+                        echo "</select>";
+                    ?>
+                </div>
 
-                            echo "<select id=\"site\" name=\"site[]\" class=\"form-control selectpicker show-tick\" title=\"select \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" required>";
-                            foreach($site_list as $provice => $site):
-                                echo '<optgroup label="'.$provice.'">';
-                                for($i = 0; $i < count($site); $i++){
-                                    echo '<option value="'.$site[$i]['site_id'].'">'.$site[$i]['site_name'].'</option>';
-                                }
-                                echo '</optgroup>';
-                            endforeach;
-                            echo "</select>";
-                        ?>
-                    </div>
+                <div class="form-group col-md-4 col-md-4 col-md-12">
+                    <select id="ticket" name="ticket[]" class="form-control selectpicker show-tick" title="select" data-live-search="true" data-size="10" data-width="css-width" required></select>
+                </div>
 
-                    <div class="form-group col-md-4 col-sm-4 col-xs-12">
-                        <select id="ticket" name="ticket[]" class="form-control selectpicker show-tick" title="select" data-live-search="true" data-size="10" data-width="css-width" required></select>
-                    </div>
+                <div class="form-group col-md-2 col-md-2 col-md-12">
+                    <button class="btn btn-success" type="button"  onclick="add_task_fields();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
+                </div>
 
-                    <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                        <button class="btn btn-success" type="button"  onclick="add_task_fields();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
-                    </div>
+                <div class="clear"></div>
 
-                    <div class="clear"></div>
+                <div id="task_fields"></div>
 
-                    <div id="task_fields"></div>
-
-                    <input type="hidden" id="schedule_id" name="schedule_id" value="<?=$schedule[0]['schedule_id'];?>" />
-                    <input type="hidden" id="ticket_start_date" name="ticket_start_date" value="<?=$ticket_start_date;?>" />
-                    <input type="hidden" id="ticket_end_date" name="ticket_end_date" value="<?=$ticket_end_date;?>" />
-                
-                    <div class="clear"></div>
-                
-                    <div class="panel-footer"><small>กด <span class="glyphicon glyphicon-plus gs"></span> เพื่อเพิ่มแถว</small>, <small>กด <span class="glyphicon glyphicon-minus gs"></span> เพื่อลบแถว</small></div>
+                <input type="hidden" id="schedule_id" name="schedule_id" value="<?=$schedule[0]['schedule_id'];?>" />
+                <input type="hidden" id="ticket_start_date" name="ticket_start_date" value="<?=$ticket_start_date;?>" />
+                <input type="hidden" id="ticket_end_date" name="ticket_end_date" value="<?=$ticket_end_date;?>" />
+            
+                <div class="clear"></div>
+                <BR>
+                <div class="panel-footer"><small>กด <span class="glyphicon glyphicon-plus gs"></span> เพื่อเพิ่มแถว</small>, <small>กด <span class="glyphicon glyphicon-minus gs"></span> เพื่อลบแถว</small></div>
             </div>
         </div>
     </div>
@@ -70,9 +69,7 @@
 
         var site = document.getElementById( 'site' ).cloneNode( true );
         document.getElementById( 'joinSchedule' ).appendChild( site );
-        // divtest.innerHTML = ' <div class="form-group col-md-5 col-sm-5 col-xs-12"><select id="site" name="site[]" class="form-control show-tick" title="select "data-live-search="true" data-size="10" data-width="css-width" required ><option value="">Date</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018">2018</option></select></div><div class="form-group col-md-4 col-sm-4 col-xs-12"> <input type="text" class="form-control" id="Schoolname" name="Schoolname[]" value="" placeholder="School name"></div><div class="form-group col-md-2 col-sm-2 col-xs-12"><button class="btn btn-danger" type="button" onclick="remove_task_fields('+ row +');"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></div></div><div class="clear"></div>';
-        divtest.innerHTML = ' <div class="form-group col-md-5 col-sm-5 col-xs-12"></div><div class="form-group col-md-4 col-sm-4 col-xs-12"> <input type="text" class="form-control" id="Schoolname" name="Schoolname[]" value="" placeholder="School name"></div><div class="form-group col-md-2 col-sm-2 col-xs-12"><button class="btn btn-danger" type="button" onclick="remove_task_fields('+ row +');"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></div></div><div class="clear"></div>';
-        
+            divtest.innerHTML = ' <div class="form-group col-md-1 col-md-1 col-md-12"></div><div class="form-group col-md-5 col-md-5 col-md-12"></div><div class="form-group col-md-4 col-md-4 col-md-12"> <input type="text" class="form-control" id="Schoolname" name="Schoolname[]" value="" placeholder="School name"></div><div class="form-group col-md-2 col-md-2 col-md-12"><button class="btn btn-danger" type="button" onclick="remove_task_fields('+ row +');"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></div></div><div class="clear"></div>';
         objTo.appendChild(divtest)
 
         $('#site').selectpicker('refresh');
