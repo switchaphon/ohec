@@ -27,7 +27,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>รายการตารางการตรวจงาน</h2>
+                    <h2>รายการตารางตรวจงาน</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -51,7 +51,7 @@
                     <!-- <a class="btn btn-app pull-right" href="<?=site_url('ef/equip')?>" name='create'>
                       <i class="fa fa-edit"></i> สร้างใหม่
                     </a> -->
-                      <a class="btn btn-round btn-default pull-right" href="<?=site_url('schedule/create')?>" name='create'><span class="fa fa-edit" aria-hidden="true"></span> สร้างใหม่</a>
+                      <a class="btn btn-round btn-success pull-right" href="<?=site_url('schedule/create')?>" name='create'><span class="fa fa-edit" aria-hidden="true"></span> สร้างใหม่</a>
                     </span>
                     <table id="tbSchedule" name="tbSchedule" class="table table-striped table-bordered">
                       <thead>
@@ -78,8 +78,8 @@
                             <!-- <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['region'];?></a></td> -->
                             <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['province'];?></a></td>
                             <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>">
-                              <a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>" class="btn btn-round btn-primary btn-xs"><i class="fa fa-folder-open"></i> ดู </a>
-                              <a href="#" class="btn btn-round btn-info btn-xs"><i class="fa fa-pencil"></i> แก้ไข </a>
+                              <a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-folder-open"></i> เรียกดู</a>
+                              <a href="<?=site_url('schedule/edit')?>/<?=$row['schedule_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-pencil"></i> แก้ไข </a>
                               <a href="#" class="btn btn-round btn-danger btn-xs"><i class="fa fa-trash-o"> ยกเลิก</i>  </a>
                             </td>
                         </tr>

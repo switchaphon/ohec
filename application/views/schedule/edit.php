@@ -11,7 +11,7 @@
     <div class="right_col" role="main">
         <div class="page-title">
             <div class="title_left">
-                <h3>ตารางตรวจงาน</h3>
+                <h3>แก้ไขตารางตรวจงาน</h3>
             </div>
 
             <!-- <div class="title_right">
@@ -111,10 +111,10 @@
 
                       <div class="form-group">
                         <div class="col-md-12 text-right">
-                          <!-- <button type="reset" class="btn btn-round btn-primary">ย้อนกลับ</button> -->
-                          <!-- <button type="submit" class="btn btn-round btn btn-success">แก้ไข</button> -->
-                          <a href="<?=site_url('schedule')?>" class="btn btn-round btn-default" id='backSchedulebtn' name='backSchedulebtn' ><span class="fa fa-edit" aria-hidden="true"></span> ย้อนกลับ</a>
-                          <a href="<?=site_url('schedule/edit')?>/<?=$val['schedule_id'];?>" class="btn btn-round btn-success" id='editSchedulebtn' name='editSchedulebtn' ><span class="fa fa-edit" aria-hidden="true"></span> แก้ไข</a>
+                            <!-- <button type="reset" class="btn btn-round btn-primary">ย้อนกลับ</button> -->
+                            <!-- <button type="submit" class="btn btn-round btn btn-success">แก้ไข</button> -->
+                            <a href="<?=site_url('schedule/view')?>/<?=$val['schedule_id'];?>" class="btn btn-round btn-default" id='backSchedulebtn' name='backSchedulebtn' ><span class="fa fa-edit" aria-hidden="true"></span> ย้อนกลับ</a>
+                            <a href="<?=site_url('schedule/edit')?>/<?=$val['schedule_id'];?>" class="btn btn-round btn-primary" id='editSchedulebtn' name='editSchedulebtn' ><span class="fa fa-edit" aria-hidden="true"></span> บันทึก</a>
                         </div>
                       </div>
 
@@ -227,7 +227,7 @@
                     </div>
                     <div class="x_content">
                       <span id="panelTask">
-                        <!-- <a href="#" class="btn btn-round btn-info pull-right" name='addTaskbtn' data-toggle="modal" data-target="#addTaskModal" ><span class="fa fa-plus" aria-hidden="true"></span> เพิ่มสถานที่</a> -->
+                        <a href="#" class="btn btn-round btn-success pull-right" name='addTaskbtn' data-toggle="modal" data-target="#addTaskModal" ><span class="fa fa-plus" aria-hidden="true"></span> เพิ่มสถานที่</a>
                       </span>
                       <table id="tbTask" name="tbTask" class="table table-hover">
                           <thead>
@@ -248,8 +248,8 @@
                                 <td class="text-left"><a href="#"><?=$val['ticket_id'];?></a></td>
                                 <td class="text-left">
                                   <!-- <a href="#" class="btn btn-round btn-primary btn-xs"><i class="fa fa-folder"></i>  </a> -->
-                                  <a href="#" class="btn btn-round btn-success btn-xs"><i class="fa fa-file-text"></i> ตรวจ </a>
-                                  <!-- <a href="#" class="btn btn-round btn-danger btn-xs" id='cancelTaskbtn' name='cancelTaskbtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-site_id="<?=$val['site_id'];?>" data-site_name="<?=$val['site_name'];?>" data-ticket_id="<?=$val['ticket_id'];?>" data-toggle="modal" data-target="#cancelTaskModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                 -->
+                                  <a href="#" class="btn btn-round btn-success btn-xs"><i class="fa fa-pencil"></i> ตรวจ </a>
+                                  <a href="#" class="btn btn-round btn-danger btn-xs" id='cancelTaskbtn' name='cancelTaskbtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-site_id="<?=$val['site_id'];?>" data-site_name="<?=$val['site_name'];?>" data-ticket_id="<?=$val['ticket_id'];?>" data-toggle="modal" data-target="#cancelTaskModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
                                   
                                   <!-- <a href="#" class="btn btn-round btn-info btn-xs pull-right" name='addTaskbtn'><span class="fa fa-plus-circle" aria-hidden="true"></span> แบบตรวจ</a> -->
                                 </td>
@@ -328,13 +328,13 @@
 
 <!-- modal content -->
   <!-- addTaskModal -->
-  <!-- <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="addTaskModal">
+  <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="addTaskModal">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <? //$this->load->view('schedule/add_task_modal'); ?>
+        <? $this->load->view('schedule/add_task_modal'); ?>
       </div>
     </div>
-  </div> -->
+  </div>
   <!-- /addTaskModal -->
 
   <!-- joinScheduleModal -->
@@ -358,13 +358,13 @@
   <!-- /disjoinScheduleModal -->
 
   <!-- cancelTaskModal -->
-  <!-- <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="cancelTaskModal">
+  <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="cancelTaskModal">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
-        <? //$this->load->view('schedule/cancel_task_modal'); ?>
+        <? $this->load->view('schedule/cancel_task_modal'); ?>
       </div>
     </div>
-  </div> -->
+  </div>
   <!-- /cancelTaskModal -->
 
 <!-- /modal content -->  
@@ -438,19 +438,19 @@
       $(e.currentTarget).find('input[name="name"]').val(name);
     });
 
-    // $('#cancelTaskModal').on('show.bs.modal', function(e) {
-    //   var schedule_id = $(e.relatedTarget).data('schedule_id')
-    //   var site_id = $(e.relatedTarget).data('site_id')
-    //   var site_name = $(e.relatedTarget).data('site_name')
-    //   var ticket_id = $(e.relatedTarget).data('ticket_id')
+    $('#cancelTaskModal').on('show.bs.modal', function(e) {
+      var schedule_id = $(e.relatedTarget).data('schedule_id')
+      var site_id = $(e.relatedTarget).data('site_id')
+      var site_name = $(e.relatedTarget).data('site_name')
+      var ticket_id = $(e.relatedTarget).data('ticket_id')
 
-    //   $("#cancelTaskModal .modal-header .modal-title").html('ยกเลิกรายการตรวจงานนี้');
-    //   $("#cancelTaskModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกรายการการตรวจงาน<BR><BR><b>'+ticket_id+'</b><BR>ของ<BR><b>'+site_name+'</b><BR><BR>ใช่หรือไม่ ?</div>');
+      $("#cancelTaskModal .modal-header .modal-title").html('ยกเลิกรายการตรวจงานนี้');
+      $("#cancelTaskModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกรายการการตรวจงาน<BR><BR><b>'+ticket_id+'</b><BR>ของ<BR><b>'+site_name+'</b><BR><BR>ใช่หรือไม่ ?</div>');
 
-    //   $(e.currentTarget).find('input[name="schedule_id"]').val(schedule_id);
-    //   $(e.currentTarget).find('input[name="site_id"]').val(site_id);
-    //   $(e.currentTarget).find('input[name="ticket_id"]').val(ticket_id);
-    // });
+      $(e.currentTarget).find('input[name="schedule_id"]').val(schedule_id);
+      $(e.currentTarget).find('input[name="site_id"]').val(site_id);
+      $(e.currentTarget).find('input[name="ticket_id"]').val(ticket_id);
+    });
 
     // $('#addTaskModal').on('hidden.bs.modal', '.modal', function () {
     //  $(this).removeData('bs.modal');

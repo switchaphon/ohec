@@ -16,8 +16,8 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
-        <button id="send" type="submit" class="btn btn-success">ยืนยัน</button>
+        <button type="button" class="btn btn-round btn-default" data-dismiss="modal">ยกเลิก</button>
+        <button id="send" type="submit" class="btn btn-round btn-primary">ยืนยัน</button>
     </div>
 </form>
 <!-- /modal content -->

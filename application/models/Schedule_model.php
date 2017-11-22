@@ -57,6 +57,17 @@ class Schedule_model extends CI_Model {
 /*
 
 */
+    function _count_row($table = null, $data=null) {
+    
+            foreach($data as $key => $val):
+                $this->db->where($key, $val);
+            endforeach;
+
+            $this->db->from($table);
+
+            return $this->db->count_all_results();;
+    }
+
     function _delete($table = null, $data=null) {
 
         foreach($data as $key => $val):
@@ -118,7 +129,7 @@ class Schedule_model extends CI_Model {
             ";
 
         $query = $this->db->query($sql);
-        
+
         return $query->result_array();        
         // $member = array();
         

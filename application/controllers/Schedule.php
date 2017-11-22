@@ -35,26 +35,6 @@ class Schedule extends MY_Controller {
         $this->load->view('schedule/index',$this->data);
 	}
 	
-	public function view($schedule_id = null){
-		$this->_init();
-		$this->_init_assets( array('datatables','bootstrap_validator','bootstrap_select') );
-		$this->load->model( array('Schedule_model','Site_model'));
-
-		//Get schedule
-		$this->data['schedule'] = $this->Schedule_model->view_schedule($schedule_id);
-		
-		$province_list = str_replace("," , "','" , $this->data['schedule'][0]['province']);
-		$this->data['ticket_start_date'] = $ticket_start_date = $this->data['schedule'] [0]['ticket_start_date'];
-		$this->data['ticket_end_date'] = $ticket_end_date = $this->data['schedule'] [0]['ticket_end_date'];
-
-		// $this->data['site_list'] = $this->Site_model->list_site_by_province($province_list);
-		$this->data['site_list'] = $this->Site_model->list_site_by_province($province_list,$ticket_start_date,$ticket_end_date,$schedule_id);
-		$this->data['task_list'] = $this->Schedule_model->get_schedule_task($schedule_id);
-		$this->data['committee_list'] = $this->Schedule_model->get_committee($schedule_id);
-
-        $this->load->view('schedule/view',$this->data);
-	}
-
 	public function create(){
 		$this->_init();
 		$this->_init_assets( array('icheck','smartwizard','bootstrap-daterangepicker','bootstrap_validator','bootstrap_select') );
@@ -135,6 +115,45 @@ class Schedule extends MY_Controller {
 		redirect( site_url('/schedule/view/'.$schedule_id) );
 	}
 
+	public function view($schedule_id = null){
+		$this->_init();
+		$this->_init_assets( array('datatables','bootstrap_validator','bootstrap_select') );
+		$this->load->model( array('Schedule_model','Site_model'));
+
+		//Get schedule
+		$this->data['schedule'] = $this->Schedule_model->view_schedule($schedule_id);
+		
+		$province_list = str_replace("," , "','" , $this->data['schedule'][0]['province']);
+		$this->data['ticket_start_date'] = $ticket_start_date = $this->data['schedule'] [0]['ticket_start_date'];
+		$this->data['ticket_end_date'] = $ticket_end_date = $this->data['schedule'] [0]['ticket_end_date'];
+
+		// $this->data['site_list'] = $this->Site_model->list_site_by_province($province_list);
+		$this->data['site_list'] = $this->Site_model->list_site_by_province($province_list,$ticket_start_date,$ticket_end_date,$schedule_id);
+		$this->data['task_list'] = $this->Schedule_model->get_schedule_task($schedule_id);
+		$this->data['committee_list'] = $this->Schedule_model->get_committee($schedule_id);
+
+        $this->load->view('schedule/view',$this->data);
+	}
+
+	public function edit($schedule_id = null){
+		$this->_init();
+		$this->_init_assets( array('datatables','bootstrap_validator','bootstrap_select') );
+		$this->load->model( array('Schedule_model','Site_model'));
+
+		//Get schedule
+		$this->data['schedule'] = $this->Schedule_model->view_schedule($schedule_id);
+		
+		$province_list = str_replace("," , "','" , $this->data['schedule'][0]['province']);
+		$this->data['ticket_start_date'] = $ticket_start_date = $this->data['schedule'] [0]['ticket_start_date'];
+		$this->data['ticket_end_date'] = $ticket_end_date = $this->data['schedule'] [0]['ticket_end_date'];
+
+		// $this->data['site_list'] = $this->Site_model->list_site_by_province($province_list);
+		$this->data['site_list'] = $this->Site_model->list_site_by_province($province_list,$ticket_start_date,$ticket_end_date,$schedule_id);
+		$this->data['task_list'] = $this->Schedule_model->get_schedule_task($schedule_id);
+		$this->data['committee_list'] = $this->Schedule_model->get_committee($schedule_id);
+
+        $this->load->view('schedule/edit',$this->data);
+	}	
 /*
 	// public function add_task( $id = null)
 	// {
@@ -268,7 +287,43 @@ class Schedule extends MY_Controller {
 
 		//Redirect
 		redirect( site_url('/schedule/view/'.$_POST['schedule_id']) );
-	}	
+	}
 
+	public function cancel_task_ops(){
+		
+		$this->load->model( array('Schedule_model'));
+
+		//Prepare data
+		$task = array(
+			'schedule_id' => $_POST['schedule_id']
+			,'site_id' => $_POST['site_id']
+			,'ticket_id' => $_POST['ticket_id']
+		);
+
+		$site = array(
+			'schedule_id' => $_POST['schedule_id']
+			,'site_id' => $_POST['site_id']
+		);
+
+		//Count row for selected value 
+		$row = $this->Schedule_model->_count_row('tb_schedule_task',$site);	
+
+		//if 'schedule_id' + 'site_id' in tb_schedule_task = 1 then delete 'site_id' from tb_schedule_destination as well
+		if($row == 1){
+			// echo "Delete both tb_schedule_destination & tb_schedule_task";
+			$this->Schedule_model->_delete('tb_schedule_destination',$site);
+			$this->Schedule_model->_delete('tb_schedule_task',$task);
+		}else{
+			// echo "Delete only tb_schedule_task";
+			$this->Schedule_model->_delete('tb_schedule_task',$task);
+		}
+
+		// echo $res;
+				
+		//Log
+
+		//Redirect
+		redirect( site_url('/schedule/view/'.$_POST['schedule_id']) );
+	}
 }
 ?>
