@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Nov 20, 2017 at 06:19 PM
+-- Generation Time: Nov 24, 2017 at 11:34 PM
 -- Server version: 5.5.33-log
 -- PHP Version: 5.4.19
 
@@ -45,15 +45,16 @@ CREATE TABLE IF NOT EXISTS `tb_contact` (
 --
 
 CREATE TABLE IF NOT EXISTS `tb_eform` (
+  `row_id` int(11) NOT NULL AUTO_INCREMENT,
   `eform_id` varchar(10) NOT NULL,
-  `schedule_id` varchar(10) NOT NULL,
+  `schedule_id` varchar(20) NOT NULL,
   `site_id` varchar(20) NOT NULL,
-  `task_no` int(2) NOT NULL,
-  `form_id` varchar(5) NOT NULL,
-  `created_date` datetime NOT NULL,
+  `ticket_id` varchar(25) NOT NULL,
+  `form_id` int(11) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` varchar(255) NOT NULL,
-  PRIMARY KEY (`eform_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`row_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -299,6 +300,7 @@ CREATE TABLE IF NOT EXISTS `tb_form_question` (
   `question_name` varchar(255) NOT NULL,
   `question_text` varchar(255) NOT NULL,
   `question_value` varchar(255) NOT NULL,
+  `question_type` varchar(255) NOT NULL,
   `question_order` int(2) NOT NULL,
   `question_status` bit(1) NOT NULL,
   PRIMARY KEY (`form_id`,`page_no`,`panel_no`,`element_no`,`question_no`)
@@ -308,37 +310,37 @@ CREATE TABLE IF NOT EXISTS `tb_form_question` (
 -- Dumping data for table `tb_form_question`
 --
 
-INSERT INTO `tb_form_question` (`form_id`, `page_no`, `panel_no`, `element_no`, `question_no`, `question_name`, `question_text`, `question_value`, `question_order`, `question_status`) VALUES
-('00003', 1, 1, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 1, b'1'),
-('00003', 1, 1, 1, 2, 'question2', 'การจัดการสายสัญญาณ (cabling)', 'การจัดการสายสัญญาณ (cabling)', 2, b'1'),
-('00003', 1, 1, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 3, b'1'),
-('00003', 1, 1, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 4, b'1'),
-('00003', 1, 2, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 1, b'1'),
-('00003', 1, 2, 1, 2, 'question2', 'การจัดการสายสัญญาณ (cabling)', 'การจัดการสายสัญญาณ (cabling)', 2, b'1'),
-('00003', 1, 2, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 3, b'1'),
-('00003', 1, 2, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 4, b'1'),
-('00003', 1, 2, 2, 5, 'question5', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 5, b'1'),
-('00003', 1, 3, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 1, b'1'),
-('00003', 1, 3, 1, 2, 'question2', 'การจัดการสายสัญญาณ (cabling)', 'การจัดการสายสัญญาณ (cabling)', 2, b'1'),
-('00003', 1, 3, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 3, b'1'),
-('00003', 1, 3, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 4, b'1'),
-('00003', 1, 3, 1, 5, 'question5', 'การใช้งานระบบโทรศัพท์ Order Wire', 'การใช้งานระบบโทรศัพท์ Order Wire', 5, b'1'),
-('00003', 1, 3, 2, 6, 'question6', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 6, b'1'),
-('00003', 1, 4, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 1, b'1'),
-('00003', 1, 4, 1, 2, 'question2', 'การจัดการสายสัญญาณ (cabling)', 'การจัดการสายสัญญาณ (cabling)', 2, b'1'),
-('00003', 1, 4, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 3, b'1'),
-('00003', 1, 4, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 4, b'1'),
-('00003', 1, 4, 2, 5, 'question5', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 5, b'1'),
-('00003', 1, 5, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 1, b'1'),
-('00003', 1, 5, 1, 2, 'question2', 'การจัดการสายสัญญาณ (cabling)', 'การจัดการสายสัญญาณ (cabling)', 2, b'1'),
-('00003', 1, 5, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 3, b'1'),
-('00003', 1, 5, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 4, b'1'),
-('00003', 1, 5, 2, 5, 'question5', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 5, b'1'),
-('00003', 1, 6, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 1, b'1'),
-('00003', 1, 6, 1, 2, 'question2', 'การจัดการสายสัญญาณ (cabling)', 'การจัดการสายสัญญาณ (cabling)', 2, b'1'),
-('00003', 1, 6, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 3, b'1'),
-('00003', 1, 6, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 4, b'1'),
-('00003', 1, 6, 2, 5, 'question5', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 5, b'1');
+INSERT INTO `tb_form_question` (`form_id`, `page_no`, `panel_no`, `element_no`, `question_no`, `question_name`, `question_text`, `question_value`, `question_type`, `question_order`, `question_status`) VALUES
+('00003', 1, 1, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 'checkbox', 1, b'1'),
+('00003', 1, 1, 1, 2, 'question2', 'การจัดการสายสัญญาณ (cabling)', 'การจัดการสายสัญญาณ (cabling)', 'checkbox', 2, b'1'),
+('00003', 1, 1, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'checkbox', 3, b'1'),
+('00003', 1, 1, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'checkbox', 4, b'1'),
+('00003', 1, 2, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 'checkbox', 1, b'1'),
+('00003', 1, 2, 1, 2, 'question2', 'การจัดการสายสัญญาณ (cabling)', 'การจัดการสายสัญญาณ (cabling)', 'checkbox', 2, b'1'),
+('00003', 1, 2, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'checkbox', 3, b'1'),
+('00003', 1, 2, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'checkbox', 4, b'1'),
+('00003', 1, 2, 2, 5, 'question5', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 'textbox', 5, b'1'),
+('00003', 1, 3, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 'checkbox', 1, b'1'),
+('00003', 1, 3, 1, 2, 'question2', 'การจัดการสายสัญญาณ (cabling)', 'การจัดการสายสัญญาณ (cabling)', 'checkbox', 2, b'1'),
+('00003', 1, 3, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'checkbox', 3, b'1'),
+('00003', 1, 3, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'checkbox', 4, b'1'),
+('00003', 1, 3, 1, 5, 'question5', 'การใช้งานระบบโทรศัพท์ Order Wire', 'การใช้งานระบบโทรศัพท์ Order Wire', 'checkbox', 5, b'1'),
+('00003', 1, 3, 2, 6, 'question6', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 'textbox', 6, b'1'),
+('00003', 1, 4, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 'checkbox', 1, b'1'),
+('00003', 1, 4, 1, 2, 'question2', 'การจัดการสายสัญญาณ (cabling)', 'การจัดการสายสัญญาณ (cabling)', 'checkbox', 2, b'1'),
+('00003', 1, 4, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'checkbox', 3, b'1'),
+('00003', 1, 4, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'checkbox', 4, b'1'),
+('00003', 1, 4, 2, 5, 'question5', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 'textbox', 5, b'1'),
+('00003', 1, 5, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 'checkbox', 1, b'1'),
+('00003', 1, 5, 1, 2, 'question2', 'การจัดการสายสัญญาณ (cabling)', 'การจัดการสายสัญญาณ (cabling)', 'checkbox', 2, b'1'),
+('00003', 1, 5, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'checkbox', 3, b'1'),
+('00003', 1, 5, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'checkbox', 4, b'1'),
+('00003', 1, 5, 2, 5, 'question5', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 'textbox', 5, b'1'),
+('00003', 1, 6, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 'checkbox', 1, b'1'),
+('00003', 1, 6, 1, 2, 'question2', 'การจัดการสายสัญญาณ (cabling)', 'การจัดการสายสัญญาณ (cabling)', 'checkbox', 2, b'1'),
+('00003', 1, 6, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'checkbox', 3, b'1'),
+('00003', 1, 6, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'checkbox', 4, b'1'),
+('00003', 1, 6, 2, 5, 'question5', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 'textbox', 5, b'1');
 
 -- --------------------------------------------------------
 
@@ -405,7 +407,7 @@ INSERT INTO `tb_schedule` (`row_id`, `schedule_id`, `schedule_name`, `schedule_d
 (10, '2017111903', 'การตรวจงานงวดที่ 4/2560', 'การตรวจงานงวดที่ 4/2560 - ภาคใต้ตอนล่าง', 'SS', 'นราธิวาส,ปัตตานี,พัทลุง,ยะลา', '2017-12-01 00:00:00', '2017-12-15 00:00:00', '2017-09-01 00:00:00', '2017-11-30 00:00:00', '2017-11-19 09:46:55', 'Witchaphon Saengaram', NULL, NULL, '1'),
 (11, '2017111904', 'การตรวจงานงวดที่ 4/2560', 'การตรวจงานงวดที่ 4/2560 - ภาคใต้ตอนบน', 'SN', 'กระบี่,พังงา,ภูเก็ต,สุราษฎร์ธานี', '2017-12-18 00:00:00', '2017-12-29 00:00:00', '2017-09-01 00:00:00', '2017-11-30 00:00:00', '2017-11-19 09:47:43', 'Witchaphon Saengaram', NULL, NULL, '1'),
 (12, '2017111905', 'งวดตรวจงานรอบที่ 2/2560', 'งวดตรวจงานรอบที่ 2/2560 - ภาคเหนือตอนบน', 'NN', 'เชียงราย,เชียงใหม่,แม่ฮ่องสอน', '2018-01-08 00:00:00', '2018-01-19 00:00:00', '2017-09-01 00:00:00', '2017-11-30 00:00:00', '2017-11-19 09:53:10', 'Witchaphon Saengaram', NULL, NULL, '1'),
-(13, '2017111906', 'การตรวจงานงวดที่ 1/2561', 'การตรวจงานงวดที่ 1/2561 ภาคเหนือตอนบน', 'NN', 'ลำพูน,เชียงใหม่,แม่ฮ่องสอน', '2018-02-01 00:00:00', '2018-02-15 00:00:00', '2017-09-01 00:00:00', '2017-11-30 00:00:00', '2017-11-19 10:30:01', 'Witchaphon Saengaram', NULL, NULL, '1');
+(13, '2017111906', 'การตรวจงานงวดที่ 1/2560', 'การตรวจงานงวดที่ 1/2561 ภาคเหนือตอนบน', 'NN', 'ลำพูน,เชียงใหม่,แม่ฮ่องสอน', '2018-02-01 00:00:00', '2018-02-20 00:00:00', '2017-09-01 00:00:00', '2017-11-30 00:00:00', '2017-11-19 10:30:01', 'Witchaphon Saengaram', '2017-11-22 09:32:56', 'Witchaphon Saeng-aram', '1');
 
 -- --------------------------------------------------------
 
@@ -432,11 +434,14 @@ CREATE TABLE IF NOT EXISTS `tb_schedule_destination` (
 --
 
 INSERT INTO `tb_schedule_destination` (`schedule_id`, `site_id`, `province`, `region`, `contact_name`, `contact_tel`, `contact_mobile`, `contact_email`, `created_date`, `created_by`) VALUES
+('2017111902', '65030005', 'พิษณุโลก', 'NS', NULL, NULL, NULL, NULL, '2017-11-21 16:48:18', 'Witchaphon Saengaram'),
+('2017111903', '9603', 'นราธิวาส', 'SS', NULL, NULL, NULL, NULL, '2017-11-21 16:38:47', 'Witchaphon Saengaram'),
 ('2017111904', '84020171', 'สุราษฎร์ธานี', 'SN', NULL, NULL, NULL, NULL, '2017-11-19 10:28:40', 'Witchaphon Saengaram'),
 ('2017111904', '84032007', 'สุราษฎร์ธานี', 'SN', NULL, NULL, NULL, NULL, '2017-11-19 10:28:53', 'Witchaphon Saengaram'),
 ('2017111905', '1450100400', 'เชียงใหม่', 'NN', NULL, NULL, NULL, NULL, '2017-11-19 10:14:16', 'Witchaphon Saengaram'),
 ('2017111905', '5802', 'แม่ฮ่องสอน', 'NN', NULL, NULL, NULL, NULL, '2017-11-19 10:15:13', 'Witchaphon Saengaram'),
-('2017111906', '1450100400', 'เชียงใหม่', 'NN', NULL, NULL, NULL, NULL, '2017-11-19 10:30:07', 'Witchaphon Saengaram');
+('2017111906', '1450100400', 'เชียงใหม่', 'NN', NULL, NULL, NULL, NULL, '2017-11-22 03:53:10', 'Witchaphon Saengaram'),
+('2017111906', '5802', 'แม่ฮ่องสอน', 'NN', NULL, NULL, NULL, NULL, '2017-11-22 03:53:25', 'Witchaphon Saengaram');
 
 -- --------------------------------------------------------
 
@@ -456,8 +461,10 @@ CREATE TABLE IF NOT EXISTS `tb_schedule_member` (
 --
 
 INSERT INTO `tb_schedule_member` (`schedule_id`, `name`, `joined_date`) VALUES
-('2017111906', 'Wiriya Damrong', '2017-11-20 10:26:41'),
-('2017111906', 'Witchaphon Saeg-aram', '2017-11-20 09:33:43');
+('2017111902', 'Witchaphon Saeng-aram', '2017-11-21 16:49:54'),
+('2017111904', 'Witchaphon Saeng-aram', '2017-11-21 16:37:59'),
+('2017111906', 'Wiriya Damrong', '2017-11-22 09:28:48'),
+('2017111906', 'Witchaphon Saeng-aram', '2017-11-22 09:32:40');
 
 -- --------------------------------------------------------
 
@@ -481,13 +488,16 @@ CREATE TABLE IF NOT EXISTS `tb_schedule_task` (
 --
 
 INSERT INTO `tb_schedule_task` (`schedule_id`, `site_id`, `ticket_id`, `ma_project`, `ma_type`, `created_date`, `created_by`) VALUES
+('2017111902', '65030005', 'NT-Equip-2017-10-0027', 'สอ./2561 - Equipment P3', 'Equipment System', '2017-11-21 16:48:18', 'Witchaphon Saengaram'),
+('2017111903', '9603', 'NT-Equip-2017-10-0029', 'สอ./2561 - Equipment P3', 'Equipment System', '2017-11-21 16:38:47', 'Witchaphon Saengaram'),
 ('2017111904', '84020171', 'NT-Equip-2017-10-0008', 'สอ./2561 - Equipment P2', 'Equipment System', '2017-11-19 10:28:40', 'Witchaphon Saengaram'),
 ('2017111904', '84032007', 'NT-Equip-2017-10-0043', 'สอ./2561 - Equipment P3', 'Equipment System', '2017-11-19 10:28:53', 'Witchaphon Saengaram'),
 ('2017111905', '1450100400', 'NT-Equip-2017-10-0040', 'สอ./2561 - Equipment P1 (1)', 'Equipment System', '2017-11-19 10:14:16', 'Witchaphon Saengaram'),
 ('2017111905', '1450100400', 'NT-Equip-2017-10-0041', 'สอ./2561 - Equipment P1 (3)', 'Equipment System', '2017-11-19 10:14:36', 'Witchaphon Saengaram'),
 ('2017111905', '5802', 'NT-Equip-2017-10-0036', 'สอ./2561 - Equipment P2', 'Equipment System', '2017-11-19 10:15:13', 'Witchaphon Saengaram'),
-('2017111906', '1450100400', 'NT-Equip-2017-10-0040', 'สอ./2561 - Equipment P1 (1)', 'Equipment System', '2017-11-19 10:30:07', 'Witchaphon Saengaram'),
-('2017111906', '1450100400', 'NT-Equip-2017-10-0041', 'สอ./2561 - Equipment P1 (3)', 'Equipment System', '2017-11-19 10:30:12', 'Witchaphon Saengaram');
+('2017111906', '1450100400', 'NT-Equip-2017-10-0040', 'สอ./2561 - Equipment P1 (1)', 'Equipment System', '2017-11-22 03:53:10', 'Witchaphon Saengaram'),
+('2017111906', '1450100400', 'NT-Equip-2017-10-0041', 'สอ./2561 - Equipment P1 (3)', 'Equipment System', '2017-11-22 03:53:18', 'Witchaphon Saengaram'),
+('2017111906', '5802', 'NT-Equip-2017-10-0036', 'สอ./2561 - Equipment P2', 'Equipment System', '2017-11-22 03:53:25', 'Witchaphon Saengaram');
 
 -- --------------------------------------------------------
 
