@@ -193,7 +193,7 @@
                         </thead>
                         <tbody>        
                         <? 
-                          // if(!empty($committee_list)){ 
+                          if(!empty($committee_list)){ 
                             foreach($committee_list as $key => $val): 
                         ?>
                           <tr>
@@ -211,7 +211,7 @@
                           </tr>
                         <? 
                             endforeach; 
-                          // }
+                          }
                         ?>       
                         </tbody>
                       </table>       
@@ -265,7 +265,7 @@
                                 <td class="text-left"><a href="#"><?=$val['ticket_id'];?></a></td>
                                 <td class="text-left">
                                   <!-- <a href="#" class="btn btn-round btn-primary btn-xs"><i class="fa fa-folder"></i>  </a> -->
-                                  <a href="#" class="btn btn-round btn-success btn-xs"><i class="fa fa-file-text"></i> ตรวจ </a>
+                                  <a href="<?=site_url('eform/create/'.$schedule[0]['schedule_id']).'/'.$val['ticket_id'];?>" class="btn btn-round btn-success btn-xs"><i class="fa fa-file-text"></i> ตรวจ </a>
                                   <a href="#" class="btn btn-round btn-danger btn-xs" id='cancelTaskbtn' name='cancelTaskbtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-site_id="<?=$val['site_id'];?>" data-site_name="<?=$val['site_name'];?>" data-ticket_id="<?=$val['ticket_id'];?>" data-toggle="modal" data-target="#cancelTaskModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
                                   
                                   <!-- <a href="#" class="btn btn-round btn-info btn-xs pull-right" name='addTaskbtn'><span class="fa fa-plus-circle" aria-hidden="true"></span> แบบตรวจ</a> -->

@@ -11,15 +11,15 @@ class Eform_action {
             $CI =& get_instance();
             
             //Load model
-            $CI->load->model('ef_model');
+            $CI->load->model('Eform_model');
             
             //Query eForm
-            $form = $CI->ef_model->load_eform($asset_type,$ma_type);
-            $form_page = $CI->ef_model->load_eform_page();
-            $form_panel = $CI->ef_model->load_eform_panel();
-            $form_element = $CI->ef_model->load_eform_element();
-            $form_question = $CI->ef_model->load_eform_question();
-            $form_answer = $CI->ef_model->load_eform_answer();
+            $form = $CI->Eform_model->load_eform($asset_type,$ma_type);
+            $form_page = $CI->Eform_model->load_eform_page();
+            $form_panel = $CI->Eform_model->load_eform_panel();
+            $form_element = $CI->Eform_model->load_eform_element();
+            $form_question = $CI->Eform_model->load_eform_question();
+            $form_answer = $CI->Eform_model->load_eform_answer();
 
             // echo "Form";
             // echo "<pre>"; print_r($form); echo "</pre>";
@@ -65,6 +65,7 @@ class Eform_action {
                             ,"question_name" => $form_question[key($form)][$page_no][$panel][$question]['question_name']
                             ,"question_text" => $form_question[key($form)][$page_no][$panel][$question]['question_text']
                             ,"question_value" => $form_question[key($form)][$page_no][$panel][$question]['question_value']
+                            ,"question_type" => $form_question[key($form)][$page_no][$panel][$question]['question_type']
                         );
 
                         //If the question need an answer,load answer

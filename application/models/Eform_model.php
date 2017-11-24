@@ -146,7 +146,7 @@ class Eform_model extends CI_Model {
     
     function load_eform_question() {
         $sql ="
-            SELECT form_id,page_no,panel_no,element_no,question_no,question_name,question_text,question_value
+            SELECT form_id,page_no,panel_no,element_no,question_no,question_name,question_text,question_value,question_type
             FROM tb_form_question
             WHERE question_status = '1'
             ORDER BY panel_no,question_order ASC
@@ -165,6 +165,7 @@ class Eform_model extends CI_Model {
                         ,'question_text' => $value['question_text']
                         ,'question_value' => $value['question_value']
                         ,'element_no' => $value['element_no']
+                        ,'question_type' => $value['question_type']
                     );
                 }else{
                     $form_question[$value['form_id']][$value['page_no']][$value['panel_no']][$value['question_no']] = array(
@@ -172,6 +173,7 @@ class Eform_model extends CI_Model {
                         ,'question_text' => $value['question_text']
                         ,'question_value' => $value['question_value']
                         ,'element_no' => $value['element_no']
+                        ,'question_type' => $value['question_type']
                     );
                 }
             }
