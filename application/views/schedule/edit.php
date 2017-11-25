@@ -230,7 +230,7 @@
                         </thead>
                         <tbody>        
                         <? 
-                          // if(!empty($committee_list)){ 
+                          if(!empty($committee_list)){ 
                             foreach($committee_list as $key => $val): 
                         ?>
                           <tr>
@@ -248,7 +248,7 @@
                           </tr>
                         <? 
                             endforeach; 
-                          // }
+                          }
                         ?>       
                         </tbody>
                       </table>       

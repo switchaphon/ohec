@@ -103,7 +103,7 @@ class Schedule extends MY_Controller {
 			,'ticket_start_date' => $ticket_start_date
 			,'ticket_end_date' => $ticket_end_date
 			// ,'created_date' => date("Y-m-d H:i:s",time())
-			,'created_by' => 'Witchaphon Saengaram'
+			,'created_by' => $this->session->userdata('cn')
 			,'status' => '1'
 		);
 		
@@ -255,7 +255,7 @@ class Schedule extends MY_Controller {
 
 	public function add_task_ops(){
 		
-		$this->load->model( array('Ticket_model','Site_model','Schedule_model'));
+		$this->load->model( array('Utilities_model','Ticket_model','Site_model','Schedule_model'));
 
 		foreach($_POST['site'] as $key => $val):
 
@@ -283,7 +283,7 @@ class Schedule extends MY_Controller {
 				,'contact_mobile' => $site[0]['mobile_no']
 				,'contact_email' => $site[0]['email'] 
 				// ,'created_date' => date(time())
-				,'created_by' => 'Witchaphon Saengaram'
+				,'created_by' => $this->session->userdata('cn')
 			);
 
 			$task = array(
@@ -293,7 +293,7 @@ class Schedule extends MY_Controller {
 				,'ticket_id' => $ticket[0]['case_id']
 				,'ma_type' => $ticket[0]['case_category']
 				// ,'created_date' => date(time())
-				,'created_by' => 'Witchaphon Saengaram'
+				,'created_by' => $this->session->userdata('cn')
 			);
 
 			//Check destination of this schedule
@@ -301,14 +301,14 @@ class Schedule extends MY_Controller {
 			
 			if(!empty($destination_list )){
 				if ( !in_array($site[0]['site_id'], $destination_list) ) {
-					$this->Schedule_model->_insert_array('tb_schedule_destination',$destination);
+					$this->Utilities_model->_insert_array('tb_schedule_destination',$destination);
 				}
 			}else{
-				$this->Schedule_model->_insert_array('tb_schedule_destination',$destination);
+				$this->Utilities_model->_insert_array('tb_schedule_destination',$destination);
 			}
 
 			//Insert DB
-			$res = $this->Schedule_model->_insert_array('tb_schedule_task',$task);
+			$res = $this->Utilities_model->_insert_array('tb_schedule_task',$task);
 
 			// echo $res;
 
@@ -323,7 +323,7 @@ class Schedule extends MY_Controller {
 
 	public function join_schedule_ops(){
 		
-		$this->load->model( array('Schedule_model'));
+		$this->load->model( array('Utilities_model'));
 		// echo "<pre>"; print_r($_POST); echo "</pre>";
 		//Prepare data
 		$committee = array(
@@ -332,7 +332,7 @@ class Schedule extends MY_Controller {
 		);
 
 		//Insert DB
-		$res = $this->Schedule_model->_insert_array('tb_schedule_member',$committee);
+		$res = $this->Utilities_model->_insert_array('tb_schedule_member',$committee);
 		
 		// echo $res;
 				
@@ -344,7 +344,7 @@ class Schedule extends MY_Controller {
 
 	public function disjoin_schedule_ops(){
 		
-		$this->load->model( array('Schedule_model'));
+		$this->load->model( array('Utilities_model'));
 		// echo "<pre>"; print_r($_POST); echo "</pre>";
 		//Prepare data
 		$committee = array(
@@ -353,7 +353,7 @@ class Schedule extends MY_Controller {
 		);
 
 		//Insert DB
-		$res = $this->Schedule_model->_delete('tb_schedule_member',$committee);
+		$res = $this->Utilities_model->_delete('tb_schedule_member',$committee);
 		
 		// echo $res;
 				
@@ -365,7 +365,7 @@ class Schedule extends MY_Controller {
 
 	public function cancel_task_ops(){
 		
-		$this->load->model( array('Schedule_model'));
+		$this->load->model( array('Utilities_model'));
 
 		//Prepare data
 		$task = array(
@@ -380,16 +380,16 @@ class Schedule extends MY_Controller {
 		);
 
 		//Count row for selected value 
-		$row = $this->Schedule_model->_count_row('tb_schedule_task',$site);	
+		$row = $this->Utilities_model->_count_row('tb_schedule_task',$site);	
 
 		//if 'schedule_id' + 'site_id' in tb_schedule_task = 1 then delete 'site_id' from tb_schedule_destination as well
 		if($row == 1){
 			// echo "Delete both tb_schedule_destination & tb_schedule_task";
-			$this->Schedule_model->_delete('tb_schedule_destination',$site);
-			$this->Schedule_model->_delete('tb_schedule_task',$task);
+			$this->Utilities_model->_delete('tb_schedule_destination',$site);
+			$this->Utilities_model->_delete('tb_schedule_task',$task);
 		}else{
 			// echo "Delete only tb_schedule_task";
-			$this->Schedule_model->_delete('tb_schedule_task',$task);
+			$this->Utilities_model->_delete('tb_schedule_task',$task);
 		}
 
 		// echo $res;

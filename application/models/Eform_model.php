@@ -289,6 +289,42 @@ class Eform_model extends CI_Model {
             }else{
                 return FALSE;
             }
-    }    
+    }
+    
+    function get_eform_id($keyword) {
+        $sql ="
+            Select MAX(eform_id) AS eform_id
+            FROM ohec.tb_eform
+            WHERE eform_id LIKE '$keyword%'
+            ";
+
+        $query = $this->db->query($sql);
+
+        $row = $query->row();
+
+        // print_r($row->eform_id);
+        if(!empty($row->eform_id)){
+            return $row->eform_id;
+        }else{
+            return FALSE;
+        }
+    }
+    function load_question($form_id = null, $panel_name = null) {
+        $sql ="
+            SELECT panel.form_id,panel.page_no,panel.panel_no,question_no,question_name,question_text,question_value,question_type
+            FROM tb_form_panel panel
+            LEFT JOIN tb_form_question question ON question.form_id = panel.form_id AND panel.panel_no = question.panel_no
+            WHERE panel.form_id = '$form_id' AND panel.panel_name = '$panel_name' AND question_status = '1'
+            ORDER BY panel.panel_no,question_order ASC
+            ";
+
+        $query = $this->db->query($sql);
+
+        if($query->result()){   
+                return $query->result_array();
+            }else{
+                return FALSE;
+            }
+    }     
 }
 ?>

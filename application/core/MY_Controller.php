@@ -154,6 +154,11 @@ class MY_Controller extends CI_Controller {
           $this->load->js('assets/bower_components/bootstrap-validator/dist/validator.js');
           break;
 
+        case 'bootstrap-fileinput':
+          $this->load->js('assets/bower_components/bootstrap-fileinput/js/fileinput.js');
+          $this->load->css('assets/bower_components/bootstrap-fileinput/css/fileinput.css');
+          break;    
+
         // case 'jquery_ui':
         //   $this->load->css('assets/bower_components/jquery-ui/themes/base/jquery-ui.min.css');
         //   $this->load->js('assets/bower_components/jquery-ui/jquery-ui.min.js');

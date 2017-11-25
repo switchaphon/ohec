@@ -48,12 +48,12 @@ class Schedule_model extends CI_Model {
         return $query->result_array();
     }
 
-    function _insert_array($table = null, $data=null) {
+    // function _insert_array($table = null, $data=null) {
         
-        $this->db->insert($table, $data);
+    //     $this->db->insert($table, $data);
 
-        return $this->db->affected_rows();
-    }
+    //     return $this->db->affected_rows();
+    // }
     //_update_array
     function _update_array($table = null, $data=null) {
         
@@ -66,27 +66,27 @@ class Schedule_model extends CI_Model {
 /*
 
 */
-    function _count_row($table = null, $data=null) {
+    // function _count_row($table = null, $data=null) {
     
-            foreach($data as $key => $val):
-                $this->db->where($key, $val);
-            endforeach;
+    //         foreach($data as $key => $val):
+    //             $this->db->where($key, $val);
+    //         endforeach;
 
-            $this->db->from($table);
+    //         $this->db->from($table);
 
-            return $this->db->count_all_results();;
-    }
+    //         return $this->db->count_all_results();;
+    // }
 
-    function _delete($table = null, $data=null) {
+    // function _delete($table = null, $data=null) {
 
-        foreach($data as $key => $val):
-            $this->db->where($key, $val);
-        endforeach;
+    //     foreach($data as $key => $val):
+    //         $this->db->where($key, $val);
+    //     endforeach;
 
-        $this->db->delete($table); 
+    //     $this->db->delete($table); 
 
-        return $this->db->affected_rows();
-    }
+    //     return $this->db->affected_rows();
+    // }
 
     function get_schedule_id($keyword) {
         $sql ="

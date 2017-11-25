@@ -32,7 +32,7 @@ class Eform extends MY_Controller {
 	public function create($schedule_id = null,$ticket_id = null)
 	{
 		$this->_init();
-		$this->_init_assets( array('icheck','smartwizard') );
+		$this->_init_assets( array('icheck','dropzone','bootstrap-fileinput') );
 		$this->load->library( array('Eform_action') );
 		$this->load->model( array('Eform_model','Ticket_model'));
 		
@@ -55,7 +55,7 @@ class Eform extends MY_Controller {
 			case strpos($this->data['case_category'], 'Equip') !== false:
 			case strpos($this->data['case_category'], 'equip') !== false:
 				$asset_group = "equipment";
-				echo $this->data['case_sub_category'];
+				// echo $this->data['case_sub_category'];
 				switch(true){
 					case strpos($this->data['case_sub_category'], 'Router') !== false:
 						$asset_type = "Router";
@@ -94,7 +94,7 @@ class Eform extends MY_Controller {
 				}
 				break;
 		}	
-		echo $asset_group.$asset_type;
+		// echo $asset_group.$asset_type;
 		
 		//Load checklist by asset_type and ma_type
 		$this->data['checklist'] = $this->eform_action->load_eform($asset_group,$asset_type, $this->data['ma_type']);
@@ -103,7 +103,75 @@ class Eform extends MY_Controller {
 	}   
 	
 	public function create_ops(){
-		echo "<pre>"; print_r($_POST); echo "</pre>";
+
+		$this->load->model( array('Utilities_model','Eform_model'));
+
+		//Initiate eform_id
+		$eform_id = $this->Eform_model->get_eform_id(date("Ymd",time()));
+		
+		if(!$eform_id){
+			$eform_id = date("Ymd",time())."01";
+		}else{
+			$eform_id = $eform_id + 1;
+		}
+
+		//Prepate date for insert to tb_eform
+		$eform = array(
+			'eform_id' => $eform_id
+			,'schedule_id' => $_POST['schedule_id']
+			,'site_id' => $_POST['site_id']
+			,'ticket_id' => $_POST['ticket_id']
+			,'form_id' => $_POST['form_id']
+			,'created_by' => $this->session->userdata('cn')
+		);
+
+		// echo "<pre>"; print_r($eform); echo "</pre>";
+		$res = $this->Utilities_model->_insert_array('tb_eform',$eform);
+
+		$question = $this->Eform_model->load_question($_POST['form_id'],$_POST['panel_name']);
+		
+		foreach($question as $key => $val):
+			if($val['question_type'] != 'dropbox'){
+				if(isset($_POST[$val['question_name']])){
+					//Prepate date for insert to tb_eform_checklist
+					$eform_checklist = array(
+						'eform_id' => $eform_id
+						,'form_id' => $_POST['form_id']
+						,'page_no' => $_POST['page_no']
+						,'panel_no' => $val['panel_no']
+						,'question_no' => $val['question_no']
+						,'answer_value' => $_POST[$val['question_name']]
+					);
+
+					// echo "<pre>"; print_r($eform_checklist); echo "</pre>";
+					$res = $this->Utilities_model->_insert_array('tb_eform_checklist',$eform_checklist);
+				}
+			}else{
+				//Upload file to folder
+				
+				//attachment
+				// $eform_attachment = array(
+				// 	'eform_id' => $eform_id
+				// 	,'form_id' => $_POST['form_id']
+				// 	,'page_no' => $_POST['page_no']
+				// 	,'panel_no' => $val['panel_no']
+				// 	,'question_no' => $val['question_no']
+				// 	// ,'attachment_no' => 
+				// 	// ,'attachment_type' => 
+				// 	// ,'attachment_path' => 
+				// );
+
+				// echo "<pre>"; print_r($eform_attachment); echo "</pre>";
+				// // $res = $this->Schedule_model->_insert_array('tb_eform_attachment',$eform_attachment);
+			}
+		endforeach;
+
+		//Log
+
+		//Redirect
+		redirect( site_url('/schedule/view/'.$_POST['schedule_id']) );
+
+
 	}
 
 }

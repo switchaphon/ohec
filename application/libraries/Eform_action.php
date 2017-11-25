@@ -52,7 +52,7 @@ class Eform_action {
                 // foreach($form_panel[key($form)][$page_no] as $x):
                 //     echo "<pre>"; print_r($x); echo "</pre>";
                 // endforeach;
-                echo count($form_panel[key($form)][$page_no]);
+                // echo count($form_panel[key($form)][$page_no]);
                 for($panel = 1 ; $panel <= count($form_panel[key($form)][$page_no]); $panel++){
                     //--select only related $asset_typ panel--//
                     if($form_panel[key($form)][$page_no][$panel]['panel_name'] == $asset_type){
