@@ -44,7 +44,7 @@
                 <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-
+                <? echo "<pre>"; print_r($eform); echo "</pre>"; ?>
                 <section class="content invoice">
                     <!-- title row -->
                     <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="150px"></center>

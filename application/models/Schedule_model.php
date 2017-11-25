@@ -129,7 +129,7 @@ class Schedule_model extends CI_Model {
             }
     }
 
-    function get_committee($schedule_id = null) {
+    function get_schedule_committee($schedule_id = null) {
         $sql ="
             Select name
             FROM ohec.tb_schedule_member

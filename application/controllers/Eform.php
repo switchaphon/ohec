@@ -22,11 +22,17 @@ class Eform extends MY_Controller {
         $this->load->view('eform/index');
 	}
 	
-	public function view()
+	public function view($eform_id = null)
 	{
 		$this->_init();
-        $this->_init_assets( array('datatables', 'icheck', 'jszip', 'pdfmake') );
-        $this->load->view('eform/view');
+		$this->_init_assets( array('datatables', 'icheck', 'pdfmake') );
+		$this->load->library( array('Eform_action') );
+		$this->load->model( array('Eform_model','Ticket_model'));
+		
+		//Get schedule
+		$this->data['eform'] = $this->Eform_model->view_eform($eform_id );
+		
+		$this->load->view('eform/view',$this->data);
 	}
 
 	public function create($schedule_id = null,$ticket_id = null)
@@ -97,7 +103,7 @@ class Eform extends MY_Controller {
 		// echo $asset_group.$asset_type;
 		
 		//Load checklist by asset_type and ma_type
-		$this->data['checklist'] = $this->eform_action->load_eform($asset_group,$asset_type, $this->data['ma_type']);
+		$this->data['checklist'] = $this->eform_action->load_form($asset_group,$asset_type, $this->data['ma_type']);
 		
 		$this->load->view('eform/create',$this->data);
 	}   

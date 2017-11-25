@@ -5,7 +5,7 @@ class Eform_action {
 
     }
     
-    public function load_eform($asset_group = null, $asset_type = null,$ma_type = null){   
+    public function load_form($asset_group = null, $asset_type = null,$ma_type = null){   
         
             //Assign the CodeIgniter object to a variable for using instead "$this"
             $CI =& get_instance();
@@ -14,12 +14,12 @@ class Eform_action {
             $CI->load->model('Eform_model');
             
             //Query eForm
-            $form = $CI->Eform_model->load_eform($asset_group,$ma_type);
-            $form_page = $CI->Eform_model->load_eform_page();
-            $form_panel = $CI->Eform_model->load_eform_panel();
-            $form_element = $CI->Eform_model->load_eform_element();
-            $form_question = $CI->Eform_model->load_eform_question();
-            $form_answer = $CI->Eform_model->load_eform_answer();
+            $form = $CI->Eform_model->load_form($asset_group,$ma_type);
+            $form_page = $CI->Eform_model->load_form_page();
+            $form_panel = $CI->Eform_model->load_form_panel();
+            $form_element = $CI->Eform_model->load_form_element();
+            $form_question = $CI->Eform_model->load_form_question();
+            $form_answer = $CI->Eform_model->load_form_answer();
 
             // echo "Form";
             // echo "<pre>"; print_r($form); echo "</pre>";

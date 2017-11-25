@@ -45,10 +45,6 @@ class Schedule extends MY_Controller {
 		//Get region
 		$this->data['region'] = $this->Site_model->list_region();
 
-		//Load checklist by asset_type and ma_type
-		// $this->data['checklist'] = $this->eform_action->load_eform('equipment', 'pm');
-		
-
 		$this->load->view('schedule/create',$this->data);
 	}  
 	
@@ -118,7 +114,7 @@ class Schedule extends MY_Controller {
 	public function view($schedule_id = null){
 		$this->_init();
 		$this->_init_assets( array('datatables','bootstrap_validator','bootstrap_select') );
-		$this->load->model( array('Schedule_model','Site_model'));
+		$this->load->model( array('Schedule_model','Site_model','Eform_model'));
 
 		//Get schedule
 		$this->data['schedule'] = $this->Schedule_model->view_schedule($schedule_id);
@@ -130,7 +126,9 @@ class Schedule extends MY_Controller {
 		// $this->data['site_list'] = $this->Site_model->list_site_by_province($province_list);
 		$this->data['site_list'] = $this->Site_model->list_site_by_province($province_list,$ticket_start_date,$ticket_end_date,$schedule_id);
 		$this->data['task_list'] = $this->Schedule_model->get_schedule_task($schedule_id);
-		$this->data['committee_list'] = $this->Schedule_model->get_committee($schedule_id);
+		$this->data['committee_list'] = $this->Schedule_model->get_schedule_committee($schedule_id);
+		$this->data['eform_list'] = $this->Eform_model->get_schedule_eform($schedule_id);
+		
 
         $this->load->view('schedule/view',$this->data);
 	}

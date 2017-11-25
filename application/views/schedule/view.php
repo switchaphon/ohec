@@ -249,7 +249,7 @@
                           <thead>
                               <tr>
                               <th class="text-center">สถานที่</th>
-                              <th class="text-center">ทรัพย์สิน</th>
+                              <!-- <th class="text-center">ทรัพย์สิน</th> -->
                               <th class="text-center">หมายเลขเคส</th>
                               <th class="text-center"></th>
                               </tr>
@@ -260,7 +260,7 @@
                           ?>
                             <tr>
                                 <td class="text-left"><a href="#"><?=$val['site_name'];?></a></td>
-                                <td class="text-left"><a href="#"><?=$val['ma_type'];?></a></td>
+                                <!-- <td class="text-left"><a href="#"><?=$val['ma_type'];?></a></td> -->
                                 <td class="text-left"><a href="#"><?=$val['ticket_id'];?></a></td>
                                 <td class="text-left">
                                   <!-- <a href="#" class="btn btn-round btn-primary btn-xs"><i class="fa fa-folder"></i>  </a> -->
@@ -313,21 +313,38 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <table id="scheduleEform" name="scheduleEform" class="table table-striped">
+                        <table id="tbEform" name="tbEform" class="table table-striped">
                         <thead>
                             <tr>
-                            <th class="text-center">หมายเลข</th>
+                            <!-- <th class="text-center">หมายเลข</th> -->
                             <th class="text-center">ชื่อหน่วยงาน</th>
                             <th class="text-center">จังหวัด</th>
                             <th class="text-center">ทรัพย์สิน</th>
-                            <th class="text-center">ประเภทการตรวจสอบ</th>
+                            <!-- <th class="text-center">ประเภทการตรวจสอบ</th> -->
                             <th class="text-center">ผู้ตรวจสอบ</th>
                             <th class="text-center">วันที่ตรวจสอบ</th>
                             <th class="text-center"></th>
                             </tr>
                         </thead>
                         
-                        <tbody>                            
+                        <tbody>
+                        <? 
+                            //echo "<pre>"; print_r($eform_list); echo "</pre>"; 
+                            foreach($eform_list as $eform_key => $eform_val):
+                        ?>
+                            <tr>
+                              <!-- <td class="text-left"><a href="#"><?=$eform_val['eform_id'];?></a></td> -->
+                              <td class="text-left"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['site_name'];?></a></td>
+                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['province'];?></a></td>
+                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['case_category'];?>[PM]</a></td>
+                              <!-- <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>">PM</a></td> -->
+                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['created_by'];?></a></td>
+                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['created_date'];?></a></td>
+                              <td class="text-center"></td>
+                            </tr>  
+                        <?      
+                            endforeach;
+                        ?>                            
                         </tbody>
                         
                         </table>
@@ -427,6 +444,24 @@
 
     $('#tbCommittee').removeClass('hidden');
 
+    $('#tbEform').DataTable({
+      searching: true,
+      "paging":   true,
+      "ordering": true,
+      language: { search: "_INPUT_" , searchPlaceholder: "ค้นหา..." }, //remove "search" label and put in placeholder
+      "dom": '<"toolbarEform">frtip'
+    });
+
+    $("div.toolbarEform").html('<span id="tbEform_filter2" class="dataTables_filter"></span>');
+    //Search box
+    $('#tbEform_filter').css('float','left');
+    $('#tbEform_filter').css('text-align','left');
+
+    $('#tbEform_filter2').css('float','right');
+    $('#tbEform_filter2').append($('#panelEform'));
+    $("div.toolbarEform").append($('#tbEform_filter'));
+
+    $('#tbEform').removeClass('hidden');
 
     $('#joinScheduleModal').on('show.bs.modal', function(e) {
       var schedule_id = $(e.relatedTarget).data('schedule_id')

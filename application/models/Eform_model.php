@@ -9,7 +9,7 @@ class Eform_model extends CI_Model {
         parent::__construct();
     }
 
-    function load_eform($asset_category = null, $ma_type = null) {
+    function load_form($asset_category = null, $ma_type = null) {
         $sql ="
             SELECT form_id,form_name
             FROM tb_form form
@@ -44,7 +44,7 @@ class Eform_model extends CI_Model {
         }
     }
 
-    function load_eform_page() {
+    function load_form_page() {
         $sql ="
             SELECT form_id,page_no,page_name,page_title
             FROM tb_form_page page
@@ -81,7 +81,7 @@ class Eform_model extends CI_Model {
 
     }
 
-    function load_eform_panel() {
+    function load_form_panel() {
         $sql ="
             SELECT form_id,page_no,panel_no,panel_name,panel_title
             FROM tb_form_panel panel
@@ -127,7 +127,7 @@ class Eform_model extends CI_Model {
             }
     }
 
-    function load_eform_element() {
+    function load_form_element() {
         $sql ="
             SELECT form_id,page_no,panel_no,element_no,element_name,element_title,element_type
             FROM tb_form_element
@@ -179,7 +179,7 @@ class Eform_model extends CI_Model {
             }
     } 
     
-    function load_eform_question() {
+    function load_form_question() {
         $sql ="
             SELECT form_id,page_no,panel_no,element_no,question_no,question_name,question_text,question_value,question_type
             FROM tb_form_question
@@ -240,7 +240,7 @@ class Eform_model extends CI_Model {
             }
     } 
 
-    function load_eform_answer() {
+    function load_form_answer() {
         $sql ="
             SELECT form_id,page_no,panel_no,element_no,question_no,answer_no,answer_name,answer_text,answer_value
             FROM tb_form_answer answer
@@ -309,6 +309,7 @@ class Eform_model extends CI_Model {
             return FALSE;
         }
     }
+
     function load_question($form_id = null, $panel_name = null) {
         $sql ="
             SELECT panel.form_id,panel.page_no,panel.panel_no,question_no,question_name,question_text,question_value,question_type
@@ -325,6 +326,43 @@ class Eform_model extends CI_Model {
             }else{
                 return FALSE;
             }
-    }     
+    }  
+    
+    function get_schedule_eform($schedule_id = null){
+        $sql ="
+            SELECT eform.eform_id,site.site_name,site.province,ticket.case_category,eform.created_by,eform.created_date
+            FROM `tb_eform` eform
+            LEFT JOIN `tb_site` site ON site.site_id = eform.site_id
+            LEFT JOIN `tb_ticket` ticket ON ticket.case_id = eform.ticket_id
+            WHERE `schedule_id` = '$schedule_id'
+        ";
+
+        $query = $this->db->query($sql);
+        
+        if($query->result()){   
+            return $query->result_array();
+        }else{
+            return FALSE;
+        }
+    }
+
+    function view_eform($eform_id = null){
+        $sql ="
+            SELECT *
+            FROM `tb_eform` eform
+            LEFT JOIN `tb_site` site ON site.site_id = eform.site_id
+            LEFT JOIN `tb_ticket` ticket ON ticket.case_id = eform.ticket_id
+            WHERE `eform_id` = '$eform_id'
+        ";
+
+        $query = $this->db->query($sql);
+        
+        if($query->result()){   
+            return $query->result_array();
+        }else{
+            return FALSE;
+        }
+    }
+    
 }
 ?>
