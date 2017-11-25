@@ -9,11 +9,11 @@ class Eform_model extends CI_Model {
         parent::__construct();
     }
 
-    function load_eform($asset_type = null, $ma_type = null) {
+    function load_eform($asset_category = null, $ma_type = null) {
         $sql ="
             SELECT form_id,form_name
             FROM tb_form form
-            WHERE form.asset_type = '$asset_type' AND form.ma_type = '$ma_type' AND form.form_status = '1'
+            WHERE form.asset_type = '$asset_category' AND form.ma_type = '$ma_type' AND form.form_status = '1'
             ";
 
         $query = $this->db->query($sql);
@@ -27,13 +27,16 @@ class Eform_model extends CI_Model {
                     $form[$value['form_id']] = array(
                         'form_name' => $value['form_name']
                     );
-                // }else{
-                //     $form[$value['form_id']][$value['page_no']] = array(
-                //         'page_name' => $value['page_name']
-                //         ,'page_title' => $value['page_title']
-                //     );
                 }
             endforeach;
+            // foreach($query->result_array() as $key => $value):
+            //     if( empty( $form[$value['form_id']] ) ){
+            //         $form[] = array(
+            //             'form_no' => $value['form_id']
+            //             ,'form_name' => $value['form_name']
+            //         );
+            //     }
+            // endforeach;
 
             return $form;            
         }else{
@@ -60,14 +63,17 @@ class Eform_model extends CI_Model {
                         'page_name' => $value['page_name']
                         ,'page_title' => $value['page_title']
                     );
-                // }else{
-                //     $form_page[$value['form_id']][$value['page_no']] = array(
-                //         'page_name' => $value['page_name']
-                //         ,'page_title' => $value['page_title']
-                //     );
                 }
             endforeach;
-
+            // foreach($query->result_array() as $key => $value):
+            //     if( empty( $form_page[$value['form_id']] ) ){
+            //         $form_page[$value['form_id']][] = array(
+            //             'page_no' => $value['page_no']
+            //             ,'page_name' => $value['page_name']
+            //             ,'page_title' => $value['page_title']
+            //         );
+            //     }
+            // endforeach;
             return $form_page;            
         }else{
           return FALSE;
@@ -92,17 +98,28 @@ class Eform_model extends CI_Model {
 
                 if( empty( $form_panel[$value['form_id']][$value['page_no']] ) ){
                     $form_panel[$value['form_id']][$value['page_no']][$value['panel_no']] = array(
-                        'panel_no' => $value['panel_no']
-                        ,'panel_name' => $value['panel_name']
+                        'panel_name' => $value['panel_name']
                         ,'panel_title' => $value['panel_title']
                     );
                 }else{
                     $form_panel[$value['form_id']][$value['page_no']][$value['panel_no']] = array(
-                        'panel_no' => $value['panel_no']
-                        ,'panel_name' => $value['panel_name']
+                        'panel_name' => $value['panel_name']
                         ,'panel_title' => $value['panel_title']
                     );
                 }
+                // if( empty( $form_panel[$value['form_id']][$value['page_no']] ) ){
+                //     $form_panel[$value['form_id']][$value['page_no']][] = array(
+                //         'panel_no' => $value['panel_no']
+                //         ,'panel_name' => $value['panel_name']
+                //         ,'panel_title' => $value['panel_title']
+                //     );
+                // }else{
+                //     $form_panel[$value['form_id']][$value['page_no']][] = array(
+                //         'panel_no' => $value['panel_no']
+                //         ,'panel_name' => $value['panel_name']
+                //         ,'panel_title' => $value['panel_title']
+                //     );
+                // }                
             }
                 return $form_panel;
             }else{
@@ -122,22 +139,40 @@ class Eform_model extends CI_Model {
         $form_panel = array();
 
         if($query->result()){
-            foreach ($query->result_array() as $key => $value) {
+            // foreach ($query->result_array() as $key => $value) {
 
+            //     if( empty( $form_panel[$value['form_id']][$value['page_no']][$value['panel_no']][$value['element_no']] ) ){
+            //         $form_panel[$value['form_id']][$value['page_no']][$value['panel_no']][$value['element_no']] = array(
+            //             'element_name' => $value['element_name']
+            //             ,'element_title' => $value['element_title']
+            //             ,'element_type' => $value['element_type']
+            //         );
+            //     }else{
+            //         $form_panel[$value['form_id']][$value['page_no']][$value['panel_no']][$value['element_no']] = array(
+            //             'element_name' => $value['element_name']
+            //             ,'element_title' => $value['element_title']
+            //             ,'element_type' => $value['element_type']
+            //         );
+            //     }
+            // }
+            foreach ($query->result_array() as $key => $value) {
+                
                 if( empty( $form_panel[$value['form_id']][$value['page_no']][$value['panel_no']][$value['element_no']] ) ){
-                    $form_panel[$value['form_id']][$value['page_no']][$value['panel_no']][$value['element_no']] = array(
-                        'element_name' => $value['element_name']
+                    $form_panel[$value['form_id']][$value['page_no']][$value['panel_no']][] = array(
+                        'element_no' => $value['element_no']
+                        ,'element_name' => $value['element_name']
                         ,'element_title' => $value['element_title']
                         ,'element_type' => $value['element_type']
                     );
                 }else{
-                    $form_panel[$value['form_id']][$value['page_no']][$value['panel_no']][$value['element_no']] = array(
-                        'element_name' => $value['element_name']
+                    $form_panel[$value['form_id']][$value['page_no']][$value['panel_no']][] = array(
+                        'element_no' => $value['element_no']
+                        ,'element_name' => $value['element_name']
                         ,'element_title' => $value['element_title']
                         ,'element_type' => $value['element_type']
                     );
                 }
-            }
+            }            
                 return $form_panel;
             }else{
                 return FALSE;
@@ -177,6 +212,28 @@ class Eform_model extends CI_Model {
                     );
                 }
             }
+            // foreach ($query->result_array() as $key => $value) {
+                
+            //     if( empty( $form_question[$value['form_id']][$value['page_no']][$value['panel_no']][$value['question_no']] ) ){
+            //         $form_question[$value['form_id']][$value['page_no']][$value['panel_no']][] = array(
+            //             'question_no' => $value['question_no']
+            //             ,'question_name' => $value['question_name']
+            //             ,'question_text' => $value['question_text']
+            //             ,'question_value' => $value['question_value']
+            //             ,'element_no' => $value['element_no']
+            //             ,'question_type' => $value['question_type']
+            //         );
+            //     }else{
+            //         $form_question[$value['form_id']][$value['page_no']][$value['panel_no']][] = array(
+            //             'question_no' => $value['question_no']
+            //             ,'question_name' => $value['question_name']
+            //             ,'question_text' => $value['question_text']
+            //             ,'question_value' => $value['question_value']
+            //             ,'element_no' => $value['element_no']
+            //             ,'question_type' => $value['question_type']
+            //         );
+            //     }
+            // }            
                 return $form_question;
             }else{
                 return FALSE;
@@ -197,7 +254,6 @@ class Eform_model extends CI_Model {
 
         if($query->result()){
             foreach ($query->result_array() as $key => $value) {
-
                 if( empty( $form_answer[$value['form_id']][$value['page_no']][$value['panel_no']][$value['question_no']][$value['answer_no']] ) ){
                     $form_answer[$value['form_id']][$value['page_no']][$value['panel_no']][$value['question_no']][$value['answer_no']] = array(
                         'answer_name' => $value['answer_name']
@@ -211,7 +267,24 @@ class Eform_model extends CI_Model {
                         ,'answer_value' => $value['answer_value']
                     );
                 }
-            }
+            }  
+            // foreach ($query->result_array() as $key => $value) {
+            //     if( empty( $form_answer[$value['form_id']][$value['page_no']][$value['panel_no']][$value['question_no']][$value['answer_no']] ) ){
+            //         $form_answer[$value['form_id']][$value['page_no']][$value['panel_no']][$value['question_no']][] = array(
+            //             'answer_no' => $value['answer_no']
+            //             ,'answer_name' => $value['answer_name']
+            //             ,'answer_text' => $value['answer_text']
+            //             ,'answer_value' => $value['answer_value']
+            //         );
+            //     }else{
+            //         $form_answer[$value['form_id']][$value['page_no']][$value['panel_no']][$value['question_no']][] = array(
+            //             'answer_no' => $value['answer_no']
+            //             ,'answer_name' => $value['answer_name']
+            //             ,'answer_text' => $value['answer_text']
+            //             ,'answer_value' => $value['answer_value']
+            //         );
+            //     }
+            // }           
                 return $form_answer;
             }else{
                 return FALSE;

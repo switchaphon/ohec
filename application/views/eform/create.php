@@ -24,7 +24,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>สร้างแบบตรวจออนไลน์ <small>(Eform)</small></h2>
+                        <h2>สร้างแบบตรวจออนไลน์ <small>(<?=$case_category;?>)</small></h2>
                         <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -43,97 +43,98 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                    <form role="form" id="createSchedule" name="createSchedule" class="form-horizontal form-label-left" data-toggle="validator" action="<?=site_url('schedule/create_ops');?>" method="POST">
-                            <!-- <span class="section"><small>ข้อมูลตารางตรวจงาน</small></span> -->
-                            <!-- <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">ชื่อ <span class="required">*</span></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="name"  name="name" class="form-control col-md-7 col-xs-12" required>
-                                </div>
-                            </div>
+                        <?
+                            echo $schedule_id."<BR>";
+                            echo $site_id."<BR>";
+                            echo $ticket_id."<BR>";
+                            echo $case_category."<BR>";
+                            echo $case_sub_category."<BR>";
+                            echo $ma_type."<BR>";
+                            echo $ma_contract."<BR>"; 
+                        ?>
+                        <form role="form" id="createEform" name="createEform" class="form-horizontal form-label-left" data-toggle="validator" action="<?=site_url('eform/create_ops');?>" method="POST">
 
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">รายละเอียด <span class="required">*</span></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <textarea id="description"  name="description" class="form-control col-md-7 col-xs-12" required></textarea>
-                                </div>
-                            </div>
-  -->
+                            <BR><BR>
+                                <!-- <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">First Name <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div> -->
+                            <?
+                                //--/Get form properties
+                                echo $checklist['form_name']."<BR>";
+                                
+                                //--Get page's properties
+                                for($page_no = 1; $page_no <= count($checklist['page']); $page_no++){
+                                    // echo "page_name: ".$checklist['page'][$page_no]['page_name']."page_title: ".$checklist['page'][$page_no]['page_title']."<BR>";
+                                    // echo "<pre>"; print_r($checklist['page'][$page_no]['panel']); echo "</pre>";
+                                    
+                                    //--Get panel's properties
+                                    foreach($checklist['page'][$page_no]['panel'] as $panel_key => $panel_val):
+                                        for($question_no = 1; $question_no <= count($panel_val['question']); $question_no++){
 
-                            <!-- <div class="ln_solid"></div>
+                                            $question_no = $panel_val['question'][$question_no]['question_no'];
+                                            $question_name = $panel_val['question'][$question_no]['question_name'];
+                                            $question_text = $panel_val['question'][$question_no]['question_text'];
+                                            $question_value = $panel_val['question'][$question_no]['question_value'];
+                                            $question_type = $panel_val['question'][$question_no]['question_type'];
 
-                            <div class="form-group">
-                                <div class="col-md-9 text-right">
-                                <button type="submit" class="btn btn-round btn-default">ยกเลิก</button>
-                                <button id="submit" type="submit" class="btn btn-round btn-primary">บันทึก</button>
-                                </div>
-                            </div>
-                        </form> -->
-                    <?
-                        echo $schedule_id;
-                        echo $site_id;
-                        echo $ticket_id;
-                        echo $case_category;
-                        echo $case_sub_category;
-                        echo $ma_type;
-                        echo $ma_contract; 
-                        echo "<BR>";
-                        
-                        //--/Get form properties
-                        echo $checklist['form_id']." : ".$checklist['form_name']."<BR>";
-                        // echo count($checklist['page']);
-                        
-                        //--Get page's properties
-                        for($page_no = 1; $page_no <= count($checklist['page']); $page_no++){
-                            echo "page_name: ".$checklist['page'][$page_no]['page_name']."page_title: ".$checklist['page'][$page_no]['page_title']."<BR>";
-                            
-                            //--Get panel's properties
-                            for($panel_no = 1; $panel_no <= count($checklist['page'][$page_no]['panel']); $panel_no++){
-                                echo $panel_no.": ".$checklist['page'][$page_no]['panel'][$panel_no]['panel_name']."<BR>";
-                            
-                                //--Get panel's questions
-                                for($question_no = 1; $question_no <= count($checklist['page'][$page_no]['panel'][$panel_no]['question']); $question_no++){
-                                    echo "<pre>"; print_r($checklist['page'][$page_no]['panel'][$panel_no]['question'][$question_no]); echo "</pre>";
-                                    foreach($checklist['page'][$page_no]['panel'][$panel_no]['question'][$question_no] as $question):
-                                        // if(!$question['answer']){
-                                        echo $question."<BR>";
-                                        // echo "<div class=\"form-group\"> <label class=\"control-label col-md-3 col-sm-3 col-xs-12\" for=\"".$question['question_name']."\">".$question['question_text']."<span class=\"required\"></span></label></div>";
-                                        // }else{
-                                        //     for($answer_no = 1; $answer_no <= count($checklist['page'][$page_no]['panel'][$panel_no]['question'][$question_no]['answer']); $answer_no++ ){
-                                        //         $answer_name = $checklist['page'][$page_no]['panel'][$panel_no]['question'][$question_no]['answer'][$answer_no]['answer_name'];
-                                        //         $answer_text = $checklist['page'][$page_no]['panel'][$panel_no]['question'][$question_no]['answer'][$answer_no]['answer_text'];
-                                        //         $answer_value = $checklist['page'][$page_no]['panel'][$panel_no]['question'][$question_no]['answer'][$answer_no]['answer_value'];
-                                                
-                                        //         echo "
-                                        //         <div class=\"radio\">
-                                        //             <label class=\">
-                                        //             <div class=\"iradio_flat-green\" style=\"position: relative;\"><input type=\"radio\" class=\"flat\" checked=\" name=\"".$answer_name."\" value=\"".$answer_value."\" >
-                                                        
-                                        //             </div> ".$answer_text."
-                                        //             </label>
-                                        //         </div>";
-                                        //     }
-                                            // print_r($question_val);
+                                            // echo " ".$question_no." ".$question_name." ".$question_text." ".$question_value." ".$question_type."<BR>";
 
-                                        // }
-                                    endforeach;
-                                    echo "<BR><BR>";
-                                }
-                                // echo "<BR><BR>";
-                            }
-                            // echo "<pre>"; print_r($checklist['page'][$page_no]); echo "</pre>"; 
+                                            switch( $question_type ){
+                                                case "textbox":
+                                                    $answer = null;
+                                                    $answer = "
+                                                    <div class=\"col-md-4 col-sm-4 col-xs-12 \">
+                                                        <input type=\"text\" class=\"form-control col-md-7 col-xs-12\" name=\"".$question_name."\" id=\"".$question_name."\">
+                                                    </div>";
+                                                    break;
+                                                case "textarea":
+                                                    $answer = null;
+                                                    $answer = "
+                                                    <div class=\"col-md-4 col-sm-4 col-xs-12 \">
+                                                        <textarea name=\"".$question_name."\" id=\"".$question_name."\" class=\"form-control\" rows=\"3\"></textarea>
+                                                    </div>";
+                                                    break;
+                                                case "radiobox":
+                                                    $answer = null;
+                                                    foreach($panel_val['question'][$question_no]['answer'] as $ans_key => $ans_val):
+                                                        $answer_no = $ans_val['answer_no'];
+                                                        $answer_name = $ans_val['answer_name'];
+                                                        $answer_text = $ans_val['answer_text'];
+                                                        $answer_value = $ans_val['answer_value'];
 
-                            // echo $checklist['page'][$page_no];
-                        }
+                                                        if($answer_name  == 'passed'){$checked = 'checked'; }else{$checked = null;}
 
-                        // foreach($checklist['page'] as $form):
-                        //     echo $form."<BR>";
-                        // endforeach;
+                                                        // echo " ".$answer_no." ".$answer_name." ".$answer_text." ".$answer_value."<BR>";
 
-                        // echo "<pre>"; print_r($checklist); echo "</pre>"; 
-                        
-                    ?>
-                                                <div class="ln_solid"></div>
+                                                        $answer = $answer."
+                                                            <div class=\"col-md-2 col-sm-2 col-xs-12\">
+                                                                <div class=\"radio-inline\">
+                                                                    <label><input type=\"radio\" class=\"flat\" name=\"".$question_name."\" id=\"".$question_name."\" value=\"".$answer_value."\" ".$checked."> ".$answer_text."</label>
+                                                                </div>
+                                                            </div>";  
+                                                    endforeach;
+                                                    break;
+                                                case "checkbox":
+                                                    break;
+                                                case "selectbox":
+                                                    break;
+                                                case "dropbox":
+                                                    break;    
+                                            }
+                                            echo "
+                                            <div class=\"form-group\">
+                                                <label class=\"control-label col-md-5 col-sm-5 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>".$answer."
+                                            </div>";
+                                        }                                            
+                                    endforeach;  
+                                }                    
+                            ?>
+
+                            <div class="ln_solid"></div>
 
                             <div class="form-group">
                                 <div class="col-md-9 text-right">
