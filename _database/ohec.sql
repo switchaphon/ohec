@@ -1,20 +1,22 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10.18
--- https://www.phpmyadmin.net
+-- version 4.7.5
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Nov 24, 2017 at 11:34 PM
--- Server version: 5.5.33-log
--- PHP Version: 5.4.19
+-- Host: 127.0.0.1
+-- Generation Time: Nov 26, 2017 at 03:34 PM
+-- Server version: 5.7.20
+-- PHP Version: 5.5.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `ohec`
@@ -26,7 +28,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `tb_contact`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_contact` (
+CREATE TABLE `tb_contact` (
   `site_id` varchar(20) NOT NULL,
   `contact_no` int(1) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -34,8 +36,7 @@ CREATE TABLE IF NOT EXISTS `tb_contact` (
   `tel_no` varchar(10) NOT NULL,
   `mobile_no` varchar(10) NOT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `status` bit(1) NOT NULL,
-  PRIMARY KEY (`site_id`,`contact_no`)
+  `status` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -44,17 +45,28 @@ CREATE TABLE IF NOT EXISTS `tb_contact` (
 -- Table structure for table `tb_eform`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_eform` (
-  `row_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tb_eform` (
+  `row_id` int(11) NOT NULL,
   `eform_id` varchar(10) NOT NULL,
   `schedule_id` varchar(20) NOT NULL,
   `site_id` varchar(20) NOT NULL,
   `ticket_id` varchar(25) NOT NULL,
-  `form_id` int(11) NOT NULL,
+  `form_id` varchar(5) NOT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_by` varchar(255) NOT NULL,
-  PRIMARY KEY (`row_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `created_by` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_eform`
+--
+
+INSERT INTO `tb_eform` (`row_id`, `eform_id`, `schedule_id`, `site_id`, `ticket_id`, `form_id`, `created_date`, `created_by`) VALUES
+(1, '2017112501', '2017111904', '84020171', 'NT-Equip-2017-10-0008', '00003', '2017-11-25 13:22:54', 'วิชญ์พล แสงอร่าม'),
+(2, '2017112502', '2017111906', '1450100400', 'NT-Equip-2017-10-0041', '00003', '2017-11-25 13:24:27', 'วิชญ์พล แสงอร่าม'),
+(3, '2017112503', '2017111906', '5802', 'NT-Equip-2017-10-0036', '00003', '2017-11-25 13:27:43', 'วิชญ์พล แสงอร่าม'),
+(4, '2017112504', '2017111903', '9603', 'NT-Equip-2017-10-0029', '00003', '2017-11-25 13:34:15', 'วิชญ์พล แสงอร่าม'),
+(5, '2017112601', '2017111906', '1450100400', 'NT-Equip-2017-10-0040', '00003', '2017-11-26 11:54:38', 'วิชญ์พล แสงอร่าม'),
+(6, '2017112602', '2017111906', '1450100400', 'NT-Equip-2017-10-0040', '00003', '2017-11-26 12:14:12', 'Wiriya Damrong');
 
 -- --------------------------------------------------------
 
@@ -62,17 +74,16 @@ CREATE TABLE IF NOT EXISTS `tb_eform` (
 -- Table structure for table `tb_eform_attachment`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_eform_attachment` (
-  `eform_id` varchar(10) NOT NULL,
+CREATE TABLE `tb_eform_attachment` (
+  `attachment_no` int(11) NOT NULL,
+  `attachment_path` varchar(255) NOT NULL,
+  `attachment_type` varchar(255) NOT NULL,
+  `eform_id` varchar(20) NOT NULL,
   `form_id` varchar(5) NOT NULL,
   `page_no` int(1) NOT NULL,
   `panel_no` int(1) NOT NULL,
-  `element_no` int(2) NOT NULL,
-  `question_no` int(2) NOT NULL,
-  `attachment_no` int(2) NOT NULL,
-  `attachment_type` varchar(255) NOT NULL,
-  `attachment_path` varchar(255) NOT NULL,
-  PRIMARY KEY (`eform_id`,`form_id`,`page_no`,`panel_no`,`element_no`,`question_no`,`attachment_no`)
+  `element_no` int(1) NOT NULL,
+  `question_no` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -81,16 +92,55 @@ CREATE TABLE IF NOT EXISTS `tb_eform_attachment` (
 -- Table structure for table `tb_eform_checklist`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_eform_checklist` (
+CREATE TABLE `tb_eform_checklist` (
   `eform_id` varchar(10) NOT NULL,
   `form_id` varchar(5) NOT NULL,
   `page_no` int(1) NOT NULL,
   `panel_no` int(1) NOT NULL,
-  `element_no` int(2) NOT NULL,
   `question_no` int(2) NOT NULL,
-  `answer_value` varchar(255) NOT NULL,
-  PRIMARY KEY (`eform_id`,`form_id`,`page_no`,`panel_no`,`element_no`,`question_no`)
+  `answer_value` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_eform_checklist`
+--
+
+INSERT INTO `tb_eform_checklist` (`eform_id`, `form_id`, `page_no`, `panel_no`, `question_no`, `answer_value`) VALUES
+('2017112501', '00003', 1, 2, 1, 'ผ่าน'),
+('2017112501', '00003', 1, 2, 2, 'ไม่ผ่าน'),
+('2017112501', '00003', 1, 2, 3, 'ผ่าน'),
+('2017112501', '00003', 1, 2, 4, 'ผ่าน'),
+('2017112501', '00003', 1, 2, 5, 'เก็บสายไม่เรียบร้อย'),
+('2017112502', '00003', 1, 1, 1, 'ผ่าน'),
+('2017112502', '00003', 1, 1, 2, 'ผ่าน'),
+('2017112502', '00003', 1, 1, 3, 'ผ่าน'),
+('2017112502', '00003', 1, 1, 4, 'ไม่ผ่าน'),
+('2017112502', '00003', 1, 1, 5, 'มีไฟแจ้งหน้าอุปกรณ์'),
+('2017112503', '00003', 1, 5, 1, 'ผ่าน'),
+('2017112503', '00003', 1, 5, 2, 'ผ่าน'),
+('2017112503', '00003', 1, 5, 3, 'ผ่าน'),
+('2017112503', '00003', 1, 5, 4, 'ผ่าน'),
+('2017112503', '00003', 1, 5, 5, NULL),
+('2017112504', '00003', 1, 1, 1, 'ไม่ผ่าน'),
+('2017112504', '00003', 1, 1, 2, 'ไม่ผ่าน'),
+('2017112504', '00003', 1, 1, 3, 'ผ่าน'),
+('2017112504', '00003', 1, 1, 4, 'ผ่าน'),
+('2017112504', '00003', 1, 1, 5, ''),
+('2017112504', '00003', 1, 5, 1, 'ไม่ผ่าน'),
+('2017112504', '00003', 1, 5, 2, 'ผ่าน'),
+('2017112504', '00003', 1, 5, 3, 'ผ่าน'),
+('2017112504', '00003', 1, 5, 4, 'ผ่าน'),
+('2017112504', '00003', 1, 5, 5, 'อุปกรณ์ฝุ่นเยอะมาก'),
+('2017112601', '00003', 1, 1, 1, 'ผ่าน'),
+('2017112601', '00003', 1, 1, 2, 'ผ่าน'),
+('2017112601', '00003', 1, 1, 3, 'ผ่าน'),
+('2017112601', '00003', 1, 1, 4, 'ผ่าน'),
+('2017112601', '00003', 1, 1, 5, ''),
+('2017112602', '00003', 1, 1, 1, 'ผ่าน'),
+('2017112602', '00003', 1, 1, 2, 'ผ่าน'),
+('2017112602', '00003', 1, 1, 3, 'ผ่าน'),
+('2017112602', '00003', 1, 1, 4, 'ผ่าน'),
+('2017112602', '00003', 1, 1, 5, '');
 
 -- --------------------------------------------------------
 
@@ -98,14 +148,13 @@ CREATE TABLE IF NOT EXISTS `tb_eform_checklist` (
 -- Table structure for table `tb_eform_note`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_eform_note` (
+CREATE TABLE `tb_eform_note` (
   `eform_id` varchar(10) NOT NULL,
   `note_no` int(2) NOT NULL,
   `note_detail` varchar(255) NOT NULL,
   `ref_ticket_id` varchar(255) DEFAULT NULL,
   `created_date` datetime NOT NULL,
-  `created_by` varchar(255) NOT NULL,
-  PRIMARY KEY (`eform_id`,`note_no`)
+  `created_by` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -114,13 +163,12 @@ CREATE TABLE IF NOT EXISTS `tb_eform_note` (
 -- Table structure for table `tb_form`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_form` (
+CREATE TABLE `tb_form` (
   `form_id` varchar(5) NOT NULL,
   `form_name` text NOT NULL,
   `asset_type` varchar(255) NOT NULL,
   `ma_type` varchar(255) NOT NULL,
-  `form_status` bit(1) NOT NULL,
-  PRIMARY KEY (`form_id`)
+  `form_status` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -130,7 +178,7 @@ CREATE TABLE IF NOT EXISTS `tb_form` (
 INSERT INTO `tb_form` (`form_id`, `form_name`, `asset_type`, `ma_type`, `form_status`) VALUES
 ('00001', 'เอกสารตรวจสอบการบำรุงรักษาเชิงปรับปรุง (Adpative Maintenance) โครงการจ้างบำรุงรักษา ซ่อมแซม แก้ไขและปรับเปลี่ยนอุปกรณ์และระบบเครือข่ายสารสนเทศเพื่อพัฒนาการศึกษา', 'equipment', 'am', b'1'),
 ('00002', 'เอกสารตรวจสอบการบำรุงรักษาเชิงซ่อมแซม (Corrective Maintenance) โครงการจ้างบำรุงรักษา ซ่อมแซม แก้ไขและปรับเปลี่ยนอุปกรณ์และระบบเครือข่ายสารสนเทศเพื่อพัฒนาการศึกษา', 'equipment', 'cm', b'1'),
-('00003', 'เอกสารตรวจสอบการบำรุงรักษาเชิงป้องกัน (Preventive Maintenance) โครงการจ้างบำรุงรักษา ซ่อมแซม แก้ไขและปรับเปลี่ยนอุปกรณ์และระบบเครือข่ายสารสนเทศเพื่อพัฒนาการศึกษา', 'equipment', 'pm', b'1');
+('00003', 'เอกสารตรวจสอบการบำรุงรักษาเชิงป้องกัน (Preventive Maintenance)', 'equipment', 'pm', b'1');
 
 -- --------------------------------------------------------
 
@@ -138,7 +186,7 @@ INSERT INTO `tb_form` (`form_id`, `form_name`, `asset_type`, `ma_type`, `form_st
 -- Table structure for table `tb_form_answer`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_form_answer` (
+CREATE TABLE `tb_form_answer` (
   `form_id` varchar(5) NOT NULL,
   `page_no` int(1) NOT NULL,
   `panel_no` int(1) NOT NULL,
@@ -149,8 +197,7 @@ CREATE TABLE IF NOT EXISTS `tb_form_answer` (
   `answer_text` varchar(255) NOT NULL,
   `answer_value` varchar(255) NOT NULL,
   `answer_order` int(2) NOT NULL,
-  `answer_status` bit(1) NOT NULL,
-  PRIMARY KEY (`form_id`,`page_no`,`panel_no`,`element_no`,`question_no`,`answer_no`)
+  `answer_status` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -215,7 +262,7 @@ INSERT INTO `tb_form_answer` (`form_id`, `page_no`, `panel_no`, `element_no`, `q
 -- Table structure for table `tb_form_element`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_form_element` (
+CREATE TABLE `tb_form_element` (
   `form_id` varchar(5) NOT NULL,
   `page_no` int(1) NOT NULL,
   `panel_no` int(1) NOT NULL,
@@ -223,8 +270,7 @@ CREATE TABLE IF NOT EXISTS `tb_form_element` (
   `element_name` varchar(255) NOT NULL,
   `element_title` varchar(255) NOT NULL,
   `element_type` varchar(255) NOT NULL,
-  `element_status` bit(1) NOT NULL,
-  PRIMARY KEY (`form_id`,`page_no`,`panel_no`,`element_no`)
+  `element_status` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -241,13 +287,12 @@ INSERT INTO `tb_form_element` (`form_id`, `page_no`, `panel_no`, `element_no`, `
 -- Table structure for table `tb_form_page`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_form_page` (
+CREATE TABLE `tb_form_page` (
   `form_id` varchar(5) NOT NULL,
   `page_no` int(1) NOT NULL,
   `page_name` varchar(255) NOT NULL,
   `page_title` varchar(255) NOT NULL,
-  `page_status` bit(1) NOT NULL,
-  PRIMARY KEY (`form_id`,`page_no`)
+  `page_status` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -263,14 +308,13 @@ INSERT INTO `tb_form_page` (`form_id`, `page_no`, `page_name`, `page_title`, `pa
 -- Table structure for table `tb_form_panel`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_form_panel` (
+CREATE TABLE `tb_form_panel` (
   `form_id` varchar(5) NOT NULL,
   `page_no` int(1) NOT NULL,
   `panel_no` int(1) NOT NULL,
   `panel_name` varchar(255) NOT NULL,
   `panel_title` varchar(255) NOT NULL,
-  `panel_status` bit(1) NOT NULL,
-  PRIMARY KEY (`form_id`,`page_no`,`panel_no`)
+  `panel_status` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -291,7 +335,7 @@ INSERT INTO `tb_form_panel` (`form_id`, `page_no`, `panel_no`, `panel_name`, `pa
 -- Table structure for table `tb_form_question`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_form_question` (
+CREATE TABLE `tb_form_question` (
   `form_id` varchar(5) NOT NULL,
   `page_no` int(1) NOT NULL,
   `panel_no` int(1) NOT NULL,
@@ -302,8 +346,7 @@ CREATE TABLE IF NOT EXISTS `tb_form_question` (
   `question_value` varchar(255) NOT NULL,
   `question_type` varchar(255) NOT NULL,
   `question_order` int(2) NOT NULL,
-  `question_status` bit(1) NOT NULL,
-  PRIMARY KEY (`form_id`,`page_no`,`panel_no`,`element_no`,`question_no`)
+  `question_status` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -311,36 +354,39 @@ CREATE TABLE IF NOT EXISTS `tb_form_question` (
 --
 
 INSERT INTO `tb_form_question` (`form_id`, `page_no`, `panel_no`, `element_no`, `question_no`, `question_name`, `question_text`, `question_value`, `question_type`, `question_order`, `question_status`) VALUES
-('00003', 1, 1, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 'checkbox', 1, b'1'),
-('00003', 1, 1, 1, 2, 'question2', 'การจัดการสายสัญญาณ (cabling)', 'การจัดการสายสัญญาณ (cabling)', 'checkbox', 2, b'1'),
-('00003', 1, 1, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'checkbox', 3, b'1'),
-('00003', 1, 1, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'checkbox', 4, b'1'),
-('00003', 1, 2, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 'checkbox', 1, b'1'),
-('00003', 1, 2, 1, 2, 'question2', 'การจัดการสายสัญญาณ (cabling)', 'การจัดการสายสัญญาณ (cabling)', 'checkbox', 2, b'1'),
-('00003', 1, 2, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'checkbox', 3, b'1'),
-('00003', 1, 2, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'checkbox', 4, b'1'),
-('00003', 1, 2, 2, 5, 'question5', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 'textbox', 5, b'1'),
-('00003', 1, 3, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 'checkbox', 1, b'1'),
-('00003', 1, 3, 1, 2, 'question2', 'การจัดการสายสัญญาณ (cabling)', 'การจัดการสายสัญญาณ (cabling)', 'checkbox', 2, b'1'),
-('00003', 1, 3, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'checkbox', 3, b'1'),
-('00003', 1, 3, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'checkbox', 4, b'1'),
-('00003', 1, 3, 1, 5, 'question5', 'การใช้งานระบบโทรศัพท์ Order Wire', 'การใช้งานระบบโทรศัพท์ Order Wire', 'checkbox', 5, b'1'),
-('00003', 1, 3, 2, 6, 'question6', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 'textbox', 6, b'1'),
-('00003', 1, 4, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 'checkbox', 1, b'1'),
-('00003', 1, 4, 1, 2, 'question2', 'การจัดการสายสัญญาณ (cabling)', 'การจัดการสายสัญญาณ (cabling)', 'checkbox', 2, b'1'),
-('00003', 1, 4, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'checkbox', 3, b'1'),
-('00003', 1, 4, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'checkbox', 4, b'1'),
-('00003', 1, 4, 2, 5, 'question5', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 'textbox', 5, b'1'),
-('00003', 1, 5, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 'checkbox', 1, b'1'),
-('00003', 1, 5, 1, 2, 'question2', 'การจัดการสายสัญญาณ (cabling)', 'การจัดการสายสัญญาณ (cabling)', 'checkbox', 2, b'1'),
-('00003', 1, 5, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'checkbox', 3, b'1'),
-('00003', 1, 5, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'checkbox', 4, b'1'),
-('00003', 1, 5, 2, 5, 'question5', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 'textbox', 5, b'1'),
-('00003', 1, 6, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 'checkbox', 1, b'1'),
-('00003', 1, 6, 1, 2, 'question2', 'การจัดการสายสัญญาณ (cabling)', 'การจัดการสายสัญญาณ (cabling)', 'checkbox', 2, b'1'),
-('00003', 1, 6, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'checkbox', 3, b'1'),
-('00003', 1, 6, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'checkbox', 4, b'1'),
-('00003', 1, 6, 2, 5, 'question5', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 'textbox', 5, b'1');
+('00003', 1, 1, 1, 1, 'question1', 'ความสะอาดr', 'ความสะอาดr', 'radiobox', 1, b'1'),
+('00003', 1, 1, 1, 2, 'question2', 'การจัดการสายสัญญาณ (Cabling)', 'การจัดการสายสัญญาณ (Cabling)', 'radiobox', 2, b'1'),
+('00003', 1, 1, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'radiobox', 3, b'1'),
+('00003', 1, 1, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'radiobox', 4, b'1'),
+('00003', 1, 1, 2, 5, 'question5', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 'textarea', 5, b'1'),
+('00003', 1, 1, 2, 6, 'question6', 'แนบภาพ', 'แนบภาพ', 'dropbox', 6, b'1'),
+('00003', 1, 2, 1, 1, 'question1', 'ความสะอาดsw', 'ความสะอาดsw', 'radiobox', 1, b'1'),
+('00003', 1, 2, 1, 2, 'question2', 'การจัดการสายสัญญาณ (Cabling)', 'การจัดการสายสัญญาณ (Cabling)', 'radiobox', 2, b'1'),
+('00003', 1, 2, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'radiobox', 3, b'1'),
+('00003', 1, 2, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'radiobox', 4, b'1'),
+('00003', 1, 2, 2, 5, 'question5', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 'textarea', 5, b'1'),
+('00003', 1, 3, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 'radiobox', 1, b'1'),
+('00003', 1, 3, 1, 2, 'question2', 'การจัดการสายสัญญาณ (cabling)', 'การจัดการสายสัญญาณ (cabling)', 'radiobox', 2, b'1'),
+('00003', 1, 3, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'radiobox', 3, b'1'),
+('00003', 1, 3, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'radiobox', 4, b'1'),
+('00003', 1, 3, 1, 5, 'question5', 'การใช้งานระบบโทรศัพท์ Order Wire', 'การใช้งานระบบโทรศัพท์ Order Wire', 'radiobox', 5, b'1'),
+('00003', 1, 3, 2, 6, 'question6', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 'textarea', 6, b'1'),
+('00003', 1, 4, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 'radiobox', 1, b'1'),
+('00003', 1, 4, 1, 2, 'question2', 'การจัดการสายสัญญาณ (Cabling)', 'การจัดการสายสัญญาณ (Cabling)', 'radiobox', 2, b'1'),
+('00003', 1, 4, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'radiobox', 3, b'1'),
+('00003', 1, 4, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'radiobox', 4, b'1'),
+('00003', 1, 4, 2, 5, 'question5', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 'textarea', 5, b'1'),
+('00003', 1, 5, 1, 1, 'question1', 'ความสะอาดups', 'ความสะอาดups', 'radiobox', 1, b'1'),
+('00003', 1, 5, 1, 2, 'question2', 'การจัดการสายสัญญาณ (Cabling)', 'การจัดการสายสัญญาณ (Cabling)', 'radiobox', 2, b'1'),
+('00003', 1, 5, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'radiobox', 3, b'1'),
+('00003', 1, 5, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'radiobox', 4, b'1'),
+('00003', 1, 5, 2, 5, 'question5', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 'textarea', 5, b'1'),
+('00003', 1, 5, 2, 6, 'question6', 'แนบภาพ', 'แนบภาพ', 'dropbox', 6, b'1'),
+('00003', 1, 6, 1, 1, 'question1', 'ความสะอาด', 'ความสะอาด', 'radiobox', 1, b'1'),
+('00003', 1, 6, 1, 2, 'question2', 'การจัดการสายสัญญาณ (Cabling)', 'การจัดการสายสัญญาณ (Cabling)', 'radiobox', 2, b'1'),
+('00003', 1, 6, 1, 3, 'question3', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'การจัดการป้ายชื่ออุปกรณ์ (Labeling)', 'radiobox', 3, b'1'),
+('00003', 1, 6, 1, 4, 'question4', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'ไฟแจ้งเตือนการทำงาน (Alarm)', 'radiobox', 4, b'1'),
+('00003', 1, 6, 2, 5, 'question5', 'ข้อเสนอแนะ', 'ข้อเสนอแนะ', 'textarea', 5, b'1');
 
 -- --------------------------------------------------------
 
@@ -348,10 +394,9 @@ INSERT INTO `tb_form_question` (`form_id`, `page_no`, `panel_no`, `element_no`, 
 -- Table structure for table `tb_region`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_region` (
+CREATE TABLE `tb_region` (
   `region_id` varchar(5) NOT NULL,
-  `region_name` varchar(255) NOT NULL,
-  PRIMARY KEY (`region_id`)
+  `region_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -378,8 +423,8 @@ INSERT INTO `tb_region` (`region_id`, `region_name`) VALUES
 -- Table structure for table `tb_schedule`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_schedule` (
-  `row_id` int(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tb_schedule` (
+  `row_id` int(5) NOT NULL,
   `schedule_id` varchar(10) NOT NULL,
   `schedule_name` varchar(255) NOT NULL,
   `schedule_description` varchar(255) NOT NULL,
@@ -393,9 +438,8 @@ CREATE TABLE IF NOT EXISTS `tb_schedule` (
   `created_by` varchar(255) NOT NULL,
   `updated_date` timestamp NULL DEFAULT NULL,
   `updated_by` varchar(255) DEFAULT NULL,
-  `status` varchar(20) NOT NULL,
-  PRIMARY KEY (`row_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+  `status` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tb_schedule`
@@ -407,7 +451,7 @@ INSERT INTO `tb_schedule` (`row_id`, `schedule_id`, `schedule_name`, `schedule_d
 (10, '2017111903', 'การตรวจงานงวดที่ 4/2560', 'การตรวจงานงวดที่ 4/2560 - ภาคใต้ตอนล่าง', 'SS', 'นราธิวาส,ปัตตานี,พัทลุง,ยะลา', '2017-12-01 00:00:00', '2017-12-15 00:00:00', '2017-09-01 00:00:00', '2017-11-30 00:00:00', '2017-11-19 09:46:55', 'Witchaphon Saengaram', NULL, NULL, '1'),
 (11, '2017111904', 'การตรวจงานงวดที่ 4/2560', 'การตรวจงานงวดที่ 4/2560 - ภาคใต้ตอนบน', 'SN', 'กระบี่,พังงา,ภูเก็ต,สุราษฎร์ธานี', '2017-12-18 00:00:00', '2017-12-29 00:00:00', '2017-09-01 00:00:00', '2017-11-30 00:00:00', '2017-11-19 09:47:43', 'Witchaphon Saengaram', NULL, NULL, '1'),
 (12, '2017111905', 'งวดตรวจงานรอบที่ 2/2560', 'งวดตรวจงานรอบที่ 2/2560 - ภาคเหนือตอนบน', 'NN', 'เชียงราย,เชียงใหม่,แม่ฮ่องสอน', '2018-01-08 00:00:00', '2018-01-19 00:00:00', '2017-09-01 00:00:00', '2017-11-30 00:00:00', '2017-11-19 09:53:10', 'Witchaphon Saengaram', NULL, NULL, '1'),
-(13, '2017111906', 'การตรวจงานงวดที่ 1/2560', 'การตรวจงานงวดที่ 1/2561 ภาคเหนือตอนบน', 'NN', 'ลำพูน,เชียงใหม่,แม่ฮ่องสอน', '2018-02-01 00:00:00', '2018-02-20 00:00:00', '2017-09-01 00:00:00', '2017-11-30 00:00:00', '2017-11-19 10:30:01', 'Witchaphon Saengaram', '2017-11-22 09:32:56', 'Witchaphon Saeng-aram', '1');
+(13, '2017111906', 'การตรวจงานงวดที่ 1/2560', 'การตรวจงานงวดที่ 1/2561 ภาคเหนือตอนบน', 'NN', 'น่าน,ลำพูน,เชียงใหม่,แม่ฮ่องสอน', '2018-02-01 00:00:00', '2018-02-20 00:00:00', '2017-09-01 00:00:00', '2017-11-30 00:00:00', '2017-11-19 10:30:01', 'Witchaphon Saengaram', '2017-11-25 18:09:12', 'วิชญ์พล แสงอร่าม', '1');
 
 -- --------------------------------------------------------
 
@@ -415,7 +459,7 @@ INSERT INTO `tb_schedule` (`row_id`, `schedule_id`, `schedule_name`, `schedule_d
 -- Table structure for table `tb_schedule_destination`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_schedule_destination` (
+CREATE TABLE `tb_schedule_destination` (
   `schedule_id` varchar(10) NOT NULL,
   `site_id` varchar(20) NOT NULL,
   `province` varchar(255) NOT NULL,
@@ -425,8 +469,7 @@ CREATE TABLE IF NOT EXISTS `tb_schedule_destination` (
   `contact_mobile` varchar(10) DEFAULT NULL,
   `contact_email` varchar(255) DEFAULT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `created_by` varchar(255) NOT NULL,
-  PRIMARY KEY (`schedule_id`,`site_id`)
+  `created_by` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -436,7 +479,7 @@ CREATE TABLE IF NOT EXISTS `tb_schedule_destination` (
 INSERT INTO `tb_schedule_destination` (`schedule_id`, `site_id`, `province`, `region`, `contact_name`, `contact_tel`, `contact_mobile`, `contact_email`, `created_date`, `created_by`) VALUES
 ('2017111902', '65030005', 'พิษณุโลก', 'NS', NULL, NULL, NULL, NULL, '2017-11-21 16:48:18', 'Witchaphon Saengaram'),
 ('2017111903', '9603', 'นราธิวาส', 'SS', NULL, NULL, NULL, NULL, '2017-11-21 16:38:47', 'Witchaphon Saengaram'),
-('2017111904', '84020171', 'สุราษฎร์ธานี', 'SN', NULL, NULL, NULL, NULL, '2017-11-19 10:28:40', 'Witchaphon Saengaram'),
+('2017111904', '84020171', 'สุราษฎร์ธานี', 'SN', NULL, NULL, NULL, NULL, '2017-11-25 13:22:32', 'วิชญ์พล แสงอร่าม'),
 ('2017111904', '84032007', 'สุราษฎร์ธานี', 'SN', NULL, NULL, NULL, NULL, '2017-11-19 10:28:53', 'Witchaphon Saengaram'),
 ('2017111905', '1450100400', 'เชียงใหม่', 'NN', NULL, NULL, NULL, NULL, '2017-11-19 10:14:16', 'Witchaphon Saengaram'),
 ('2017111905', '5802', 'แม่ฮ่องสอน', 'NN', NULL, NULL, NULL, NULL, '2017-11-19 10:15:13', 'Witchaphon Saengaram'),
@@ -449,11 +492,10 @@ INSERT INTO `tb_schedule_destination` (`schedule_id`, `site_id`, `province`, `re
 -- Table structure for table `tb_schedule_member`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_schedule_member` (
+CREATE TABLE `tb_schedule_member` (
   `schedule_id` varchar(10) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `joined_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`schedule_id`,`name`)
+  `joined_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -464,7 +506,7 @@ INSERT INTO `tb_schedule_member` (`schedule_id`, `name`, `joined_date`) VALUES
 ('2017111902', 'Witchaphon Saeng-aram', '2017-11-21 16:49:54'),
 ('2017111904', 'Witchaphon Saeng-aram', '2017-11-21 16:37:59'),
 ('2017111906', 'Wiriya Damrong', '2017-11-22 09:28:48'),
-('2017111906', 'Witchaphon Saeng-aram', '2017-11-22 09:32:40');
+('2017111906', 'วิชญ์พล แสงอร่าม', '2017-11-25 09:54:19');
 
 -- --------------------------------------------------------
 
@@ -472,15 +514,14 @@ INSERT INTO `tb_schedule_member` (`schedule_id`, `name`, `joined_date`) VALUES
 -- Table structure for table `tb_schedule_task`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_schedule_task` (
+CREATE TABLE `tb_schedule_task` (
   `schedule_id` varchar(10) NOT NULL,
   `site_id` varchar(20) NOT NULL,
   `ticket_id` varchar(255) NOT NULL,
   `ma_project` varchar(255) DEFAULT NULL,
   `ma_type` varchar(255) DEFAULT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `created_by` varchar(255) NOT NULL,
-  PRIMARY KEY (`schedule_id`,`site_id`,`ticket_id`)
+  `created_by` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -490,7 +531,7 @@ CREATE TABLE IF NOT EXISTS `tb_schedule_task` (
 INSERT INTO `tb_schedule_task` (`schedule_id`, `site_id`, `ticket_id`, `ma_project`, `ma_type`, `created_date`, `created_by`) VALUES
 ('2017111902', '65030005', 'NT-Equip-2017-10-0027', 'สอ./2561 - Equipment P3', 'Equipment System', '2017-11-21 16:48:18', 'Witchaphon Saengaram'),
 ('2017111903', '9603', 'NT-Equip-2017-10-0029', 'สอ./2561 - Equipment P3', 'Equipment System', '2017-11-21 16:38:47', 'Witchaphon Saengaram'),
-('2017111904', '84020171', 'NT-Equip-2017-10-0008', 'สอ./2561 - Equipment P2', 'Equipment System', '2017-11-19 10:28:40', 'Witchaphon Saengaram'),
+('2017111904', '84020171', 'NT-Equip-2017-10-0008', 'สอ./2561 - Equipment P2', 'Equipment System', '2017-11-25 13:22:32', 'วิชญ์พล แสงอร่าม'),
 ('2017111904', '84032007', 'NT-Equip-2017-10-0043', 'สอ./2561 - Equipment P3', 'Equipment System', '2017-11-19 10:28:53', 'Witchaphon Saengaram'),
 ('2017111905', '1450100400', 'NT-Equip-2017-10-0040', 'สอ./2561 - Equipment P1 (1)', 'Equipment System', '2017-11-19 10:14:16', 'Witchaphon Saengaram'),
 ('2017111905', '1450100400', 'NT-Equip-2017-10-0041', 'สอ./2561 - Equipment P1 (3)', 'Equipment System', '2017-11-19 10:14:36', 'Witchaphon Saengaram'),
@@ -505,7 +546,7 @@ INSERT INTO `tb_schedule_task` (`schedule_id`, `site_id`, `ticket_id`, `ma_proje
 -- Table structure for table `tb_site`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_site` (
+CREATE TABLE `tb_site` (
   `site_id` varchar(20) NOT NULL,
   `site_name` varchar(255) NOT NULL,
   `site_group` varchar(255) DEFAULT NULL,
@@ -659,8 +700,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('', 'สนง.เขตพื้นที่การศึกษากรุงเทพมหานคร เขต 1', 'สพฐ.', 'อาคารหอประชุมพญาไท ซอยศรีอยุธยา 5 ถนนศรีอยุธยา เขตราชเทวี กรุงเทพฯ 10400', 'C', 'กรุงเทพมหานคร', 'P2', '13.758242', '100.530827', b'1'),
 ('', 'สนง.เขตพื้นที่การศึกษากรุงเทพมหานคร เขต 2', 'สพฐ.', 'ถนนลาดพร้าว แขวงสามเสนนอก เขตห้วยขวาง\nกรุงเทพมหานคร 10310', 'C', 'กรุงเทพมหานคร', 'P2', '13.797433', '100.588517', b'1'),
 ('', 'สนง.เขตพื้นที่การศึกษากรุงเทพมหานคร เขต 3', 'สพฐ.', 'ตั้งอยู่39/1 ซอยเพชรเกษม 48 ถนนเพชรเกษม แขวงบางแวกภาษีเจริญ กรุงเทพมหานคร 10160', 'C', 'กรุงเทพมหานคร', 'P2', '13.736833', '100.433567', b'1'),
-('7101', 'สนง.เขตพื้นที่การศึกษากาญจนบุรี เขต 1', 'สพฐ.', 'ถนนแม่น้ำแม่กลอง ตำบลปากแพรก อำเภอเมือง ฯ จังหวัดกาญจนบุรี 71000', 'W', 'กาญจนบุรี', 'P2', '14.001217', '99.544533', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('7101', 'สนง.เขตพื้นที่การศึกษากาญจนบุรี เขต 1', 'สพฐ.', 'ถนนแม่น้ำแม่กลอง ตำบลปากแพรก อำเภอเมือง ฯ จังหวัดกาญจนบุรี 71000', 'W', 'กาญจนบุรี', 'P2', '14.001217', '99.544533', b'1'),
 ('7102', 'สนง.เขตพื้นที่การศึกษากาญจนบุรี เขต 2', 'สพฐ.', 'ตำบลหนองโรง อำเภอพนมทวน จังหวัดกาญจนบุรี 71140', 'W', 'กาญจนบุรี', 'P2', '14.108583', '99.666', b'1'),
 ('7103', 'สนง.เขตพื้นที่การศึกษากาญจนบุรี เขต 3', 'สพฐ.', 'หมู่ 1 ตำบลลุ่มสุ่ม อำเภอไทรโยค จังหวัดกาญจนบุรี', 'W', 'กาญจนบุรี', 'P2', '14.117263', '99.143647', b'1'),
 ('7104', 'สนง.เขตพื้นที่การศึกษากาญจนบุรี เขต 4', 'สพฐ.', 'ตำบลบ่อพลอย อำเภอบ่อพลอย จังหวัดกาญจนบุรี 71160', 'W', 'กาญจนบุรี', 'P2', '14.312092', '99.528773', b'1'),
@@ -794,15 +834,15 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('7201', 'สนง.เขตพื้นที่การศึกษาสุพรรณบุรี เขต 1', 'สพฐ.', 'ถ มาลัยแมน ตำบลรั้วใหญ่ อำเภอเมือง จังหวัดสุพรรณบุรี, 72000', 'W', 'สุพรรณบุรี', 'P2', '14.4742', '100.09665', b'1'),
 ('7203', 'สนง.เขตพื้นที่การศึกษาสุพรรณบุรี เขต 3', 'สพฐ.', 'หมู่ 5 ตำบลเขาพระ อำเภอเดิมบางนางบวช จังหวัดสุพรรณบุรี 72120 ', 'W', 'สุพรรณบุรี', 'P2', '14.8594', '100.089317', b'1'),
 ('8401', 'สนง.เขตพื้นที่การศึกษาสุราษฎร์ธานี เขต 1', 'สพฐ.', '389/5, ถนนดอนนก, ตำบลมะขามเตี้ย อำเภอเมือง จังหวัดสุราษฎร์ธานี, 84000', 'SN', 'สุราษฎร์ธานี', 'P2', '9.13322', '99.34687', b'1'),
-('8402', 'สนง.เขตพื้นที่การศึกษาสุราษฎร์ธานี เขต 2', 'สพฐ.', '109/1, ถนนธราธิบดี, ตำบลท่าข้าม อำเภอพุนพิน จังหวัดสุราษฎร์ธานี, 84130', 'SN', 'สุราษฎร์ธานี', 'P2', '9.1077598', '99.232095', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('8402', 'สนง.เขตพื้นที่การศึกษาสุราษฎร์ธานี เขต 2', 'สพฐ.', '109/1, ถนนธราธิบดี, ตำบลท่าข้าม อำเภอพุนพิน จังหวัดสุราษฎร์ธานี, 84130', 'SN', 'สุราษฎร์ธานี', 'P2', '9.1077598', '99.232095', b'1'),
 ('3201', 'สนง.เขตพื้นที่การศึกษาสุรินทร์ เขต 1', 'สพฐ.', 'อำเภอเมืองสุรินทร์ สุรินทร์\n', 'NES', 'สุรินทร์', 'P2', '14.8353', '103.49829', b'1'),
 ('3202', 'สนง.เขตพื้นที่การศึกษาสุรินทร์ เขต 2', 'สพฐ.', '219 หมู่ที่ 1 ถนนศรีรัตน์ ตำบลรัตนบุรี จังหวัดสุรินทร์ 32130', 'NES', 'สุรินทร์', 'P2', '14.9740757', '103.3488594', b'1'),
 ('3203', 'สนง.เขตพื้นที่การศึกษาสุรินทร์ เขต 3', 'สพฐ.', 'อำเภอปราสาท สุรินทร์', 'NES', 'สุรินทร์', 'P2', '14.64246', '103.40705', b'1'),
 ('4301', 'สนง.เขตพื้นที่การศึกษาหนองคาย เขต 1', 'สพฐ.', 'ถนนนิตโย ตำบลธาตุเชิงชุม อำเภอสกลนคร จังหวัดสกลนคร', 'NEN', 'หนองคาย', 'P2', '17.19643', '104.086042', b'1'),
 ('4302', 'สนง.เขตพื้นที่การศึกษาหนองคาย เขต 2', 'สพฐ.', 'ถนนตำบลจุมพล อำเภอโพนพิสัย จังหวัดหนองคาย', 'NEN', 'หนองคาย', 'P2', '18.056338', '103.162498', b'1'),
 ('3901', 'สนง.เขตพื้นที่การศึกษาหนองบัวลำภู เขต 1', 'สพฐ.', 'สำนักงานเขตพื้นที่การศึกษาหนองบัวลำภูเขต1 113/5 ถนนอุดร-เลย ตำบลลำภู อำเภอเมือง จังหวัดหนองบัวลำภู', 'NEN', 'หนองบัวลำภู', 'P2', '17.217441', '102.426738', b'1'),
-('3902', 'สนง.เขตพื้นที่การศึกษาหนองบัวลำภู เขต 2', 'สพฐ.', 'อาคารเรียนโรงเรียนคำแสนวิทยาสรรค์ 500 หมู่ที่10 ถนนอุดร - เลย ตำบลนากลาง อำเภอนากลาง จังหวัดหนองบัวลำภู', 'NEN', 'หนองบัวลำภู', 'P2', '17.309195', '102.186062', b'1'),
+('3902', 'สนง.เขตพื้นที่การศึกษาหนองบัวลำภู เขต 2', 'สพฐ.', 'อาคารเรียนโรงเรียนคำแสนวิทยาสรรค์ 500 หมู่ที่10 ถนนอุดร - เลย ตำบลนากลาง อำเภอนากลาง จังหวัดหนองบัวลำภู', 'NEN', 'หนองบัวลำภู', 'P2', '17.309195', '102.186062', b'1');
+INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
 ('3701', 'สนง.เขตพื้นที่การศึกษาอำนาจเจริญ', 'สพฐ.', 'บ้านพักผู้ช่วย สนง เขตพื้นที่\nตำบลบุ่ง อำเภอเมืองอำนาจเจริญ\nอำนาจเจริญ 37000', 'NES', 'อำนาจเจริญ', 'P2', '15.86592', '104.63546', b'1'),
 ('4101', 'สนง.เขตพื้นที่การศึกษาอุดรธานี เขต 1', 'สพฐ.', 'สพท.อด.เขต 1 7-Jul ถนนโพศรี ตำบลหมากแข้ง อำเภอเมือง จังหวัดอุดรธานี', 'NEN', 'อุดรธานี', 'P2', '17.4123852', '102.7813343', b'1'),
 ('4102', 'สนง.เขตพื้นที่การศึกษาอุดรธานี เขต 2', 'สพฐ.', 'สำนักงานเขตพื้นที่การศึกษาอุดรธานี เขต 505 ถนนอุ่มจาน ตำบลกุมภวาปี อำเภอกุมภวาปี จังหวัดอุดรธานี', 'NEN', 'อุดรธานี', 'P2', '17.113642', '103.017925', b'1'),
@@ -936,8 +976,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('1330016101', 'วิทยาลัยเทคนิคนครราชสีมา', 'อาชีวะ', 'ตำบลในเมือง อำเภอเมืองนครราชสีมา\nนครราชสีมา 30000', 'NES', 'นครราชสีมา', 'P2', '14.97689', '102.08666', b'1'),
 ('1330146101', 'วิทยาลัยเทคนิคปักธงชัย', 'อาชีวะ', 'อำเภอปักธงชัย นครราชสีมา\n', 'NES', 'นครราชสีมา', 'P2', '14.67588', '101.97334', b'1'),
 ('1330086101', 'วิทยาลัยเทคนิคหลวงพ่อคูณปริสุทโธ', 'อาชีวะ', 'ตำบลด่านขุนทด อำเภอด่านขุนทด\nนครราชสีมา 30210\n', 'NES', 'นครราชสีมา', 'P2', '15.20685', '101.7926', b'1'),
-('1330076101', 'วิทยาลัยเทคนิคสุรนารี', 'อาชีวะ', '\nตำบลท่าอ่าง อำเภอโชคชัย\nนครราชสีมา 30190', 'NES', 'นครราชสีมา', 'P2', '14.61977', '102.1459', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('1330076101', 'วิทยาลัยเทคนิคสุรนารี', 'อาชีวะ', '\nตำบลท่าอ่าง อำเภอโชคชัย\nนครราชสีมา 30190', 'NES', 'นครราชสีมา', 'P2', '14.61977', '102.1459', b'1'),
 ('1330016201', 'วิทยาลัยอาชีวศึกษานครราชสีมา', 'อาชีวะ', 'อำเภอเมืองนครราชสีมา\nนครราชสีมา', 'NES', 'นครราชสีมา', 'P2', '14.98053', '102.09911', b'1'),
 ('1330016501', 'วิทยาลัยสารพัดช่างนครราชสีมา', 'อาชีวะ', 'หมู่ 3 มิตรภาพ-หนองคาย\n247\nตำบลหมื่นไวย อำเภอเมืองนครราชสีมา นครราชสีมา 30000', 'NES', 'นครราชสีมา', 'P2', '15.01737', '102.10039', b'1'),
 ('1330126401', 'วิทยาลัยการอาชีพบัวใหญ่', 'อาชีวะ', 'ตำบลด่านขุนทด อำเภอด่านขุนทด นครราชสีมา 30210\n', 'NES', 'นครราชสีมา', 'P2', '15.20687', '101.79262', b'1'),
@@ -1082,8 +1121,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('1373036401', 'วิทยาลัยการอาชีพบางแก้วฟ้า (หลวงพ่อเปิ่นอุปถัมภ์)', 'อาชีวะ', '18 หมู่ที่ 2 ตำบลบางแก้วฟ้า อำเภอนครชัยศรี จังหวัดนครปฐม 73120', 'W', 'นครปฐม', 'P2', '13.90175', '100.213917', b'1'),
 ('1373076401', 'วิทยาลัยการอาชีพพุทธมณฑล', 'อาชีวะ', '99 ตำบลคลองโยง อำเภอพุทธมณฑล นครปฐม 73170', 'W', 'นครปฐม', 'P2', '13.8502', '100.296983', b'1'),
 ('1310016101', 'กาญจนาภิเษกวิทยาลัยช่างทองหลวง', 'อาชีวะ', '99/1 หมู่ 5 ตำบลศาลายา อำเภอพุทธมณฑล นครปฐม 73170', 'W', 'นครปฐม', 'P2', '13.815567', '100.320367', b'1'),
-('', 'วิทยาลัยการอาชีพไทรน้อย', 'อาชีวะ', '116 ถนนฤชุพันธุ์ ตำบลราษฎร์นิยม อำเภอไทรน้อย จังหวัดนนทบุรี 11150', 'C', 'นนทบุรี', 'P2', '14.1043929', '100.3184997', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('', 'วิทยาลัยการอาชีพไทรน้อย', 'อาชีวะ', '116 ถนนฤชุพันธุ์ ตำบลราษฎร์นิยม อำเภอไทรน้อย จังหวัดนนทบุรี 11150', 'C', 'นนทบุรี', 'P2', '14.1043929', '100.3184997', b'1'),
 ('1313016101', 'วิทยาลัยเทคนิคปทุมธานี', 'อาชีวะ', '79 หมู่ 5 ตำบลบ้านกลาง อำเภอเมือง จังหวัดปทุมธานี 12000', 'C', 'ปทุมธานี', 'P2', '14.021033', '100.539667', b'1'),
 ('1312056401', 'วิทยาลัยเทคนิคธัญบุรี', 'อาชีวะ', '109 หมู่ 3 ตำบลบึงน้ำรักษ์ อำเภอธัญบุรี จังหวัดปทุมธานี 12110', 'C', 'ปทุมธานี', 'P2', '14.062933', '100.886167', b'1'),
 ('', 'ศูนย์ฝึกอบรมวิศวกรรมเกษตร', 'อาชีวะ', '2 หมู่ 6 ตำบลบางพูน อำเภอเมือง จังหวัดปทุมธานี 12000', 'C', 'ปทุมธานี', 'P2', '13.99145', '100.580083', b'1'),
@@ -1092,7 +1130,8 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('1325026401', 'วิทยาลัยการอาชีพกบินทร์บุรี', 'อาชีวะ', 'ซ.AH19 ตำบลกบินทร์ อำเภอกบินทร์บุรี จังหวัดปราจีนบุรี 25110', 'E', 'ปราจีนบุรี', 'P2', '13.9352', '101.6932', b'1'),
 ('1325046101', 'วิทยาลัยเทคนิคบูรพาปราจีน', 'อาชีวะ', '12 ตำบลศรีมหาโพธิ อำเภอศรีมหาโพธิ จังหวัดปราจีนบุรี', 'E', 'ปราจีนบุรี', 'P2', '13.88528', '101.55966', b'1'),
 ('1314046301', 'วิทยาลัยเกษตรและเทคโนโลยีศูนย์ศิลปาชีพบางไทร', 'อาชีวะ', '59 หมู่ 1 ตำบลโพธิ์แตง อำเภอบางไทร จังหวัดพระนครศรีอยุธยา 13290', 'C', 'พระนครศรีอยุธยา', 'P2', '14.141733', '100.529217', b'1'),
-('1314016101', 'วิทยาลัยเทคนิคพระนครศรีอยุธยา', 'อาชีวะ', '29 ถนนอู่ทอง ตำบลท่าวาสุกรี อำเภอพระนครศรีอยุธยา จังหวัดพระนครศรีอยุธยา 13000', 'C', 'พระนครศรีอยุธยา', 'P2', '14.359133', '100.562967', b'1'),
+('1314016101', 'วิทยาลัยเทคนิคพระนครศรีอยุธยา', 'อาชีวะ', '29 ถนนอู่ทอง ตำบลท่าวาสุกรี อำเภอพระนครศรีอยุธยา จังหวัดพระนครศรีอยุธยา 13000', 'C', 'พระนครศรีอยุธยา', 'P2', '14.359133', '100.562967', b'1');
+INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
 ('1314016102', 'วิทยาลัยเทคโนโลยีและอุตสาหกรรมการต่อเรือพระนครศรีอยุธยา', 'อาชีวะ', '25 หมู่ 2 ตำบลหัวรอ อำเภอพระนครศรีอยุธยา จังหวัดพระนครศรีอยุธยา 13000', 'C', 'พระนครศรีอยุธยา', 'P2', '14.365483', '100.57945', b'1'),
 ('1314016103', 'วิทยาลัยเทคนิคอุตสาหกรรมยานยนต์', 'อาชีวะ', '55 หมู่ 9 ถนนโรจนะ-อุทัย ตำบลคานหาม อำเภออุทัย จังหวัดพระนครศรีอยุธยา 13210', 'C', 'พระนครศรีอยุธยา', 'P2', '14.317717', '100.651667', b'1'),
 ('1314016201', 'วิทยาลัยอาชีวศึกษาพระนครศรีอยุธยา', 'อาชีวะ', '2 หมู่ 4 ถนนเดชาวุธ ตำบลหอรัตนไชย อำเภอพระนครศรีอยุธยา จังหวัดพระนครศรีอยุธยา 13000', 'C', 'พระนครศรีอยุธยา', 'P2', '14.3545', '100.579317', b'1'),
@@ -1230,8 +1269,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('1452319603', 'มหาวิทยาลัยเทคโนโลยีราชมงคลล้านนาวิทยาเขตลำปาง', 'สกอำเภอ', '200 หมู่ที่17 ตำบลพิชัย เมือง ลำปาง 52000', 'NN', 'ลำปาง', 'P2', '18.3697', '99.59592', b'1'),
 ('', 'มหาวิทยาลัยสุโขทัยธรรมาธิราชลำปาง', 'สกอำเภอ', 'ถนนลำปาง-เชียงใหม่  หมู่ที่ 2  ตำบลปงยางคก  อำเภอห้างฉัตร  จังหวัดลำปาง 52190', 'NN', 'ลำปาง', 'P2', '18.3114', '99.39892', b'1'),
 ('1451118514', 'มหาวิทยาลัยมหาจุฬาลงกรณ์ราชวิทยาลัย วิทยาลัยสงฆ์ ลำพูน', 'สกอำเภอ', 'อาคาร192 หมู่ที่ ๒ ตำบลต้นธง อำเภอเมือง จังหวัดลำพูน 51000', 'NN', 'ลำพูน', 'P2', '18.55946', '98.98772', b'1'),
-('1447119905', 'มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตสกลนคร', 'สกอำเภอ', '199 หมู่ 3 ถนนพังโคน-วาริช ตำบลพังโคน อำเภอพังโคน สกลนคร 47160', 'NEN', 'สกลนคร', 'P2', '17.3614302', '103.710265', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('1447119905', 'มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตสกลนคร', 'สกอำเภอ', '199 หมู่ 3 ถนนพังโคน-วาริช ตำบลพังโคน อำเภอพังโคน สกลนคร 47160', 'NEN', 'สกลนคร', 'P2', '17.3614302', '103.710265', b'1'),
 ('1490119700', 'มหาวิทยาลัยเทคโนโลยีราชมงคลศรีวิชัย', 'สกอำเภอ', '1 ถนนราชดำเนินนอก ตำบลบ่อยาง อำเภอเมือง จังหวัดสงขลา 90000', 'SS', 'สงขลา', 'P2', '8.1600918', '99.7248628', b'1'),
 ('1484101002', 'มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตสุราษฎร์ธานี', 'สกอำเภอ', '31 หมู่ 6 ตำบลมะขามเตี้ย, เมือง, สุราษฎร์ธานี 84000', 'SN', 'สุราษฎร์ธานี', 'P2', '9.0936034', '99.355188', b'1'),
 ('', 'มหาวิทยาลัยสุโขทัยธรรมาธิราช อุดรธานี (ศูนย์วิทยพัฒนา)', 'สกอำเภอ', '10 บ้านคำกลิ้ง  ตำบลบ้านจั่น อำเภอเมือง จังหวัดอุดรธานี 41000', 'NEN', 'อุดรธานี', 'P2', '16.3012969', '102.6997057', b'1'),
@@ -1380,8 +1418,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('53020039', 'โรงเรียนอนุบาลท่าปลา(ชุมชนร่วมจิต)', 'รร.สพฐ.', 'หมู่ที่ 1 ถนนอุตรดิตถ์-เขื่อนสิริกิติ์ บ้านร่วมจิต ตำบลร่วมจิต อำเภอท่าปลา จังหวัดอุตรดิตถ์', 'NS', 'อุตรดิตถ์', 'P2', '17.70782', '100.35285', b'1'),
 ('61012008', 'โรงเรียนบ้านทุ่งนาวิทยา', 'รร.สพฐ.', '521 หมู่ที่ 4 ตำบลเขาบางแกรก อำเภอหนองฉาง จังหวัดอุทัยธานี', 'C', 'อุทัยธานี', 'P2', '15.31563', '99.71337', b'1'),
 ('61010035', 'โรงเรียนบ้านวังเตย', 'รร.สพฐ.', '293 หมู่ 17. ตำบล: ตลุกดู่. อำเภอ: ทัพทัน. จังหวัด: อุทัยธานี', 'C', 'อุทัยธานี', 'P2', '15.44467', '99.70286', b'1'),
-('61010207', 'โรงเรียนบ้านหูช้าง', 'รร.สพฐ.', '457 หมู่ที่ 4 บ้านหูช้าง ตำบลหูช้าง อำเภอบ้านไร่ จังหวัดอุทัยธานี', 'C', 'อุทัยธานี', 'P2', '15.13296', '99.65182', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('61010207', 'โรงเรียนบ้านหูช้าง', 'รร.สพฐ.', '457 หมู่ที่ 4 บ้านหูช้าง ตำบลหูช้าง อำเภอบ้านไร่ จังหวัดอุทัยธานี', 'C', 'อุทัยธานี', 'P2', '15.13296', '99.65182', b'1'),
 ('61010241', 'โรงเรียนอนุบาลลานสัก', 'รร.สพฐ.', '109/10 หมู่ 2 ตำบลลานสัก อำเภอลานสัก จังหวัดอุทัยธานี', 'C', 'อุทัยธานี', 'P2', '15.46845', '99.54154', b'1'),
 ('61012001', 'โรงเรียนทัพทันอนุสรณ์', 'รร.สพฐ.', '95 หมู่ที่ 8 บ้าน-. ตำบล: ทัพทัน. อำเภอ: ทัพทัน. จังหวัด: อุทัยธานี', 'C', 'อุทัยธานี', 'P2', '15.47287', '99.88605', b'1'),
 ('61012010', 'โรงเรียนทุ่งโพวิทยา', 'รร.สพฐ.', '157/1 หมู่ที่ 1 ตำบลเขากวางทอง อำเภอหนองฉาง จังหวัดอุทัยธานี', 'C', 'อุทัยธานี', 'P2', '15.38652', '99.74204', b'1'),
@@ -1390,7 +1427,8 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('61012018', 'โรงเรียนลานสักวิทยา', 'รร.สพฐ.', '217 หมู่ 1 ตำบลลานสัก อำเภอลานสัก จังหวัดอุทัยธานี', 'C', 'อุทัยธานี', 'P2', '15.44426', '99.58414', b'1'),
 ('', 'ห้องสมุดประชาชนจังหวัดเลย', 'รร.สพฐ.', 'ถนนสถลเชียงคาน ตำบลกุดป่อง อำเภอเมือง จังหวัดเลย 42000', 'NEN', 'เลย', 'P2', '17.492794', '101.728557', b'1'),
 ('42012003', 'โรงเรียนนาอ้อวิทยา', 'รร.สพฐ.', ' 247 หมู่ที่ 2 ถนนเลย-เชียงคาน ตำบลศรีสองรัก อำเภอเมืองเลย จังหวัดเลย 42100', 'NEN', 'เลย', 'P2', '17.597263', '101.719042', b'1'),
-('42010106', 'โรงเรียนบ้านนาซ่าว', 'รร.สพฐ.', 'หมู่ที่ 9 บ้านโนนสง่า ตำบลหนองหัวช้าง อำเภอพรเจริญ จังหวัดหนองคาย 43180', 'NEN', 'เลย', 'P2', '17.82828', '101.66903', b'1'),
+('42010106', 'โรงเรียนบ้านนาซ่าว', 'รร.สพฐ.', 'หมู่ที่ 9 บ้านโนนสง่า ตำบลหนองหัวช้าง อำเภอพรเจริญ จังหวัดหนองคาย 43180', 'NEN', 'เลย', 'P2', '17.82828', '101.66903', b'1');
+INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
 ('42010132', 'โรงเรียนชุมชนบ้านปากชม', 'รร.สพฐ.', 'หมู่ที่ 1 บ้านปากชม ถนน211 ตำบลปากชม อำเภอปากชม จังหวัดเลย', 'NEN', 'เลย', 'P2', '18.022602', '101.884677', b'1'),
 ('42010264', 'โรงเรียนบ้านยาง', 'รร.สพฐ.', ' บ้านบ้านยาง ตำบลบ้านยาง อำเภอท่าลี่ จังหวัดเลย 42140', 'NEN', 'เลย', 'P2', '17.56928', '101.41703', b'1'),
 ('42022009', 'โรงเรียนผาอินทร์แปลงวิทยา', 'รร.สพฐ.', 'หมู่ 13 บ้านเอราวัณ, ตำบลผาอินทร์แปลง อำเภอเอราวัณ จังหวัดเลย, 42220', 'NEN', 'เลย', 'P2', '17.30806', '101.9448', b'1'),
@@ -1399,7 +1437,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('42020129', 'โรงเรียนบ้านโนนปอแดง', 'รร.สพฐ.', ' หมู่ที่ 1 ตำบลโนนปอแดง อำเภอผาขาว จังหวัดเลย 42240', 'NEN', 'เลย', 'P2', '17.06447', '102.02917', b'1'),
 ('42022005', 'โรงเรียนภูหลวงวิทยา', 'รร.สพฐ.', 'หมู่ 7 วังสะพุง-ตาดกลอย 90 ตำบลภูหอ อำเภอภูหลวง เลย 42230', 'NEN', 'เลย', 'P2', '17.16665', '101.65448', b'1'),
 ('46022001', 'โรงเรียนยางตลาดวิทยา', 'รร.สพฐ.', '115 ยางตลาด ยางตลาด กาฬสินธุ์ 46120', 'NEC', 'กาฬสินธุ์', 'P2', '16.390605', '103.349143', b'1'),
-('', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอยางตลาด', 'รร.สพฐ.', '209, ถนนขอนแก่น-โพนทอง, ตำบลยางตลาด อำเภอยางตลาด จังหวัดกาฬสินธุ์, 46120 ', 'NEC', 'กาฬสินธุ์', 'P2', '16.402863', '103.373137', b'1'),
+('', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอยางตลาด', 'รร.สพฐ.', '209, ถนนขอนแก่น-โพนทอง, ตำบลยางตลาด อำเภอยางตลาด จังหวัดกาฬสินธุ์, 46120 ', 'NEC', 'กาฬสินธุ์', 'P2', '16.402863', '103.373137', b'1'),
 ('46030145', 'โรงเรียนบ้านสี่แยกสมเด็จ', 'รร.สพฐ.', 'หมู่ที่ 4 ถนนถีนานทท์ บ้านสี่แยก สมเด็จ สมเด็จ กาฬสินธุ์ 46150', 'NEC', 'กาฬสินธุ์', 'P2', '16.708496', '103.749765', b'1'),
 ('101724', 'สนง.เขตพื้นที่การศึกษา.เขต 24', 'สพฐ.', 'ถนนถีนานนท์ ตำบลโพนทอง อำเภอเมือง จังหวัดกาฬสินธุ์ 46000', 'NEC', 'กาฬสินธุ์', 'P2', '16.46487', '103.55067', b'1'),
 ('46010047', 'โรงเรียนชุมชนหนองสอวิทยาคาร', 'รร.สพฐ.', 'หมู่ที่ 2 ถนนกาฬสินธุ์-สหัสขันธ์ บ้านหนองสอใต้ ตำบลลำปาว อำเภอเมืองกาฬสินธุ์ จังหวัดกาฬสินธุ์', 'NEC', 'กาฬสินธุ์', 'P2', '16.57567', '103.50954', b'1'),
@@ -1527,8 +1565,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('47010074', 'โรงเรียนอนุบาลกุสุมาลย์', 'รร.สพฐ.', 'หมู่ที่ 1 บ้านกุสุมาลย์, ถนนนิตโย, ตำบลกุสุมาลย์ อำเภอกุสุมาลย์ จังหวัดสกลนคร, 47210', 'NEN', 'สกลนคร', 'P2', '17.33488', '104.32484', b'1'),
 ('47022017', 'โรงเรียนแวงพิทยาคม', 'รร.สพฐ.', 'แวง สว่างแดนดิน สกลนคร 47240', 'NEN', 'สกลนคร', 'P2', '17.42611111', '103.6196111', b'1'),
 ('47022003', 'โรงเรียนพรรณาวุฒาจารย์', 'รร.สพฐ.', ' ตั้งอยู่ที่ หมู่ 2 ตำบลพรรณา อำเภอพรรณานิคม จังหวัดสกลนคร 47130', 'NEN', 'สกลนคร', 'P2', '17.35375', '103.8490833', b'1'),
-('47030001', 'โรงเรียนบ้านกุดเรือคำ', 'รร.สพฐ.', '50 1หมู่3 ตำบลกุดเรือคำ อำเภอวานรนิวาส จังหวัดสกลนคร 47120 ', 'NEN', 'สกลนคร', 'P2', '17.75459', '103.62734', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('47030001', 'โรงเรียนบ้านกุดเรือคำ', 'รร.สพฐ.', '50 1หมู่3 ตำบลกุดเรือคำ อำเภอวานรนิวาส จังหวัดสกลนคร 47120 ', 'NEN', 'สกลนคร', 'P2', '17.75459', '103.62734', b'1'),
 ('47030058', 'โรงเรียนบ้านวังเยี่ยม', 'รร.สพฐ.', 'หมู่ที่ 6 บ้านวังเยี่ยม ตำบลหนองแวงใต้ อำเภอวานรนิวาส จังหวัดสกลนคร 47120', 'NEN', 'สกลนคร', 'P2', '17.73992', '103.75578', b'1'),
 ('47030080', 'โรงเรียนบ้านคำตากล้า', 'รร.สพฐ.', ' หมู่ที่ 1 ถนนพังโคน-บึงกาฬ บ้านคำตากล้า ตำบลคำตากล้า อำเภอคำตากล้า จังหวัดสกลนคร 47250', 'NEN', 'สกลนคร', 'P2', '17.84909', '103.75222', b'1'),
 ('47010059', 'โรงเรียนบ้านศรีวิชา(ครุราษฎร์อุทิศ)', 'รร.สพฐ.', ' ห้วยยาง เมืองสกลนคร สกลนคร 47000', 'NEN', 'สกลนคร', 'P2', '17.13677778', '104.0981944', b'1'),
@@ -1679,15 +1716,15 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('31020228', 'โรงเรียนวัดบ้านใหม่', 'รร.สพฐ.', 'อำเภอห้วยราช บุรีรัมย์\n', 'NES', 'บุรีรัมย์', 'P2', '15.00322', '103.20541', b'1'),
 ('31010096', 'โรงเรียนบ้านโคกกลางอนุสรณ์ ', 'รร.สพฐ.', 'ตำบลหนองคู อำเภอลำปลายมาศ บุรีรัมย์ 31130\n\n', 'NES', 'บุรีรัมย์', 'P2', '14.97627', '102.8425', b'1'),
 ('31010176', 'โรงเรียนอนุบาลชำนิ ', 'รร.สพฐ.', 'อำเภอชำนิ บุรีรัมย์\n', 'NES', 'บุรีรัมย์', 'P2', '14.78365', '102.81941', b'1'),
-('31010154', 'โรงเรียนไตรคามสามัคคีวิทยา', 'รร.สพฐ.', 'ตำบลผไทรินทร์ อำเภอลำปลายมาศ\nบุรีรัมย์ 31130', 'NES', 'บุรีรัมย์', 'P2', '14.98035', '102.80159', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('31010154', 'โรงเรียนไตรคามสามัคคีวิทยา', 'รร.สพฐ.', 'ตำบลผไทรินทร์ อำเภอลำปลายมาศ\nบุรีรัมย์ 31130', 'NES', 'บุรีรัมย์', 'P2', '14.98035', '102.80159', b'1'),
 ('31032018', 'โรงเรียนหนองหงส์พิทยาคม', 'รร.สพฐ.', 'อำเภอหนองหงส์ บุรีรัมย์\n', 'NES', 'บุรีรัมย์', 'P2', '14.85208', '102.68914', b'1'),
 ('31020040', 'โรงเรียนบ้านตาราม', 'รร.สพฐ.', 'อำเภอกระสัง บุรีรัมย์\n', 'NES', 'บุรีรัมย์', 'P2', '14.85717', '103.18624', b'1'),
 ('31020194', 'โรงเรียนบ้านโคกขมิ้น', 'รร.สพฐ.', 'อำเภอพลับพลาชัย บุรีรัมย์\n', 'NES', 'บุรีรัมย์', 'P2', '14.77622', '103.237602', b'1'),
 ('31022001', 'โรงเรียนกระสังพิทยาคม', 'รร.สพฐ.', 'อำเภอกระสัง บุรีรัมย์\n', 'NES', 'บุรีรัมย์', 'P2', '14.92073', '103.30374', b'1'),
 ('31020009', 'โรงเรียนวัดบ้านกันทรารมย์', 'รร.สพฐ.', 'ตำบลกันทรารมย์ อำเภอกระสัง\nบุรีรัมย์\n', 'NES', 'บุรีรัมย์', 'P2', '14.96974', '103.34334', b'1'),
 ('31010025', 'โรงเรียนบ้านสวายสอ', 'รร.สพฐ.', 'ตำบลบัวทอง อำเภอเมืองบุรีรัมย์ บุรีรัมย์ 31000', 'NES', 'บุรีรัมย์', 'P2', '15.05938', '103.15819', b'1'),
-('31030046', 'โรงเรียนบ้านหนองโบสถ์', 'รร.สพฐ.', 'ตำบลตาจง อำเภอละหานทราย บุรีรัมย์ 31170\n', 'NES', 'บุรีรัมย์', 'P2', '14.45249', '102.8957', b'1'),
+('31030046', 'โรงเรียนบ้านหนองโบสถ์', 'รร.สพฐ.', 'ตำบลตาจง อำเภอละหานทราย บุรีรัมย์ 31170\n', 'NES', 'บุรีรัมย์', 'P2', '14.45249', '102.8957', b'1');
+INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
 ('31030056', 'โรงเรียนบ้านถนน (ประสมทรัพย์ประชานุกูล 1) ', 'รร.สพฐ.', 'ตำบลหัวถนนอำเภอนางรอง\nบุรีรัมย์\n', 'NES', 'บุรีรัมย์', 'P2', '14.65115', '102.66778', b'1'),
 ('31032010', 'โรงเรียนหนองกี่พิทยาคม', 'รร.สพฐ.', 'ตำบลทุ่งกระตาดพัฒนา อำเภอหนองกี่\nบุรีรัมย์ 31210', 'NES', 'บุรีรัมย์', 'P2', '14.686324', '102.536554', b'1'),
 ('31030206', 'โรงเรียนไทยรัฐวิทยา 26 (บ้านหนองหิน)', 'รร.สพฐ.', 'ตำบลถาวร อำเภอเฉลิมพระเกียรติ บุรีรัมย์ 31170\n', 'NES', 'บุรีรัมย์', 'P2', '14.523062', '102.89074', b'1'),
@@ -1832,8 +1869,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('63020115', 'โรงเรียนบ้านไม้กะพง', 'รร.สพฐ.', 'หมู่ที่ 2 ตำบลโมโกร อำเภออุ้มผาง จังหวัดตาก', 'NS', 'ตาก', 'P2', '16.05261', '98.83966', b'1'),
 ('63022009', 'โรงเรียนอุ้มผางวิทยาคม', 'รร.สพฐ.', 'หมู่ที่ 4 บ้านอุ้มผาง. ตำบล: อุ้มผาง. อำเภอ: อุ้มผาง. จังหวัด: ตาก.', 'NS', 'ตาก', 'P2', '16.0324', '98.85996', b'1'),
 ('63010092', 'โรงเรียนชุมชนชลประทานรังสรรค์', 'รร.สพฐ.', 'หมู่ที่ 3 บ้านจัดสรร ตำบลสามเงา อำเภอสามเงา จังหวัดตาก', 'NS', 'ตาก', 'P2', '17.21296', '99.0511', b'1'),
-('63022001', 'โรงเรียนแม่ระมาดวิทยาคม', 'รร.สพฐ.', 'หมู่ที่ 3 บ้านบ้านห้วยนกแล 166. ตำบล: แม่ระมาด. อำเภอ: แม่ระมาด. จังหวัด: ตาก', 'NS', 'ตาก', 'P2', '16.9804', '98.52488', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('63022001', 'โรงเรียนแม่ระมาดวิทยาคม', 'รร.สพฐ.', 'หมู่ที่ 3 บ้านบ้านห้วยนกแล 166. ตำบล: แม่ระมาด. อำเภอ: แม่ระมาด. จังหวัด: ตาก', 'NS', 'ตาก', 'P2', '16.9804', '98.52488', b'1'),
 ('63022003', 'โรงเรียนท่าสองยางวิทยาคม', 'รร.สพฐ.', '175 หมู่ที่2 ตำบลแม่ต้าน อำเภอท่าสองยาง จังหวัดตาก', 'NS', 'ตาก', 'P2', '17.23158', '98.23309', b'1'),
 ('63020036', 'โรงเรียนบ้านแม่สลิดหลวง', 'รร.สพฐ.', 'หมู่ที่ 2 บ้านแม่สลิดหลวง. ตำบล: แม่สอง. อำเภอ: ท่าสองยาง. จังหวัด: ตาก', 'NS', 'ตาก', 'P2', '17.44007', '98.06173', b'1'),
 ('63020093', 'โรงเรียนอรุณเมธา', 'รร.สพฐ.', '301 หมู่ 2 ตำบลช่องแคบ อำเภอพบพระ จังหวัดตาก', 'NS', 'ตาก', 'P2', '16.50404', '98.69817', b'1'),
@@ -1978,11 +2014,11 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('80020058', 'โรงเรียนราชประชานุเคราะห์ 6 ', 'รร.สพฐ.', '63 หมู่ที่ 3 ถนนทุ่งสง - ตรัง ตำบลกะปาง อำเภอทุ่งสง จังหวัดนครศรีธรรมราช', 'SN', 'นครศรีธรรมราช', 'P2', '8.01174', '99.64196', b'1'),
 ('80020133', 'โรงเรียนบ้านควนประชาสรรค์ ', 'รร.สพฐ.', 'หมู่ที่ 1, ถนนทุ่งใหญ่-ลำทับ, ตำบลกุแหระ อำเภอทุ่งใหญ่ จังหวัดนครศรีธรรมราช, 80240', 'SN', 'นครศรีธรรมราช', 'P2', '8.22067', '99.56604', b'1'),
 ('80020040', 'โรงเรียนชุมชนวัดสุวรรณาราม', 'รร.สพฐ.', 'ตำบลห้วยปริก อำเภอฉวาง จังหวัดนครศรีธรรมราช ', 'SN', 'นครศรีธรรมราช', 'P2', '8.57152', '99.46906', b'1'),
-('80022001', 'โรงเรียนฉวางรัชดาภิเษก', 'รร.สพฐ.', 'หมู่ 8, ตำบลไสหร้า อำเภอฉวาง จังหวัดนครศรีธรรมราช, 80150', 'SN', 'นครศรีธรรมราช', 'P2', '8.44844', '99.53304', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('80022001', 'โรงเรียนฉวางรัชดาภิเษก', 'รร.สพฐ.', 'หมู่ 8, ตำบลไสหร้า อำเภอฉวาง จังหวัดนครศรีธรรมราช, 80150', 'SN', 'นครศรีธรรมราช', 'P2', '8.44844', '99.53304', b'1'),
 ('80032015', 'โรงเรียนสตรีปากพนัง', 'รร.สพฐ.', '66, ถนนนครศรีธรรมราช-พัทลุง, ตำบลปากพนัง อำเภอปากพนัง จังหวัดนครศรีธรรมราช, 80140', 'SN', 'นครศรีธรรมราช', 'P2', '8.35248', '100.20261', b'1'),
 ('80030086', 'โรงเรียนบ้านควนเงิน', 'รร.สพฐ.', '2 ตำบลบ้านตูล อำเภอชะอวด.จังหวัดนครศรีธรรมราช', 'SN', 'นครศรีธรรมราช', 'P2', '8.04461', '99.96614', b'1'),
-('80030243', 'โรงเรียนหัวไทร(เรือนประชาบาล)', 'รร.สพฐ.', 'หมู่ที่ 8, ถนนพลเดช, ตำบลหัวไทร อำเภอหัวไทร จังหวัดนครศรีธรรมราช, 80170', 'SN', 'นครศรีธรรมราช', 'P2', '8.0459', '100.30475', b'1'),
+('80030243', 'โรงเรียนหัวไทร(เรือนประชาบาล)', 'รร.สพฐ.', 'หมู่ที่ 8, ถนนพลเดช, ตำบลหัวไทร อำเภอหัวไทร จังหวัดนครศรีธรรมราช, 80170', 'SN', 'นครศรีธรรมราช', 'P2', '8.0459', '100.30475', b'1');
+INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
 ('96010046', 'โรงเรียนบ้านแป๊ะบุญ ', 'รร.สพฐ.', 'ตำบลบาเจาะ อำเภอบาเจาะ จังหวัดนราธิวาส', 'SS', 'นราธิวาส', 'P2', '6.51652', '101.65259', b'1'),
 ('96012009', 'โรงเรียนศรีวารินทร์', 'รร.สพฐ.', 'ตำบลตะมะยูง อำเภอศรีสาคร จังหวัดนราธิวาส', 'SS', 'นราธิวาส', 'P2', '6.30637', '101.50921', b'1'),
 ('96010093', 'โรงเรียนบ้านกาลิซา', 'รร.สพฐ.', 'ตำบลกาลิซา อำเภอระแงะ จังหวัดนราธิวาส', 'SS', 'นราธิวาส', 'P2', '6.23832', '101.67748', b'1'),
@@ -2071,11 +2107,11 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('33040162', 'โรงเรียนอนุบาลขุนหาญ (สิ) ', 'รร.สพฐ.', 'ตำบลสิ อำเภอขุนหาญ\nศรีสะเกษ\n', 'NES', 'ศรีสะเกษ', 'P2', '14.62193', '104.43179', b'1'),
 ('32012014', 'โรงเรียนนาบัววิทยา', 'รร.สพฐ.', 'ตำบลนาบัว อำเภอเมืองสุรินทร์', 'NES', 'สุรินทร์', 'P2', '14.79397', '103.39646', b'1'),
 ('32030219', 'โรงเรียนบ้านตรวจ ', 'รร.สพฐ.', 'ตำบลตรวจ อำเภอศรีณรงค์ สุรินทร์ 32150\n', 'NES', 'สุรินทร์', 'P2', '14.801383', '103.834142', b'1'),
-('', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี"อำเภอท่าตูม ', 'รร.สพฐ.', 'หมู่ที่ 7 ถนนปัทมานนท์ ตำบลท่าตูม อำเภอท่าตูม จังหวัดสุรินทร์ 32120', 'NES', 'สุรินทร์', 'P2', '15.3212616', '103.674622', b'1'),
+('', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\"อำเภอท่าตูม ', 'รร.สพฐ.', 'หมู่ที่ 7 ถนนปัทมานนท์ ตำบลท่าตูม อำเภอท่าตูม จังหวัดสุรินทร์ 32120', 'NES', 'สุรินทร์', 'P2', '15.3212616', '103.674622', b'1'),
 ('32010202', 'โรงเรียนบ้านกะลัน(กระแสร์วิทยานุเคราะห์) ', 'รร.สพฐ.', 'ตำบลนารุ่ง อำเภอศีขรภูมิ\nสุรินทร์ 32110', 'NES', 'สุรินทร์', 'P2', '14.97444', '103.8559', b'1'),
 ('32010074', 'โรงเรียนสุรินทร์ศึกษา ', 'รร.สพฐ.', 'ตำบลในเมือง อำเภอเมืองหนองคาย\nหนองคาย\n', 'NES', 'สุรินทร์', 'P2', '17.88341', '102.74686', b'1'),
 ('32032006', 'โรงเรียนเชื้อเพลิงวิทยา ', 'รร.สพฐ.', 'หมู่ที่ 12, ถนนสุรินทร์- ปราสาท, ตำบลเชื้อเพลิง อำเภอปราสาท จังหวัดสุรินทร์, 32140\nตำบลเชื้อเพลิง อำเภอปราสาท\nสุรินทร์ 32140', 'NES', 'สุรินทร์', 'P2', '14.70241', '103.42056', b'1'),
-('', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี"อำเภอกาบเชิง ', 'รร.สพฐ.', 'ถนนสุรินทร์-ช่องจอม, ตำบลกาบเชิง อำเภอกาบเชิง จังหวัดสุรินทร์, 32210', 'NES', 'สุรินทร์', 'P2', '14.4747048', '103.595019', b'1'),
+('', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\"อำเภอกาบเชิง ', 'รร.สพฐ.', 'ถนนสุรินทร์-ช่องจอม, ตำบลกาบเชิง อำเภอกาบเชิง จังหวัดสุรินทร์, 32210', 'NES', 'สุรินทร์', 'P2', '14.4747048', '103.595019', b'1'),
 ('37012022', 'ลืออำนาจวิทยาคม ', 'รร.สพฐ.', 'ตำบลอำนาจ อำเภอลืออำนาจ อำนาจเจริญ 3700', 'NES', 'อำนาจเจริญ', 'P2', '15.6921', '104.64405', b'1'),
 ('37012017', 'เสนางคนิคม ', 'รร.สพฐ.', 'ตำบลดงมะยาง อำเภอลืออำนาจ อำนาจเจริญ 37000 ', 'NES', 'อำนาจเจริญ', 'P2', '15.69232', '104.64401', b'1'),
 ('34012015', 'โรงเรียนนารีนุกูล 2 ', 'รร.สพฐ.', 'หมู่ที่ บ้าน หัวเรือ เมืองอุบลราชธานี อุบลราชธานี โทร 0-4520-0589,0-4', 'NES', 'อุบลราชธานี', 'P2', '15.36262', '104.81993', b'1'),
@@ -2087,7 +2123,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('34050082', 'โรงเรียนบ้านหนองแสง ', 'รร.สพฐ.', 'หมู่ที่ 7 บ้านบ้านหนองแสง เมืองเดช เดชอุดม อุบลราชธานี 34160 โทร 045-361382', 'NES', 'อุบลราชธานี', 'P2', '14.90277', '105.07728', b'1'),
 ('1410101600', 'สถาบันเทคโนโลยีเจ้าคุณทหารลาดกระบัง', 'สกอำเภอ', 'ถนนฉลองกรุง แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520', 'C', 'กรุงเทพมหานคร', 'P2', '13.73121', '100.567519', b'1'),
 ('', 'มหาวิทยาลัยเทคโนโลยีพระนคร วิทยาเขตจักพงษ์ภูวนาท', 'สกอำเภอ', '122 แขวง ดินแดง เขต ดินแดง กรุงเทพมหานคร 10400', 'C', 'กรุงเทพมหานคร', 'P2', '13.778003', '100.556708', b'1'),
-('', 'ห้องสมุดประชาชน "เฉลิมราชกุมารี" อำเภอทองผาภูมิ', 'รร.สพฐ.', 'ตำบลท่าขนุน อำเภอทองผาภูมิ   จังหวัดกาญจนบุรี  71180 ', 'W', 'กาญจนบุรี', 'P2', '14.749232', '98.627686', b'1'),
+('', 'ห้องสมุดประชาชน \"เฉลิมราชกุมารี\" อำเภอทองผาภูมิ', 'รร.สพฐ.', 'ตำบลท่าขนุน อำเภอทองผาภูมิ   จังหวัดกาญจนบุรี  71180 ', 'W', 'กาญจนบุรี', 'P2', '14.749232', '98.627686', b'1'),
 ('1410216500', 'มหาวิทยาลัยราชภัฎสวนดุสิต', 'สกอำเภอ', '295 ถนนนครราชสีมา แขวง ดุสิต ดุสิต กรุงเทพมหานคร 10300', 'C', 'กรุงเทพมหานคร', 'P2', '13.7769212', '100.508625', b'1'),
 ('24020054', 'โรงเรียนวัดท่าเกวียน', 'รร.สพฐ.', '1159 หมู่ที่ 1 บ้านท่าเกวียน ตำบลพนมสารคาม อำเภอพนมสารคาม จังหวัดฉะเชิงเทรา 24110 ', 'E', 'ฉะเชิงเทรา', 'P2', '13.746974', '101.347645', b'1'),
 ('20012011', 'โรงเรียนจุฬาภรราชวิทยาลัย ชลบุรี', 'รร.สพฐ.', '695 หมู่ 3 ตำบลหนองชาก อำเภอบ้านบึง จังหวัดชลบุรี 20170 ', 'E', 'ชลบุรี', 'P2', '13.293843', '101.163526', b'1'),
@@ -2096,7 +2132,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('7173011114', 'โรงเรียนนายร้อยตำรวจ', 'รร.สพฐ.', '90 ตำบลสามพราน อำเภอสามพราน นครปฐม', 'W', 'นครปฐม', 'P2', '13.729483', '100.2175', b'1'),
 ('13010035', 'โรงเรียนวัดเกิดการอุดม', 'รร.สพฐ.', '52 หมู่ที่ 5 ตำบลคลองสาม อำเภอคลองหลวง จังหวัดปทุมธานี 12120', 'C', 'ปทุมธานี', 'P2', '14.050797', '100.663258', b'1'),
 ('66020021', 'โรงเรียนวัดบึงน้ำกลัด', 'รร.สพฐ.', 'หมู่ 6 บ้านน้ำกลัด ตำบลวังสำโรง อำเภอตะพานหิน จังหวัดพิจิตร', 'NS', 'พิจิตร', 'P2', '16.26462', '100.27827', b'1'),
-('', 'ห้องสมุดประชาชน "เฉลิมราชกุมารี" อำเภอทับคล้อ', 'รร.สพฐ.', '1199 หมู่ 1, ตำบลทับคล้อ อำเภอทับคล้อ จังหวัดพิจิตร', 'NS', 'พิจิตร', 'P2', '16.2755452', '100.4271859', b'1'),
+('', 'ห้องสมุดประชาชน \"เฉลิมราชกุมารี\" อำเภอทับคล้อ', 'รร.สพฐ.', '1199 หมู่ 1, ตำบลทับคล้อ อำเภอทับคล้อ จังหวัดพิจิตร', 'NS', 'พิจิตร', 'P2', '16.2755452', '100.4271859', b'1'),
 ('21010029', 'โรงเรียนชุมชนวัดบ้านแลง (ประทุมราฏษ์รังสรรค์)', 'รร.สพฐ.', '1 บ้านบ้านแลง ตำบลบ้านแลง อำเภอเมือง จังหวัดระยอง 21000', 'E', 'ระยอง', 'P2', '12.69848', '101.33502', b'1'),
 ('1470116800', 'มหาวิทยาลัยราชภัฎหมู่บ้านจอมบึง', 'สกอำเภอ', '46 หมู่ 3 ตำบลจอมบึง อำเภอจอมบึง จังหวัดราชบุรี 70150', 'W', 'ราชบุรี', 'P2', '13.622703', '99.586887', b'1'),
 ('11012009', 'โรงเรียนราชประชาสมาสัย', 'รร.สพฐ.', 'อำเภอพระประแดง สมุทรปราการ', 'C', 'สมุทรปราการ', 'P2', '13.630039', '100.535948', b'1'),
@@ -2104,7 +2140,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('27010130', 'โรงเรียนบ้านคลองเจริญ', 'รร.สพฐ.', 'หมู่ที่ 1 บ้านคลองเจริญ ตำบลหนองหว้า อำเภอเขาฉกรรจ์ จังหวัดสระแก้ว 27000 ', 'E', 'สระแก้ว', 'P2', '13.732309', '102.073216', b'1'),
 ('19012009', 'โรงเรียนเสาไห้ (วิมลวิทยานุกูล)', 'รร.สพฐ.', '28 สำนักงานเทศบาลตำบลบ้านยางอำเภอเสาไห้ อำเภอเสาไห้ สระบุรี', 'C', 'สระบุรี', 'P2', '14.567702', '100.821072', b'1'),
 ('5019010001', 'วิทยาลัยพยาบาลบรมราชชนนี', 'สกอำเภอ', '18/64 ถนนเทศบาล 4 ตำบลปากเพรียว อำเภอเมืองสระบุรี สระบุรี 18000', 'C', 'สระบุรี', 'P2', '14.723183', '100.804217', b'1'),
-('', 'ห้องสมุดประชาชน "เฉลิมราชกุมารี" อำเภอดอนเจดีย์', 'รร.สพฐ.', '759 หมู่ 5 ตำบลดอนเจดีย์ อำเภอดอนเจดีย์ จังหวัดสุพรรณบุรี 72170', 'W', 'สุพรรณบุรี', 'P2', '14.633895', '100.023136', b'1'),
+('', 'ห้องสมุดประชาชน \"เฉลิมราชกุมารี\" อำเภอดอนเจดีย์', 'รร.สพฐ.', '759 หมู่ 5 ตำบลดอนเจดีย์ อำเภอดอนเจดีย์ จังหวัดสุพรรณบุรี 72170', 'W', 'สุพรรณบุรี', 'P2', '14.633895', '100.023136', b'1'),
 ('81010230', 'โรงเรียนราชประชานุเคราะห์ 1', 'รร.สพฐ.', 'หมู่ที่2 บ้านเหนือคลอง, ตำบลเหนือคลอง อำเภอเหนือคลอง จังหวัดกระบี่, 81130 ', 'SN', 'กระบี่', 'P2', '8.06637', '99.00364', b'1'),
 ('86022007', 'โรงเรียนสวีวิทยา', 'รร.สพฐ.', '597 หมู่ที่ 5 ตำบลนาโพธิ์ อำเภอสวี จังหวัดชุมพร 86130', 'SN', 'ชุมพร', 'P2', '10.23634', '99.11037', b'1'),
 ('86022005', 'โรงเรียนละแมวิทยา ', 'รร.สพฐ.', 'หมู่ 10 ตำบลละแม อำเภอละแม จังหวัดชุมพร 86170 ', 'SN', 'ชุมพร', 'P2', '9.7774', '99.10599', b'1'),
@@ -2136,8 +2172,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('90100017', 'โรงเรียนบำรุงศาสน์', 'รร.สพฐ.', 'ตำบลพะวง อำเภอเมือง จังหวัดสงขลา', 'SS', 'สงขลา', 'P2', '7.113045', '100.570408', b'1'),
 ('90010043', 'โรงเรียนวัดบ่อแดง', 'รร.สพฐ.', 'ตำบลสะทิงพระ อำเภอสทิงพระ จังหวัดสงขลา', 'SS', 'สงขลา', 'P2', '7.419666', '100.466437', b'1'),
 ('91010086', 'โรงเรียนบ้านควนเก', 'รร.สพฐ.', 'ตำบลแป-ระ อำเภอท่าแพ จังหวัดสตูล', 'SS', 'สตูล', 'P2', '6.846552', '99.926275', b'1'),
-('91010038', 'โรงเรียนบ้านควน', 'รร.สพฐ.', 'ตำบลบ้านควน อำเภอเมือง จังหวัดสตูล', 'SS', 'สตูล', 'P2', '6.700933', '100.665776', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('91010038', 'โรงเรียนบ้านควน', 'รร.สพฐ.', 'ตำบลบ้านควน อำเภอเมือง จังหวัดสตูล', 'SS', 'สตูล', 'P2', '6.700933', '100.665776', b'1'),
 ('84020026', 'โรงเรียนวัดสุทธาวาส', 'รร.สพฐ.', 'หมู่ที่ 2 วัดสุทธาวาส, ถนนโมถ่าย-เสวียด, ตำบลโมถ่าย อำเภอไชยา จังหวัดสุราษฎร์ธานี, 84110', 'SN', 'สุราษฎร์ธานี', 'P2', '9.39498', '99.1008', b'1'),
 ('84022010', 'โรงเรียนมัธยมบ้านทำเนียบ', 'รร.สพฐ.', '171 หมู่ 1 ตำบลบ้านทำเนียบ อำเภอคีรีรัฐนิคม จังหวัดสุราษฎร์ธานี 84180', 'SN', 'สุราษฎร์ธานี', 'P2', '8.95051', '98.99325', b'1'),
 ('84020203', 'โรงเรียนบ้านยางงาม', 'รร.สพฐ.', 'หมู่ที่ 3, ตำบลหนองไทร อำเภอพุนพิน จังหวัดสุราษฎร์ธานี, 84130', 'SN', 'สุราษฎร์ธานี', 'P2', '9.10595', '99.15367', b'1'),
@@ -2192,7 +2227,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('50042003', 'โรงเรียนหางดงรัฐราษฎร์อุปถัมภ์', 'รร.สพฐ.', '312 หมู่ที่ 5 หมู่บ้านแม่ขัก ถนนเชียงใหม่-ฮอด หางดง หางดง เชียงใหม่ ', 'NN', 'เชียงใหม่', 'P3', '18.68086', '98.92006', b'1'),
 ('50012011', 'โรงเรียนออนเหนือ', 'รร.สพฐ.', '109 หมู่ 2 ถนนเชียงใหม่-น้ำพุร้อนสันกำแพง   ตำบลออนกลาง  อำเภอแม่ออน จังหวัดเชียงใหม่ 50130', 'NN', 'เชียงใหม่', 'P3', '18.74928', '99.22976', b'1'),
 ('50100036', 'ธรรมราชศึกษา', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '2 ถนนริมกก ตำบลพระสิงห์ อำเภอเมืองเชียงใหม่ จังหวัดเชียงใหม่ 57100', 'NN', 'เชียงใหม่', 'P3', '18.78799', '98.9824', b'1'),
-('6', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอสันกำแพง ', 'รร.สพฐ.', 'ถนนเชียงใหม่ - สันกำแพง ตำบลสันกำแพง อำเภอสันกำแพง จังหวัดเชียงใหม่ 50130 ', 'NN', 'เชียงใหม่', 'P3', '18.74552', '99.11609', b'1'),
+('6', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอสันกำแพง ', 'รร.สพฐ.', 'ถนนเชียงใหม่ - สันกำแพง ตำบลสันกำแพง อำเภอสันกำแพง จังหวัดเชียงใหม่ 50130 ', 'NN', 'เชียงใหม่', 'P3', '18.74552', '99.11609', b'1'),
 ('7', 'ห้องสมุดประชาชนจังหวัดเชียงใหม่', 'รร.สพฐ.', 'ถนนห้วยแก้ว ตำบลศรีภูมิ อำเภอเมืองเชียงใหม่ จังหวัดเชียงใหม่ 50200', 'NN', 'เชียงใหม่', 'P3', '18.79636', '98.97815', b'1'),
 ('57012005', 'โรงเรียนเมืองเชียงราย', 'รร.สพฐ.', 'ถนนศรีเวียง รอบเวียง เมืองเชียงราย เชียงราย 57000', 'NN', 'เชียงราย', 'P3', '19.89864', '99.84984', b'1'),
 ('57010127', 'โรงเรียนเวียงเชียงรุ้งวิทยา', 'รร.สพฐ.', '256 หมู่ที่ 5 ถนนศรีเวียง-แม่เลียบ ทุ่งก่อ กิ่งอำเภอเวียงเชียงรุ้ง เชียงราย 57210', 'NN', 'เชียงราย', 'P3', '19.95564', '100.00408', b'1'),
@@ -2208,7 +2243,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('57010016', 'โรงเรียนห้วยพูลพิทยา', 'รร.สพฐ.', '329 หมู่ที่ 1 ถนนพหลโยธิน, ตำบลท่าสุด อำเภอเมืองเชียงราย จังหวัดเชียงราย, 57100', 'NN', 'เชียงราย', 'P3', '20.04636', '99.87534', b'1'),
 ('57100052', 'ธารทิพย์', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '52,108 ถนนอุตรกิจ ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000', 'NN', 'เชียงราย', 'P3', '20.03717', '99.88581', b'1'),
 ('57100051', 'สหศาสตร์ศึกษา', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '76 หมู่ที่3 ตำบลริมกก อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100 ', 'NN', 'เชียงราย', 'P3', '19.928', '99.81474', b'1'),
-('4', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอเชียงแสน ', 'รร.สพฐ.', '828 หมู่ 2 ตำบลเวียง อำเภอเชียงแสน จังหวัดเชียงราย 57150', 'NN', 'เชียงราย', 'P3', '20.2742', '100.08043', b'1'),
+('4', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอเชียงแสน ', 'รร.สพฐ.', '828 หมู่ 2 ตำบลเวียง อำเภอเชียงแสน จังหวัดเชียงราย 57150', 'NN', 'เชียงราย', 'P3', '20.2742', '100.08043', b'1'),
 ('5', 'ห้องสมุดประชาชนจังหวัดเชียงราย', 'รร.สพฐ.', 'ถนนสิงหไคล อำเภอเมือง เชียงราย 57000', 'NN', 'เชียงราย', 'P3', '19.91401', '99.83118', b'1'),
 ('54020085', 'โรงเรียนเด่นไชยประชานุกูล', 'รร.สพฐ.', ' 265 /7 หมู่ที่ 1 บ้านเด่นชัย เด่นชัย เด่นชัย แพร่ 54110', 'NN', 'แพร่', 'P3', '17.98462', '100.05077', b'1'),
 ('54012003', 'โรงเรียนเมืองแพร่', 'รร.สพฐ.', '79 หมู่ที่ 2 ถนนป่าแดง-ทุ่งโฮ้ง ป่าแดง เมืองแพร่ แพร่ 54000', 'NN', 'แพร่', 'P3', '18.09388', '100.20248', b'1'),
@@ -2222,7 +2257,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('54010020', 'โรงเรียนวัดเมธังกราวาส (เทศรัฐราษฎร์นุกูล)', 'รร.สพฐ.', '39 ถนนราษฎร์ดำเนิน ในเวียง เมืองแพร่ แพร่ 54000', 'NN', 'แพร่', 'P3', '18.13881', '100.14377', b'1'),
 ('54022004', 'โรงเรียนวิไลเกียรติอุปถัมภ์', 'รร.สพฐ.', '505 หมู่ที่ 7 เด่นชัย เด่นชัย แพร่ 54110', 'NN', 'แพร่', 'P3', '17.98732', '100.06013', b'1'),
 ('54100025', 'โรงเรียนสอนคนตาบอดสัตติจินตนา จังหวัดแพร่', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '296 หมู่ 7, ตำบลเด่นชัย อำเภอเด่นชัย จังหวัดแพร่, 54110.', 'NN', 'แพร่', 'P3', '17.98329', '100.05936', b'1'),
-('21', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอลอง ', 'รร.สพฐ.', 'อำเภอลอง จังหวัดแพร่', 'NN', 'แพร่', 'P3', '18.07637', '99.83186', b'1'),
+('21', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอลอง ', 'รร.สพฐ.', 'อำเภอลอง จังหวัดแพร่', 'NN', 'แพร่', 'P3', '18.07637', '99.83186', b'1'),
 ('22', 'ห้องสมุดประชาชนจังหวัดแพร่', 'รร.สพฐ.', 'ถนนคุ้มเดิม ตำบลในเวียง อำเภอเมือง แพร่ 54000', 'NN', 'แพร่', 'P3', '18.14384', '100.13854', b'1'),
 ('58020044', 'โรงเรียนไทยรัฐวิทยา 33 (ทุ่งพร้าว)', 'รร.สพฐ.', '202 หมู่ที่ 1 ปางหมู เมืองแม่ฮ่องสอน แม่ฮ่องสอน 58000', 'NN', 'แม่ฮ่องสอน', 'P3', '18.1462', '97.94015', b'1'),
 ('58010057', 'โรงเรียนขุนยวม', 'รร.สพฐ.', 'หมู่ที่ 1 ถนนราษฎร์บูรณะ 1 บ้านขุนยวม ขุนยวม ขุนยวม แม่ฮ่องสอน 58140', 'NN', 'แม่ฮ่องสอน', 'P3', '18.83237', '97.93676', b'1'),
@@ -2230,7 +2265,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('58020048', 'โรงเรียนบ้านไร่วิทยา', 'รร.สพฐ.', 'หมู่ที่ 2 ถนนวัยศึกษา บ้านในเวียง แม่สะเรียง แม่สะเรียง แม่ฮ่องสอน 58110', 'NN', 'แม่ฮ่องสอน', 'P3', '18.12452', '97.93895', b'1'),
 ('58020047', 'โรงเรียนบ้านจอมแจ้งมิตรภาพที่ 193', 'รร.สพฐ.', '202 หมู่ที่ 1 ปางหมู เมืองแม่ฮ่องสอน แม่ฮ่องสอน 58000', 'NN', 'แม่ฮ่องสอน', 'P3', '18.1611', '97.94134', b'1'),
 ('58012005', 'โรงเรียนราชประชานุเคราะห์ 22', 'รร.สพฐ.', '99 หมู่ที่ 4 แม่นาเติง ปาย แม่ฮ่องสอน 58130', 'NN', 'แม่ฮ่องสอน', 'P3', '19.38894', '98.40767', b'1'),
-('23', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอแม่สะเรียง ', 'รร.สพฐ.', '30 หมู่ 12 ตำบลบ้านกาศ อำเภอแม่สะเรียง จังหวัดแม่ฮ่องสอน 58110', 'NN', 'แม่ฮ่องสอน', 'P3', '18.1677', '97.93243', b'1'),
+('23', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอแม่สะเรียง ', 'รร.สพฐ.', '30 หมู่ 12 ตำบลบ้านกาศ อำเภอแม่สะเรียง จังหวัดแม่ฮ่องสอน 58110', 'NN', 'แม่ฮ่องสอน', 'P3', '18.1677', '97.93243', b'1'),
 ('24', 'ห้องสมุดประชาชนจังหวัดแม่ฮ่องสอน', 'รร.สพฐ.', 'ถนนขุนลุมประพาส ตำบลจองคำ อำเภอเมือง แม่ฮ่องสอน 58000', 'NN', 'แม่ฮ่องสอน', 'P3', '19.29864', '97.96539', b'1'),
 ('62012010', 'โรงเรียนเฉลิมพระเกียรติสมเด็จพระศรีนครินทร์กำแพงเพชร', 'รร.สพฐ.', 'หมู่ที่ 16 บ้านนครอินทร์. ตำบล: เทพนคร. อำเภอ: เมืองกำแพงเพชร. จังหวัด: กำแพงเพชร', 'NS', 'กำแพงเพชร', 'P3', '16.40988', '99.53776', b'1'),
 ('62012019', 'โรงเรียนโกสัมพีวิทยา', 'รร.สพฐ.', 'หมู่ที่ 4 บ้านมะเดื่อชุมพร. ตำบล: โกสัมพี. อำเภอ: โกสัมพีนคร. จังหวัด: กำแพงเพชร', 'NS', 'กำแพงเพชร', 'P3', '16.65502', '99.3198', b'1'),
@@ -2272,7 +2307,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('18010057', 'โรงเรียนวัดอู่ตะเภา', 'รร.สพฐ.', 'หมู่ที่ 5 อู่ตะเภา มโนรมย์ ชัยนาท 17170', 'C', 'ชัยนาท', 'P3', '18.91884', '98.9963', b'1'),
 ('18012003', 'โรงเรียนศึกษาสงเคราะห์ชัยนาท', 'รร.สพฐ.', '83 หมู่ 8 ตำบลธรรมามูล อำเภอเมือง จังหวัดชัยนาท 17000', 'C', 'ชัยนาท', 'P3', '15.161924', '100.108752', b'1'),
 ('18012005', 'โรงเรียนสาครพิทยาคม', 'รร.สพฐ.', '150 หมู่ที่ 4 อู่ตะเภา มโนรมย์ ชัยนาท 17170', 'C', 'ชัยนาท', 'P3', '15.296303', '100.188076', b'1'),
-('2', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอวัดสิงห์', 'รร.สพฐ.', 'ถนนวัดสิงห์-ชัยนาท อำเภอวัดสิงห์ จังหวัดชัยนาท 17120', 'C', 'ชัยนาท', 'P3', '15.258297', '100.040667', b'1'),
+('2', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอวัดสิงห์', 'รร.สพฐ.', 'ถนนวัดสิงห์-ชัยนาท อำเภอวัดสิงห์ จังหวัดชัยนาท 17120', 'C', 'ชัยนาท', 'P3', '15.258297', '100.040667', b'1'),
 ('3', 'ห้องสมุดประชาชนจังหวัดชัยนาท', 'รร.สพฐ.', 'ตำบลบ้านกล้วย อำเภอเมือง จังหวัดชัยนาท 17000', 'C', 'ชัยนาท', 'P3', '15.1607599', '100.0339173', b'1'),
 ('63022007', 'โรงเรียนแม่กุวิทยาคม', 'รร.สพฐ.', '616 หมู่ 7, ตำบลแม่กุ อำเภอแม่สอด จังหวัดตาก', 'NS', 'ตาก', 'P3', '16.649516', '98.608118', b'1'),
 ('63022005', 'โรงเรียนแม่ปะวิทยาคม', 'รร.สพฐ.', ' 462 หมู่ที่2 ตำบลแม่ปะ อำเภอแม่สอด จังหวัดตาก', 'NS', 'ตาก', 'P3', '16.744514', '98.604795', b'1'),
@@ -2284,10 +2319,10 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('63020054', 'โรงเรียนบ้านแม่ตาว', 'รร.สพฐ.', '4 หมู่ที่ 1 ถนนสายเอเชีย ตำบลท่าสายลวด อำเภอแม่สอด จังหวัดตาก', 'NS', 'ตาก', 'P3', '16.698863', '98.535546', b'1'),
 ('63012008', 'โรงเรียนบ้านตากประชาวิทยาคาร', 'รร.สพฐ.', '90 หมู่ 4 ตำบลตากออก อำเภอบ้านตาก จังหวัดตาก', 'NS', 'ตาก', 'P3', '17.073139', '99.112382', b'1'),
 ('63010049', 'โรงเรียนบ้านตากประถมวิทยา', 'รร.สพฐ.', 'หมู่ 8 ตำบลตากตก อำเภอบ้านตาก จังหวัดตาก', 'NS', 'ตาก', 'P3', '17.037848', '99.062581', b'1'),
-('63020052', 'โรงเรียนบ้านท่าอาจ', 'รร.สพฐ.', '19 หมู่ 3 ตำบลท่าสายลวด อำเภอแม่สอด จังหวัดตาก', 'NS', 'ตาก', 'P3', '16.700774', '98.534987', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('63020052', 'โรงเรียนบ้านท่าอาจ', 'รร.สพฐ.', '19 หมู่ 3 ตำบลท่าสายลวด อำเภอแม่สอด จังหวัดตาก', 'NS', 'ตาก', 'P3', '16.700774', '98.534987', b'1'),
 ('63020053', 'โรงเรียนบ้านวังตะเคียน', 'รร.สพฐ.', 'หมู่ที่ 4 บ้านวังตะเคียน. ตำบล: ท่าสายลวด. อำเภอ: แม่สอด. จังหวัด: ตา', 'NS', 'ตาก', 'P3', '16.710485', '98.506854', b'1'),
-('63020082', 'โรงเรียนบ้านห้วยกะโหลก', 'รร.สพฐ.', 'หมู่ที่ 4 บ้านห้วยกะโหลก ตำบลแม่ปะ อำเภอแม่สอด จังหวัดตาก', 'NS', 'ตาก', 'P3', '16.759119', '98.537349', b'1'),
+('63020082', 'โรงเรียนบ้านห้วยกะโหลก', 'รร.สพฐ.', 'หมู่ที่ 4 บ้านห้วยกะโหลก ตำบลแม่ปะ อำเภอแม่สอด จังหวัดตาก', 'NS', 'ตาก', 'P3', '16.759119', '98.537349', b'1');
+INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
 ('63020051', 'โรงเรียนบ้านห้วยม่วง', 'รร.สพฐ.', 'หมู่ที่ 2 ถนนมิตรสัมพันธ์ บ้านริมเมย ตำบลท่าสายลวด อำเภอแม่สอด จังหวัดตาก', 'NS', 'ตาก', 'P3', '16.70092', '98.532644', b'1'),
 ('63012002', 'โรงเรียนผดุงปัญญา', 'รร.สพฐ.', '151 หมู่ 6 พหลโยธิน ตำบลไม้งาม อำเภอเมืองตาก จังหวัดตาก', 'NS', 'ตาก', 'P3', '16.888073', '99.128551', b'1'),
 ('63012013', 'โรงเรียนวังเจ้าวิทยาคม', 'รร.สพฐ.', '229 หมู่ที่ 14 ตำบลเชียงทอง อำเภอวังเจ้า จังหวัดตาก', 'NS', 'ตาก', 'P3', '16.701916', '99.245939', b'1'),
@@ -2295,7 +2330,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('63022004', 'โรงเรียนสรรพวิทยาคม', 'รร.สพฐ.', '51 ถนนประสาทวิถี ตำบลแม่สอด อำเภอแม่สอด จังหวัดตาก', 'NS', 'ตาก', 'P3', '16.713221', '98.573156', b'1'),
 ('63100006', 'โรงเรียนตากวง ', 'รร.สพฐ.', '12 ถนนท่าเรือ ตำบลระแหง อำเภอเมือง จังหวัดตาก ', 'NS', 'ตาก', 'P3', '16.875809', '99.123204', b'1'),
 ('63100018', 'พลูหลวงวิทยา', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '191 ถนนตากสิน ตำบลหนองหลวง อำเภอเมืองตาก จังหวัดตาก', 'NS', 'ตาก', 'P3', '16.886919', '99.121796', b'1'),
-('8', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอบ้านตาก ', 'รร.สพฐ.', 'หมู่ 14 ตำบลตากออก อำเภอบ้านตาก จังหวัดตาก', 'NS', 'ตาก', 'P3', '17.074097', '99.112199', b'1'),
+('8', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอบ้านตาก ', 'รร.สพฐ.', 'หมู่ 14 ตำบลตากออก อำเภอบ้านตาก จังหวัดตาก', 'NS', 'ตาก', 'P3', '17.074097', '99.112199', b'1'),
 ('9', 'ห้องสมุดประชาชนจังหวัดตาก', 'รร.สพฐ.', 'ถนนพหลโยธิน กหมู่ที่420 ตำบลหนองหลวง อำเภอเมือง จังหวัดตาก', 'NS', 'ตาก', 'P3', '16.872648', '99.13152', b'1'),
 ('60012013', 'โรงเรียนเก้าเลี้ยววิทยา', 'รร.สพฐ.', ' หมู่ 1, ถนนเก้าเลี้ยว-หนองเต่า, ตำบลเก้าเลี้ยว อำเภอเก้าเลี้ยว จังหวัดนครสวรรค์', 'NS', 'นครสวรรค์', 'P3', '15.87078', '100.11055', b'1'),
 ('60022005', 'โรงเรียนเทพศาลาประชาสรรค์', 'รร.สพฐ.', 'หมู่ที่ 4 บ้านบุ่ง. ตำบล: ศาลเจ้าไก่ต่อำเภออำเภอ: ลาดยาว. จังหวัด: นครสวรรค์', 'NS', 'นครสวรรค์', 'P3', '15.80422', '99.66913', b'1'),
@@ -2317,7 +2352,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('60010063', 'โรงเรียนวัดหนองปลิง', 'รร.สพฐ.', 'หมู่ที่ 1 บ้านบ้านหนองปลิง. ตำบล: หนองปลิง. อำเภอ: เมืองนครสวรรค์. จังหวัด: นครสวรรค์', 'NS', 'นครสวรรค์', 'P3', '15.66796', '100.15961', b'1'),
 ('60012002', 'โรงเรียนสตรีนครสวรรค์', 'รร.สพฐ.', '312 ถนนสวรรค์วิถี. ตำบล: ปากน้ำโพ. อำเภอ: เมืองนครสวรรค์ จังหวัด: นครสวรรค์', 'NS', 'นครสวรรค์', 'P3', '15.69435', '100.1248', b'1'),
 ('60100062', 'วัดท่าพระเจริญพรตวิทยา', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', ' 28 หมู่ 5, ตำบลบ้านมะเกลือ อำเภอเมืองนครสวรรค์ จังหวัดนครสวรรค์', 'NS', 'นครสวรรค์', 'P3', '15.79628', '100.0818', b'1'),
-('10', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอตาคลี ', 'รร.สพฐ.', ' ถนนพหลโยธิน ตำบลตาคลี อำเภอตาคลี จังหวัดนครสวรรค์', 'NS', 'นครสวรรค์', 'P3', '15.26434', '100.34637', b'1'),
+('10', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอตาคลี ', 'รร.สพฐ.', ' ถนนพหลโยธิน ตำบลตาคลี อำเภอตาคลี จังหวัดนครสวรรค์', 'NS', 'นครสวรรค์', 'P3', '15.26434', '100.34637', b'1'),
 ('11', 'ห้องสมุดประชาชนจังหวัดนครสวรรค์', 'รร.สพฐ.', ' ถนนสวรรค์วิถี ตำบลปากน้ำโพ อำเภอเมือง จังหวัดนครสวรรค์', 'NS', 'นครสวรรค์', 'P3', '15.70234', '100.13545', b'1'),
 ('55022003', 'โรงเรียนเมืองแงง', 'รร.สพฐ.', '283 หมู่ที่ 1 แงง ปัว น่าน 55120', 'NN', 'น่าน', 'P3', '19.17749', '100.84913', b'1'),
 ('55012017', 'โรงเรียนน่านนคร', 'รร.สพฐ.', '102 หมู่ที่ 5 บ้านสบแก่น นาปัง กิ่งอำเภอภูเพียง น่าน 55000', 'NN', 'น่าน', 'P3', '18.71173', '100.76978', b'1'),
@@ -2340,8 +2375,8 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('56100018', 'โรงเรียนประชาบำรุง', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '1 หมู่ที่ 3 ตำบลเวียง อำเภอเมืองพะเยา จังหวัดพะเยา 60000', 'NN', 'พะเยา', 'P3', '19.17516', '99.9017', b'1'),
 ('56100069', 'โรงเรียนปิยมาตย์', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '20 หมู่ที่12 ตำบลแม่นาเรือ เขตพะเยาจังหวัดพะเยา 56000', 'NN', 'พะเยา', 'P3', '19.08237', '99.86242', b'1'),
 ('56100001', 'พินิตประสาธน์', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '3 วัดศรีอุโมงดำ ถนนมหาวงศ์ ตำบลเวียง อำเภอเมืองพะเยา จังหวัดพะเยา 55000', 'NN', 'พะเยา', 'P3', '19.16583', '99.90104', b'1'),
-('13', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอจุน ', 'รร.สพฐ.', 'หมู่ที่ 1, ถนนจุน - ปง, ตำบลห้วยข้าวก่ำ อำเภอจุน จังหวัดพะเยา, 56150', 'NN', 'พะเยา', 'P3', '19.3372', '100.13347', b'1'),
-('14', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอดอกคำโซน 4 ', 'รร.สพฐ.', '11/14 หมู่ที่8 ตำบลดอนศรีชุม อำเภอดอกคำใต้ จังหวัดพะเยา 56120 ', 'NN', 'พะเยา', 'P3', '19.16205', '99.99326', b'1'),
+('13', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอจุน ', 'รร.สพฐ.', 'หมู่ที่ 1, ถนนจุน - ปง, ตำบลห้วยข้าวก่ำ อำเภอจุน จังหวัดพะเยา, 56150', 'NN', 'พะเยา', 'P3', '19.3372', '100.13347', b'1'),
+('14', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอดอกคำโซน 4 ', 'รร.สพฐ.', '11/14 หมู่ที่8 ตำบลดอนศรีชุม อำเภอดอกคำใต้ จังหวัดพะเยา 56120 ', 'NN', 'พะเยา', 'P3', '19.16205', '99.99326', b'1'),
 ('15', 'ห้องสมุดประชาชนจังหวัดพะเยา', 'รร.สพฐ.', 'ถนนซุปเปอร์ไฮเวย์ ตำบลต๋อม อำเภอเมือง พะเยา 56000', 'NN', 'พะเยา', 'P3', '19.19382', '99.88139', b'1'),
 ('66022006', 'โรงเรียนโพธิธรรมสุวัฒน์', 'รร.สพฐ.', '674 หมู่ 8 ตำบลบางลาย อำเภอโพทะเล จังหวัดพิจิตร', 'NS', 'พิจิตร', 'P3', '16.09251', '100.265342', b'1'),
 ('66022001', 'โรงเรียนตะพานหิน', 'รร.สพฐ.', '221 ถนนชมฐีระเวช ตำบลตะพานหิน อำเภอตะพานหิน จังหวัดพิจิตร', 'NS', 'พิจิตร', 'P3', '16.21282', '100.4413', b'1'),
@@ -2353,7 +2388,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('66020103', 'โรงเรียนวัดโพทะเล', 'รร.สพฐ.', 'หมู่ที่ 9 บ้านบ้านคลองปากรัง. ตำบล: โพทะเล. อำเภอ: โพทะเล. จังหวัด: พิจิตร', 'NS', 'พิจิตร', 'P3', '16.089326', '100.257508', b'1'),
 ('66020033', 'โรงเรียนวัดป่าแดง', 'รร.สพฐ.', '389 หมู่ที่ 6 บ้านป่าแดง. ตำบล: หนองพยอหมู่ที่ อำเภอ: ตะพานหิน. จังหวัด: พิจิตร', 'NS', 'พิจิตร', 'P3', '16.25449', '100.44817', b'1'),
 ('66020020', 'โรงเรียนวัดวังสำโรง', 'รร.สพฐ.', 'หมู่ที่ 2 บ้านวังสำโรง ตำบลวังสำโรง อำเภอตะพานหิน จังหวัดพิจิตร', 'NS', 'พิจิตร', 'P3', '16.24414', '100.30676', b'1'),
-('17', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอวังทรายพูน', 'รร.สพฐ.', 'หมู่ 4 ตำบลหนองพระ อำเภอวังทรายพูน จังหวัดพิจิตร', 'NS', 'พิจิตร', 'P3', '16.389246', '100.537739', b'1'),
+('17', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอวังทรายพูน', 'รร.สพฐ.', 'หมู่ 4 ตำบลหนองพระ อำเภอวังทรายพูน จังหวัดพิจิตร', 'NS', 'พิจิตร', 'P3', '16.389246', '100.537739', b'1'),
 ('18', 'ห้องสมุดประชาชนจังหวัดพิจิตร', 'รร.สพฐ.', 'ถนนประชาอุทิศ ตำบลคลองคะเชนทร์ อำเภอเมืองพิจิตร จังหวัดพิจิตร', 'NS', 'พิจิตร', 'P3', '16.38907', '100.53778', b'1'),
 ('65012002', 'โรงเรียนเฉลิมขวัญสตรี', 'รร.สพฐ.', ' 28 ถนนพุทธบูชา ตำบลในเมือง อำเภอเมือง จังหวัดพิษณุโลก', 'NS', 'พิษณุโลก', 'P3', '16.820073', '100.260143', b'1'),
 ('65010022', 'โรงเรียนจ่าการบุญ', 'รร.สพฐ.', 'ถนนจ่าการบุญ. ตำบล: ในเมือง. อำเภอ: เมือง. จังหวัด: พิษณุโลก', 'NS', 'พิษณุโลก', 'P3', '16.822202', '100.262701', b'1'),
@@ -2387,7 +2422,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('65010021', 'โรงเรียนวัดยางเอน', 'รร.สพฐ.', 'หมู่ที่ 6 บ้านบ้านยางเอน. ตำบล: ท่าโพธิ์. อำเภอ: เมืองพิษณุโลก. จังหวัด: พิษณุโลก', 'NS', 'พิษณุโลก', 'P3', '16.76739', '100.199805', b'1'),
 ('65010024', 'โรงเรียนวัดอรัญญิก', 'รร.สพฐ.', '76 หมู่ 2 ตำบลบ้านคลอง อำเภอเมือง จังหวัดพิษณุโลก', 'NS', 'พิษณุโลก', 'P3', '16.825915', '100.26884', b'1'),
 ('65010069', 'โรงเรียนสะพานที่ 3', 'รร.สพฐ.', 'หมู่ที่ 7 ถนนพิษณุโลก-บึงพระ บ้านสะพานที่ 3 ตำบลอรัญญิก อำเภอเมืองพิษณุโลก จังหวัดพิษณุโลก ', 'NS', 'พิษณุโลก', 'P3', '16.774728', '100.265404', b'1'),
-('19', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอวังทอง ', 'รร.สพฐ.', '14 ถนนพิษณุโลก-หล่มสัก ตำบลวังทอง อำเภอวังทอง จังหวัดพิษณุโลก', 'NS', 'พิษณุโลก', 'P3', '16.817062', '100.433473', b'1'),
+('19', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอวังทอง ', 'รร.สพฐ.', '14 ถนนพิษณุโลก-หล่มสัก ตำบลวังทอง อำเภอวังทอง จังหวัดพิษณุโลก', 'NS', 'พิษณุโลก', 'P3', '16.817062', '100.433473', b'1'),
 ('20', 'ห้องสมุดประชาชนจังหวัดพิษณุโลก', 'รร.สพฐ.', 'ถนนราชดำเนิน ตำบลในเมือง อำเภอเมืองพิษณุโลก จังหวัดพิษณุโลก', 'NS', 'พิษณุโลก', 'P3', '16.825136', '100.259461', b'1'),
 ('16010043', 'โรงเรียนเมืองใหม่ (ชลอราษฎร์รังสฤษฎ์)', 'รร.สพฐ.', 'ถนนพหลโยธิน ท่าหิน เมืองลพบุรี ลพบุรี 15000', 'C', 'ลพบุรี', 'P3', '14.799862', '100.654419', b'1'),
 ('16012008', 'โรงเรียนโคกตูมวิทยา', 'รร.สพฐ.', '161 หมู่ 2 ตำบลโคกตูม อำเภอเมืองลพบุรี จังหวัดลพบุรี 15210', 'C', 'ลพบุรี', 'P3', '14.818654', '100.804948', b'1'),
@@ -2414,9 +2449,9 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('16020070', 'โรงเรียนวัดสว่างอารมณ์', 'รร.สพฐ.', 'หมู่ที่ 1 วังจุฬา วังน้อย ลพบุรี 13000', 'C', 'ลพบุรี', 'P3', '15.0572992', '101.026268', b'1'),
 ('16100045', 'การศึกษาคนตาบอดและคนตาบอดพิการซ้ำซ้อน', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', ' 3 หมู่ 11 ถนนต นิคมสร้างตนเอง ตำบลนิคมสร้างตนเอง อำเภอเมืองลพบุรี จังหวัดลพบุรี 15000', 'C', 'ลพบุรี', 'P3', '14.763176', '100.71954', b'1'),
 ('16100004', 'โรงเรียนวินิตศึกษาในพระราชูปถัมภ์', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '10 ถนนเพทราชา อำเภอเมืองลพบุรี จังหวัดลพบุรี รหัสไปรษณีย์ 15000', 'C', 'ลพบุรี', 'P3', '14.798521', '100.609413', b'1'),
-('26', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอเมือง', 'รร.สพฐ.', 'ถนนนารายณ์มหาราช, ตำบลทะเลชุบศร อำเภอเมือง จังหวัดลพบุรี 15000', 'C', 'ลพบุรี', 'P3', '18.58586', '99.01252', b'1'),
-('56', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอเมือง', 'รร.สพฐ.', 'ตำบลกระเบื้องใหญ่ อำเภอพิมาย\nนครราชสีมา\n', 'NES', 'นครราชสีมา', 'P3', '18.58586', '99.01252', b'1'),
-('25', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอพัฒนานิคม', 'รร.สพฐ.', 'หมู่ 6 ตำบลพัฒนานิคม อำเภอพัฒนานิคม จังหวัดลพบุรี 15140', 'C', 'ลพบุรี', 'P3', '14.85611', '100.991235', b'1'),
+('26', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอเมือง', 'รร.สพฐ.', 'ถนนนารายณ์มหาราช, ตำบลทะเลชุบศร อำเภอเมือง จังหวัดลพบุรี 15000', 'C', 'ลพบุรี', 'P3', '18.58586', '99.01252', b'1'),
+('56', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอเมือง', 'รร.สพฐ.', 'ตำบลกระเบื้องใหญ่ อำเภอพิมาย\nนครราชสีมา\n', 'NES', 'นครราชสีมา', 'P3', '18.58586', '99.01252', b'1'),
+('25', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอพัฒนานิคม', 'รร.สพฐ.', 'หมู่ 6 ตำบลพัฒนานิคม อำเภอพัฒนานิคม จังหวัดลพบุรี 15140', 'C', 'ลพบุรี', 'P3', '14.85611', '100.991235', b'1'),
 ('27', 'ห้องสมุดประชาชนจังหวัดลพบุรี', 'รร.สพฐ.', '284, ถนนนารายณ์มหาราช, ตำบลทะเลชุบศร อำเภอเมือง จังหวัดลพบุรี, 15000', 'C', 'ลพบุรี', 'P3', '14.799841', '100.642334', b'1'),
 ('52022003', 'โรงเรียนเกาะคาวิทยาคม', 'รร.สพฐ.', '1 หมู่ที่ 5 ท่าผา เกาะคา ลำปาง 52130', 'NN', 'ลำปาง', 'P3', '18.19242', '99.38825', b'1'),
 ('52022010', 'โรงเรียนเถินวิทยา', 'รร.สพฐ.', '182 หมู่ที่ 7 ถนนสายเอเซีย 1 ล้อมแรด เถิน ลำปาง 52160', 'NN', 'ลำปาง', 'P3', '17.63559', '99.24221', b'1'),
@@ -2433,8 +2468,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('52010145', 'โรงเรียนบ้านอ้อน', 'รร.สพฐ.', 'หมู่ที่ 2 บ้านอ้อน งาว ลำปาง 52110', 'NN', 'ลำปาง', 'P3', '18.75817', '99.914', b'1'),
 ('52012006', 'โรงเรียนบุญวาทย์วิทยาลัย', 'รร.สพฐ.', '230 ถนนพหลโยธิน หัวเวียง เมืองลำปาง ลำปาง 52000', 'NN', 'ลำปาง', 'P3', '18.28619', '99.50154', b'1'),
 ('52020101', 'โรงเรียนล้อมแรดวิทยา', 'รร.สพฐ.', '321 หมู่ที่ 4 ถนนล้อมแรด-ป่าตาล บ้านล้อมแรด ล้อมแรด เถิน ลำปาง 52160', 'NN', 'ลำปาง', 'P3', '17.60297', '99.20435', b'1'),
-('52012008', 'โรงเรียนลำปางกัลยาณี', 'รร.สพฐ.', '224 ถนนพหลโยธิน สวนดอก เมืองลำปาง ลำปาง 52100', 'NN', 'ลำปาง', 'P3', '18.28395', '99.4982', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('52012008', 'โรงเรียนลำปางกัลยาณี', 'รร.สพฐ.', '224 ถนนพหลโยธิน สวนดอก เมืองลำปาง ลำปาง 52100', 'NN', 'ลำปาง', 'P3', '18.28395', '99.4982', b'1'),
 ('52010059', 'โรงเรียนวัดเสด็จ', 'รร.สพฐ.', 'หมู่ที่ 11 บ้านเสด็จ บ้านเสด็จ เมืองลำปาง ลำปาง 52000', 'NN', 'ลำปาง', 'P3', '18.38884', '99.59531', b'1'),
 ('52010054', 'โรงเรียนวัดศรีปรีดานุเคราะห์', 'รร.สพฐ.', 'หมู่ที่ 3 ถนนลำปางงาว บ้านศรีปรีดา บ้านแลง เมืองลำปาง ลำปาง 52000', 'NN', 'ลำปาง', 'P3', '18.45313', '99.63093', b'1'),
 ('52020028', 'โรงเรียนศาลาวิทยา', 'รร.สพฐ.', 'หมู่ที่ 6 บ้านศาลาหลวง ศาลา เกาะคา ลำปาง 52130', 'NN', 'ลำปาง', 'P3', '18.21289', '99.41485', b'1'),
@@ -2455,7 +2489,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('51012011', 'โรงเรียนวชิรป่าซาง', 'รร.สพฐ.', '210 หมู่ที่ 7 ถนนลำพูน - ลี้ นครเจดีย์ ป่าซาง ลำพูน 51120', 'NN', 'ลำพูน', 'P3', '18.44112', '98.88603', b'1'),
 ('51020109', 'โรงเรียนวัดบ้านดง (คำบุญประชาถกล)', 'รร.สพฐ.', 'หมู่ที่ 5 บ้านดงหลวง วังผาง กิ่งอำเภอเวียงหนองล่อง ลำพูน 51120', 'NN', 'ลำพูน', 'P3', '18.43154', '98.71787', b'1'),
 ('51012007', 'โรงเรียนส่วนบุญโญปถัมภ์', 'รร.สพฐ.', '12 ถนนลำพูน-ป่าซาง ในเมือง เมืองลำพูน ลำพูน 51000', 'NN', 'ลำพูน', 'P3', '18.57372', '99.00046', b'1'),
-('29', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอเมือง ลำพูน', 'รร.สพฐ.', 'ถนนสันป่ายางหลวง ตำบลในเมือง อำเภอเมือง ลำพูน 51000', 'NN', 'ลำพูน', 'P3', '18.58586', '99.01252', b'1'),
+('29', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอเมือง ลำพูน', 'รร.สพฐ.', 'ถนนสันป่ายางหลวง ตำบลในเมือง อำเภอเมือง ลำพูน 51000', 'NN', 'ลำพูน', 'P3', '18.58586', '99.01252', b'1'),
 ('17012010', 'โรงเรียนทองเอนวิทยา', 'รร.สพฐ.', 'ซ.3283 ตำบลทองเอน อำเภออินทร์บุรี จังหวัดสิงห์บุรี 16110', 'C', 'สิงห์บุรี', 'P3', '15.025241', '100.36515', b'1'),
 ('17012005', 'โรงเรียนพรหมบุรีรัชดาภิเษก', 'รร.สพฐ.', 'หมู่ที่ 3 บ้านบ้านหม้อ (วัดตราชู). ตำบล บ้านหม้อ อำเภอพรหมบุรี จังหวัดสิงห์บุรี', 'C', 'สิงห์บุรี', 'P3', '14.747474', '100.4523', b'1'),
 ('17010136', 'โรงเรียนวัดโบสถ์', 'รร.สพฐ.', '109/2หมู่ที่ 1 บ้านสวนหลวง ตำบลทับยา อำเภออินทร์บุรี จังหวัดสิงห์บุรี 16110 ', 'C', 'สิงห์บุรี', 'P3', '17.042077', '100.315287', b'1'),
@@ -2465,7 +2499,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('17012007', 'โรงเรียนสิงห์บุรี', 'รร.สพฐ.', 'ถนนสิงหราช ตำบลบางมัญ อำเภอเมืองสิงห์บุรี จังหวัดสิงห์บุรี 16000', 'C', 'สิงห์บุรี', 'P3', '14.892028', '100.410425', b'1'),
 ('17012011', 'โรงเรียนสิงหพาหุ (ประสานมิตรอุปถัมภ์)', 'รร.สพฐ.', '156 หมู่ 1, ถนนสิงห์บุรี - สุพรรณบุรี, ตำบลจักรสีห์ อำเภอเมือง จังหวัดสิงห์บุรี, 16000 ', 'C', 'สิงห์บุรี', 'P3', '14.860885', '100.389904', b'1'),
 ('17012006', 'โรงเรียนอินทร์บุรี', 'รร.สพฐ.', '109/22 หมู่ที่ 1 ตำบลอินทร์บุรี อำเภออินทร์บุรี จังหวัดสิงห์บุรี 16110', 'C', 'สิงห์บุรี', 'P3', '14.992681', '100.330416', b'1'),
-('30', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอท่าช้าง', 'รร.สพฐ.', '93 หมู่ 3 ตำบลพิกุลทอง อำเภอท่าช้าง จังหวัดสิงห์บุรี ', 'C', 'สิงห์บุรี', 'P3', '14.780058', '100.402818', b'1'),
+('30', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอท่าช้าง', 'รร.สพฐ.', '93 หมู่ 3 ตำบลพิกุลทอง อำเภอท่าช้าง จังหวัดสิงห์บุรี ', 'C', 'สิงห์บุรี', 'P3', '14.780058', '100.402818', b'1'),
 ('31', 'ห้องสมุดประชาชนจังหวัดสิงห์บุรี', 'รร.สพฐ.', 'ถนนสิงห์บุรี-อ่าทอง(สายเก่า) ตำบลบางพุทรา อำเภอเมืองจังหวัดสิงห์บุรี 16000 ', 'C', 'สิงห์บุรี', 'P3', '14.890209', '100.398511', b'1'),
 ('64020111', 'โรงเรียนเทวัญอำนวยวิทย์', 'รร.สพฐ.', '7 หมู่ที่ 11 ถนนศรีสำโรง-ศรีนคร บ้านสมาคมนา ตำบลสามเรือน อำเภอศรีสำโรง จังหวัดสุโขทัย', 'NS', 'สุโขทัย', 'P3', '17.18772', '99.9095', b'1'),
 ('64020047', 'โรงเรียนไชยะวิทยา', 'รร.สพฐ.', 'หมู่ที่ 5 ถนนสวรรคโลก-ศรีสัชนาลัย บ้านท่าชัย. ตำบล: ท่าชัย. อำเภอ: ศรีสัชนาลัย. จังหวัด: สุโขทัย', 'NS', 'สุโขทัย', 'P3', '17.39084', '99.80242', b'1'),
@@ -2485,8 +2519,8 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('64022003', 'โรงเรียนสวรรค์อนันต์วิทยา', 'รร.สพฐ.', '89 หมู่ 3 ตำบลย่านยาว อำเภอสวรรคโลก จังหวัดสุโขทัย', 'NS', 'สุโขทัย', 'P3', '17.296', '99.83834', b'1'),
 ('64012001', 'โรงเรียนสุโขทัยวิทยาคม', 'รร.สพฐ.', ' 2/3 หมู่ที่5. ตำบล: บ้านกล้วย. อำเภอ: เมืองสุโขทัย . จังหวัด: สุโขทัย', 'NS', 'สุโขทัย', 'P3', '17.01276', '99.79182', b'1'),
 ('64012011', 'โรงเรียนอุดมดรุณี', 'รร.สพฐ.', '351 ถนนจรดวิถีถ่อง ตำบลธานี อำเภอเมือง จังหวัดสุโขทัย', 'NS', 'สุโขทัย', 'P3', '17.0143', '99.82062', b'1'),
-('32', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอบ้านด่านลานหอย', 'รร.สพฐ.', 'หมู่ที่ 2 ตำบลบ้านด่าน อำเภอบ้านด่านลานหอย จังหวัดสุโขทัย', 'NS', 'สุโขทัย', 'P3', '17.011', '99.58634', b'1'),
-('33', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอสวรรคโลก ', 'รร.สพฐ.', '32/2 ถนนหน้าเมือง ตำบลเมืองสวรรคโลก อำเภอสวรรคโลก จังหวัดสุโขทัย', 'NS', 'สุโขทัย', 'P3', '17.31788', '99.8301', b'1'),
+('32', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอบ้านด่านลานหอย', 'รร.สพฐ.', 'หมู่ที่ 2 ตำบลบ้านด่าน อำเภอบ้านด่านลานหอย จังหวัดสุโขทัย', 'NS', 'สุโขทัย', 'P3', '17.011', '99.58634', b'1'),
+('33', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอสวรรคโลก ', 'รร.สพฐ.', '32/2 ถนนหน้าเมือง ตำบลเมืองสวรรคโลก อำเภอสวรรคโลก จังหวัดสุโขทัย', 'NS', 'สุโขทัย', 'P3', '17.31788', '99.8301', b'1'),
 ('34', 'ห้องสมุดประชาชนจังหวัดสุโขทัย', 'รร.สพฐ.', 'ถนนนิกรเกษม ตำบลเมือง อำเภอเมือง สุโขทัย', 'NS', 'สุโขทัย', 'P3', '17.00624', '99.82354', b'1'),
 ('64100003', 'อนุบาลการกุศลวัดตระพังทอง', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '191 ถนนตากสิน ตำบลหนองหลวง อำเภอเมืองตาก จังหวัดตาก', 'NS', 'สุโขทัย', 'P3', '16.886919', '99.121796', b'1'),
 ('72100006', 'เอกชนการกุศลวัดสกุณปักษี', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '287/1 หมู่ที่1 ตำบลสนามคลี อำเภอเมืองสุพรรณบุรี จังหวัดสุพรรณบุรี 72000', 'W', 'สุพรรณบุรี', 'P3', '14.551134', '100.034676', b'1'),
@@ -2521,7 +2555,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('72010023', 'โรงเรียนสุพรรณภูมิ', 'รร.สพฐ.', '71 ตำบลท่าพี่เลี้ยง อำเภอเมืองสุพรรณบุรี จังหวัดสุพรรณบุรี 72000', 'W', 'สุพรรณบุรี', 'P3', '14.466323', '100.121161', b'1'),
 ('72022010', 'โรงเรียนอู่ทอง', 'รร.สพฐ.', '9 หมู่ 9 ถนนวินยานุโยค ตำบลอู่ทอง อำเภออู่ทอง จังหวัดสุพรรณบุรี 72160', 'W', 'สุพรรณบุรี', 'P3', '14.378757', '99.886946', b'1'),
 ('72022003', 'โรงเรียนอู่ทองศึกษาลัย', 'รร.สพฐ.', '1711 หมู่ 6 ตำบลอู่ทอง อำเภออู่ทอง จังหวัดสุพรรณบุรี 72160', 'W', 'สุพรรณบุรี', 'P3', '14.372049', '99.892', b'1'),
-('36', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอด่านช้าง', 'รร.สพฐ.', 'ตำบลหนองมะค่าโมง อำเภอด่านช้าง จังหวัดสุพรรณบุรี 72180 ', 'W', 'สุพรรณบุรี', 'P3', '14.839847', '99.695286', b'1'),
+('36', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอด่านช้าง', 'รร.สพฐ.', 'ตำบลหนองมะค่าโมง อำเภอด่านช้าง จังหวัดสุพรรณบุรี 72180 ', 'W', 'สุพรรณบุรี', 'P3', '14.839847', '99.695286', b'1'),
 ('37', 'ห้องสมุดประชาชนจังหวัดสุพรรณบุรี', 'รร.สพฐ.', 'ถนนนางสร้อยฟ้า ตำบลท่าพี่เลี้ยง อำเภอเมืองสุพรรณบุรี จังหวัดสุพรรณบุรี 72000', 'W', 'สุพรรณบุรี', 'P3', '14.474521', '100.119238', b'1'),
 ('15012012', 'โรงเรียนโพธิ์ทอง (จินดามณี)', 'รร.สพฐ.', 'หมู่ที่ 6 บ้าน2 ตำบลอ่างแก้ว อำเภอโพธิ์ทอง จังหวัดอ่างทอง 14120', 'C', 'อ่างทอง', 'P3', '14.660718', '100.409429', b'1'),
 ('15010133', 'โรงเรียนชุมชนวัดนางใน (ละเอียดอุปถัมภ์)', 'รร.สพฐ.', 'หมู่ที่ 7 ตำบลศาลเจ้าโรงทอง อำเภอวิเศษชัยชาญ จังหวัดอ่างทอง 14110', 'C', 'อ่างทอง', 'P3', '14.596862', '100.353848', b'1'),
@@ -2531,9 +2565,9 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('15012003', 'โรงเรียนวิเศษไชยชาญ (ตันติวิทยาภูมิ)', 'รร.สพฐ.', 'หมู่ที่ 6 ตำบลไผ่จำศีล อำเภอวิเศษชัยชาญ จังหวัดอ่างทอง 14110', 'C', 'อ่างทอง', 'P3', '14.60972', '100.362571', b'1'),
 ('15012010', 'โรงเรียนสตรีอ่างทอง', 'รร.สพฐ.', 'หมู่ที่ 3 ตำบลศาลาแดง อำเภอเมืองอ่างทอง จังหวัด อ่างทอง 14000', 'C', 'อ่างทอง', 'P3', '14.598545', '100.442663', b'1'),
 ('15012004', 'โรงเรียนอ่างทองปัทมโรจน์วิทยาคม', 'รร.สพฐ.', 'หมู่ที่ 4 ตำบลบ้านอิฐ อำเภอเมืองอ่างทอง จังหวัด อ่างทอง 14000', 'C', 'อ่างทอง', 'P3', '14.579174', '100.473208', b'1'),
-('40', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอแสวงหา ', 'รร.สพฐ.', 'หมู่ที่ 5 ตำบลแสวงหา อำเภอแสวงหา จังหวัดอ่างทอง 14150', 'C', 'อ่างทอง', 'P3', '14.751623', '100.324173', b'1'),
-('38', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอโพธิ์ทอง', 'รร.สพฐ.', '114 หมู่ที่ 6 ตำบลอ่างแก้ว อำเภอโพธิ์ทอง จังหวัดอ่างทอง 14120', 'C', 'อ่างทอง', 'P3', '14.667277', '100.396995', b'1'),
-('39', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอวิเศษชัยชาญ ', 'รร.สพฐ.', 'หมู่ที่ 3 ตำบลไผ่จำศีล อำเภอวิเศษชัยชาญ จังหวัดอ่างทอง 14110', 'C', 'อ่างทอง', 'P3', '14.599677', '100.358371', b'1'),
+('40', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอแสวงหา ', 'รร.สพฐ.', 'หมู่ที่ 5 ตำบลแสวงหา อำเภอแสวงหา จังหวัดอ่างทอง 14150', 'C', 'อ่างทอง', 'P3', '14.751623', '100.324173', b'1'),
+('38', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอโพธิ์ทอง', 'รร.สพฐ.', '114 หมู่ที่ 6 ตำบลอ่างแก้ว อำเภอโพธิ์ทอง จังหวัดอ่างทอง 14120', 'C', 'อ่างทอง', 'P3', '14.667277', '100.396995', b'1'),
+('39', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอวิเศษชัยชาญ ', 'รร.สพฐ.', 'หมู่ที่ 3 ตำบลไผ่จำศีล อำเภอวิเศษชัยชาญ จังหวัดอ่างทอง 14110', 'C', 'อ่างทอง', 'P3', '14.599677', '100.358371', b'1'),
 ('41', 'ห้องสมุดประชาชนจังหวัดอ่างทอง', 'รร.สพฐ.', 'ถนนเทศบาล 3 ตำบลตลาดหลวง อำเภอเมืองอ่างทอง จังหวัด อ่างทอง 14000', 'C', 'อ่างทอง', 'P3', '14.587841', '100.448492', b'1'),
 ('53010010', 'โรงเรียนชุมชนเมืองปากฝาง', 'รร.สพฐ.', 'หมู่ที่ 8 บ้านปากฝาง ตำบลงิ้วงาม อำเภอเมืองอุตรดิตถ์ จังหวัดอุตรดิตถ์', 'NS', 'อุตรดิตถ์', 'P3', '17.6661', '100.19707', b'1'),
 ('53020072', 'โรงเรียนชุมชนไกรลาสวิทยาคม', 'รร.สพฐ.', 'หมู่ที่ 4, ถนนเพชรานุรักษ์, ตำบลแสนตอ อำเภอน้ำปาด จังหวัดอุตรดิตถ์', 'NS', 'อุตรดิตถ์', 'P3', '17.72841', '100.68322', b'1'),
@@ -2576,15 +2610,15 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('67010031', 'โรงเรียนบ้านปากน้ำ', 'รร.สพฐ.', 'หมู่ที่ 17 ถนนปากน้ำ - เฉลียงลับ บ้านปากน้ำ นาป่า เมืองเพชรบูรณ์ เพชรบูรณ์ 67000', 'NEC', 'เพชรบูรณ์', 'P3', '16.39139', '101.17477', b'1'),
 ('67020092', 'โรงเรียนบ้านวังร่อง', 'รร.สพฐ.', 'หมู่ที่ 5 ถนนบ้านติ้ว-ท่าอิบุญ บ้านวังร่อง ห้วยไร่ หล่มสัก เพชรบูรณ์ 67110', 'NEC', 'เพชรบูรณ์', 'P3', '16.82659', '101.30862', b'1'),
 ('67010045', 'โรงเรียนบ้านสะเดียง', 'รร.สพฐ.', ' 72 สว่างพัฒนา ในเมือง เมืองเพชรบูรณ์ เพชรบูรณ์ 67000', 'NEC', 'เพชรบูรณ์', 'P3', '16.42027', '101.14104', b'1'),
-('67032014', 'โรงเรียนบึงสามพันวิทยาคม', 'รร.สพฐ.', '800 หมู่ที่ 7  ซับสมอทอด บึงสามพัน เพชรบูรณ์ 67160', 'NEC', 'เพชรบูรณ์', 'P3', '15.78847', '100.99015', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('67032014', 'โรงเรียนบึงสามพันวิทยาคม', 'รร.สพฐ.', '800 หมู่ที่ 7  ซับสมอทอด บึงสามพัน เพชรบูรณ์ 67160', 'NEC', 'เพชรบูรณ์', 'P3', '15.78847', '100.99015', b'1'),
 ('67032002', 'โรงเรียนพุขามครุฑมณีอุทิศ', 'รร.สพฐ.', '22 พุขาม วิเชียรบุรี เพชรบูรณ์ 67220', 'NEC', 'เพชรบูรณ์', 'P3', '15.536', '101.04409', b'1'),
 ('67012002', 'โรงเรียนวิทยานุกูลนารี', 'รร.สพฐ.', '28 ถนนสามัคคีชัย ในเมือง เมืองเพชรบูรณ์ เพชรบูรณ์ 67000', 'NEC', 'เพชรบูรณ์', 'P3', '16.42962', '101.15494', b'1'),
 ('67012004', 'โรงเรียนสวนกุหลาบวิทยาลัยเพชรบูรณ์', 'รร.สพฐ.', ' ท่าพล เมืองเพชรบูรณ์ เพชรบูรณ์ 67000', 'NEC', 'เพชรบูรณ์', 'P3', '16.58455', '101.15245', b'1'),
-('67020061', 'โรงเรียนหน้าศูนย์เครื่องมือกล', 'รร.สพฐ.', 'หมู่ที่ 11 บ้านหน้าศูนย์ ปากช่อง หล่มสัก เพชรบูรณ์ 67110', 'NEC', 'เพชรบูรณ์', 'P3', '16.73329', '101.28463', b'1'),
+('67020061', 'โรงเรียนหน้าศูนย์เครื่องมือกล', 'รร.สพฐ.', 'หมู่ที่ 11 บ้านหน้าศูนย์ ปากช่อง หล่มสัก เพชรบูรณ์ 67110', 'NEC', 'เพชรบูรณ์', 'P3', '16.73329', '101.28463', b'1');
+INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
 ('67022008', 'โรงเรียนหล่มเก่าพิทยาคม', 'รร.สพฐ.', '508 หมู่ที่ 5 ถนนหล่มสัก - เลย หล่มเก่า หล่มเก่า เพชรบูรณ์ 67120', 'NEC', 'เพชรบูรณ์', 'P3', '16.87144', '101.24442', b'1'),
 ('67022001', 'โรงเรียนหล่มสักวิทยาคม', 'รร.สพฐ.', '15 ถนนพิทักษ์ หล่มสัก หล่มสัก เพชรบูรณ์ 67110', 'NEC', 'เพชรบูรณ์', 'P3', '16.79063', '101.24524', b'1'),
-('59', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอเมือง', 'รร.สพฐ.', 'ตำบลเมืองเพชรบูรณ์ อำเภอเมืองเพชรบูรณ์ เพชรบูรณ์ ', 'NEC', 'เพชรบูรณ์', 'P3', '18.58586', '99.01252', b'1'),
+('59', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอเมือง', 'รร.สพฐ.', 'ตำบลเมืองเพชรบูรณ์ อำเภอเมืองเพชรบูรณ์ เพชรบูรณ์ ', 'NEC', 'เพชรบูรณ์', 'P3', '18.58586', '99.01252', b'1'),
 ('60', 'ห้องสมุดประชาชนจังหวัดเพชรบูรณ์', 'รร.สพฐ.', ' ตำบลตะกุดไร อำเภอชนแดน เพชรบูรณ์ 67190', 'NEC', 'เพชรบูรณ์', 'P3', '16.2481859', '101.214165', b'1'),
 ('42010013', 'โรงเรียนเมืองเลย', 'รร.สพฐ.', '36/57 ถนนมลิวรรณ ตำบลกุดป่อง อำเภอเมืองเลย จังหวัดเลย 42000 ', 'NEN', 'เลย', 'P3', '17.489269', '101.721077', b'1'),
 ('42012001', 'โรงเรียนเลยพิทยาคม', 'รร.สพฐ.', 'ตำบลกุดป่อง อำเภอเมือง จังหวัดเลย 42000 สำนักงานเขตพื้นที่การศึกษามัธยมศึกษา เขต 19', 'NEN', 'เลย', 'P3', '17.489715', '101.718731', b'1'),
@@ -2682,7 +2716,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('40052001', 'โรงเรียนหนองเรือวิทยา', 'รร.สพฐ.', '40/1 หนองเรือ หนองเรือ ขอนแก่น 40210', 'NEC', 'ขอนแก่น', 'P3', '16.494868', '102.432731', b'1'),
 ('40050127', 'โรงเรียนหนองไผ่พิทยาคม', 'รร.สพฐ.', '191 หนองไผ่ ชุมแพ ขอนแก่น 41130', 'NEC', 'ขอนแก่น', 'P3', '16.57152', '102.107577', b'1'),
 ('40032012', 'โรงเรียนหนองสองห้องวิทยา', 'รร.สพฐ.', '127 หมู่ที่ 1 บ้านหนองสองห้อง หนองสองห้อง หนองสองห้อง ขอนแก่น 40190', 'NEC', 'ขอนแก่น', 'P3', '15.728772', '102.778039', b'1'),
-('46', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอน้ำพอง', 'รร.สพฐ.', 'ห้องสมุดประชาชนเฉลิมราชกุมารี อำเภอน้ำพอง ขอนแก่น', 'NEC', 'ขอนแก่น', 'P3', '16.730735', '102.802993', b'1'),
+('46', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอน้ำพอง', 'รร.สพฐ.', 'ห้องสมุดประชาชนเฉลิมราชกุมารี อำเภอน้ำพอง ขอนแก่น', 'NEC', 'ขอนแก่น', 'P3', '16.730735', '102.802993', b'1'),
 ('47', 'ห้องสมุดประชาชนจังหวัดขอนแก่น', 'รร.สพฐ.', 'ตำบลในเมือง อำเภอเมืองขอนแก่น ขอนแก่น 40000', 'NEC', 'ขอนแก่น', 'P3', '16.418134', '102.823819', b'1'),
 ('50030077', 'โรงเรียนเทศบาล 2 (เมืองเก่าวิทยา)', 'รร.สพฐ.', 'หมู่ที่ 6, ตำบลเแม่งอน อำเภอฝาง จังหวัดเชียงใหม่, 50110', 'NEC', 'ชัยภูมิ', 'P3', '19.81474', '99.10483', b'1'),
 ('36032008', 'โรงเรียนเพชรพิทยาสรรค์', 'รร.สพฐ.', '81 หมู่ที่ 4  บ้านโคกสว่าง  บ้านเพชร บำเหน็จณรงค์ ชัยภูมิ 36160', 'NEC', 'ชัยภูมิ', 'P3', '15.44789', '101.7013', b'1'),
@@ -2705,7 +2739,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('36020193', 'โรงเรียนศรีแก้งคร้อ', 'รร.สพฐ.', ' ช่องสามหมอ แก้งคร้อ ชัยภูมิ 36150', 'NEC', 'ชัยภูมิ', 'P3', '16.1075', '102.25641', b'1'),
 ('36012002', 'โรงเรียนสตรีชัยภูมิ', 'รร.สพฐ.', '372 ถนนบรรณาการ ในเมือง เมืองชัยภูมิ ชัยภูมิ 36000', 'NEC', 'ชัยภูมิ', 'P3', '15.80594', '102.02848', b'1'),
 ('36010045', 'โรงเรียนสุนทรวัฒนา', 'รร.สพฐ.', '35 ถนนหฤทัย ในเมือง เมืองชัยภูมิ ชัยภูมิ 36000', 'NEC', 'ชัยภูมิ', 'P3', '15.80259', '102.03213', b'1'),
-('48', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอจัตุรัส', 'รร.สพฐ.', 'ถนนโกสีย์ ตำบลบ้านกอก อำเภอจัตุรัส จังหวัดชัยภูมิ', 'NEC', 'ชัยภูมิ', 'P3', '15.5633363', '101.8889994', b'1'),
+('48', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอจัตุรัส', 'รร.สพฐ.', 'ถนนโกสีย์ ตำบลบ้านกอก อำเภอจัตุรัส จังหวัดชัยภูมิ', 'NEC', 'ชัยภูมิ', 'P3', '15.5633363', '101.8889994', b'1'),
 ('49', 'ห้องสมุดประชาชนจังหวัดชัยภูมิ', 'รร.สพฐ.', '90 ถนนบรรณาการ ตำบลในเมือง อำเภอเมือง จังหวัดชัยภูมิ', 'NEC', 'ชัยภูมิ', 'P3', '15.80654', '102.03363', b'1'),
 ('48022006', 'โรงเรียนเชียงยืนวิทยา', 'รร.สพฐ.', '90 หมู่ 4 ตำบลเวินพระบาท อำเภอท่าอุเทน นครพนม 48120042 050 026', 'NEN', 'นครพนม', 'P3', '17.50857', '104.715142', b'1'),
 ('48022002', 'โรงเรียนไชยบุรีวิทยาคม', 'รร.สพฐ.', '59 หมู่ 6 บ้านนาเพียง ถนนท่าอุเทน-บ้านแพง ตำบลไชยบุรี อำเภอท่าอุทน จังหวัดนครพนม รหัสไปรษณ๊ย์ 48120', 'NEN', 'นครพนม', 'P3', '17.653533', '104.442415', b'1'),
@@ -2721,7 +2755,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('48010123', 'โรงเรียนบ้านหัวบึงทุ่ง', 'รร.สพฐ.', 'หมู่ 3 นครพนม-ธาตุพนม 119 ตำบลธาตุพนมเหนือ อำเภอธาตุพนม นครพนม 48110 ไทย', 'NEN', 'นครพนม', 'P3', '16.955311', '104.725109', b'1'),
 ('48012001', 'โรงเรียนปิยะมหาราชาลัย', 'รร.สพฐ.', '42 ถนนปิยะมหาราชาลัย ตำบลในเมือง อำเภอเมือง จังหวัดนครพนม 48000', 'NEN', 'นครพนม', 'P3', '17.402884', '104.780101', b'1'),
 ('48012013', 'โรงเรียนมหาชัยวิทยาคม', 'รร.สพฐ.', '116 หมู่ที่2 ตำบลมหาชัย อำเภอปลาปาก จังหวัดนครพนม 48160.', 'NEN', 'นครพนม', 'P3', '17.288059', '104.465949', b'1'),
-('48010120', 'โรงเรียนวัดพระธาตุพนม (พนมพิทยาคาร)', 'รร.สพฐ.', 'บ้านสระพังทอง ตำบลวัดพระธาตุพนม "พนมวิทยาคาร" อำเภอธาตุพนม จังหวัดนครพนม 48110', 'NEN', 'นครพนม', 'P3', '16.940196', '104.722838', b'1'),
+('48010120', 'โรงเรียนวัดพระธาตุพนม (พนมพิทยาคาร)', 'รร.สพฐ.', 'บ้านสระพังทอง ตำบลวัดพระธาตุพนม \"พนมวิทยาคาร\" อำเภอธาตุพนม จังหวัดนครพนม 48110', 'NEN', 'นครพนม', 'P3', '16.940196', '104.722838', b'1'),
 ('48022009', 'โรงเรียนสหราษฎร์รังสฤษดิ์', 'รร.สพฐ.', '232 หมู่ 7 ตำบลศรีสงคราม อำเภอศรีสงคราม จังหวัดนครพนม 48150', 'NEN', 'นครพนม', 'P3', '17.625689', '104.255648', b'1'),
 ('48010036', 'โรงเรียนสุนทรวิจิตรจังหวัดนครพนม', 'รร.สพฐ.', 'บ้าน200 ตำบลสุนทรวิจิตร อำเภอเมืองนครพนม จังหวัดนครพนม48000 ', 'NEN', 'นครพนม', 'P3', '17.408413', '104.785127', b'1'),
 ('48022001', 'โรงเรียนอุเทนพัฒนา', 'รร.สพฐ.', '30 หมู่ 6 ตำบลโนนตาล อำเภอท่าอุเทน จังหวัดนครพนม', 'NEN', 'นครพนม', 'P3', '17.555017', '104.61126', b'1'),
@@ -2729,8 +2763,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('30062008', 'โรงเรียนเกล็ดลิ้นวิทยา', 'รร.สพฐ.', '45 หมู่ที่ 1, ถนนโคกสี-ปะคำ, ตำบลขุนทอง อำเภอบัวใหญ่ จังหวัดครราชสีมา, 30120', 'NES', 'นครราชสีมา', 'P3', '15.69471', '102.33603', b'1'),
 ('30010027', 'โรงเรียนเคหะประชาสามัคคี', 'รร.สพฐ.', 'ซอย หมู่บ้านการเคหะแห่งชาติเคหะชุมชนนครราชสีมา 18\nตำบลในเมือง อำเภอเมืองนครราชสีมา นครราชสีมา 30000\n', 'NES', 'นครราชสีมา', 'P3', '14.94849', '102.04188', b'1'),
 ('30062003', 'โรงเรียนเทพาลัย', 'รร.สพฐ.', 'ตำบลเทพาลัย อำเภอคง จังหวัดนครราชสีมา, 30260', 'NES', 'นครราชสีมา', 'P3', '15.370357', '102.472443', b'1'),
-('30010018', 'โรงเรียนเมืองนครราชสีมา', 'รร.สพฐ.', 'ตำบลในเมือง\nอำเภอเมืองนครราชสีมา นครราชสีมา\n', 'NES', 'นครราชสีมา', 'P3', '14.98091', '102.10069', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('30010018', 'โรงเรียนเมืองนครราชสีมา', 'รร.สพฐ.', 'ตำบลในเมือง\nอำเภอเมืองนครราชสีมา นครราชสีมา\n', 'NES', 'นครราชสีมา', 'P3', '14.98091', '102.10069', b'1'),
 ('30012005', 'โรงเรียนโคราชพิทยาคม', 'รร.สพฐ.', 'ตำบลในเมือง\nอำเภอเมืองนครราชสีมา นครราชสีมา\n', 'NES', 'นครราชสีมา', 'P3', '14.97957', '102.05605', b'1'),
 ('30070142', 'โรงเรียนไทยรัฐวิทยา 82 (โคกตองเจริญ)', 'รร.สพฐ.', '94 หมู่ 17, ตำบลท่าลาด อำเภอชุมพวง จังหวัดนครราชสีมา, 30270\nตำบลท่าลาด อำเภอชุมพวง\nนครราชสีมา 30270', 'NES', 'นครราชสีมา', 'P3', '15.24126', '102.74627', b'1'),
 ('30040102', 'โรงเรียนไทยวัฒนาประชารัฐ', 'รร.สพฐ.', 'ตำบลสีคิ้ว อำเภอสีคิ้ว\nนครราชสีมา\n', 'NES', 'นครราชสีมา', 'P3', '14.906445', '101.695423', b'1'),
@@ -2794,11 +2827,11 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('30022009', 'โรงเรียนห้วยแถลงพิทยาคม', 'รร.สพฐ.', 'ตำบลห้วยแถลง อำเภอห้วยแถลง\nนครราชสีมา\n', 'NES', 'นครราชสีมา', 'P3', '14.98843', '102.63904', b'1'),
 ('30010056', 'โรงเรียนอ่างห้วยยาง', 'รร.สพฐ.', 'อำเภอเมืองนครราชสีมา นครราชสีมา\n\n', 'NES', 'นครราชสีมา', 'P3', '14.91', '102.00319', b'1'),
 ('30100105', 'การศึกษาคนตาบอดนครราชสีมา', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', 'ตำบลบ้านใหม่ อำเภอเมืองนครราชสีมา\nนครราชสีมา\n\n\n', 'NES', 'นครราชสีมา', 'P3', '14.96643', '102.03273', b'1'),
-('51', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอแก้งสนามนาง', 'รร.สพฐ.', 'ถนนนิเวศรัตน์, ตำบลแก้งสนามนาง อำเภอแก้งสนามนาง จังหวัดนครราชสีมา, 30440', 'NES', 'นครราชสีมา', 'P3', '15.75096', '102.25486', b'1'),
-('52', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอชุมพวง ', 'รร.สพฐ.', 'ตลาดเทศบาลตำบลชุมพวง\nอำเภอชุมพวง นครราชสีมา\n', 'NES', 'นครราชสีมา', 'P3', '15.350178', '102.741701', b'1'),
-('53', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอปักธงชัย', 'รร.สพฐ.', 'ตำบลเมืองปัก อำเภอปักธงชัย นครราชสีมา 30150\n', 'NES', 'นครราชสีมา', 'P3', '14.72242', '102.04315', b'1'),
-('54', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอปากช่อง', 'รร.สพฐ.', '3, ถนนนิคม-ลำตะคอง, ตำบลหนองสาหร่าย อำเภอปากช่อง จังหวัดนครราชสีมา, 30130', 'NES', 'นครราชสีมา', 'P3', '14.755183', '101.517249', b'1'),
-('55', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอพิมาย', 'รร.สพฐ.', 'ตำบลในเมือง อำเภอพิมาย\nนครราชสีมา\n', 'NES', 'นครราชสีมา', 'P3', '15.22127', '102.48541', b'1'),
+('51', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอแก้งสนามนาง', 'รร.สพฐ.', 'ถนนนิเวศรัตน์, ตำบลแก้งสนามนาง อำเภอแก้งสนามนาง จังหวัดนครราชสีมา, 30440', 'NES', 'นครราชสีมา', 'P3', '15.75096', '102.25486', b'1'),
+('52', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอชุมพวง ', 'รร.สพฐ.', 'ตลาดเทศบาลตำบลชุมพวง\nอำเภอชุมพวง นครราชสีมา\n', 'NES', 'นครราชสีมา', 'P3', '15.350178', '102.741701', b'1'),
+('53', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอปักธงชัย', 'รร.สพฐ.', 'ตำบลเมืองปัก อำเภอปักธงชัย นครราชสีมา 30150\n', 'NES', 'นครราชสีมา', 'P3', '14.72242', '102.04315', b'1'),
+('54', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอปากช่อง', 'รร.สพฐ.', '3, ถนนนิคม-ลำตะคอง, ตำบลหนองสาหร่าย อำเภอปากช่อง จังหวัดนครราชสีมา, 30130', 'NES', 'นครราชสีมา', 'P3', '14.755183', '101.517249', b'1'),
+('55', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอพิมาย', 'รร.สพฐ.', 'ตำบลในเมือง อำเภอพิมาย\nนครราชสีมา\n', 'NES', 'นครราชสีมา', 'P3', '15.22127', '102.48541', b'1'),
 ('57', 'ห้องสมุดประชาชนจังหวัดนครราชสีมา', 'รร.สพฐ.', '2, ถนนสืบศิริ, ตำบลในเมือง อำเภอเมือง จังหวัดนครราชสีมา, 30000', 'NES', 'นครราชสีมา', 'P3', '15.03279', '102.04996', b'1'),
 ('30100018', 'อนุบาลวัดทุ่งสว่าง', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', 'ตำบลในเมือง\nอำเภอเมืองนครราชสีมา นครราชสีมา\n', 'NES', 'นครราชสีมา', 'P3', '14.977695', '102.09706', b'1'),
 ('30100011', 'อนุบาลวัดสะแก', 'รร.สพฐ.', 'ตำบลในเมือง\nอำเภอเมืองนครราชสีมา นครราชสีมา\n', 'NES', 'นครราชสีมา', 'P3', '14.97743', '102.09713', b'1'),
@@ -2875,18 +2908,18 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('44012001', 'โรงเรียนสารคามพิทยาคม', 'รร.สพฐ.', 'ถนนนครสวรรค์ ตลาด เมืองมหาสารคาม มหาสารคาม 44000', 'NEC', 'มหาสารคาม', 'P3', '16.18638889', '103.2987778', b'1'),
 ('44010027', 'โรงเรียนหลักเมืองมหาสารคาม', 'รร.สพฐ.', 'ถนนนครสวรรค์ ตลาด เมืองมหาสารคาม มหาสารคาม 44000', 'NEC', 'มหาสารคาม', 'P3', '16.18997222', '103.2984722', b'1'),
 ('44100034', 'โรงเรียนอนุบาลพุทธธิดา (การกุศลวัดสถานสงเคราะห์)', 'รร.สพฐ.', ' 36 หมู่ที่ 8 ตำบลแวงน่าง อำเภอเมือง จังหวัดมหาสารคาม 44000', 'NEC', 'มหาสารคาม', 'P3', '16.09788889', '103.2982222', b'1'),
-('61', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอบรบือ', 'รร.สพฐ.', 'ตำบลหนองสิม อำเภอบรบือ มหาสารคาม 44130', 'NEC', 'มหาสารคาม', 'P3', '16.04341667', '103.1243611', b'1'),
+('61', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอบรบือ', 'รร.สพฐ.', 'ตำบลหนองสิม อำเภอบรบือ มหาสารคาม 44130', 'NEC', 'มหาสารคาม', 'P3', '16.04341667', '103.1243611', b'1'),
 ('62', 'ห้องสมุดประชาชนจังหวัดมหาสารคาม', 'รร.สพฐ.', 'ตำบลตลาด อำเภอเมืองมหาสารคาม มหาสารคาม 44000', 'NEC', 'มหาสารคาม', 'P3', '16.18488889', '103.2991111', b'1'),
 ('49010073', 'โรงเรียนเมืองใหม่', 'รร.สพฐ.', 'บ้านเมืองใหม่ ตำบลเมืองใหม่ อำเภอเมืองมุกดาหาร จังหวัดมุกดาหาร 49000 ', 'NEC', 'มุกดาหาร', 'P3', '16.54502778', '104.7063611', b'1'),
 ('49012011', 'โรงเรียนเมืองมุกวิทยาคม', 'รร.สพฐ.', 'หมู่ที่ 1 คำอาฮวน เมืองมุกดาหาร มุกดาหาร 49000', 'NEC', 'มุกดาหาร', 'P3', '16.49747222', '104.6664444', b'1'),
 ('49012018', 'โรงเรียนโพธิ์ไทรวิทยา', 'รร.สพฐ.', 'หมู่ที่ 7  โพธิ์ไทร ดอนตาล มุกดาหาร 49120', 'NEC', 'มุกดาหาร', 'P3', '16.39216667', '104.8534722', b'1'),
 ('49012012', 'โรงเรียนคำสร้อยพิทยาสรรค์', 'รร.สพฐ.', 'หมู่ที่1 ถนนชยางกูร นากอก นิคมคำสร้อย มุกดาหาร 49130', 'NEC', 'มุกดาหาร', 'P3', '16.37794444', '104.5623889', b'1'),
 ('49012009', 'โรงเรียนจุฬาภรณ์ราชวิทยาลัยมุกดาหาร', 'รร.สพฐ.', ' มุกดาหาร เมืองมุกดาหาร มุกดาหาร 49000', 'NEC', 'มุกดาหาร', 'P3', '16.60583333', '104.6815', b'1'),
-('49010179', 'โรงเรียนชุมชนบ้านคำชะอี', 'รร.สพฐ.', 'หมู่ที่ 2 บ้านคำชะอี คำชะอี คำชะอี มุกดาหาร 49110', 'NEC', 'มุกดาหาร', 'P3', '16.53519444', '104.3641111', b'1'),
+('49010179', 'โรงเรียนชุมชนบ้านคำชะอี', 'รร.สพฐ.', 'หมู่ที่ 2 บ้านคำชะอี คำชะอี คำชะอี มุกดาหาร 49110', 'NEC', 'มุกดาหาร', 'P3', '16.53519444', '104.3641111', b'1');
+INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
 ('49012004', 'โรงเรียนนวมินทราชูทิศอีสาน', 'รร.สพฐ.', '855 ห้าธันวามหาราช ตำบลมุกดาหาร อำเภอเมืองมุกดาหาร มุกดาหาร 49000', 'NEC', 'มุกดาหาร', 'P3', '16.56580556', '104.6943056', b'1'),
 ('49010077', 'โรงเรียนบ้านนาโปใหญ่', 'รร.สพฐ.', 'บ้านโคกสุวรรณ ตำบลบ้านนาโปใหญ่-โคกสุวรรณ มุกดาหาร มุกดาหาร 49000 ', 'NEC', 'มุกดาหาร', 'P3', '16.57841667', '104.7213056', b'1'),
-('49010096', 'โรงเรียนบ้านนาอุดม', 'รร.สพฐ.', 'หมู่ที่ 1 ถนนคึมชาด-นาจาน บ้านนาเจริญ นาอุดม นิคมคำสร้อย มุกดาหาร 49130', 'NEC', 'มุกดาหาร', 'P3', '16.23433333', '104.6054722', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('49010096', 'โรงเรียนบ้านนาอุดม', 'รร.สพฐ.', 'หมู่ที่ 1 ถนนคึมชาด-นาจาน บ้านนาเจริญ นาอุดม นิคมคำสร้อย มุกดาหาร 49130', 'NEC', 'มุกดาหาร', 'P3', '16.23433333', '104.6054722', b'1'),
 ('49010048', 'โรงเรียนบ้านหนองหอยป่าหวาย', 'รร.สพฐ.', 'หมู่ที่ 6 ถนนรพช.โคกสูง-โพนทราย บ้านหนองหอย บางทรายใหญ่ เมืองมุกดาหาร มุกดาหาร 49000', 'NEC', 'มุกดาหาร', 'P3', '16.61038889', '104.6910833', b'1'),
 ('49010089', 'โรงเรียนบำรุงพงศ์อุปถัมภ์', 'รร.สพฐ.', 'หมู่ที่ 1 ถนนชยางกูร บ้านชัยมงคล โชคชัย นิคมคำสร้อย มุกดาหาร 49130', 'NEC', 'มุกดาหาร', 'P3', '16.34058333', '104.5200278', b'1'),
 ('49012019', 'โรงเรียนผาเทิบวิทยา', 'รร.สพฐ.', 'หมู่ที่ 7 บ้านแก้ง ดอนตาล มุกดาหาร 49120', 'NEC', 'มุกดาหาร', 'P3', '16.42244444', '104.8194722', b'1'),
@@ -2949,7 +2982,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('45012005', 'โรงเรียนสตรีศึกษา', 'รร.สพฐ.', 'ถนนสุริยเดชบำรุง ในเมือง เมืองร้อยเอ็ด ร้อยเอ็ด 45000', 'NEC', 'ร้อยเอ็ด', 'P3', '16.04813889', '103.6555', b'1'),
 ('45022011', 'โรงเรียนสุวรรณภูมิพิทยไพศาล', 'รร.สพฐ.', 'บ้านบ้านโพนสูง สุวรรณภูมิพิทยไพศาล สุวรรณภูมิ ร้อยเอ็ด 45130', 'NEC', 'ร้อยเอ็ด', 'P3', '15.60947222', '103.8054722', b'1'),
 ('45100031', 'การศึกษาคนตาบอดร้อยเอ็ด', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '49 หมู่ 10 บ้านสันติสุข, ถนนราชการดำเนิน, ตำบลดงลาน อำเภอเมือง จังหวัดร้อยเอ็ด, 45000', 'NEC', 'ร้อยเอ็ด', 'P3', '16.04755556', '103.6348889', b'1'),
-('65', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอจังหาร ', 'รร.สพฐ.', 'ตำบลจังหาร อำเภอจังหาร จังหวัดร้อยเอ็ด 45000', 'NEC', 'ร้อยเอ็ด', 'P3', '16.14013889', '103.6187222', b'1'),
+('65', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอจังหาร ', 'รร.สพฐ.', 'ตำบลจังหาร อำเภอจังหาร จังหวัดร้อยเอ็ด 45000', 'NEC', 'ร้อยเอ็ด', 'P3', '16.14013889', '103.6187222', b'1'),
 ('66', 'ห้องสมุดประชาชนจังหวัดร้อยเอ็ด', 'รร.สพฐ.', 'ถนนรัชชูปการ ตำบลในเมือง อำเภอเมือง จังหวัดร้อยเอ็ด 45000', 'NEC', 'ร้อยเอ็ด', 'P3', '16.05069444', '103.6591667', b'1'),
 ('33012007', 'โรงเรียนเฉลิมพระเกียรติสมเด็จพระศรีนครินทร์ศรีสะเกษ', 'รร.สพฐ.', 'ตำบลโพธิ์ อำเภอเมืองศรีสะเกษ\nศรีสะเกษ\n', 'NES', 'ศรีสะเกษ', 'P3', '15.12676', '104.38856', b'1'),
 ('33012004', 'โรงเรียนไกรภักดีวิทยาคม', 'รร.สพฐ.', 'ตำบลโพธิ์ อำเภอเมืองศรีสะเกษ ศรีสะเกษ 33000\n', 'NES', 'ศรีสะเกษ', 'P3', '15.12668', '104.39248', b'1'),
@@ -2980,7 +3013,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('33020060', 'โรงเรียนสระกำแพงวิทยาคม', 'รร.สพฐ.', 'ตำบลกำแพง อำเภออุทุมพรพิสัย\nศรีสะเกษ\n', 'NES', 'ศรีสะเกษ', 'P3', '15.10195', '104.15231', b'1'),
 ('33030089', 'โรงเรียนสวงษ์พัฒนศึกษา', 'รร.สพฐ.', 'ตำบลหัวเสือ อำเภอขุขันธ์ ศรีสะเกษ 33140\n', 'NES', 'ศรีสะเกษ', 'P3', '14.8343', '104.17018', b'1'),
 ('33032013', 'โรงเรียนสะเดาใหญ่ประชาสรรค์', 'รร.สพฐ.', 'ตำบลสะเดาใหญ่ อำเภอขุขันธ์\nศรีสะเกษ\n', 'NES', 'ศรีสะเกษ', 'P3', '14.71265', '104.27763', b'1'),
-('68', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอขุนหาญ ', 'รร.สพฐ.', 'ตำบลสิ อำเภอขุนหาญ\nศรีสะเกษ\n', 'NES', 'ศรีสะเกษ', 'P3', '14.61922', '104.427', b'1'),
+('68', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอขุนหาญ ', 'รร.สพฐ.', 'ตำบลสิ อำเภอขุนหาญ\nศรีสะเกษ\n', 'NES', 'ศรีสะเกษ', 'P3', '14.61922', '104.427', b'1'),
 ('69', 'ห้องสมุดประชาชนจังหวัดศรีสะเกษ', 'รร.สพฐ.', 'ตำบลเมืองใต้ อำเภอเมืองศรีสะเกษ\nศรีสะเกษ\n', 'NES', 'ศรีสะเกษ', 'P3', '15.11306', '104.32605', b'1'),
 ('47022016', 'โรงเรียนเตรียมอุดมศึกษาภาคตะวันออกเฉียงเหนือ', 'รร.สพฐ.', '121 หมู่ที่ 12 สว่างแดนดิน สว่างแดนดิน สกลนคร 47110', 'NEN', 'สกลนคร', 'P3', '17.47241667', '103.4736111', b'1'),
 ('47010036', 'โรงเรียนเมืองสกลนคร (ธาตุนารายณ์เจงเวง)', 'รร.สพฐ.', ' ธาตุนาเวง เมืองสกลนคร สกลนคร 47000', 'NEN', 'สกลนคร', 'P3', '17.19486111', '104.0864444', b'1'),
@@ -3006,8 +3039,8 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('47022021', 'โรงเรียนสว่างแดนดิน', 'รร.สพฐ.', '934 หมู่ 12 ถนนนิตโย ตำบลสว่างแดนดิน อำเภอสว่างแดนดิน จังหวัดสกลนคร 47110 ', 'NEN', 'สกลนคร', 'P3', '17.47325', '103.4698889', b'1'),
 ('47010133', 'โรงเรียนหนองผือเทพนิมิต', 'รร.สพฐ.', 'หมู่ที่ 7, ถนนสกลนคร–นครพนม, ตำบลนาแก้วอำเภอโพนนาแก้ว จังหวัดสกลนคร, 47230 ตำบลนาแก้ว อำเภอโพนนาแก้ว สกลนคร 47230', 'NEN', 'สกลนคร', 'P3', '17.29261111', '104.2508056', b'1'),
 ('47022018', 'โรงเรียนหนองหลวงศึกษา', 'รร.สพฐ.', ' หนองหลวง สว่างแดนดิน สกลนคร 47110', 'NEN', 'สกลนคร', 'P3', '17.4105', '103.3833333', b'1'),
-('70', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอโคกศรีสุพรรณ', 'รร.สพฐ.', '91 หมู่ 2, ตำบลตองโขบ อำเภอโคกศรีสุพรรณ จังหวัดสกลนคร, 47280 47280', 'NEN', 'สกลนคร', 'P3', '17.04572222', '104.2733889', b'1'),
-('71', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอวานรนิวาส', 'รร.สพฐ.', ' ถนนสามพังโคน-วานร, ตำบลวานรนิวาส อำเภอวานรนิวาส จังหวัดสกลนคร, 47120', 'NEN', 'สกลนคร', 'P3', '17.6315', '103.7518333', b'1'),
+('70', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอโคกศรีสุพรรณ', 'รร.สพฐ.', '91 หมู่ 2, ตำบลตองโขบ อำเภอโคกศรีสุพรรณ จังหวัดสกลนคร, 47280 47280', 'NEN', 'สกลนคร', 'P3', '17.04572222', '104.2733889', b'1'),
+('71', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอวานรนิวาส', 'รร.สพฐ.', ' ถนนสามพังโคน-วานร, ตำบลวานรนิวาส อำเภอวานรนิวาส จังหวัดสกลนคร, 47120', 'NEN', 'สกลนคร', 'P3', '17.6315', '103.7518333', b'1'),
 ('72', 'ห้องสมุดประชาชนจังหวัดสกลนคร', 'รร.สพฐ.', 'ตำบลธาตุเชิงชุม อำเภอเมืองสกลนคร สกลนคร 47000 ประเทศไทย', 'NEN', 'สกลนคร', 'P3', '17.16030556', '104.1341389', b'1'),
 ('32012010', 'โรงเรียนโชคเพชรพิทยา', 'รร.สพฐ.', 'ตำบลคอโค อำเภอเมืองสุรินทร์\nสุรินทร์\n', 'NES', 'สุรินทร์', 'P3', '14.88186', '103.40181', b'1'),
 ('32010209', 'โรงเรียนขะเนก', 'รร.สพฐ.', 'ตำบลหนองขวาว อำเภอศีขรภูมิ\nสุรินทร์ 32110', 'NES', 'สุรินทร์', 'P3', '14.93847', '103.77597', b'1'),
@@ -3045,8 +3078,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('32012005', 'โรงเรียนศรีผไทสมันต์', 'รร.สพฐ.', 'หมู่ที่ 9 บ้านตระงอล, ถนนสุรินทร์-ช่องจอม, ตำบลนาบัว อำเภอเมืองสุรินทร์ จังหวัดสุรินทร์, 32000', 'NES', 'สุรินทร์', 'P3', '14.78252', '103.44127', b'1'),
 ('32022011', 'โรงเรียนศรีปทุมพิทยาคม', 'รร.สพฐ.', 'ตำบลหนองบัว อำเภอท่าตูม สุรินทร์ 32120\n', 'NES', 'สุรินทร์', 'P3', '15.31962', '103.75469', b'1'),
 ('32012024', 'โรงเรียนศีขรภูมิพิสัย', 'รร.สพฐ.', 'ตำบลระแงง อำเภอศีขรภูมิ\nสุรินทร์ 32110', 'NES', 'สุรินทร์', 'P3', '14.94444', '103.80121', b'1'),
-('32030164', 'โรงเรียนสังขะวิทยาคม', 'รร.สพฐ.', 'ตำบลสังขะ อำเภอสังขะ\nสุรินทร์', 'NES', 'สุรินทร์', 'P3', '14.63505', '103.85227', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('32030164', 'โรงเรียนสังขะวิทยาคม', 'รร.สพฐ.', 'ตำบลสังขะ อำเภอสังขะ\nสุรินทร์', 'NES', 'สุรินทร์', 'P3', '14.63505', '103.85227', b'1'),
 ('32012037', 'โรงเรียนสำโรงทาบวิทยาคม', 'รร.สพฐ.', 'ตำบลสำโรงทาบ อำเภอสำโรงทาบ', 'NES', 'สุรินทร์', 'P3', '15.01653', '103.94632', b'1'),
 ('32012002', 'โรงเรียนสิรินธร', 'รร.สพฐ.', 'อำเภอเมืองสุรินทร์ สุรินทร์\n', 'NES', 'สุรินทร์', 'P3', '14.88247', '103.50097', b'1'),
 ('32012001', 'โรงเรียนสุรวิทยาคาร', 'รร.สพฐ.', 'อำเภอเมืองสุรินทร์ สุรินทร์\n\n', 'NES', 'สุรินทร์', 'P3', '14.87918', '103.49969', b'1'),
@@ -3055,8 +3087,8 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('32022019', 'โรงเรียนหนองขุนศรีวิทยา', 'รร.สพฐ.', 'ตำบลแคน อำเภอสนม\nสุรินทร์', 'NES', 'สุรินทร์', 'P3', '15.18625', '103.82393', b'1'),
 ('32020166', 'โรงเรียนหนองบัวบาน', 'รร.สพฐ.', 'ตำบลหนองบัวบาน อำเภอรัตนบุรี\nสุรินทร์', 'NES', 'สุรินทร์', 'P3', '15.23954', '103.8241', b'1'),
 ('32012026', 'โรงเรียนห้วยจริงวิทยา', 'รร.สพฐ.', 'ตำบลคาละแมะ อำเภอศีขรภูมิ\nสุรินทร์ 32110', 'NES', 'สุรินทร์', 'P3', '15.12881', '103.80362', b'1'),
-('74', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอท่าตูม', 'รร.สพฐ.', 'ตำบลท่าตูม อำเภอท่าตูม สุรินทร์ 32120\n\n\n', 'NES', 'สุรินทร์', 'P3', '15.32155', '103.67681', b'1'),
-('75', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอศีขรภูมิ ', 'รร.สพฐ.', 'ตำบลระแงง อำเภอศีขรภูมิ\nสุรินทร์ 32110', 'NES', 'สุรินทร์', 'P3', '14.98471', '103.77834', b'1'),
+('74', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอท่าตูม', 'รร.สพฐ.', 'ตำบลท่าตูม อำเภอท่าตูม สุรินทร์ 32120\n\n\n', 'NES', 'สุรินทร์', 'P3', '15.32155', '103.67681', b'1'),
+('75', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอศีขรภูมิ ', 'รร.สพฐ.', 'ตำบลระแงง อำเภอศีขรภูมิ\nสุรินทร์ 32110', 'NES', 'สุรินทร์', 'P3', '14.98471', '103.77834', b'1'),
 ('76', 'ห้องสมุดประชาชนจังหวัดสุรินทร์', 'รร.สพฐ.', 'ตำบลในเมือง อำเภอเมืองสุรินทร์', 'NES', 'สุรินทร์', 'P3', '14.87244', '103.48724', b'1'),
 ('43032008', 'โรงเรียนเซกา', 'รร.สพฐ.', ' เซกา เซกา หนองคาย 43150', 'NEN', 'หนองคาย', 'P3', '17.92980556', '103.9542778', b'1'),
 ('43022006', 'โรงเรียนกุดบงพิทยาคาร', 'รร.สพฐ.', 'บ้านโนนสวรรค์ กุดบง โพนพิสัย หนองคาย 43120', 'NEN', 'หนองคาย', 'P3', '18.12361111', '103.113', b'1'),
@@ -3094,7 +3126,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('39012013', 'โรงเรียนศรีบุญเรืองวิทยาคาร', 'รร.สพฐ.', ' เมืองใหม่ ศรีบุญเรือง หนองบัวลำภู 39180', 'NEN', 'หนองบัวลำภู', 'P3', '16.96305556', '102.2789722', b'1'),
 ('39012001', 'โรงเรียนหนองบัวพิทยาคาร', 'รร.สพฐ.', '273/1 หมู่ที่ 10 ลำภู เมืองหนองบัวลำภู หนองบัวลำภู 39000', 'NEN', 'หนองบัวลำภู', 'P3', '17.21172222', '102.447', b'1'),
 ('39010054', 'โรงเรียนหนองบัววิทยายน', 'รร.สพฐ.', ' หนองบัว เมืองหนองบัวลำภู หนองบัวลำภู 39000', 'NEN', 'หนองบัวลำภู', 'P3', '17.203', '102.4441667', b'1'),
-('78', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอเมือง หนองบัวลำภู', 'รร.สพฐ.', 'ถนนวิไสยอุดรกิจ ตำบลหนองบัว อำเภอเมืองหนองบัวลำภู จังหวัดหนองบัวลำภู 39000', 'NEN', 'หนองบัวลำภู', 'P3', '17.20625', '102.4441667', b'1'),
+('78', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอเมือง หนองบัวลำภู', 'รร.สพฐ.', 'ถนนวิไสยอุดรกิจ ตำบลหนองบัว อำเภอเมืองหนองบัวลำภู จังหวัดหนองบัวลำภู 39000', 'NEN', 'หนองบัวลำภู', 'P3', '17.20625', '102.4441667', b'1'),
 ('37010062', 'โรงเรียนเมืองอำนาจเจริญ', 'รร.สพฐ.', 'ตำบลบุ่ง อำเภอเมืองอำนาจเจริญ อำนาจเจริญ 37000 ', 'NES', 'อำนาจเจริญ', 'P3', '15.87449', '104.62477', b'1'),
 ('37010183', 'โรงเรียนชุมชนบ้านนาไร่ใหญ่', 'รร.สพฐ.', 'ตำบลเสนางคนิคม อำเภอเสนางคนิคม\nอำนาจเจริญ\n', 'NES', 'อำนาจเจริญ', 'P3', '16.02196', '104.63897', b'1'),
 ('37010027', 'โรงเรียนนาผือโคกกอก', 'รร.สพฐ.', 'ตำบลนาผือ อำเภอเมืองอำนาจเจริญ\nอำนาจเจริญ\n', 'NES', 'อำนาจเจริญ', 'P3', '15.98835', '104.63608', b'1'),
@@ -3186,20 +3218,20 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('34012008', 'โรงเรียนศรีปทุมพิทยาคาร', 'รร.สพฐ.', 'อำเภอเมืองอุบลราชธานี อุบลราชธานี\n', 'NES', 'อุบลราชธานี', 'P3', '15.27668', '104.82465', b'1'),
 ('34042003', 'โรงเรียนสว่างวีระวงศ์', 'รร.สพฐ.', 'ตำบลแก่งโดม อำเภอสว่างวีระวงศ์ อุบลราชธานี 34190\n\n ', 'NES', 'อุบลราชธานี', 'P3', '15.239965', '105.095561', b'1'),
 ('34012012', 'โรงเรียนหนองขอนวิทยา', 'รร.สพฐ.', 'หมู่ที่ บ้าน หนองขอน เมืองอุบลราชธานี อุบลราชธานี 0-4534-4109', 'NES', 'อุบลราชธานี', 'P3', '15.32092', '104.71876', b'1'),
-('34012017', 'โรงเรียนอุบลปัญญานุกูล', 'รร.สพฐ.', 'หมู่ที่ 24 บ้านบ้านดงคำอ้อ ขามใหญ่ เมืองอุบลราชธานี อุบลราชธานี 34000 โทร 045312764', 'NES', 'อุบลราชธานี', 'P3', '15.27733', '104.81873', b'1'),
+('34012017', 'โรงเรียนอุบลปัญญานุกูล', 'รร.สพฐ.', 'หมู่ที่ 24 บ้านบ้านดงคำอ้อ ขามใหญ่ เมืองอุบลราชธานี อุบลราชธานี 34000 โทร 045312764', 'NES', 'อุบลราชธานี', 'P3', '15.27733', '104.81873', b'1');
+INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
 ('34100016', 'โรงเรียนอุบลวิทยากร', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', 'ตำบลในเมือง อำเภอเมืองอุบลราชธานี อุบลราชธานี', 'NES', 'อุบลราชธานี', 'P3', '15.23114', '104.8614', b'1'),
 ('34100128', 'ประสิทธิ์ศึกษาสงเคราะห์', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '36 หมู่ที่ 8, ถนนอุบล-ตระการ, ตำบลไร่น้อย อำเภอเมือง จังหวัดอุบลราชธานี, 34000\n34000', 'NES', 'อุบลราชธานี', 'P3', '15.32277', '104.89213', b'1'),
 ('34100129', 'วัดคูเดื่อวิทยาคม', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '208 หมู่ที่ 6 ตำบลแจระแม อำเภอเมืองอุบลราชธานี จังหวัดอุบลราชธานี 34000', 'NES', 'อุบลราชธานี', 'P3', '15.25864', '104.82807', b'1'),
 ('34100018', 'โรงเรียนสมเด็จ ', 'รร.สพฐ.', 'ถนนสุปัฏน์ อำเภอเมืองอุบล จังหวัดอุบลธานี 34000', 'NES', 'อุบลราชธานี', 'P3', '15.22549', '104.85402', b'1'),
-('81', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอวารินชำราบ ', 'รร.สพฐ.', 'ถนนคำน้ำแซบ ตำบลวารินชำราบ อำเภอวารินชำราบ จังหวัดอุบลราชธานี 34190 โทร 0-4532-1936', 'NES', 'อุบลราชธานี', 'P3', '15.2034', '104.86786', b'1'),
+('81', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอวารินชำราบ ', 'รร.สพฐ.', 'ถนนคำน้ำแซบ ตำบลวารินชำราบ อำเภอวารินชำราบ จังหวัดอุบลราชธานี 34190 โทร 0-4532-1936', 'NES', 'อุบลราชธานี', 'P3', '15.2034', '104.86786', b'1'),
 ('82', 'ห้องสมุดประชาชนจังหวัดอุบลราชธานี', 'รร.สพฐ.', 'ถนนเขื่อนธานี, ในเมือง เมืองอุบลราชธานี อุบลราชธานี 34000 โทร 0-4524-2537', 'NES', 'อุบลราชธานี', 'P3', '15.22688', '104.85669', b'1'),
 ('34100016', 'อุบลวิทยากร', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', 'ตำบลในเมือง อำเภอเมืองอุบลราชธานี อุบลราชธานี', 'NES', 'อุบลราชธานี', 'P3', '15.23114', '104.8614', b'1'),
 ('76012002', 'โรงเรียนเบญจมเทพอุทิศ', 'รร.สพฐ.', 'ตำบลคลองกระแชง อำเภอเมืองเพชรบุรี จังหวัดเพชรบุรี 76000', 'W', 'เพชรบุรี', 'P3', '13.115118', '99.93919', b'1'),
 ('76100042', 'โรงเรียนการศึกษาวิทยาศาสตร์คนตาบอด', 'รร.สพฐ.', 'หมู่ที่ 1 ตำบลสระพัง อำเภอเขาย้อย จังหวัดเพชรบุรี 76140 ', 'W', 'เพชรบุรี', 'P3', '13.14146', '99.8652145', b'1'),
 ('76012005', 'โรงเรียนคงคาราม', 'รร.สพฐ.', '346 หมู่ที่4 ตำบลบ้านหม้อ อำเภอเมือง จังหวัดเพชรบุรี 76000', 'W', 'เพชรบุรี', 'P3', '13.082321', '99.93928', b'1'),
 ('76022003', 'โรงเรียนจุฬาภรณ์ราชวิทยาลัยเพชรบุรี', 'รร.สพฐ.', 'หมู่ 8 427 ตำบลเขาใหญ่ อำเภอชะอำ เพชรบุรี 76120', 'W', 'เพชรบุรี', 'P3', '12.799248', '99.9139135', b'1'),
-('76022004', 'โรงเรียนชะอำคุณหญิงเนื่องบุรี', 'รร.สพฐ.', '388 เพชรเกษม ตำบลชะอำ อำเภอชะอำ เพชรบุรี 76120', 'W', 'เพชรบุรี', 'P3', '12.84021', '99.930928', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('76022004', 'โรงเรียนชะอำคุณหญิงเนื่องบุรี', 'รร.สพฐ.', '388 เพชรเกษม ตำบลชะอำ อำเภอชะอำ เพชรบุรี 76120', 'W', 'เพชรบุรี', 'P3', '12.84021', '99.930928', b'1'),
 ('76022008', 'โรงเรียนท่ายางวิทยา', 'รร.สพฐ.', 'หมู่ที่ 3 ห้องธุรการ ถนนชลประทานสาย 3 ตำบลท่าคอย อำเภอท่ายาง เพชรบุรี 76130', 'W', 'เพชรบุรี', 'P3', '12.84021', '99.930928', b'1'),
 ('76020001', 'โรงเรียนนิคมสร้างตนเองเขื่อนเพชร', 'รร.สพฐ.', 'ตำบลเขาใหญ่ อำเภอชะอำ จังหวัดเพชรบุรี 76120', 'W', 'เพชรบุรี', 'P3', '12.84021', '99.930928', b'1'),
 ('76012003', 'โรงเรียนบางจานวิทยา', 'รร.สพฐ.', 'หมู่ที่ 3 ตำบลบางจาน อำเภอเมือง จังหวัดเพชรบุรี 76000', 'W', 'เพชรบุรี', 'P3', '13.118883', '99.990379', b'1'),
@@ -3216,7 +3248,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('76022005', 'โรงเรียนศึกษาสงเคราะห์เพชรบุรี', 'รร.สพฐ.', '122 หมู่ที่ 3 ตำบลสามพระยา อำเภอชะอำ จังหวัดเพชรบุรี 76120', 'W', 'เพชรบุรี', 'P3', '12.84021', '99.930928', b'1'),
 ('76100002', 'โรงเรียนสุวรรณรังสฤษฎิ์วิทยาลัย', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '196 ซ. ถนนดำเนินเกษม ตำบลคลองกระแชง อำเภอเมือง จังหวัดเพชรบุรี 76000', 'W', 'เพชรบุรี', 'P3', '13.10586', '99.946578', b'1'),
 ('76022002', 'โรงเรียนห้วยทรายประชาสรรค์', 'รร.สพฐ.', 'ตำบลห้วยทรายเหนือ อำเภอชะอำ จังหวัดเพชรบุรี 76120', 'W', 'เพชรบุรี', 'P3', '12.695607', '99.862326', b'1'),
-('109', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอเขาย้อย ', 'รร.สพฐ.', 'ถนนเพชรเกษม, ตำบลสระพัง อำเภอเขาย้อย จังหวัดเพชรบุรี, 76140', 'W', 'เพชรบุรี', 'P3', '13.2414925', '99.824489', b'1'),
+('109', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอเขาย้อย ', 'รร.สพฐ.', 'ถนนเพชรเกษม, ตำบลสระพัง อำเภอเขาย้อย จังหวัดเพชรบุรี, 76140', 'W', 'เพชรบุรี', 'P3', '13.2414925', '99.824489', b'1'),
 ('110', 'ห้องสมุดประชาชนจังหวัดเพชรบุรี', 'รร.สพฐ.', 'หมู่ที่ 7 หัวหิน-หนองพลับ ตำบลหัวหิน หัวหิน ประจวบคีรีขันธ์ 77110', 'W', 'เพชรบุรี', 'P3', '13.097622', '99.952874', b'1'),
 ('10012017', 'โรงเรียนเตรียมอุดมศึกษา', 'รร.สพฐ.', 'ถนนพญาไท แขวงปทุมวัน เขตปทุมวัน กรุงเทพมหานคร 10330', 'C', 'กรุงเทพมหานคร', 'P3', '13.740525', '100.530822', b'1'),
 ('10022039', 'โรงเรียนเตรียมอุดมศึกษาพญาไทสุวินทวงค์', 'รร.สพฐ.', '67 หมู่ 8 ตำบลลำผักชี อำเภอหนองจอก จังหวัดกรุงเทพมหานคร 10250 ', 'C', 'กรุงเทพมหานคร', 'P3', '13.792407', '100.861279', b'1'),
@@ -3337,14 +3369,13 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('71022006', 'โรงเรียนพนมทวนวิทยาคม (สว่างเคลิ้มสุคนธสิทธิ์อุปถัมภ์)', 'รร.สพฐ.', '260 หมู่ที่ 7 ตำบลรางหวาย อำเภอพนมทวน จังหวัดกาญจนบุรี', 'W', 'กาญจนบุรี', 'P3', '14.226457', '99.793472', b'1'),
 ('71020055', 'โรงเรียนวัดคร้อพนัน', 'รร.สพฐ.', 'หมู่ที่ 7 บ้านคร้อพนัน ตำบลท่าไม้ อำเภอท่ามะกา จังหวัดกาญจนบุรี', 'W', 'กาญจนบุรี', 'P3', '13.889111', '99.803801', b'1'),
 ('71020057', 'โรงเรียนวัดท่าเรือ (อุตสาหะวิทยาคาร)', 'รร.สพฐ.', '654 ถนนแสงชูโตเหนือ ตำบลท่าเรือ อำเภอท่ามะกา จังหวัดกาญจนบุรี', 'W', 'กาญจนบุรี', 'P3', '13.9516648', '99.7609217', b'1'),
-('71010091', 'โรงเรียนวัดวังขนายทายิการาม', 'รร.สพฐ.', 'หมู่ที่ 2 บ้านวังขนาย ตำบลวังขนาย อำเภอท่าม่วง จังหวัดกาญจนบุรี', 'W', 'กาญจนบุรี', 'P3', '13.951699', '99.64866', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('71010091', 'โรงเรียนวัดวังขนายทายิการาม', 'รร.สพฐ.', 'หมู่ที่ 2 บ้านวังขนาย ตำบลวังขนาย อำเภอท่าม่วง จังหวัดกาญจนบุรี', 'W', 'กาญจนบุรี', 'P3', '13.951699', '99.64866', b'1'),
 ('71010068', 'โรงเรียนวัดศรีโลหะราษฎร์บำรุง', 'รร.สพฐ.', 'หมู่ที่ 1 บ้านศรีโลหะ ตำบลท่าม่วง อำเภอท่าม่วง จังหวัดกาญจนบุรี', 'W', 'กาญจนบุรี', 'P3', '13.960663', '99.634604', b'1'),
 ('71010095', 'โรงเรียนวัดหนองเสือ', 'รร.สพฐ.', 'ซ.บ้านหนองเสือ 3 ตำบลวังศาลา อำเภอท่าม่วง จังหวัดกาญจนบุรี', 'W', 'กาญจนบุรี', 'P3', '13.965661', '99.690658', b'1'),
 ('71012006', 'โรงเรียนวิสุทธรังษี', 'รร.สพฐ.', '32 ถนนแสงชูโต ตำบลท่าล้อ อำเภอท่าม่วง จังหวัดกาญจนบุรี ', 'W', 'กาญจนบุรี', 'P3', '13.998109', '99.557623', b'1'),
 ('71022010', 'โรงเรียนศึกษาสงเคราะห์พนมทวน', 'รร.สพฐ.', '8-19 หมู่ 8 ถนนกาญจนบุรี-อู่ทอง ตำบลพนมทวน อำเภอพนมทวน จังหวัดกาญจนบุรี', 'W', 'กาญจนบุรี', 'P3', '14.128944', '99.692902', b'1'),
 ('71012003', 'โรงเรียนหนองขาวโกวิทพิทยาคม', 'รร.สพฐ.', 'หมู่ที่ 1 บ้านหนองขาว ตำบลหนองขาว อำเภอท่าม่วง จังหวัดกาญจนบุรี', 'W', 'กาญจนบุรี', 'P3', '14.054091', '99.64222', b'1'),
-('83', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอทองผาภูมิ', 'รร.สพฐ.', 'หมู่ที่1 ตำบลท่าขนุน อำเภอทองผาภูมิ จังหวัดกาญจนบุรี ', 'W', 'กาญจนบุรี', 'P3', '14.749232', '98.627686', b'1'),
+('83', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอทองผาภูมิ', 'รร.สพฐ.', 'หมู่ที่1 ตำบลท่าขนุน อำเภอทองผาภูมิ จังหวัดกาญจนบุรี ', 'W', 'กาญจนบุรี', 'P3', '14.749232', '98.627686', b'1'),
 ('84', 'ห้องสมุดประชาชนจังหวัดกาญจนบุรี', 'รร.สพฐ.', '262 ตำบลลาดหญ้า อำเภอเมือง จังหวัดกาญจนบุรี', 'W', 'กาญจนบุรี', 'P3', '14.6941942', '99.034363', b'1'),
 ('22012001', 'โรงเรียนเบญจมราชูทิศจังหวัดจันทบุรี', 'รร.สพฐ.', 'หมู่ที่1 ตำบลบ้านใหม่ อำเภอเมืองจันทบุรี จังหวัดจันทบุรี 22000', 'E', 'จันทบุรี', 'P3', '12.612531', '102.11091', b'1'),
 ('22012004', 'โรงเรียนเบญจมานุสรณ์', 'รร.สพฐ.', 'ตำบลตลาด อำเภอเมืองจันทบุรี จังหวัดจันทบุรี 22000', 'E', 'จันทบุรี', 'P3', '12.591022', '102.092107', b'1'),
@@ -3372,7 +3403,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('22022013', 'โรงเรียนศึกษาสงเคราะห์จันทบุรี', 'รร.สพฐ.', 'หมู่ที่ 5 ตำบลพลวง อำเภอเขาคิชฌกูฏ จังหวัดจันทบุรี 22210', 'E', 'จันทบุรี', 'P3', '12.828153', '102.113454', b'1'),
 ('22010024', 'โรงเรียนสฤษดิ์เดช', 'รร.สพฐ.', '2/4 ถนนเทศบาล1 ตำบลวัดใหม่ อำเภอเมืองจันทบุรี จังหวัดจันทบุรี22000', 'E', 'จันทบุรี', 'P3', '12.613218', '102.109198', b'1'),
 ('22022009', 'โรงเรียนสอยดาววิทยา', 'รร.สพฐ.', 'หมู่ที่5 ตำบลทรายขาว อำเภอสอยดาว จังหวัดจันทบุรี 22180', 'E', 'จันทบุรี', 'P3', '13.110174', '102.216368', b'1'),
-('85', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอเขาคิชฌกูฎ', 'รร.สพฐ.', 'หมู่ 5, ตำบลพลวง อำเภอเขาคิชฌกูฎ จังหวัดจันทบุรี, 22210', 'E', 'จันทบุรี', 'P3', '12.793265', '102.11192', b'1'),
+('85', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอเขาคิชฌกูฎ', 'รร.สพฐ.', 'หมู่ 5, ตำบลพลวง อำเภอเขาคิชฌกูฎ จังหวัดจันทบุรี, 22210', 'E', 'จันทบุรี', 'P3', '12.793265', '102.11192', b'1'),
 ('24012005', 'โรงเรียนเบญจมราชรังสฤษฎิ์ 2', 'รร.สพฐ.', '111 หมู่ 12 ตำบลบางตีนเป็ด อำเภอเมือง จังหวัดฉะเชิงเทรา รหัสไปรษณีย์ 24000 ', 'E', 'ฉะเชิงเทรา', 'P3', '13.666563', '101.099968', b'1'),
 ('24012004', 'โรงเรียนเบญจมราชรังสฤษฎิ์ 3 ชนะสงสารวิทยา', 'รร.สพฐ.', '64/8 ถนนสุวินทวงศ์ ตำบลคลองนครเนื่องเขต อำเภอเมืองฉะเชิงเทรา จังหวัดฉะเชิงเทรา 24000 ', 'E', 'ฉะเชิงเทรา', 'P3', '13.758187', '100.997229', b'1'),
 ('24012001', 'โรงเรียนเบญจมราชรังสฤษฎิ์ฉะเชิงเทรา', 'รร.สพฐ.', 'อยู่33 หมู่ 13 ถนนเกษมราษฎร์พัฒนา ตำบลบางเตย อำเภอเมืองฉะเชิงเทรา จังหวัดฉะเชิงเทรา 24000.', 'E', 'ฉะเชิงเทรา', 'P3', '13.690639', '101.07688', b'1'),
@@ -3391,7 +3422,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('24020046', 'โรงเรียนวัดหนองเค็ด (ศักดิ์ศิลป์บุญลือราษฎร์)', 'รร.สพฐ.', '10/1 หมู่ที่ 7 บ้านหนองเค็ด ตำบลท่าถ่าน อำเภอพนมสารคาม จังหวัดฉะเชิงเทรา 24110 ', 'E', 'ฉะเชิงเทรา', 'P3', '13.7596', '101.377062', b'1'),
 ('24012019', 'โรงเรียนศึกษาพิเศษฉะเชิงเทรา', 'รร.สพฐ.', '16/2 หมู่ 3 ตำบลสิบเอ็ดศอก อำเภอบ้านโพธิ์ จังหวัดฉะเชิงเทรา 24140', 'E', 'ฉะเชิงเทรา', 'P3', '13.582734', '101.1243', b'1'),
 ('24100029', 'โรงเรียนสมาคมสงเคราะห์วิทยา', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '295/1 ถนนศุภกิจ ตำบลหน้าเมือง อำเภอเมืองฉะเชิงเทรา จังหวัดฉะเชิงเทรา 24000 ', 'E', 'ฉะเชิงเทรา', 'P3', '13.692743', '101.084757', b'1'),
-('87', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอบางปะกง', 'รร.สพฐ.', 'หมู่ที่ ๘ ตำบลบางปะกง อำเภอบางปะกง จังหวัดฉะเชิงเทรา ', 'E', 'ฉะเชิงเทรา', 'P3', '13.501744', '100.989696', b'1'),
+('87', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอบางปะกง', 'รร.สพฐ.', 'หมู่ที่ ๘ ตำบลบางปะกง อำเภอบางปะกง จังหวัดฉะเชิงเทรา ', 'E', 'ฉะเชิงเทรา', 'P3', '13.501744', '100.989696', b'1'),
 ('88', 'ห้องสมุดประชาชนจังหวัดฉะเชิงเทรา', 'รร.สพฐ.', 'ถนนนิยมไทยตำบลหน้าเมือง อำเภอเมือง จังหวัดฉะเชิงเทรา 24000', 'E', 'ฉะเชิงเทรา', 'P3', '13.689854', '101.078528', b'1'),
 ('20100122', 'โรงเรียนธรรมวาที', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '761 ราชประสงค์ ตำบลมะขามหย่ง อำเภอเมืองชลบุรี ชลบุรี 20000 ', 'E', 'ชลบุรี', 'P3', '13.36656', '100.988206', b'1'),
 ('3020200301', 'โรงเรียนเทศบาล 1', 'กรมส่งเสริมการปกครองท้องถิ่น', ' ถนนเมืองใหม่ 3 ตำบลทุ่งสุขลา อำเภอศรีราชา จังหวัดชลบุรี 20230 ', 'E', 'ชลบุรี', 'P3', '13.452802', '101.189661', b'1'),
@@ -3448,8 +3479,8 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('', 'โรงเรียนสาธิตแห่งมหาวิทยาลัยเกษตรศาสตร์', 'รร.สพฐ.', '700/3 หมู่ 1 ถนนบางนา-ตราด ตำบลคลองตำหรุ อำเภอเมืองชลบุรี จังหวัดชลบุรี 20000 ', 'E', 'ชลบุรี', 'P3', '13.420489', '101.006213', b'1'),
 ('50030029', 'โรงเรียนสุขุมวิทยา', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '109, ถนนสุขุมวิท, ตำบลแสนสุข อำเภอเมืองชลบุรี จังหวัดชลบุรี, 20130 ', 'E', 'ชลบุรี', 'P3', '13.282428', '100.937018', b'1'),
 ('20100121', 'โรงเรียนอนุบาลโสตพัฒนา', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '384 หมู่ 6 ตำบลนาเกลือ อำเภอบางละมุง จังหวัดชลบุรี', 'E', 'ชลบุรี', 'P3', '12.941757', '100.903336', b'1'),
-('89', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอบางละมุง ', 'รร.สพฐ.', 'อำเภอบางละมุง ถนนพัทยา- นาเกลือ ตำบลนาเกลือ อำเภอบางละมุง จังหวัดชลบุรี 20150 ', 'E', 'ชลบุรี', 'P3', '12.961571', '100.894801', b'1'),
-('90', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอสัตหีบ', 'รร.สพฐ.', 'หมู่ที่ 1 ตำบลสัตหีบ อำเภอสัตหีบ จังหวัดชลบุรี ', 'E', 'ชลบุรี', 'P3', '12.665535', '100.896876', b'1'),
+('89', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอบางละมุง ', 'รร.สพฐ.', 'อำเภอบางละมุง ถนนพัทยา- นาเกลือ ตำบลนาเกลือ อำเภอบางละมุง จังหวัดชลบุรี 20150 ', 'E', 'ชลบุรี', 'P3', '12.961571', '100.894801', b'1'),
+('90', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอสัตหีบ', 'รร.สพฐ.', 'หมู่ที่ 1 ตำบลสัตหีบ อำเภอสัตหีบ จังหวัดชลบุรี ', 'E', 'ชลบุรี', 'P3', '12.665535', '100.896876', b'1'),
 ('91', 'ห้องสมุดประชาชนจังหวัดชลบุรี', 'รร.สพฐ.', 'ถนนวชิรปราการ ตำบลบางปลาสร้อย อำเภอเมืองชลบุรี ชลบุรี 20000', 'E', 'ชลบุรี', 'P3', '13.360362', '100.985298', b'1'),
 ('23012010', 'โรงเรียนเขาสมิงวิทยาคม', 'รร.สพฐ.', 'เขาสมิงวิทยาคม,โรงเรียน ทล. 3, เขาสมิง เขาสมิง, ตราด 23130 0-3959-9508 25000', 'E', 'ตราด', 'P3', '12.35786', '102.42884', b'1'),
 ('23010009', 'โรงเรียนชุมชนวัดท่าพริก (จริยาอุปถัมภ์)', 'รร.สพฐ.', 'ชุมชนวัดท่าพริก,โรงเรียน ถนนยธ. ตร. 2006, ท่าพริก เมืองตราด, ตราด 23000 0-3954-0122', 'E', 'ตราด', 'P3', '12.2537', '102.57913', b'1'),
@@ -3458,21 +3489,21 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('23010016', 'โรงเรียนบ้านท่าเรือจ้าง (ประชาชนูปถัมภ์)', 'รร.สพฐ.', 'โรงเรียนบ้านท่าเรือจ้าง(ประชาชนูปถัมภ์) หมู่ที่ 1, ถนนชลประทาน, ตำบลวังกระแจะ อำเภอเมืองตราด จังหวัดตราด, 23000', 'E', 'ตราด', 'P3', '12.266401', '102.497977', b'1'),
 ('23010079', 'โรงเรียนวัดช้างทูน', 'รร.สพฐ.', 'วัดช้างทูน,โรงเรียน ทล. 3157, ช้างทูน บ่อไร่, ตราด 23140 08-1762-8919', 'E', 'ตราด', 'P3', '12.60012', '102.47588', b'1'),
 ('23012002', 'โรงเรียนสตรีประเสริฐศิลป์', 'รร.สพฐ.', 'สตรีประเสริฐศิลป์,โรงเรียน ถนนวิวัฒนะ, บางพระ เมืองตราด, ตราด 23000 0-3951-1209', 'E', 'ตราด', 'P3', '12.24761', '102.51549', b'1'),
-('92', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอเขาสมิง', 'รร.สพฐ.', 'ห้องสมุดประชาชนเฉลิมราชกุมารี ทล. 3, แสนตุ้ง เขาสมิง, ตราด 23150 0-3969-6089', 'E', 'ตราด', 'P3', '12.37747', '102.37854', b'1'),
+('92', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอเขาสมิง', 'รร.สพฐ.', 'ห้องสมุดประชาชนเฉลิมราชกุมารี ทล. 3, แสนตุ้ง เขาสมิง, ตราด 23150 0-3969-6089', 'E', 'ตราด', 'P3', '12.37747', '102.37854', b'1'),
 ('93', 'ห้องสมุดประชาชนจังหวัดตราด', 'รร.สพฐ.', 'ห้องสมุดประชาชนจังหวัดตราด ถนนสันติสุข, บางพระ เมืองตราด, ตราด 23000 0-3951-1957', 'E', 'ตราด', 'P3', '12.24057', '102.51429', b'1'),
 ('26012001', 'โรงเรียนเมืองนครนายก', 'รร.สพฐ.', 'หมู่ที่ 7 บ้านท่าช้าง ตำบลท่าช้าง อำเภอเมืองนครนายก จังหวัด นครนายก 26000', 'C', 'นครนายก', 'P3', '14.186352', '101.163211', b'1'),
 ('26012009', 'โรงเรียนเลขธรรมกิตติ์วิทยาคม', 'รร.สพฐ.', 'หมู่ที่ 14 ตำบลบางอ้อ อำเภอบ้านนา จังหวัดนครนายก 26110', 'C', 'นครนายก', 'P3', '14.181887', '101.071443', b'1'),
 ('26100015', 'โรงเรียนเหลียนหัว', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '28/1 ถนนสุวรรณศร ตำบลวังกระโจม อำเภอเมืองนครนายก จังหวัด นครนายก 26000', 'C', 'นครนายก', 'P3', '14.199145', '101.213768', b'1'),
 ('26010016', 'โรงเรียนชลนายกสงเคราะห์', 'รร.สพฐ.', 'หมู่ที่ 8 บ้านย่านซื่อ ตำบลท่าช้าง อำเภอเมืองนครนายก จังหวัด นครนายก 26000', 'C', 'นครนายก', 'P3', '14.18179', '101.162489', b'1'),
 ('26012003', 'โรงเรียนนวราชานุสรณ์', 'รร.สพฐ.', 'ถนนนครนายก-รังสิต ตำบลท่าช้าง อำเภอเมืองนครนายก จังหวัด นครนายก 26000', 'C', 'นครนายก', 'P3', '14.20262', '101.204399', b'1'),
-('26100001', 'โรงเรียนนายกวัฒนากรวัดพราหมณี', 'รร.สพฐ.', 'ถนนนครนายก-นางรอง อำเภอเมืองนครนายก จังหวัด นครนายก 26000', 'C', 'นครนายก', 'P3', '14.253432', '101.207036', b'1'),
+('26100001', 'โรงเรียนนายกวัฒนากรวัดพราหมณี', 'รร.สพฐ.', 'ถนนนครนายก-นางรอง อำเภอเมืองนครนายก จังหวัด นครนายก 26000', 'C', 'นครนายก', 'P3', '14.253432', '101.207036', b'1');
+INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
 ('26100004', 'โรงเรียนนายกวัฒนากรวัดอุดมธานี', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '4/396 ถนนอุดมธานี ตำบลนครนายก อำเภอเมืองนครนายก จังหวัด นครนายก 26000', 'C', 'นครนายก', 'P3', '14.206234', '101.227553', b'1'),
 ('26012006', 'โรงเรียนปากพลีวิทยาคาร', 'รร.สพฐ.', 'หมู่ที่ 4 ตำบลปากพลี อำเภอปากพลี จังหวัดนครนายก 26130', 'C', 'นครนายก', 'P3', '14.152006', '101.27504', b'1'),
 ('26012004', 'โรงเรียนปิยะชาติพัฒนา', 'รร.สพฐ.', 'หมู่ที่ 4 ตำบลพรหมณี อำเภอเมืองนครนายก จังหวัด นครนายก 26000', 'C', 'นครนายก', 'P3', '14.278992', '101.161884', b'1'),
 ('26010013', 'โรงเรียนวัดดอนยอ', 'รร.สพฐ.', 'หมู่ 3 ตำบลดอนยอ อำเภอเมือง จังหวัดนครนายก 26000', 'C', 'นครนายก', 'P3', '14.132498', '101.117167', b'1'),
 ('26010035', 'โรงเรียนวัดสันตยาราม (พระมุนีนายกอุปถัมภ์)', 'รร.สพฐ.', 'หมู่ที่ 12 บ้านหนองแสนตอ ตำบลพรหมณี อำเภอเมืองนครนายก จังหวัดนครนายก 26000', 'C', 'นครนายก', 'P3', '14.234876', '101.184556', b'1'),
-('94', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอองครักษ์', 'รร.สพฐ.', 'ถนนหน้าอำเภอตำบลองครักษ์ อำเภอองครักษ์ จังหวัด นครนายก 26120', 'C', 'นครนายก', 'P3', '14.125335', '101.005602', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('94', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอองครักษ์', 'รร.สพฐ.', 'ถนนหน้าอำเภอตำบลองครักษ์ อำเภอองครักษ์ จังหวัด นครนายก 26120', 'C', 'นครนายก', 'P3', '14.125335', '101.005602', b'1'),
 ('95', 'ห้องสมุดประชาชนจังหวัดนครนายก', 'รร.สพฐ.', ' ตำบลนครนายก อำเภอเมืองนครนายก จังหวัด นครนายก 26000', 'C', 'นครนายก', 'P3', '14.2034', '101.213254', b'1'),
 ('73022006', 'โรงเรียนเพิ่มวิทยา', 'รร.สพฐ.', 'หมู่ที่ 3 ตำบลนครชัยศรี อำเภอนครชัยศรี จังหวัดนครปฐ 73120', 'W', 'นครปฐม', 'P3', '13.817965', '100.188720', b'1'),
 ('73022017', 'โรงเรียนกาญจนาภิเษกวิทยาลัย (พระตำหนักสวนกุหลาบมัธยม)', 'รร.สพฐ.', 'หมู่ที่ 5 ถนนศาลายา - บางภาษี ตำบลศาลายา อำเภอพุทธมณฑล จังหวัดนครปฐม รหัสไปรษณีย์ 73170', 'W', 'นครปฐม', 'P3', '13.817048', '100.319734', b'1'),
@@ -3511,8 +3542,8 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('73100015', 'โรงเรียนสัมมาสิกขาปฐมอโศก', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', 'หมู่ที่ 5 อำเภอเมืองนครปฐม จังหวัดนครปฐม 73000', 'W', 'นครปฐม', 'P3', '13.800158', '100.087616', b'1'),
 ('73012008', 'โรงเรียนสิรินธรราชวิทยาลัย', 'รร.สพฐ.', 'หมู่ที่ 5 อำเภอเมืองนครปฐม จังหวัดนครปฐม 73000', 'W', 'นครปฐม', 'P3', '13.788923', '100.048806', b'1'),
 ('73010063', 'โรงเรียนอินทรศักดิ์ศึกษาลัย (บ้านยาง)', 'รร.สพฐ.', 'หมู่ที่ 1 ตำบลทุ่งกระพังโหม อำเภอกำแพงแสน จังหวัดนครปฐม 73140', 'W', 'นครปฐม', 'P3', '13.992566', '99.9931', b'1'),
-('96', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอกำแพงแสน', 'รร.สพฐ.', 'ตำบลทุ่งกระพังโหม อำเภอกำแพงแสน จังหวัดนครปฐม 73140', 'W', 'นครปฐม', 'P3', '13.983567', '99.994519', b'1'),
-('97', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอสามพราน ', 'รร.สพฐ.', 'หมู่ที่ 2 ตำบลไร่ขิง อำเภอสามพราน จังหวัดนครปฐม 73210', 'W', 'นครปฐม', 'P3', '13.748238', '100.275978', b'1'),
+('96', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอกำแพงแสน', 'รร.สพฐ.', 'ตำบลทุ่งกระพังโหม อำเภอกำแพงแสน จังหวัดนครปฐม 73140', 'W', 'นครปฐม', 'P3', '13.983567', '99.994519', b'1'),
+('97', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอสามพราน ', 'รร.สพฐ.', 'หมู่ที่ 2 ตำบลไร่ขิง อำเภอสามพราน จังหวัดนครปฐม 73210', 'W', 'นครปฐม', 'P3', '13.748238', '100.275978', b'1'),
 ('98', 'ห้องสมุดประชาชนจังหวัดนครปฐม', 'รร.สพฐ.', '3 หน้าพระ อำเภอเมืองนครปฐม จังหวัดนครปฐม 73000', 'W', 'นครปฐม', 'P3', '13.81741', '100.06255', b'1'),
 ('12012004', 'โรงเรียนเตรียมอุดมศึกษาพัฒนาการบางใหญ่', 'รร.สพฐ.', ': 98 หมู่หมู่ 10 ถนนบางกรวย-ไทรน้อย ตำบลบางกร่าง อำเภอเมืองนนทบุรี 11000', 'C', 'นนทบุรี', 'P3', '13.848169', '100.443454', b'1'),
 ('12010017', 'โรงเรียนไทยรัฐวิทยา 55', 'รร.สพฐ.', '82/41 หมู่ที่ 10 ตำบลบางกร่าง อำเภอเมืองนนทบุรี จังหวัดนนทบุรี 11000', 'C', 'นนทบุรี', 'P3', '13.850399', '100.442894', b'1'),
@@ -3569,8 +3600,8 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('13022002', 'โรงเรียนสายปัญญารังสิต', 'รร.สพฐ.', '121 หมู่ที่ 1 ตำบลประชาธิปัตย์ อำเภอธัญบุรี จังหวัดปทุมธานี 12130', 'C', 'ปทุมธานี', 'P3', '13.974603', '100.610161', b'1'),
 ('13010025', 'โรงเรียนสุลักขณะ', 'รร.สพฐ.', '73 หมู่ที่ 6 ตำบลหลักหก อำเภอเมืองปทุมธานี จังหวัดปทุมธานี 12000', 'C', 'ปทุมธานี', 'P3', '13.948234', '100.603945', b'1'),
 ('13100070', 'กาญจนาภิเษกสมโภช ในพระราชูปถัมภ์ฯ', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', 'ที่อยู่ 119/1 ถนนกท-ปทุม ตำบลบางหลวง อำเภอเมืองปทุมธานี จังหวัดปทุมธานี 12000 ', 'C', 'ปทุมธานี', 'P3', '14.002733', '100.514112', b'1'),
-('100', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอธัญบุรี', 'รร.สพฐ.', 'หมู่ที่ 6 ตำบลประชาธิปัตย์ อำเภอธัญบุรี จังหวัดปทุมธานี 12130\n', 'C', 'ปทุมธานี', 'P3', '13.994859', '100.65233', b'1'),
-('101', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอลาดหลุมแก้ว ', 'รร.สพฐ.', 'ตำบลระแหง อำเภอลาดหลุมแก้ว จังหวัดปทุมธานี 12140', 'C', 'ปทุมธานี', 'P3', '14.073808', '100.383534', b'1'),
+('100', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอธัญบุรี', 'รร.สพฐ.', 'หมู่ที่ 6 ตำบลประชาธิปัตย์ อำเภอธัญบุรี จังหวัดปทุมธานี 12130\n', 'C', 'ปทุมธานี', 'P3', '13.994859', '100.65233', b'1'),
+('101', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอลาดหลุมแก้ว ', 'รร.สพฐ.', 'ตำบลระแหง อำเภอลาดหลุมแก้ว จังหวัดปทุมธานี 12140', 'C', 'ปทุมธานี', 'P3', '14.073808', '100.383534', b'1'),
 ('102', 'ห้องสมุดประชาชนจังหวัดปทุมธานี', 'รร.สพฐ.', 'อำเภอเมือง จังหวัดปทุมธานี ถนนเทศปทุม ตำบลบางปรอก อำเภอเมืองปทุมธานี จังหวัดปทุมธานี 12000', 'C', 'ปทุมธานี', 'P3', '14.022462', '100.531273', b'1'),
 ('25010039', 'โรงเรียนเมืองปราจีนบุรี', 'รร.สพฐ.', 'โรงเรียนเมืองปราจีนบุรี ตำบลหน้าเมือง อำเภอเมืองปราจีนบุรี จังหวัดปราจีนบุรี, 25000', 'E', 'ปราจีนบุรี', 'P3', '14.101949', '101.37085', b'1'),
 ('25012005', 'โรงเรียนไทยรัฐวิทยา', 'รร.สพฐ.', 'โรงเรียนไทยรัฐวิทยา 7 ตำบลดงขี้เหล็ก อำเภอเมืองปราจีนบุรี ปราจีนบุรี 25000', 'E', 'ปราจีนบุรี', 'P3', '14.13211', '101.45089', b'1'),
@@ -3584,7 +3615,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('25010206', 'โรงเรียนวัดพรหมรังษีมิตรภาพที่ 1', 'รร.สพฐ.', 'วัดพรหมรังษีมิตรภาพที่ 1,โรงเรียน ทช. ปจังหวัด2010, โพธิ์งาม ประจันตคาม, ปราจีนบุรี 25130 0-3741-0185', 'E', 'ปราจีนบุรี', 'P3', '14.12979', '101.50809', b'1'),
 ('25100001', 'โรงเรียนสุธีวรราษฎร์รังสฤษฎ์', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', 'สุธีวรราษฎร์รังสฤษฏ์,โรงเรียน ทล. 320, หน้าเมือง เมืองปราจีนบุรี, ปราจีนบุรี 25000 0-3721-1430', 'E', 'ปราจีนบุรี', 'P3', '14.07241', '101.37227', b'1'),
 ('25012022', 'โรงเรียนสุวรรณวิทยา', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', 'สุวรรณวิทยา,โรงเรียน ถนนรพช. ปจังหวัด3008, คำโตนด ประจันตคาม, ปราจีนบุรี 25130', 'E', 'ปราจีนบุรี', 'P3', '14.07065', '101.58139', b'1'),
-('104', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอศรีมโหสถ', 'รร.สพฐ.', 'ห้องสมุดประชาชนเฉลิมราชกุมารี ทล. 319, โคกปีบ ศรีมโหสถ, ปราจีนบุรี 25190 0-3727-6062', 'E', 'ปราจีนบุรี', 'P3', '13.86887', '101.41655', b'1'),
+('104', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอศรีมโหสถ', 'รร.สพฐ.', 'ห้องสมุดประชาชนเฉลิมราชกุมารี ทล. 319, โคกปีบ ศรีมโหสถ, ปราจีนบุรี 25190 0-3727-6062', 'E', 'ปราจีนบุรี', 'P3', '13.86887', '101.41655', b'1'),
 ('105', 'ห้องสมุดประชาชนจังหวัดปราจีนบุรี', 'รร.สพฐ.', 'ห้องสมุดประชาชนจังหวัดปราจีนบุรีถนนปราจีนอนุสรณ์ตำบลหน้าเมือง อำเภอเมืองปราจีนบุรีปราจีนบุรี 25000', 'E', 'ปราจีนบุรี', 'P3', '14.051556', '101.374326', b'1'),
 ('14022010', 'โรงเรียนเสนาเสนาประสิทธิ์', 'รร.สพฐ.', 'เสนา เสนา พระนครศรีอยุธยา 13110', 'C', 'พระนครศรีอยุธยา', 'P3', '14.325261', '100.397186', b'1'),
 ('14010152', 'โรงเรียนจรูญกิมลี้กิจจาทรอนุสรณ์', 'รร.สพฐ.', 'หมู่ที่ 1 ลำตาเสา วังน้อย พระนครศรีอยุธยา 13170', 'C', 'พระนครศรีอยุธยา', 'P3', '14.281165', '100.730779', b'1'),
@@ -3609,8 +3640,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('14020161', 'โรงเรียนวัดบ้านแพน (ศรีรัตนานุกูล)', 'รร.สพฐ.', 'หมู่ที่ 1 สามกอ เสนา พระนครศรีอยุธยา 13110', 'C', 'พระนครศรีอยุธยา', 'P3', '14.322108', '100.408391', b'1'),
 ('14010021', 'โรงเรียนวัดประดู่ทรงธรรม', 'รร.สพฐ.', 'หมู่ที่ 4 หันตรา พระนครศรีอยุธยา พระนครศรีอยุธยา 13000', 'C', 'พระนครศรีอยุธยา', 'P3', '14.363056', '100.58518', b'1'),
 ('14010006', 'โรงเรียนวัดพนัญเชิง (ไตรรัตนนายก)', 'รร.สพฐ.', 'หมู่ที่ 4 ถนนอยุธยา-บางปะอิน กะมัง พระนครศรีอยุธยา พระนครศรีอยุธยา 13000', 'C', 'พระนครศรีอยุธยา', 'P3', '14.344044', '100.579019', b'1'),
-('14020050', 'โรงเรียนวัดพระขาว (ประชานุเคราะห์)', 'รร.สพฐ.', '34/2 หมู่ที่ 3 พระขาว บางบาล พระนครศรีอยุธยา 13250', 'C', 'พระนครศรีอยุธยา', 'P3', '14.333318', '100.472056', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('14020050', 'โรงเรียนวัดพระขาว (ประชานุเคราะห์)', 'รร.สพฐ.', '34/2 หมู่ที่ 3 พระขาว บางบาล พระนครศรีอยุธยา 13250', 'C', 'พระนครศรีอยุธยา', 'P3', '14.333318', '100.472056', b'1'),
 ('14010020', 'โรงเรียนวัดพระญาติการาม', 'รร.สพฐ.', 'หมู่ที่ 5 บ้านไผ่ลิง ไผ่ลิง พระนครศรีอยุธยา พระนครศรีอยุธยา 13000', 'C', 'พระนครศรีอยุธยา', 'P3', '14.355965', '100.601619', b'1'),
 ('14010031', 'วัดพุทไธศวรรย์ (ธรรมวงศ์วิทยาคาร) (A9)', 'รร.สพฐ.', 'หมู่ที่ 4 สำเภาล่ม พระนครศรีอยุธยา พระนครศรีอยุธยา 13000', 'C', 'พระนครศรีอยุธยา', 'P3', '14.339249', '100.557999', b'1'),
 ('14010157', 'โรงเรียนวัดมณฑลประสิทธิ์', 'รร.สพฐ.', 'หมู่ที่ 4 วังน้อย วังน้อย พระนครศรีอยุธยา 13170', 'C', 'พระนครศรีอยุธยา', 'P3', '14.196236', '100.721858', b'1'),
@@ -3624,8 +3654,8 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('14010023', 'โรงเรียนสุดินสหราษฎร์', 'รร.สพฐ.', 'ภูเขาทอง พระนครศรีอยุธยา พระนครศรีอยุธยา 13000', 'C', 'พระนครศรีอยุธยา', 'P3', '14.365834', '100.53748', b'1'),
 ('14012003', 'โรงเรียนอยุธยานุสรณ์', 'รร.สพฐ.', '774 ถนนอู่ทอง หัวรอ   พระนครศรีอยุธยา พระนครศรีอยุธยา 13000', 'C', 'พระนครศรีอยุธยา', 'P3', '14.363626', '100.575082', b'1'),
 ('14012001', 'โรงเรียนอยุธยาวิทยาลัย', 'รร.สพฐ.', 'หมู่ที่ 5 ถนนป่าโทน  ประตูชัย พระนครศรีอยุธยา 13000  ', 'C', 'พระนครศรีอยุธยา', 'P3', '14.352999', '100.568376', b'1'),
-('107', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอเสนา', 'รร.สพฐ.', 'ถนนกิตติขจร ตำบลสามกอ อำเภอเสนา จังหวัดพระนครศรีอยุธยา 13110', 'C', 'พระนครศรีอยุธยา', 'P3', '14.322608', '100.402205', b'1'),
-('106', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอท่าเรือ ', 'รร.สพฐ.', 'ตำบลท่าเรือ อำเภอท่าเรือ จังหวัดพระนครศรีอยุธยา 13130 ', 'C', 'พระนครศรีอยุธยา', 'P3', '14.567113', '100.729049', b'1'),
+('107', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอเสนา', 'รร.สพฐ.', 'ถนนกิตติขจร ตำบลสามกอ อำเภอเสนา จังหวัดพระนครศรีอยุธยา 13110', 'C', 'พระนครศรีอยุธยา', 'P3', '14.322608', '100.402205', b'1'),
+('106', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอท่าเรือ ', 'รร.สพฐ.', 'ตำบลท่าเรือ อำเภอท่าเรือ จังหวัดพระนครศรีอยุธยา 13130 ', 'C', 'พระนครศรีอยุธยา', 'P3', '14.567113', '100.729049', b'1'),
 ('108', 'ห้องสมุดประชาชนจังหวัดพระนครศรีอยุธยา', 'รร.สพฐ.', 'ตำบลไผ่ลิง อำเภอพระนครศรีอยุธยา จังหวัดพระนครศรีอยุธยา 13000', 'C', 'พระนครศรีอยุธยา', 'P3', '14.352', '100.598919', b'1'),
 ('21022004', 'โรงเรียนชำนาญสามัคคีวิทยา', 'รร.สพฐ.', 'ชำนาญสามัคคีวิทยา,โรงเรียน ทล. 3162, คลองปูน แกลง, ระยอง 21170 0-3866-9637', 'E', 'ระยอง', 'P3', '12.77285', '101.73447', b'1'),
 ('21010019', 'โรงเรียนชุมชนวัดทับมา (ญาณรังษีราษฎร์รังสรรค์)', 'รร.สพฐ.', 'ชุมชนวัดทับมา,ร.ร ทล. 3 (เลี่ยงเมือง), ทับมา เมืองระยอง, ระยอง 21000 0-3862-2914', 'E', 'ระยอง', 'P3', '12.70539', '101.24034', b'1'),
@@ -3650,7 +3680,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('21020031', 'โรงเรียนวัดสารนารถธรรมาราม', 'รร.สพฐ.', 'วัดสารนารถธรรมาราม, โรงเรียนถนนสารนาถ, ทางเกวียนแกลง, ระยอง 21110 0-3867-1193', 'E', 'ระยอง', 'P3', '12.78448', '101.64843', b'1'),
 ('21010068', 'โรงเรียนวัดหนองพะวา', 'รร.สพฐ.', 'วัดหนองพะวา,โรงเรียน ถนนคสล. สายหนองพะวา-บ้านโคดกลาง, บางบุตร บ้านค่าย, ระยอง 21120 0-3899-7662', 'E', 'ระยอง', 'P3', '12.8313', '101.34373', b'1'),
 ('21010072', 'โรงเรียนวัดหวายกรอง', 'รร.สพฐ.', 'วัดหวายกรอง,โรงเรียน บางบุตร บ้านค่าย, ระยอง 21120 0-3864-1449', 'E', 'ระยอง', 'P3', '12.80663', '101.29725', b'1'),
-('111', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอแกลง ', 'รร.สพฐ.', 'ถนนบ้านบึง-แกลง, ตำบลทางเกวียน อำเภอแกลง จังหวัดระยอง, 21110 21110', 'E', 'ระยอง', 'P3', '12.806098', '101.62168', b'1'),
+('111', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอแกลง ', 'รร.สพฐ.', 'ถนนบ้านบึง-แกลง, ตำบลทางเกวียน อำเภอแกลง จังหวัดระยอง, 21110 21110', 'E', 'ระยอง', 'P3', '12.806098', '101.62168', b'1'),
 ('112', 'ห้องสมุดประชาชนจังหวัดระยอง', 'รร.สพฐ.', 'ห้องสมุดประชาชนจังหวัดระยอง ตำบลท่าประดู่ อำเภอเมือง จังหวัดระยอง 21000', 'E', 'ระยอง', 'P3', '12.682611', '101.279841', b'1'),
 ('70012003', 'โรงเรียนเบญจมราชูทิศราชบุรี', 'รร.สพฐ.', 'บ้านถนนมนตรีสุริยวงศ์ ตำบลหน้าเมือง อำเภอเมืองราชบุรี จังหวัดราชบุรี 70000', 'W', 'ราชบุรี', 'P3', '13.536834', '99.827707', b'1'),
 ('70022002', 'โรงเรียนโพธาวัฒนาเสนี (หลังใน)', 'รร.สพฐ.', 'หมู่ที่ 8 ตำบลคลองตาคต อำเภอโพธาราม จังหวัดราชบุรี 70120', 'W', 'ราชบุรี', 'P3', '13.691795', '99.862026', b'1'),
@@ -3673,8 +3703,8 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('70020138', 'โรงเรียนวัดนางแก้ว', 'รร.สพฐ.', 'หมู่ที่ 3 ตำบลนางแก้ว อำเภอโพธาราม จังหวัดราชบุรี 70120 ', 'W', 'ราชบุรี', 'P3', '13.683774', '99.763655', b'1'),
 ('70010018', 'โรงเรียนวัดบางลี่', 'รร.สพฐ.', 'บ้านบางลี่ ตำบลโคกหม้อ อำเภอเมืองราชบุรี จังหวัดราชบุรี 70000', 'W', 'ราชบุรี', 'P3', '13.573972', '99.822973', b'1'),
 ('70022006', 'โรงเรียนหนองโพวิทยา', 'รร.สพฐ.', 'หมู่ที่ 9 บ้านหนองโพ ตำบลหนองโพ อำเภอโพธาราม จังหวัดราชบุรี 70120', 'W', 'ราชบุรี', 'P3', '13.735941', '99.917328', b'1'),
-('114', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอเมือง', 'รร.สพฐ.', ' อำเภอเมืองราชบุรี จังหวัดราชบุรี 70000', 'W', 'ราชบุรี', 'P3', '18.58586', '99.01252', b'1'),
-('113', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอบางแพ', 'รร.สพฐ.', 'ตำบลหน้าเมือง อำเภอเมือง จังหวัดราชบุรี 70000', 'W', 'ราชบุรี', 'P3', '13.695317', '99.924017', b'1'),
+('114', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอเมือง', 'รร.สพฐ.', ' อำเภอเมืองราชบุรี จังหวัดราชบุรี 70000', 'W', 'ราชบุรี', 'P3', '18.58586', '99.01252', b'1'),
+('113', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอบางแพ', 'รร.สพฐ.', 'ตำบลหน้าเมือง อำเภอเมือง จังหวัดราชบุรี 70000', 'W', 'ราชบุรี', 'P3', '13.695317', '99.924017', b'1'),
 ('115', 'ห้องสมุดประชาชนจังหวัดราชบุรี', 'รร.สพฐ.', 'หมู่ที่ 6 ตำบลดอนกระเบื้อง อำเภอโพธาราม จังหวัดราชบุรี 70120', 'W', 'ราชบุรี', 'P3', '13.758347', '99.917748', b'1'),
 ('11020053', 'โรงเรียนเตรียมปริญญานุสรณ์', 'รร.สพฐ.', 'อำเภอบางพลี สมุทรปราการ', 'C', 'สมุทรปราการ', 'P3', '13.633089', '100.708295', b'1'),
 ('11010002', 'โรงเรียนคลองแสนสุข(สิทธิไชยบำรุง)', 'รร.สพฐ.', 'อำเภอเมืองสมุทรปราการ สมุทรปราการ', 'C', 'สมุทรปราการ', 'P3', '13.563323', '100.589553', b'1'),
@@ -3705,7 +3735,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('75010008', 'โรงเรียนวัดลาดเป้ง', 'รร.สพฐ.', 'หมู่ที่ 3 บ้านลาดเป้ง ตำบลนางตะเคียน อำเภอเมืองสมุทรสงคราม จังหวัดสมุทรสงคราม 75000', 'W', 'สมุทรสงคราม', 'P3', '13.453332', '100.019588', b'1'),
 ('75012001', 'โรงเรียนศรัทธาสมุทร', 'รร.สพฐ.', 'หมู่ที่ 3 ตำบลลาดใหญ่ อำเภอเมืองสมุทรสงคราม จังหวัดสมุทรสงคราม 75000', 'W', 'สมุทรสงคราม', 'P3', '13.423908', '100.016227', b'1'),
 ('75012006', 'โรงเรียนอัมพวันวิทยาลัย', 'รร.สพฐ.', 'บ้านวัดอัมพวันเจติยาราม ตำบลอัมพวา อำเภออัมพวา จังหวัดสมุทรสงคราม 75110 ', 'W', 'สมุทรสงคราม', 'P3', '13.423323', '99.953486', b'1'),
-('117', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอบางคนที', 'รร.สพฐ.', 'หมู่ที่ 6 ตำบลกระดังงา อำเภอบางคนที จังหวัดสมุทรสงคราม 75210', 'W', 'สมุทรสงคราม', 'P3', '13.461574', '99.944825', b'1'),
+('117', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอบางคนที', 'รร.สพฐ.', 'หมู่ที่ 6 ตำบลกระดังงา อำเภอบางคนที จังหวัดสมุทรสงคราม 75210', 'W', 'สมุทรสงคราม', 'P3', '13.461574', '99.944825', b'1'),
 ('116', 'ห้องสมุดประชาชนจังหวัดสมุทรปราการ', 'รร.สพฐ.', 'อำเภอเมืองสมุทรปราการ สมุทรปราการ', 'C', 'สมุทรปราการ', 'P3', '13.599043', '100.597908', b'1'),
 ('118', 'ห้องสมุดประชาชนจังหวัดสมุทรสงคราม', 'รร.สพฐ.', 'หมู่ที่ 1 ตำบลแม่กลอง อำเภอเมืองสมุทรสงคราม จังหวัดสมุทรสงคราม 75000', 'W', 'สมุทรสงคราม', 'P3', '13.407557', '99.995075', b'1'),
 ('74012003', 'โรงเรียนเฉลิมพระเกียรติสมเด็จพระศรีนครินทร์สมุทรสาคร', 'รร.สพฐ.', 'หมู่ที่ 6 พระราม 2 35/5 ตำบลบางโทรัด อำเภอเมืองสมุทรสาคร จังหวัดสมุทรสาคร 74000', 'W', 'สมุทรสาคร', 'P3', '13.515666', '100.154008', b'1'),
@@ -3715,9 +3745,9 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('74010020', 'โรงเรียนวัดคลองครุ', 'รร.สพฐ.', 'หมู่ที่ 8 ถนนเศรษฐกิจ1 บ้านคลองครุ ตำบลท่าทราย อำเภอเมืองสมุทรสาคร จังหวัดสมุทรสาคร 74000', 'W', 'สมุทรสาคร', 'P3', '13.574338', '100.274058', b'1'),
 ('74010057', 'โรงเรียนวัดป้อมวิเชียรโชติการาม', 'รร.สพฐ.', '957 ถนนเจษฏางค์ ตำบลมหาชัย อำเภอเมืองสมุทรสาคร จังหวัดสมุทรสาคร 74000', 'W', 'สมุทรสาคร', 'P3', '13.548243', '100.271861', b'1'),
 ('74012001', 'โรงเรียนสมุทรสาครวิทยาลัย', 'รร.สพฐ.', ' 1200 ถเอกชัย ตำบลมหาชัย อำเภอเมือง จังหวัดสมุทรสาคร 74000', 'W', 'สมุทรสาคร', 'P3', '13.549776', '100.265016', b'1'),
-('121', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอเมือง สมุทรสาคร', 'รร.สพฐ.', 'ถนนเศรษฐกิจ 1 ตำบลท่าทราย อำเภอเมือง จังหวัดสมุทรสาคร 74000', 'W', 'สมุทรสาคร', 'P3', '13.553334', '100.274038', b'1'),
-('119', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอกระทุ่มแบน', 'รร.สพฐ.', 'ถนนเทศบาล 2 ตำบลตลาด อำเภอกระทุ่มแบน จังหวัดสมุทรสาคร 74110', 'W', 'สมุทรสาคร', 'P3', '13.658353', '100.257539', b'1'),
-('120', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอบ้านแพ้ว ', 'รร.สพฐ.', 'ตำบลบ้านแพ้ว อำเภอบ้านแพ้ว จังหวัดสมุทรสาคร 74120 ', 'W', 'สมุทรสาคร', 'P3', '13.587765', '100.101346', b'1'),
+('121', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอเมือง สมุทรสาคร', 'รร.สพฐ.', 'ถนนเศรษฐกิจ 1 ตำบลท่าทราย อำเภอเมือง จังหวัดสมุทรสาคร 74000', 'W', 'สมุทรสาคร', 'P3', '13.553334', '100.274038', b'1'),
+('119', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอกระทุ่มแบน', 'รร.สพฐ.', 'ถนนเทศบาล 2 ตำบลตลาด อำเภอกระทุ่มแบน จังหวัดสมุทรสาคร 74110', 'W', 'สมุทรสาคร', 'P3', '13.658353', '100.257539', b'1'),
+('120', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอบ้านแพ้ว ', 'รร.สพฐ.', 'ตำบลบ้านแพ้ว อำเภอบ้านแพ้ว จังหวัดสมุทรสาคร 74120 ', 'W', 'สมุทรสาคร', 'P3', '13.587765', '100.101346', b'1'),
 ('122', 'ห้องสมุดประชาชนจังหวัดสมุทรสาคร', 'รร.สพฐ.', 'หมู่ที่ 6 ถนนพระราม 2 ตำบลท่าจีน อำเภอเมืองสมุทรสาคร จังหวัดสมุทรสาคร 74000', 'W', 'สมุทรสาคร', 'P3', '13.539934', '100.252208', b'1'),
 ('27022005', 'โรงเรียนคลองน้ำใสวิทยาคาร', 'รร.สพฐ.', '35 หมู่ 10 ถนนรัชตะวิถี ตำบลผ่านศึก อำเภออรัญประเทศ จังหวัดสระแก้ว 27120 ', 'E', 'สระแก้ว', 'P3', '13.612061', '102.447853', b'1'),
 ('27012007', 'โรงเรียนท่าเกษมพิทยา', 'รร.สพฐ.', ' 431 หมู่ที่ 2 ถนนสุวรรณศร ตำบลท่าเกษม อำเภอเมืองสระแก้ว จังหวัดสระแก้ว 27000 ', 'E', 'สระแก้ว', 'P3', '13.780831', '102.171303', b'1'),
@@ -3747,12 +3777,12 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('19020017', 'โรงเรียนวัดป่าไผ่', 'รร.สพฐ.', '54 หมู่ 8 ตำบลทับกวาง อำเภอแก่งคอย จังหวัดสระบุรี 1826', 'C', 'สระบุรี', 'P3', '14.606797', '101.06413', b'1'),
 ('19020035', 'โรงเรียนวัดสองคอนกลาง', 'รร.สพฐ.', '90 หมู่ที่ 4 ถนนอดิเรกสาร ตำบลสองคอน อำเภอแก่งคอย จังหวัดสระบุรี 18110 ', 'C', 'สระบุรี', 'P3', '14.600224', '100.992727', b'1'),
 ('19010011', 'โรงเรียนวัดสุวรรณคีรี', 'รร.สพฐ.', 'หมู่ที่ 4 ถนนห้วยตะเข้-โคกกรุง บ้าน่เขาตะกร้า (ห้วยตะเข้) ตำบลปากข้าวสาร ... ', 'C', 'สระบุรี', 'P3', '14.521358', '100.944067', b'1'),
-('19020085', 'โรงเรียนวัดห้วยทราย (อดิเรกสารประชานุสรณ์)', 'รร.สพฐ.', 'หมู่ที่ 3 บ้านห้วยทราย ตำบลห้วยทราย อำเภอหนองแค จังหวัดสระบุรี 18230', 'C', 'สระบุรี', 'P3', '14.429209', '100.903194', b'1'),
+('19020085', 'โรงเรียนวัดห้วยทราย (อดิเรกสารประชานุสรณ์)', 'รร.สพฐ.', 'หมู่ที่ 3 บ้านห้วยทราย ตำบลห้วยทราย อำเภอหนองแค จังหวัดสระบุรี 18230', 'C', 'สระบุรี', 'P3', '14.429209', '100.903194', b'1');
+INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
 ('19012004', 'โรงเรียนสระบุรีวิทยาคม', 'รร.สพฐ.', '532 ตำบลปากเพรียว อำเภอเมือง จังหวัดสระบุรี 18000 ', 'C', 'สระบุรี', 'P3', '14.542915', '100.910129', b'1'),
 ('19022004', 'โรงเรียนสองคอนวิทยาคม', 'รร.สพฐ.', 'หมู่ 1-6 อินเตอร์เน็ต ถนนอดิเรกสาร ตำบลสองคอน อำเภอแก่งคอย สระบุรี 18110', 'C', 'สระบุรี', 'P3', '14.596193', '100.969924', b'1'),
 ('19012001', 'โรงเรียนสุธีวิทยา', 'รร.สพฐ.', '50 หมู่5, ถนนพหลโยธิน, ตำบลพระพุทธบาท อำเภอพระพุทธบาท จังหวัดสระบุรี, 18120', 'C', 'สระบุรี', 'P3', '14.725802', '100.795127', b'1'),
-('19022002', 'โรงเรียนหนองแค (สรกิจพิทยา)', 'รร.สพฐ.', '13 ถนนเศรษฐสมบูรณฺ์ ตำบลหนองแค อำเภอหนองแค จังหวัดสระบุรี 18140 ', 'C', 'สระบุรี', 'P3', '14.341771', '100.869463', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('19022002', 'โรงเรียนหนองแค (สรกิจพิทยา)', 'รร.สพฐ.', '13 ถนนเศรษฐสมบูรณฺ์ ตำบลหนองแค อำเภอหนองแค จังหวัดสระบุรี 18140 ', 'C', 'สระบุรี', 'P3', '14.341771', '100.869463', b'1'),
 ('19010136', 'โรงเรียนหน้าพระลาน (พิบูลสงเคราะห์)', 'รร.สพฐ.', 'หมู่ที่ 2 ถนนพหลโยธิน บ้านหน้าพระลาน ตำบลหน้าพระลาน อำเภอเฉลิมพระเกียรติ จังหวัดสระบุรี 18240 ', 'C', 'สระบุรี', 'P3', '14.688031', '100.871394', b'1'),
 ('19020082', 'โรงเรียนหินกอง(พิบูลอนุสรณ์)', 'รร.สพฐ.', '114 หมู่ 6 พหลโยธิน ตำบลห้วยขมิ้น อำเภอหนองแค สระบุรี 18230', 'C', 'สระบุรี', 'P3', '14.407476', '100.890498', b'1'),
 ('124', 'ห้องสมุดประชาชนจังหวัดสระบุรี', 'รร.สพฐ.', 'ถนนพิชัยณรงค์สงคราม ตำบลปากเพรียว อำเภอเมืองสระบุรี จังหวัดสระบุรี 18000', 'C', 'สระบุรี', 'P3', '14.528504', '100.912447', b'1'),
@@ -3765,7 +3795,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('81012010', 'โรงเรียนคลองหินพิทยาคม', 'รร.สพฐ.', '1 หมู่ 1 ตำบลคลองหิน อำเภออ่าวลึก จังหวัดกระบี่ 81110', 'SN', 'กระบี่', 'P3', '8.27442', '98.79872', b'1'),
 ('81012007', 'โรงเรียนอำมาตย์พานิชนุกูล', 'รร.สพฐ.', '10 ถนนกระบี่ ตำบล:ปากน้ำ อำเภอ:เมืองกระบี่ จังหวัด:กระบี่', 'SN', 'กระบี่', 'P3', '8.05757', '98.91382', b'1'),
 ('81010025', 'โรงเรียนอุตรกิจ', 'รร.สพฐ.', 'ถนนกระบี่ ตำบลปากน้ำ อำเภอเมืองกระบี่ จังหวัดกระบี่ 81000', 'SN', 'กระบี่', 'P3', '8.0559', '98.91562', b'1'),
-('125', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภออ่าวลึก', 'รร.สพฐ.', '15/7 หมู่ 2, ถนนเพชรเกษม, ตำบลอ่าวลึกเหนือ อำเภออ่าวลึก จังหวัดกระบี่, 81000', 'SN', 'กระบี่', 'P3', '8.3942', '98.74271', b'1'),
+('125', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภออ่าวลึก', 'รร.สพฐ.', '15/7 หมู่ 2, ถนนเพชรเกษม, ตำบลอ่าวลึกเหนือ อำเภออ่าวลึก จังหวัดกระบี่, 81000', 'SN', 'กระบี่', 'P3', '8.3942', '98.74271', b'1'),
 ('126', 'ห้องสมุดประชาชนจังหวัดกระบี่', 'รร.สพฐ.', 'หมู่ 9 เพชรเกษม 91 ตำบลคลองท่อมใต้ อำเภอคลองท่อม กระบี่ 81120', 'SN', 'กระบี่', 'P3', '8.06045', '98.91875', b'1'),
 ('86010047', 'โรงเรียนเมืองชุมพรบ้านเขาถล่ม', 'รร.สพฐ.', 'หมู่ที่ 5 ถนนชุมพร-ระนอง บ้านเขาถล่ม ตำบลวังไผ่ อำเภอเมืองชุมพร จังหวัดชุมพร 86000 ', 'SN', 'ชุมพร', 'P3', '10.50739', '99.13174', b'1'),
 ('86012005', 'โรงเรียนเมืองชุมพรวิทยา', 'รร.สพฐ.', 'หมู่ที่ 3 ตำบลนาชะอัง อำเภอเมืองชุมพร จังหวัดชุมพร 86000 ', 'SN', 'ชุมพร', 'P3', '10.5334', '99.21993', b'1'),
@@ -3803,7 +3833,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('86022001', 'โรงเรียนสวนศรีวิทยา', 'รร.สพฐ.', '280 ถนนหลังสวน ตำบลหลังสวน อำเภอหลังสวน จังหวัดชุมพร 86110', 'SN', 'ชุมพร', 'P3', '9.94859', '99.08556', b'1'),
 ('86012002', 'โรงเรียนสอาดเผดิมวิทยา', 'รร.สพฐ.', '196 ถนนพิศิษฐพยาบาล ตำบลท่าตะเภา อำเภอเมืองชุมพร จังหวัดชุมพร 86000 ', 'SN', 'ชุมพร', 'P3', '10.49512', '99.18637', b'1'),
 ('86012008', 'โรงเรียนหงษ์เจริญวิทยาคม', 'รร.สพฐ.', '465 ถนนเพชรเกษม หมู่ที่ 4 ตำบลหงษ์เจริญ อำเภอท่าแซะ จังหวัดชุมพร 86140 ', 'SN', 'ชุมพร', 'P3', '10.78712', '99.1935', b'1'),
-('127', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอสวี', 'รร.สพฐ.', 'หมู่ที่ 5 ตำบลนาโพธิ์ อำเภอสวี จังหวัดชุมพร 86130 ', 'SN', 'ชุมพร', 'P3', '10.49619', '99.18543', b'1'),
+('127', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอสวี', 'รร.สพฐ.', 'หมู่ที่ 5 ตำบลนาโพธิ์ อำเภอสวี จังหวัดชุมพร 86130 ', 'SN', 'ชุมพร', 'P3', '10.49619', '99.18543', b'1'),
 ('128', 'ห้องสมุดประชาชนจังหวัดชุมพร', 'รร.สพฐ.', 'หมู่ที่ 5 ตำบลนาโพธิ์ อำเภอสวี จังหวัดชุมพร 86130 ', 'SN', 'ชุมพร', 'P3', '10.49619', '99.18543', b'1'),
 ('92010011', 'โรงเรียนไทยรัฐวิทยา 39 (บ้านนาโต๊ะหมิง)', 'รร.สพฐ.', 'หมู่ที่ 5 ถนนตรัง-สิเกา บ้านนาโต๊ะหมิง อำเภอเมืองตรัง จังหวัดตรัง 92000', 'SS', 'ตรัง', 'P3', '7.54722', '99.52339', b'1'),
 ('92012004', 'โรงเรียนจุฬาภรณ์ราชวิทยาลัยตรัง', 'รร.สพฐ.', '196 หมู่ 4 ถนนตรัง-สิเกา อำเภอเมืองตรัง จังหวัดตรัง 92000 ', 'SS', 'ตรัง', 'P3', '7.55314', '99.55819', b'1'),
@@ -3820,8 +3850,8 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('92012006', 'โรงเรียนวิเชียรมาตุ 3', 'รร.สพฐ.', 'ตำบลนาบินหลา อำเภอเมือง จังหวัดตรัง', 'SS', 'ตรัง', 'P3', '7.530276', '99.653353', b'1'),
 ('92012005', 'โรงเรียนสภาราชินี 2', 'รร.สพฐ.', 'ถนนตรัง-สิเกา ตำบลบางรัก อำเภอเมืองตรัง จังหวัดตรัง 92000 ', 'SS', 'ตรัง', 'P3', '7.5619', '99.58828', b'1'),
 ('92012002', 'โรงเรียนสภาราชินีจังหวัดตรัง', 'รร.สพฐ.', '142 ถนนวิเศษกุล อำเภอเมืองตรัง จังหวัดตรัง 92000', 'SS', 'ตรัง', 'P3', '7.55327', '99.60995', b'1'),
-('129', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอย่านตาขาว', 'รร.สพฐ.', 'ตำบลย่านตาขาว อำเภอย่านตาขาว จังหวัดตรัง ', 'SS', 'ตรัง', 'P3', '7.38084', '99.673025', b'1'),
-('130', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอห้วยยอด', 'รร.สพฐ.', ' 2 ถนนมหามิตร ตำบลห้วยยอด อำเภอห้วยยอด จังหวัดตรัง ', 'SS', 'ตรัง', 'P3', '7.79072', '99.63171', b'1'),
+('129', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอย่านตาขาว', 'รร.สพฐ.', 'ตำบลย่านตาขาว อำเภอย่านตาขาว จังหวัดตรัง ', 'SS', 'ตรัง', 'P3', '7.38084', '99.673025', b'1'),
+('130', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอห้วยยอด', 'รร.สพฐ.', ' 2 ถนนมหามิตร ตำบลห้วยยอด อำเภอห้วยยอด จังหวัดตรัง ', 'SS', 'ตรัง', 'P3', '7.79072', '99.63171', b'1'),
 ('131', 'ห้องสมุดประชาชนจังหวัดตรัง', 'รร.สพฐ.', 'ถนนพระรามหก, ตำบลทับเที่ยง อำเภอเมือง จังหวัดตรัง, 92000', 'SS', 'ตรัง', 'P3', '7.55821', '99.61325', b'1'),
 ('80012011', 'โรงเรียนเฉลิมราชประชาอุทิศ', 'รร.สพฐ.', 'ตำบลช้างซ้าย อำเภอพระพรหม จังหวัดนครศรีธรรมราช, 80000', 'SN', 'นครศรีธรรมราช', 'P3', '8.3636', '99.94662', b'1'),
 ('80012012', 'โรงเรียนเตรียมอุดมศึกษาโซน 4', 'รร.สพฐ.', 'นครศรีธรรมราช - ร่อนพิบูลย์ พระหรพม นครศรีธรรมราช 80000', 'SN', 'นครศรีธรรมราช', 'P3', '8.34588', '99.93825', b'1'),
@@ -3888,8 +3918,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('80010038', 'โรงเรียนวัดพระมหาธาตุ', 'รร.สพฐ.', 'หมู่5, ถนนราชดำเนิน, ตำบลในเมือง อำเภอเมืองนครศรีธรรมราช จังหวัดนครศรีธรรมราช, 80000', 'SN', 'นครศรีธรรมราช', 'P3', '8.41398', '99.96627', b'1'),
 ('80010126', 'โรงเรียนวัดพังยอม', 'รร.สพฐ.', 'หมู่ที่ 9 ถนนนครศรีฯ-สงขลา บ้านหนองหม้อ ตำบลสวนหลวง อำเภอเฉลิมพระเกียรติ จังหวัดนครศรีธรรมราช 80190 ', 'SN', 'นครศรีธรรมราช', 'P3', '8.13722', '100.0727', b'1'),
 ('80010054', 'โรงเรียนวัดมุขธารา', 'รร.สพฐ.', 'หมู่ที่ 1, ถนนท่าวัง-ปากนคร, ตำบลปากนคร อำเภอเมืองนครศรีธรรมราช จังหวัดนครศรีธรรมราช, 80000', 'SN', 'นครศรีธรรมราช', 'P3', '8.46951', '100.04438', b'1'),
-('80010061', 'โรงเรียนวัดศรีมงคล', 'รร.สพฐ.', ' หมู่ที่ 8 บ้านปากพูน ตำบล:ปากพูน อำเภอเมืองนครศรีธรรมราช จังหวัดนครศรีธรรมราช', 'SN', 'นครศรีธรรมราช', 'P3', '8.51977', '99.97323', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('80010061', 'โรงเรียนวัดศรีมงคล', 'รร.สพฐ.', ' หมู่ที่ 8 บ้านปากพูน ตำบล:ปากพูน อำเภอเมืองนครศรีธรรมราช จังหวัดนครศรีธรรมราช', 'SN', 'นครศรีธรรมราช', 'P3', '8.51977', '99.97323', b'1'),
 ('80040054', 'โรงเรียนวัดสระประดิษฐ์', 'รร.สพฐ.', 'หมู่ที่ 5 ถนนท่าศาลา-บ้านในเขียว บ้านสี่แยกวัดโหนด ตำบลโพธิ์ทอง อำเภอท่าศาลา จังหวัดนครศรีธรรมราช 80160', 'SN', 'นครศรีธรรมราช', 'P3', '8.60311', '99.92671', b'1'),
 ('80040088', 'โรงเรียนวัดสุชล', 'รร.สพฐ.', 'หมู่ 8, ตำบลทุ่งใส อำเภอสิชล จังหวัดนครศรีธรรมราช, 80120', 'SN', 'นครศรีธรรมราช', 'P3', '9.03128', '99.90409', b'1'),
 ('80030223', 'โรงเรียนวัดหัวค่าย (พิสานอุปถัมภ์)', 'รร.สพฐ.', 'ตำบลทรายขาว อำเภอหัวไทร จังหวัดนครศรีธรรมราช', 'SN', 'นครศรีธรรมราช', 'P3', '8.059038', '100.101153', b'1'),
@@ -3900,7 +3929,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('80100215', 'โรงเรียนอนุบาลวัดเสมาเมือง', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '585, ถนนราชดำเนิน, ตำบลในเมือง อำเภอเมือง จังหวัดนครศรีธรรมราช, 80000', 'SN', 'นครศรีธรรมราช', 'P3', '8.42613', '99.96357', b'1'),
 ('80100036', 'โรงเรียนอนุบาลวัดจังหูนสงเคราะห์', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '16, ถนนนครศรีฯ-หัวไทร, ตำบลท่าเรือ อำเภอเมือง จังหวัดนครศรีธรรมราช, 80000', 'SN', 'นครศรีธรรมราช', 'P3', '8.3215', '99.98657', b'1'),
 ('80100051', 'โรงเรียนอัลมูวาห์ฮิดีน', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '55 หมู่ 4, ตำบลนาเคียน อำเภอเมืองนครศรีธรรมราช จังหวัดนครศรีธรรมราช, 80000', 'SN', 'นครศรีธรรมราช', 'P3', '8.45033', '99.91898', b'1'),
-('132', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" เขาขุนพนม', 'รร.สพฐ.', 'หมู่ที่ 3 บ้านหน้าเขาขุนพนม ตำบลบ้านเกาะ อำเภอพรหมคีรี จังหวัดนครศรีธรรมราช', 'SN', 'นครศรีธรรมราช', 'P3', '8.54483', '99.84392', b'1'),
+('132', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" เขาขุนพนม', 'รร.สพฐ.', 'หมู่ที่ 3 บ้านหน้าเขาขุนพนม ตำบลบ้านเกาะ อำเภอพรหมคีรี จังหวัดนครศรีธรรมราช', 'SN', 'นครศรีธรรมราช', 'P3', '8.54483', '99.84392', b'1'),
 ('133', 'ห้องสมุดประชาชนจังหวัดนครศรีธรรมราช', 'รร.สพฐ.', 'ถนนราชดำเนิน ตำบลคลัง อำเภอเมือง จังหวัดนครศรีธรรมราช 80000 ', 'SN', 'นครศรีธรรมราช', 'P3', '8.42887', '99.96177', b'1'),
 ('96010024', 'โรงเรียนเมืองนราธิวาส', 'รร.สพฐ.', 'ตำบลบางนาค อำเภอเมือง จังหวัดนราธิวาส', 'SS', 'นราธิวาส', 'P3', '6.429729', '101.819226', b'1'),
 ('96012006', 'โรงเรียนตันหยงมัส', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', 'ตำบลตันหยงมัส อำเภอระแงะ จังหวัดนราธิวาส', 'SS', 'นราธิวาส', 'P3', '6.30713', '101.718461', b'1'),
@@ -3924,7 +3953,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('96010103', 'โรงเรียนระแงะ', 'รร.สพฐ.', 'ตำบลตันหยงมัส อำเภอระแงะ จังหวัดนราธิวาส', 'SS', 'นราธิวาส', 'P3', '6.310351', '101.718611', b'1'),
 ('96100008', 'โรงเรียนสุกัญศาสน์วิทยา', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', 'ตำบลมะนังดายอ อำเภอเมือง จังหวัดนราธิวาส', 'SS', 'นราธิวาส', 'P3', '6.34151', '101.78339', b'1'),
 ('96100005', 'โรงเรียนอัตตัรกียะห์อิสลามียะห์', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', 'ตำบลกะลุกอเหนือ อำเภอเมือง จังหวัดนราธิวาส', 'SS', 'นราธิวาส', 'P3', '6.41541', '101.85064', b'1'),
-('134', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอรือเสาะ ', 'รร.สพฐ.', ' ตำบลรือเสาะออก อำเภอรือเสาะ จังหวัดนราธิวาส', 'SS', 'นราธิวาส', 'P3', '6.395198', '101.517769', b'1'),
+('134', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอรือเสาะ ', 'รร.สพฐ.', ' ตำบลรือเสาะออก อำเภอรือเสาะ จังหวัดนราธิวาส', 'SS', 'นราธิวาส', 'P3', '6.395198', '101.517769', b'1'),
 ('135', 'ห้องสมุดประชาชนจังหวัดนราธิวาส', 'รร.สพฐ.', 'ตำบลบางนาค อำเภอเมือง จังหวัดนราธิวาส', 'SS', 'นราธิวาส', 'P3', '6.42313', '101.820664', b'1'),
 ('77022005', 'โรงเรียนเตรียมอุดมศึกษาพัฒนาการปราณบุรี', 'รร.สพฐ.', 'หมู่ที่ 6 บ้านปราณบุรี ตำบลปราณบุรี อำเภอปราณบุรี จังหวัดประจวบคีรีขันธ์ 77120', 'W', 'ประจวบคีรีขันธ์', 'P3', '12.383924', '99.926245', b'1'),
 ('77022003', 'โรงเรียนเมืองปราณบุรี', 'รร.สพฐ.', '73 ตำบลปราณบุรี อำเภอปราณบุรี จังหวัดประจวบคีรีขันธ์ 77120', 'W', 'ประจวบคีรีขันธ์', 'P3', '12.360271', '99.919689', b'1'),
@@ -3954,7 +3983,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('77100005', 'โรงเรียนห้วยหนำ', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '132, ถนนเกาะหลัก, ตำบลประจวบคีรีขันธ์ อำเภอเมืองประจวบคีรีขันธ์ จังหวัดประจวบคีรีขันธ์, 77000', 'W', 'ประจวบคีรีขันธ์', 'P3', '11.80243', '99.79887', b'1'),
 ('77022007', 'โรงเรียนหัวหิน', 'รร.สพฐ.', '184 ถนนชมสิทธุ์ ตำบลหัวหิน อำเภอหัวหิน จังหวัดประจวบคีรีขันธ์ 77110', 'W', 'ประจวบคีรีขันธ์', 'P3', '12.5750672', '99.9476645', b'1'),
 ('77022008', 'โรงเรียนหัวหินวิทยาคม', 'รร.สพฐ.', '7/1 ถนนวิทยาคม ตำบลหัวหิน อำเภอหัวหิน จังหวัดประจวบคีรีขันธ์ 77110', 'W', 'ประจวบคีรีขันธ์', 'P3', '12.557233', '99.952419', b'1'),
-('136', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอบางสะพาน ', 'รร.สพฐ.', 'หมู่ 1, ที่ว่าการอำเภอบางสะพาน, ตำบลกำเนิดนพคุณ อำเภอบางสะพาน จังหวัดประจวบคีรีขันธ์, 77140', 'W', 'ประจวบคีรีขันธ์', 'P3', '11.21481', '99.51159', b'1'),
+('136', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอบางสะพาน ', 'รร.สพฐ.', 'หมู่ 1, ที่ว่าการอำเภอบางสะพาน, ตำบลกำเนิดนพคุณ อำเภอบางสะพาน จังหวัดประจวบคีรีขันธ์, 77140', 'W', 'ประจวบคีรีขันธ์', 'P3', '11.21481', '99.51159', b'1'),
 ('137', 'ห้องสมุดประชาชนจังหวัดประจวบคีรีขันธ์', 'รร.สพฐ.', '5 พิทักษ์ชาติ ตำบลประจวบคีรีขันธ์ อำเภอเมืองประจวบคีรีขันธ์ ประจวบคีรีขันธ์ 77000', 'W', 'ประจวบคีรีขันธ์', 'P3', '11.81198', '99.79616', b'1'),
 ('138', 'หอสมุดรัชมังคลาภิเษก วังไกลกังวล', 'รร.สพฐ.', 'ถนนหัวหิน 35 ตำบลหัวหิน อำเภอหัวหิน จังหวัดประจวบคีรีขันธ์', 'W', 'ประจวบคีรีขันธ์', 'P3', '12.5485545', '99.9187126', b'1'),
 ('94012002', 'โรงเรียนเดชะปัตตนยานุกูล', 'รร.สพฐ.', 'ตำบลสะบารัง อำเภอเมือง จังหวัดปัตตานี', 'SS', 'ปัตตานี', 'P3', '6.86821', '101.24464', b'1'),
@@ -3990,7 +4019,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('94020075', 'โรงเรียนวัดสถิตย์ชลธาร', 'รร.สพฐ.', 'ตำบลบางตาวา อำเภอหนองจิก จังหวัดปัตตานี', 'SS', 'ปัตตานี', 'P3', '6.85706', '101.164566', b'1'),
 ('94100006', 'โรงเรียนศานติธรรมวิทยา', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', 'ตำบลบาราเฮาะ อำเภอเมือง จังหวัดปัตตานี', 'SS', 'ปัตตานี', 'P3', '6.830667', '101.275405', b'1'),
 ('94012007', 'โรงเรียนสุวรรณไพบูลย์', 'รร.สพฐ.', 'ตำบลยามู อำเภอยะหริ่ง จังหวัดปัตตานี', 'SS', 'ปัตตานี', 'P3', '6.85075', '101.37055', b'1'),
-('139', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอเมือง', 'รร.สพฐ.', 'ตำบลสะบารัง อำเภอเมือง จังหวัดปัตตานี', 'SS', 'ปัตตานี', 'P3', '18.58586', '99.01252', b'1'),
+('139', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอเมือง', 'รร.สพฐ.', 'ตำบลสะบารัง อำเภอเมือง จังหวัดปัตตานี', 'SS', 'ปัตตานี', 'P3', '18.58586', '99.01252', b'1'),
 ('82010112', 'โรงเรียนคุระบุรี', 'รร.สพฐ.', 'หมู่ 1, ตำบลคุระ อำเภอคุระบุรี จังหวัดพังงา, 82150', 'SN', 'พังงา', 'P3', '9.19397', '98.41304', b'1'),
 ('82012010', 'โรงเรียนคุระบุรีวิทยาคม', 'รร.สพฐ.', 'หมู่ที่ 1 บ้านคุระ ตำบลคุระ อำเภอคุระบุรี จังหวัดพังงา', 'SN', 'พังงา', 'P3', '9.19397', '98.41304', b'1'),
 ('82010146', 'โรงเรียนชาวไทยใหม่', 'รร.สพฐ.', 'หมู่ที่ 8, ตำบลท้ายเหมือง อำเภอท้ายเหมือง จังหวัดพังงา, 82120', 'SN', 'พังงา', 'P3', '8.47501', '98.26262', b'1'),
@@ -4014,7 +4043,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('82010065', 'โรงเรียนวัดไตรมารคสถิตตั้งตรงจิต 11', 'รร.สพฐ.', 'อำเภอตะกั่วทุ่ง พังงา', 'SN', 'พังงา', 'P3', '8.28137', '98.30502', b'1'),
 ('82010131', 'โรงเรียนวัดนิโครธาราม', 'รร.สพฐ.', 'หมู่ 1, ตำบลทับปุด อำเภอทับปุด จังหวัดพังงา, 82180', 'SN', 'พังงา', 'P3', '8.51518', '98.63371', b'1'),
 ('82012008', 'โรงเรียนสตรีพังงา', 'รร.สพฐ.', '204, ถนนเพชรเกม, ตำบลท้ายช้าง อำเภอเมือง จังหวัดพังงา, 82000', 'SN', 'พังงา', 'P3', '8.459', '98.53144', b'1'),
-('140', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอทับปุด ', 'รร.สพฐ.', 'หมู่ 4, ตำบลบางเหรียง อำเภอทับปุด จังหวัดพังงา, 82180', 'SN', 'พังงา', 'P3', '8.59427', '98.6686', b'1'),
+('140', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอทับปุด ', 'รร.สพฐ.', 'หมู่ 4, ตำบลบางเหรียง อำเภอทับปุด จังหวัดพังงา, 82180', 'SN', 'พังงา', 'P3', '8.59427', '98.6686', b'1'),
 ('141', 'ห้องสมุดประชาชนจังหวัดพังงา', 'รร.สพฐ.', 'ตำบลท้ายช้าง อำเภอเมือง จังหวัดพังงา, 82000', 'SN', 'พังงา', 'P3', '8.43922', '98.51797', b'1'),
 ('93012013', 'โรงเรียนควนขนุน', 'รร.สพฐ.', 'ตำบลโตนดด้วน อำเภอควนขนุน จังหวัดพัทลุง', 'SS', 'พัทลุง', 'P3', '7.730043', '99.995985', b'1'),
 ('93012012', 'โรงเรียนตะโหมด', 'รร.สพฐ.', 'ตำบลแม่ขรี อำเภอตะโหมด จังหวัดพัทลุง', 'SS', 'พัทลุง', 'P3', '7.354997', '100.12025', b'1'),
@@ -4035,18 +4064,18 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('142', 'ห้องสมุดประชาชนจังหวัดพัทลุง', 'รร.สพฐ.', 'ตำบลคูหาสวรรค์ อำเภอเมือง จังหวัดพัทลุง', 'SS', 'พัทลุง', 'P3', '7.615252', '100.070962', b'1'),
 ('83010012', 'โรงเรียนเกาะสิเหร่', 'รร.สพฐ.', 'หมู่1, ถนนเทพประทาน, ตำบลรัษฏา อำเภอเมืองภูเก็ต จังหวัดภูเก็ต, 83000', 'SN', 'ภูเก็ต', 'P3', '7.88115', '98.42729', b'1'),
 ('83012003', 'โรงเรียนเฉลิมพระเกียรติสมเด็จพระศรีนครินทร์ภูเก็ต', 'รร.สพฐ.', 'หมู่ที่ 1 ตำบลวิชิต อำเภอเมืองภูเก็ต จังหวัดภูเก็ต', 'SN', 'ภูเก็ต', 'P3', '7.86668', '98.39016', b'1'),
-('83012005', 'โรงเรียนเมืองถลาง', 'รร.สพฐ.', '150, ถนนเทพกระษัตรี, ตำบลเทพกระษัตรี อำเภอถลาง จังหวัดภูเก็ต, 83110', 'SN', 'ภูเก็ต', 'P3', '8.06813', '98.34064', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('83012005', 'โรงเรียนเมืองถลาง', 'รร.สพฐ.', '150, ถนนเทพกระษัตรี, ตำบลเทพกระษัตรี อำเภอถลาง จังหวัดภูเก็ต, 83110', 'SN', 'ภูเก็ต', 'P3', '8.06813', '98.34064', b'1'),
 ('83010023', 'โรงเรียนไทยรัฐวิทยา 29 (กะทู้)', 'รร.สพฐ.', '51 หมู่ที่6, ถนนวิชิตสงคราม, ตำบลกะทู้ อำเภอกะทู้ จังหวัดภูเก็ต, 83120', 'SN', 'ภูเก็ต', 'P3', '7.90569', '98.33596', b'1'),
 ('83012004', 'โรงเรียนกะทู้วิทยา', 'รร.สพฐ.', '51, ถนนวิชิตสงคราม, ตำบลกะทู้ อำเภอกะทู้ จังหวัดภูเก็ต, 83120', 'SN', 'ภูเก็ต', 'P3', '7.90827', '98.33399', b'1'),
 ('83010011', 'โรงเรียนบ้านกู้กู', 'รร.สพฐ.', 'หมู่3, ถนนรัษฏานุสรณ์, ตำบลรัษฏา อำเภอเมืองภูเก็ต จังหวัดภูเก็ต, 83000', 'SN', 'ภูเก็ต', 'P3', '7.90835', '98.40034', b'1'),
-('83010013', 'โรงเรียนบ้านทุ่งคา (บุณยขจรประชาอาสา)', 'รร.สพฐ.', '41, ถนนประชาอุทิศ, ตำบลรัษฎา อำเภอเมืองภูเก็ต จังหวัดภูเก็ต, 83000', 'SN', 'ภูเก็ต', 'P3', '7.92106', '98.3766', b'1'),
+('83010013', 'โรงเรียนบ้านทุ่งคา (บุณยขจรประชาอาสา)', 'รร.สพฐ.', '41, ถนนประชาอุทิศ, ตำบลรัษฎา อำเภอเมืองภูเก็ต จังหวัดภูเก็ต, 83000', 'SN', 'ภูเก็ต', 'P3', '7.92106', '98.3766', b'1');
+INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
 ('83010004', 'โรงเรียนบ้านสะปำมงคลวิทยา', 'รร.สพฐ.', '1 หมู่ 1, ถนนเทพกระษัตรี, ตำบลเกาะแก้ว อำเภอเมือง จังหวัดภูเก็ต, 83000', 'SN', 'ภูเก็ต', 'P3', '7.93805', '98.3942', b'1'),
 ('83100003', 'โรงเรียนพุทธมงคลนิมิตร', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', '3, ถนนเยาวราช, ตำบลตลาดใหญ่ อำเภอเมือง จังหวัดภูเก็ต, 83000', 'SN', 'ภูเก็ต', 'P3', '7.88694', '98.38776', b'1'),
 ('83012001', 'โรงเรียนภูเก็ตวิทยาลัย', 'รร.สพฐ.', '73/3, ถนนเทพกระษัตรี, ตำบลตลาดใหญ่ อำเภอเมือง จังหวัดภูเก็ต, 83000', 'SN', 'ภูเก็ต', 'P3', '7.89205', '98.38922', b'1'),
 ('83010017', 'โรงเรียนวิชิตสงคราม', 'รร.สพฐ.', '27/12 หมู่ 4, ถนนเจ้าฟ้า, ตำบลวิชิต อำเภอเมือง จังหวัดภูเก็ต, 83000', 'SN', 'ภูเก็ต', 'P3', '7.8872', '98.3657', b'1'),
 ('83012002', 'โรงเรียนสตรีภูเก็ต', 'รร.สพฐ.', '1, ถนนดำรง, ตำบลตลาดใหญ่ อำเภอเมือง จังหวัดภูเก็ต, 83000', 'SN', 'ภูเก็ต', 'P3', '7.8908', '98.39068', b'1'),
-('143', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอกะทู้', 'รร.สพฐ.', 'ถนนหาดป่าตอง, ตำบลป่าตอง อำเภอกะทู้ จังหวัดภูเก็ต, 83120', 'SN', 'ภูเก็ต', 'P3', '7.90024', '98.2982', b'1'),
+('143', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอกะทู้', 'รร.สพฐ.', 'ถนนหาดป่าตอง, ตำบลป่าตอง อำเภอกะทู้ จังหวัดภูเก็ต, 83120', 'SN', 'ภูเก็ต', 'P3', '7.90024', '98.2982', b'1'),
 ('144', 'ห้องสมุดประชาชนจังหวัดภูเก็ต', 'รร.สพฐ.', 'ณ ถนนภูเก็ต ตำบลตลาดใหญ่ อำเภอเมือง จังหวัดภูเก็ต', 'SN', 'ภูเก็ต', 'P3', '7.89243', '98.3988', b'1'),
 ('95012001', 'โรงเรียนคณะราษฎรบำรุง', 'รร.สพฐ.', 'ตำบลสะเตง อำเภอเมือง จังหวัดยะลา', 'SS', 'ยะลา', 'P3', '6.55382', '101.29013', b'1'),
 ('95012004', 'โรงเรียนคณะราษฎรบำรุง 2', 'รร.สพฐ.', 'ตำบลสะเตง อำเภอเมือง จังหวัดยะลา', 'SS', 'ยะลา', 'P3', '6.57163', '101.27034', b'1'),
@@ -4054,7 +4083,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('95100012', 'โรงเรียนธรรมวิทยามูลนิธิ', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', 'ตำบลสะเตง อำเภอเมือง จังหวัดยะลา', 'SS', 'ยะลา', 'P3', '6.567886', '101.295935', b'1'),
 ('95010042', 'โรงเรียนนิบงชนูปถัมภ์', 'รร.สพฐ.', 'ตำบลสะเตง อำเภอเมือง จังหวัดยะลา', 'SS', 'ยะลา', 'P3', '6.54931', '101.2824', b'1'),
 ('95020045', 'โรงเรียนบ้านเตาปูน', 'รร.สพฐ.', 'ตำบลบันนังสตา อำเภอบังนังสตา จังหวัดยะลา', 'SS', 'ยะลา', 'P3', '6.25817', '101.25279', b'1'),
-('95020009', 'โรงเรียนบ้านเบตง"สุภาพอนุสรณ์"', 'รร.สพฐ.', 'ตำบลเบตง อำเภอเบตง จังหวัดยะลา', 'SS', 'ยะลา', 'P3', '5.77744', '101.07169', b'1'),
+('95020009', 'โรงเรียนบ้านเบตง\"สุภาพอนุสรณ์\"', 'รร.สพฐ.', 'ตำบลเบตง อำเภอเบตง จังหวัดยะลา', 'SS', 'ยะลา', 'P3', '5.77744', '101.07169', b'1'),
 ('95020048', 'โรงเรียนบ้านกาโสด', 'รร.สพฐ.', 'ตำบลบันนังสตา อำเภอบังนังสตา จังหวัดยะลา', 'SS', 'ยะลา', 'P3', '6.23453', '101.21198', b'1'),
 ('95010013', 'โรงเรียนบ้านจือนือแร', 'รร.สพฐ.', 'ตำบลบุดี อำเภอเมือง จังหวัดยะลา', 'SS', 'ยะลา', 'P3', '6.49343', '101.30416', b'1'),
 ('95010034', 'โรงเรียนบ้านตลาดลำใหม่', 'รร.สพฐ.', 'ตำบลลำใหม่ อำเภอเมือง จังหวัดยะลา', 'SS', 'ยะลา', 'P3', '6.58158', '101.19865', b'1'),
@@ -4150,7 +4179,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('90022008', 'โรงเรียนหาดใหญ่วิทยาลัย (2)', 'รร.สพฐ.', 'ตำบลบ้านพรุ อำเภอหาดใหญ่ จังหวัดสงขลา', 'SS', 'สงขลา', 'P3', '6.947716', '100.482703', b'1'),
 ('90022003', 'โรงเรียนหาดใหญ่วิทยาลัยสมบูรณ์กุลกันยา', 'รร.สพฐ.', 'ตำบลหาดใหญ่ อำเภอหาดใหญ่ จังหวัดสงขลา', 'SS', 'สงขลา', 'P3', '7.002111', '100.458367', b'1'),
 ('90100018', 'โรงเรียนอูลูมุดดีน', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', 'ตำบลเกาะแต้ว อำเภอเมือง จังหวัดสงขลา', 'SS', 'สงขลา', 'P3', '7.110045', '100.630912', b'1'),
-('147', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอสิงหนคร ', 'รร.สพฐ.', 'ตำบลสทิงหม้อ อำเภอสทิงพระ จังหวัดสงขลา', 'SS', 'สงขลา', 'P3', '7.238157', '100.550801', b'1'),
+('147', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอสิงหนคร ', 'รร.สพฐ.', 'ตำบลสทิงหม้อ อำเภอสทิงพระ จังหวัดสงขลา', 'SS', 'สงขลา', 'P3', '7.238157', '100.550801', b'1'),
 ('148', 'ห้องสมุดประชาชนจังหวัดสงขลา', 'รร.สพฐ.', 'ตำบลบ่อยาง อำเภอเมือง จังหวัดสงขลา', 'SS', 'สงขลา', 'P3', '7.200174', '100.5922697', b'1'),
 ('91100006', 'โรงเรียนแสงประทีปวิทยามูลนิธิ', 'สำนักงานคณะกรรมการส่งเสริมการศึกษาเอกชน', 'ตำบลฉลุง อำเภอเมือง จังหวัดสตูล', 'SS', 'สตูล', 'P3', '6.746269', '100.072549', b'1'),
 ('91010020', 'โรงเรียนไทยรัฐวิทยา 40', 'รร.สพฐ.', 'ตำบลควนโพธ์ อำเภอเมือง จังหวัดสตูล', 'SS', 'สตูล', 'P3', '6.759259', '100.019563', b'1'),
@@ -4197,8 +4226,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('84012005', 'โรงเรียนประดู่พิทยาคม', 'รร.สพฐ.', 'สุราษฎร์-พุนพิน ตำบลวัดประดู่ อำเภอเมืองสุราษฎร์ธานี จังหวัดสุราษฎร์ธานี 84000', 'SN', 'สุราษฎร์ธานี', 'P3', '9.11342', '99.29649', b'1'),
 ('84012006', 'โรงเรียนมัธยมกิติยาภา', 'รร.สพฐ.', '85 หมู่ที่ 4 ตำบลขุนทะเล อำเภอเมืองสุราษฎร์ธานี จังหวัดสุราษฎร์ธานี 84100 ', 'SN', 'สุราษฎร์ธานี', 'P3', '9.01364', '99.37168', b'1'),
 ('84020023', 'โรงเรียนวัดโพธาราม', 'รร.สพฐ.', 'หมู่ที่ 3, ถนนรักษ์นรกิจ, ตำบลพุมเรียง อำเภอไชยา จังหวัดสุราษฎร์ธานี, 84110', 'SN', 'สุราษฎร์ธานี', 'P3', '8.51518', '98.63371', b'1'),
-('84010014', 'โรงเรียนวัดโพธิ์นิมิตร', 'รร.สพฐ.', 'หมู่ 1 กาญจนวิถี อินเตอร์เน็ต อำเภอเมืองสุราษฎร์ธานี สุราษฎร์ธานี 84000', 'SN', 'สุราษฎร์ธานี', 'P3', '9.15371', '99.3534', b'1');
-INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `region`, `province`, `site_type`, `longitude`, `latitude`, `site_status`) VALUES
+('84010014', 'โรงเรียนวัดโพธิ์นิมิตร', 'รร.สพฐ.', 'หมู่ 1 กาญจนวิถี อินเตอร์เน็ต อำเภอเมืองสุราษฎร์ธานี สุราษฎร์ธานี 84000', 'SN', 'สุราษฎร์ธานี', 'P3', '9.15371', '99.3534', b'1'),
 ('84010026', 'โรงเรียนวัดกลางใหม่ (มิตรภาพที่ 24)', 'รร.สพฐ.', 'หมู่ 2, ถนนศรีวิชัย, ตำบลมะขามเตี้ย อำเภอเมืองสุราษฎร์ธานี จังหวัดสุราษฎร์ธานี, 84000', 'SN', 'สุราษฎร์ธานี', 'P3', '9.11805', '99.30804', b'1'),
 ('84010038', 'โรงเรียนวัดกาญจนาราม', 'รร.สพฐ.', '110 หมู่ 1, ตำบลกะแดะ อำเภอกาญจนดิษฐ์ จังหวัดสุราษฎร์ธานี, 84160', 'SN', 'สุราษฎร์ธานี', 'P3', '9.16513', '99.47592', b'1'),
 ('84020169', 'โรงเรียนวัดตรณาราม', 'รร.สพฐ.', '22, ถนนจุลจอมเกล้า, ตำบลท่าข้าม อำเภอพุนพิน จังหวัดสุราษฎร์ธานี, 84130', 'SN', 'สุราษฎร์ธานี', 'P3', '9.10525', '99.23446', b'1'),
@@ -4213,7 +4241,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 ('84012002', 'โรงเรียนสุราษฎร์ธานี', 'รร.สพฐ.', 'ถนนดอนนก, ตำบลตลาด อำเภอเมือง จังหวัดสุราษฎร์ธานี, 84000', 'SN', 'สุราษฎร์ธานี', 'P3', '9.13217', '99.32971', b'1'),
 ('84012007', 'โรงเรียนสุราษฎร์ธานี 2', 'รร.สพฐ.', '164 หมู่ที่ 5, ตำบลมะขามเตี้ย อำเภอเมืองสุราษฎร์ธานี จังหวัดสุราษฎร์ธานี, 84000', 'SN', 'สุราษฎร์ธานี', 'P3', '9.10621', '99.37091', b'1'),
 ('84012003', 'โรงเรียนสุราษฎร์พิทยา', 'รร.สพฐ.', '388, ถนนตลาดใหม่, ตำบลตลาด อำเภอเมืองสุราษฎร์ธานี จังหวัดสุราษฎร์ธานี, 84000', 'SN', 'สุราษฎร์ธานี', 'P3', '9.14187', '99.32602', b'1'),
-('150', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอกาญจนดิษฐ์', 'รร.สพฐ.', '84 หมู่ที่ 1, ตำบลกะแดะ อำเภอกาญจนดิษฐ์ จังหวัดสุราษฎร์ธานี, 84160', 'SN', 'สุราษฎร์ธานี', 'P3', '9.16633', '99.47189', b'1'),
+('150', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอกาญจนดิษฐ์', 'รร.สพฐ.', '84 หมู่ที่ 1, ตำบลกะแดะ อำเภอกาญจนดิษฐ์ จังหวัดสุราษฎร์ธานี, 84160', 'SN', 'สุราษฎร์ธานี', 'P3', '9.16633', '99.47189', b'1'),
 ('151', 'ห้องสมุดประชาชนจังหวัดสุราษฏร์ธานี', 'รร.สพฐ.', 'ถนนตลาด ตำบลตลาดใหม่ อำเภอเมือง จังหวัดสุราษฎร์ธานี 84000', 'SN', 'สุราษฎร์ธานี', 'P3', '9.13363', '99.31469', b'1');
 
 -- --------------------------------------------------------
@@ -4222,7 +4250,7 @@ INSERT INTO `tb_site` (`site_id`, `site_name`, `site_group`, `site_address`, `re
 -- Table structure for table `tb_ticket`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_ticket` (
+CREATE TABLE `tb_ticket` (
   `case_id` varchar(255) NOT NULL,
   `created_date` varchar(255) NOT NULL,
   `case_title` varchar(255) NOT NULL,
@@ -4309,8 +4337,7 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NT-Equip-2017-10-0037', '2017-10-09 10:33:28', 'สงขลา//โรงเรียนวัดเนินยพิชั//Router Cisco 800 เสียไฟไม่เข้า', 'Router Cisco 800 เสียไฟไม่เข้า ทดสอบดึงปลั๊กเสียบใหม่แล้ว รบกวนตรวจสอบด้วยค่ะ // ปรียา (Call Center)', '2017-10-09 10:33:00', '2017-10-09 15:18:00', 'Closed', 'TICKET EQUIPMENT', 'Equipment System', 'อุปกรณ์ Router', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ./2561 - Equipment P3', '90020112', 'โรงเรียนวัดเนินพิชัย', 'เจษฎารัตน์', 'Very low', '0.00', '0.00', '0.00', '4.38', '0.00', '0.07', '4.45', '00:00', '00:00', '24:00', '00:00', '0:00:00', 'True', 'สงขลา', '2017-10-09 15:19:18', '2017-10-09 16:09:40', '4.45', '5.36'),
 ('NT-Equip-2017-10-0038', '2017-10-09 11:25:44', 'ขอนแก่น//โรงเรียนบ้านผาขาม//Internet ใช้งานไม่ได้', 'แจ้งตรวจสอบ SW โรงเรียนชุมชนบ้านวังเพิ่ม เพราะไม่สามารถ telnet เช้าอุปกรณ์ได้ครับ', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'TICKET EQUIPMENT', 'Equipment System', 'อุปกรณ์ Switch', '@MA Equipment Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk&Engineer Equipment', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'สอ./2561 - Equipment P2', '40050160', 'โรงเรียนชุมชนบ้านวังเพิ่ม', 'choocherd', 'Very low', '0.00', '0.00', '0.00', '1.30', '0.00', '2.16', '3.46', '00:00', '00:00', '24:00', '00:00', '0:00:00', 'True', 'ขอนแก่น', '2017-10-09 15:13:15', '2017-10-09 16:03:10', '3.47', '4.37'),
 ('NT-Equip-2017-10-0039', '2017-10-09 11:30:58', 'ตรัง//โรงเรียนบ้านเขากอบ//เปลี่ยนSW เนื่องจาก sw up /down ตลอด //HD', '92020076 โรงเรียนบ้านเขากอบ จ.ตรัง เปลี่ยนSW เนื่องจาก sw up /down ตลอด อ.ภาวดี ล่องตี้ 089-7239783 //HD เจ้าหน้าที่ดำเนินการเปลี่ยนอุปกรณ์เสร็จเรียบร้อย รบกวนตรวจสอบให้ด้วยครับ', '0000-00-00 00:00:00', '2017-10-08 10:28:00', 'Closed', 'TICKET EQUIPMENT', 'Equipment System', 'อุปกรณ์ Switch', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ./2561 - Equipment P2', '92020076', 'โรงเรียนบ้านเขากอบ', 'ภาวดี', 'Very low', '0.00', '0.00', '0.00', '2.17', '0.00', '3.13', '5.30', '00:00', '00:00', '24:00', '00:00', '0:00:00', 'True', 'ตรัง', '2017-10-09 17:02:11', '2017-10-10 09:38:36', '5.31', '22.07'),
-('NT-Equip-2017-10-0040', '2017-10-09 15:52:23', 'จังหวัดเชียงใหม่ // มหาวิทยาลัยเชียงใหม่ // PM_EQ_P1_งวด1_2561', 'ดำเนินการเข้า PM_EQ_P1_งวด1_2561 โหนดมหาวิทยาลัยเชียงใหม่', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'TICKET EQUIPMENT', 'Equipment System', 'อุปกรณ์ Router', '@MA Equipment Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk&Engineer Equipment', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'สอ./2561 - Equipment P1 (1)', '1450100400', 'มหาวิทยาลัยเชียงใหม่', 'สุวิน', 'Very low', '0.00', '0.00', '0.00', '1.34', '0.00', '0.05', '1.39', '00:00', '00:00', '06:00', '00:00', '0:00:00', 'True', 'เชียงใหม่', '2017-10-09 17:32:18', '2017-10-09 17:46:37', '1.39', '1.54');
-INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
+('NT-Equip-2017-10-0040', '2017-10-09 15:52:23', 'จังหวัดเชียงใหม่ // มหาวิทยาลัยเชียงใหม่ // PM_EQ_P1_งวด1_2561', 'ดำเนินการเข้า PM_EQ_P1_งวด1_2561 โหนดมหาวิทยาลัยเชียงใหม่', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'TICKET EQUIPMENT', 'Equipment System', 'อุปกรณ์ Router', '@MA Equipment Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk&Engineer Equipment', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'สอ./2561 - Equipment P1 (1)', '1450100400', 'มหาวิทยาลัยเชียงใหม่', 'สุวิน', 'Very low', '0.00', '0.00', '0.00', '1.34', '0.00', '0.05', '1.39', '00:00', '00:00', '06:00', '00:00', '0:00:00', 'True', 'เชียงใหม่', '2017-10-09 17:32:18', '2017-10-09 17:46:37', '1.39', '1.54'),
 ('NT-Equip-2017-10-0041', '2017-10-09 15:54:23', 'จังหวัดเชียงใหม่ // มหาวิทยาลัยเชียงใหม่ // PM_EQ_P1_งวด1_2561', 'ดำเนินการเข้า PM_EQ_P1_งวด1_2561 โหนดมหาวิทยาลัยเชียงใหม่', '0000-00-00 00:00:00', '2017-10-09 16:30:00', 'Closed', 'TICKET EQUIPMENT', 'Equipment System', 'อุปกรณ์ Router', '@MA Equipment Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk&Engineer Equipment', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'สอ./2561 - Equipment P1 (3)', '1450100400', 'มหาวิทยาลัยเชียงใหม่', 'สุวิน', 'Very low', '0.00', '0.00', '0.00', '1.10', '0.00', '0.18', '1.28', '00:00', '00:00', '24:00', '00:00', '0:00:00', 'True', 'เชียงใหม่', '2017-10-09 17:23:28', '2017-10-09 17:41:21', '1.29', '1.46'),
 ('NT-Equip-2017-10-0042', '2017-10-10 10:08:11', 'กรุงเทพฯ//SW 3560 เสีย 1 ตัว', 'กรุงเทพฯ//SW 3560 เสีย 1 ตัว // เป็น SW ใช้สำหรับโครงการ tdc.thailis.or.th', '0000-00-00 00:00:00', '2017-10-10 13:00:00', 'Closed', 'TICKET EQUIPMENT', 'Equipment System', 'อุปกรณ์ Switch', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ./2561 - Equipment P1 (1)', 'OHEC', 'สำนักงานคณะกรรการการอุดมศึกษา', 'เกรียงศักดิ์', 'Very low', '0.00', '0.00', '0.00', '0.02', '0.00', '4.09', '4.11', '00:00', '00:00', '06:00', '00:00', '0:00:00', 'True', '', '2017-10-10 15:11:32', '2017-10-10 15:28:38', '5.03', '5.20'),
 ('NT-Equip-2017-10-0043', '2017-10-10 14:11:34', 'สุราษฎร์ธานี//โรงเรียนพรุพีพิทยาคม//Router?892? Restart ตลอด //HD', '84032007 โรงเรียนพรุพีพิทยาคม จ.สุราษฎร์ธานี? Router892 Restart ตลอด อ.ธวัชชัย พลพลา? 083-0331377', '0000-00-00 00:00:00', '2017-10-10 12:00:00', 'Closed', 'TICKET EQUIPMENT', 'Equipment System', 'อุปกรณ์ Router', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ./2561 - Equipment P3', '84032007', 'โรงเรียนพรุพีพิทยาคม', 'อ.ธวัชชัย?', 'Very low', '0.00', '0.00', '0.00', '0.19', '0.00', '0.09', '0.28', '00:00', '00:00', '24:00', '00:00', '0:00:00', 'True', 'สุราษฎร์ธานี', '2017-10-10 14:40:18', '2017-10-10 14:48:47', '0.28', '0.37'),
@@ -4336,7 +4363,8 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NT-Fiber-2017-10-0021', '2017-10-02 14:01:32', 'รร.วัดศิลามูล นครปฐม //Internetใช้งานไม่ได้', 'แจ้งตรวจสอบสายเคเบิล เส้นทางระหว่าง โรงเรียนบ้านบางเลน SW - โรงเรียนวัดศิลามูล', '2017-10-02 14:01:00', '2017-10-03 11:15:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '73020082', 'โรงเรียนวัดศิลามูล', 'อ.สุชาติ', 'Very low', '0.00', '0.00', '0.00', '0.08', '5.16', '0.52', '6.16', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'นครปฐม', '2017-10-03 11:18:18', '2017-10-03 12:04:03', '21.16', '22.02'),
 ('NT-Fiber-2017-10-0022', '2017-10-02 14:04:07', 'FB// รร.บ้านสำโรง Internetใช้งานไม่ได้', 'รบกวนตรวจสอบ F/O ด้วยครับ เส้นทาง โรงเรียนบ้านโพธิ์ศรี - โรงเรียนบ้านสำโรง', '2017-10-02 14:04:00', '2017-10-02 16:52:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@MA Fiber Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'MA Fiber', 'SVOA MA Fiber', 'ผู้รับจ้าง MA Fiber', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '34040108', 'โรงเรียนบ้านสำโรง(คุรุประชาสามัคคี)', 'ครูสด', 'Very low', '0.00', '0.00', '0.00', '0.25', '0.13', '2.10', '2.48', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'อุบลราชธานี', '2017-10-02 16:52:34', '2017-10-03 10:03:07', '2.48', '19.59'),
 ('NT-Fiber-2017-10-0023', '2017-10-02 14:05:03', 'รร.วัดโพธิ์ (แจ่มวิทยาคาร) พระนครศรีอยุธยา /อินเตอร์เน็ตใช้งานไม่ได้', 'แจ้งตรวจสอบเคเบิล เส้นทาง สำนักงานเขตพื้นที่การศึกษา พระนครศรีอยุธยา เขต 2 (SW) - โรงเรียนวัดโพธิ์ (แจ่มวิทยาคาร)RT', '2017-10-02 14:05:00', '2017-10-02 17:20:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '14020148', 'โรงเรียนวัดโพธิ์ (แจ่มวิทยาคาร)', 'เปรม', 'Very low', '0.00', '0.00', '0.00', '0.43', '1.13', '0.59', '2.55', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'พระนครศรีอยุธยา', '2017-10-02 17:58:22', '2017-10-03 10:04:08', '3.53', '19.59'),
-('NT-Fiber-2017-10-0024', '2017-10-02 14:07:40', 'โรงเรียนวัดบ้านพลัง นครสวรรค์ //อินเตอร์เน็ตใช้งานไม่ได้', 'รบกวนตรวจสอบ เคเบิล โรงเรียนหนองกรดพิทยาคม (SW) - โรงเรียนวัดบ้านพลัง', '2017-10-02 14:07:00', '2017-10-03 08:30:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '60020041', 'โรงเรียนวัดบ้านพลัง', 'รัตนะ', 'Very low', '0.00', '0.00', '0.00', '1.46', '0.00', '2.55', '4.41', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'นครสวรรค์', '2017-10-03 09:48:49', '2017-10-03 10:00:30', '19.41', '19.52'),
+('NT-Fiber-2017-10-0024', '2017-10-02 14:07:40', 'โรงเรียนวัดบ้านพลัง นครสวรรค์ //อินเตอร์เน็ตใช้งานไม่ได้', 'รบกวนตรวจสอบ เคเบิล โรงเรียนหนองกรดพิทยาคม (SW) - โรงเรียนวัดบ้านพลัง', '2017-10-02 14:07:00', '2017-10-03 08:30:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '60020041', 'โรงเรียนวัดบ้านพลัง', 'รัตนะ', 'Very low', '0.00', '0.00', '0.00', '1.46', '0.00', '2.55', '4.41', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'นครสวรรค์', '2017-10-03 09:48:49', '2017-10-03 10:00:30', '19.41', '19.52');
+INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
 ('NT-Fiber-2017-10-0026', '2017-10-02 14:10:15', 'โรงเรียนชุมชนนาเรียงวิทยาคม//อินเตอร์เน็ตใช้งานไม่ได้', 'รบกวนตรวจสอบเคเบิล เส้นทาง โรงเรียนพิพัฒน์ราษฎร์บำรุง (SW)(Rx -11.5 dBm) - โรงเรียนชุมชนนาเรียงวิทยาคม(RT)', '2017-10-02 14:10:00', '2017-10-03 10:09:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '46010112', 'โรงเรียนชุมชนนาเรียงวิทยาคม', 'ธนาดล', 'Very low', '0.00', '0.00', '0.00', '0.33', '2.12', '2.10', '4.55', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'กาฬสินธุ์', '2017-10-03 10:08:27', '2017-10-03 10:19:49', '19.58', '20.09'),
 ('NT-Fiber-2017-10-0027', '2017-10-02 14:11:39', 'FB//สพป.พิจิตรเขต 2 Internetใช้งานไม่ได้', 'รบกวนตรวจสอบเคเบิล เส้นทาง วิทยาลัยชุมชนพิจิตรโพทะเล - สำนักงานเขตพื้นที่การศึกษา พิจิตร เขต 2', '2017-10-02 14:11:00', '2017-10-02 19:06:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายแกนหลัก', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Backbone', '6602', 'สำนักงานเขตพื้นที่การศึกษาประถมศึกษาพิจิตร เขต 2', 'ทิพย์วัลย์', 'Very low', '0.00', '0.00', '0.00', '1.43', '0.00', '3.12', '4.55', '00:00', '00:00', '06:00', '00:00', '0:00:00', 'True', 'พิจิตร', '2017-10-02 19:07:38', '2017-10-03 09:38:46', '4.55', '19.27'),
 ('NT-Fiber-2017-10-0028', '2017-10-02 15:56:28', 'โรงเรียนวัดโพธิ์', 'แจ้งตรวจสอบสายเคเบิล เส้นทางระหว่าง โรงเรียนบ้านบางเลน SW - โรงเรียนวัดโพธิ์ + โรงเรียนวัดบางหลวง + โรงเรียนบางหลวงวิทยา', '2017-10-02 15:56:00', '2017-10-03 11:15:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '73020041', 'โรงเรียนวัดโพธิ์', 'วรวิทย์ ตั้นเหลียง', 'Very low', '0.00', '0.00', '0.00', '3.30', '0.00', '0.56', '4.26', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'นครปฐม', '2017-10-03 11:22:49', '2017-10-03 12:10:06', '19.26', '20.13'),
@@ -4351,8 +4379,7 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NT-Fiber-2017-10-0037', '2017-10-03 10:41:25', 'ชัยนาท//โรงเรียนวัดบ้านหนอง//Internetใช้งานไม่ได้', 'แจ้งตรวจสอบ cable พบ Link Down เส้นทาง โรงเรียนศรีวินิตวิทยาคม(ลามูลนิธิ) (ต่อ สิงห์บุรี ) - โรงเรียนวัดบ้านหนอง', '2017-10-03 10:41:00', '2017-10-04 11:50:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '18010082', 'โรงเรียนวัดบ้านหนอง', 'ราชันย์', 'Very low', '0.00', '0.00', '0.00', '0.24', '3.10', '0.00', '0.00', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'ชัยนาท', '2017-10-04 13:03:33', '2017-10-04 13:30:25', '26.22', '26.49'),
 ('NT-Fiber-2017-10-0038', '2017-10-03 10:42:02', 'สุรินทร์//โรงเรียนบ้านสวาย//อินเตอร์เน็ตใช้งานไม่ได้', 'แจ้งตรวจสอบเส้นทาง มหาวิทยาลัยราชภัฎสุรินทร์ - โรงเรียนนาบัววิทยา (SW)', '2017-10-03 10:42:00', '2017-10-03 13:00:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายกระจาย', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Distribute', '32012014', 'โรงเรียนนาบัววิทยา(สุรินทร์)', 'นันทิตา', 'Very low', '0.00', '0.00', '0.00', '0.11', '0.00', '2.20', '2.31', '00:00', '00:00', '08:00', '00:00', '0:00:00', 'False', 'สุรินทร์', '2017-10-03 13:14:11', '2017-10-04 13:27:11', '2.32', '26.45'),
 ('NT-Fiber-2017-10-0039', '2017-10-03 10:42:49', 'FB กาญจนบุรี // รร.ด่านมะขามเตี้ยวิทยาคม Internetใช้งานไม่ได้', 'แจ้งตรวจสอบสายเคเบิล เส้นทางระหว่าง โรงเรียนวัดยางเกาะ (SW) - โรงเรียนด่านมะขามเตี้ยวิทยาคม + โรงเรียนอนุบาลด่านมะขามเตี้ย', '2017-10-03 10:42:00', '2017-10-04 12:05:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '71012005', 'โรงเรียนด่านมะขามเตี้ยวิทยาคม', 'ครูธงชัย', 'Very low', '0.00', '0.00', '0.01', '8.07', '0.00', '0.56', '9.03', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'กาญจนบุรี', '2017-10-04 12:07:15', '2017-10-04 13:29:17', '25.24', '26.46'),
-('NT-Fiber-2017-10-0040', '2017-10-03 10:48:25', 'เชียงราย // รร.ศรีดอนไชยวิทยา Internetใช้งานไม่ได้', 'แจ้งตรวจสอบ cable พบ link down โรงเรียนปล้องวิทยาคม(SW)-โรงเรียนศรีดอนไชยวิทยา(RT)', '2017-10-03 10:48:00', '2017-10-03 17:30:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '57040078', 'โรงเรียนศรีดอนไชยวิทยา', 'ภัทฐิตา', 'Very low', '0.00', '0.00', '0.00', '0.41', '2.23', '0.20', '3.24', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'เชียงราย', '2017-10-03 17:53:42', '2017-10-04 09:27:45', '7.05', '22.39');
-INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
+('NT-Fiber-2017-10-0040', '2017-10-03 10:48:25', 'เชียงราย // รร.ศรีดอนไชยวิทยา Internetใช้งานไม่ได้', 'แจ้งตรวจสอบ cable พบ link down โรงเรียนปล้องวิทยาคม(SW)-โรงเรียนศรีดอนไชยวิทยา(RT)', '2017-10-03 10:48:00', '2017-10-03 17:30:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '57040078', 'โรงเรียนศรีดอนไชยวิทยา', 'ภัทฐิตา', 'Very low', '0.00', '0.00', '0.00', '0.41', '2.23', '0.20', '3.24', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'เชียงราย', '2017-10-03 17:53:42', '2017-10-04 09:27:45', '7.05', '22.39'),
 ('NT-Fiber-2017-10-0041', '2017-10-03 10:50:18', 'ปทุมธานี//โรงเรียนวัดปัญจทายิกาวาส//อินเตอร์เน็ตใช้งานไม่ได้', 'แจ้งตรวจสอบเคเบิล เส้นทาง สำนักงานเขตพื้นที่การศึกษาปทุมธานี เขต2 (SW) - โรงเรียนวัดปัญจทายิกาวาส(RT)', '2017-10-03 10:50:00', '2017-10-03 11:50:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '13020060', 'โรงเรียนวัดปัญจทายิกาวาส', 'อ.ภัทรพงษ์', 'Very low', '0.00', '0.00', '0.00', '1.00', '0.00', '0.03', '1.03', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'ปทุมธานี', '2017-10-03 11:53:48', '2017-10-03 12:11:14', '1.03', '1.20'),
 ('NT-Fiber-2017-10-0042', '2017-10-03 10:50:22', 'สกลนคร /บ้านกลาง (ผดุงราษฎร์วิทยา) /อินเตอร์เน็ตใช้งานไม่ได้', 'แจ้งตรวจสอบสาย cable เส้นทางระหว่าง โรงเรียนชุมชนบ้านกุดไห-โรงเรียนบ้านกลาง (ผดุงราษฎร์วิทยา)', '2017-10-03 10:52:00', '2017-10-03 16:30:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '47020005', 'โรงเรียนบ้านกลางผดุงราษฎร์วิทยา', 'กิตติสิทธิ์', 'Very low', '0.00', '0.00', '0.00', '0.24', '0.00', '5.21', '5.45', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'สกลนคร', '2017-10-03 16:36:20', '2017-10-04 09:51:24', '5.45', '23.01'),
 ('NT-Fiber-2017-10-0043', '2017-10-03 10:51:25', 'กาญจนบุรี//โรงเรียนเฉลิมพระเกียรติสมเด็จพระศรีนครินทร์กาญจนบุรี//อินเตอร์เน็ตใช้งานไม่ได้', 'แจ้งตรวจสอบสายเคเบิล เส้นทางระหว่าง สำนักงานเขตพื้นที่การศึกษากาญจนบุรี เขต 1 - โรงเรียนเฉลิมพระเกียรติสมเด็จพระศรีนครินทร์กาญจนบุรี', '2017-10-03 10:51:00', '2017-10-04 10:20:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@MA Fiber Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'MA Fiber', 'SVOA MA Fiber', 'ผู้รับจ้าง MA Fiber', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '71012010', 'โรงเรียนเฉลิมพระเกียรติสมเด็จพระศรีนครินทร์กาญจนบุรี', 'อ.เศรษฐ์ฐวัฒน์', 'Very low', '0.00', '0.00', '0.01', '8.01', '0.00', '0.30', '8.31', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'กาญจนบุรี', '2017-10-04 10:23:59', '2017-10-04 10:28:45', '23.32', '23.37'),
@@ -4392,8 +4419,7 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NT-Fiber-2017-10-0078', '2017-10-04 15:20:19', 'FB สุพรรณบุรี// รร.วัดดอนโพธิ์ทอง Internetใช้งานไม่ได้', 'แจ้งตรวจสอบสายเคเบิล เส้นทางระหว่าง วิทยาลัยเทคนิคสุพรรณบุรี - โรงเรียนวัดดอนโพธิ์ทอง', '2017-10-04 15:20:00', '2017-10-05 10:30:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '72010009', 'โรงเรียนวัดดอนโพธิ์ทอง', 'ครูนุ๊ก', 'Very low', '0.00', '0.00', '0.00', '0.07', '0.04', '4.01', '4.12', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'สุพรรณบุรี', '2017-10-05 10:33:16', '2017-10-05 11:41:35', '19.12', '20.21'),
 ('NT-Fiber-2017-10-0079', '2017-10-04 15:42:16', 'FB กาญจนบุรี// รร.บ้านห้วยกบ Internetใช้งานไม่ได้', 'รบกวนตรวจสอบสัญญาณอินเตอร์เน็ตโรงเรียนบ้านห้วยกบ อำเภอสังขละบุรี จังหวัดกาญจนบุรี ขอบคุณคะ จากรูปไฟติด 4 ดวง', '2017-10-04 15:42:00', '2017-10-05 16:00:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '71030104', 'โรงเรียนบ้านห้วยกบ', 'สุกัญญา', 'Very low', '0.00', '0.00', '0.01', '8.26', '0.00', '0.05', '8.31', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'กาญจนบุรี', '2017-10-05 16:03:20', '2017-10-05 17:01:52', '24.21', '25.19'),
 ('NT-Fiber-2017-10-0080', '2017-10-05 07:51:33', 'ไฟเบอร์ขาดเส้นทางมหาวิทยาลัยเชียงใหม่ - โรงเรียนปายวิทยา', 'ตรวจสอบ NMS DWDM พบไฟเบอร์ขาดเส้นทางมหาวิทยาลัยเชียงใหม่ - โรงเรียนปายวิทยา', '2017-10-05 07:51:00', '2017-10-05 18:45:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายแกนหลัก', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Backbone', '1450100400', 'มหาวิทยาลัยเชียงใหม่', 'โอภาส', 'Critical', '0.00', '0.00', '0.01', '1.06', '0.06', '4.51', '6.03', '00:00', '00:00', '06:00', '00:00', '0:03:00', 'True', 'เชียงใหม่', '2017-10-05 18:49:27', '2017-10-06 07:20:02', '10.57', '23.28'),
-('NT-Fiber-2017-10-0081', '2017-10-05 07:55:29', 'ไฟเบอร์ขาดเส้นทางวิทยาลัยชุมชนพิจิตรโพทะเล - มหาวิทยาลัยราชภัฏนครสวรรค์', 'ตรวจสอบ NMS DWDM พบไฟเบอร์ขาดเส้นทางวิทยาลัยชุมชนพิจิตรโพทะเล - มหาวิทยาลัยราชภัฏนครสวรรค์', '2017-10-05 07:55:00', '2017-10-05 12:11:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายแกนหลัก', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Backbone', '1460117200', 'มหาวิทยาลัยราชภัฏนครสวรรค์', '', 'Critical', '0.00', '0.00', '0.00', '3.39', '0.00', '0.37', '4.16', '00:00', '00:00', '06:00', '00:00', '0:00:00', 'True', 'นครสวรรค์', '2017-10-05 12:11:52', '2017-10-06 07:21:51', '4.16', '23.26');
-INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
+('NT-Fiber-2017-10-0081', '2017-10-05 07:55:29', 'ไฟเบอร์ขาดเส้นทางวิทยาลัยชุมชนพิจิตรโพทะเล - มหาวิทยาลัยราชภัฏนครสวรรค์', 'ตรวจสอบ NMS DWDM พบไฟเบอร์ขาดเส้นทางวิทยาลัยชุมชนพิจิตรโพทะเล - มหาวิทยาลัยราชภัฏนครสวรรค์', '2017-10-05 07:55:00', '2017-10-05 12:11:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายแกนหลัก', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Backbone', '1460117200', 'มหาวิทยาลัยราชภัฏนครสวรรค์', '', 'Critical', '0.00', '0.00', '0.00', '3.39', '0.00', '0.37', '4.16', '00:00', '00:00', '06:00', '00:00', '0:00:00', 'True', 'นครสวรรค์', '2017-10-05 12:11:52', '2017-10-06 07:21:51', '4.16', '23.26'),
 ('NT-Fiber-2017-10-0082', '2017-10-05 07:59:29', 'ฟเบอร์ขาดเส้นทางมหาวิทยาลัยเกษตรศาสตร์วิทยาเขตสกลนคร - มหาวิทยาลัยนครพนม', 'ตรวจสอบ NMS DWDM พบไฟเบอร์ขาดเส้นทางมหาวิทยาลัยเกษตรศาสตร์วิทยาเขตสกลนคร - มหาวิทยาลัยนครพนม', '2017-10-05 07:59:00', '2017-10-05 13:50:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายแกนหลัก', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Backbone', '1447100203', 'มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตเฉลิมพระเกียรติสกลนคร', 'สุธนวัฒน์', 'Critical', '0.00', '0.00', '0.00', '0.11', '0.02', '5.45', '5.58', '00:00', '00:00', '06:00', '00:00', '0:00:00', 'True', 'สกลนคร', '2017-10-05 13:58:23', '2017-10-06 07:23:20', '5.58', '23.23'),
 ('NT-Fiber-2017-10-0083', '2017-10-05 08:02:39', 'ฟเบอร์ขาดเส้นทางวิทยาลัยเทคนิคอำนาจเจริญ - วิทยาลัยชุมชนยโสธร', 'ตรวจสอบ NMS DWDM พบไฟเบอร์ขาดเส้นทางวิทยาลัยเทคนิคอำนาจเจริญ - วิทยาลัยชุมชนยโสธร', '2017-10-05 08:02:00', '2017-10-05 12:12:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายแกนหลัก', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Backbone', '1435120315', 'วิทยาลัยชุมชนยโสธร', 'วสันต์', 'Critical', '0.00', '0.00', '0.00', '1.07', '0.00', '3.03', '4.10', '00:00', '00:00', '06:00', '00:00', '0:00:00', 'True', 'ยโสธร', '2017-10-05 12:13:01', '2017-10-06 07:17:58', '4.10', '23.15'),
 ('NT-Fiber-2017-10-0084', '2017-10-05 09:44:27', 'นครสวรรค์//โรงเรียนวัดบ้านพลัง//Internetใช้งานไม่ได้', 'แจ้งตรวจสอบเคเบิล เส้นทาง มหาวิทยาลัยราชภัฎนครสวรรค์(BB) - โรงเรียนหนองกรดพิทยาคม (SW)', '2017-10-05 09:44:00', '2017-10-05 12:15:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายกระจาย', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Distribute', '60022002', 'โรงเรียนหนองกรดพิทยาคม', 'คุณธีรพันธ์', 'Very low', '0.00', '0.00', '0.00', '2.10', '0.00', '0.21', '2.31', '00:00', '00:00', '08:00', '00:00', '0:00:00', 'False', 'นครสวรรค์', '2017-10-05 12:16:13', '2017-10-05 17:06:20', '2.31', '7.21'),
@@ -4403,10 +4429,11 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NT-Fiber-2017-10-0088', '2017-10-05 10:10:21', 'อุบลราชธานี//โรงเรียนบ้านคำก้อม//อินเตอร์เน็ตใช้งานไม่ได้', 'แจ้งตรวจสอบสายเคเบิล เส้นทาง เส้นทาง สำนักงานเขตพื้นที่การศึกษาอุบลราชธานี เขต 3(SW) - โรงเรียนอ่างศิลา (SW) + โรงเรียนบ้านด่าน (SW) + โรงเรียนบ้านนาเจริญ (SW) + โรงเรียนนาโพธิ์วิทยา(SW)+โรงเรียนบุณฑริก (SW)', '2017-10-05 10:10:00', '2017-10-05 12:40:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายกระจาย', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Distribute', '34032007', 'โรงเรียนอ่างศิลา', 'อ.เสกสรรค์', 'Very low', '0.00', '0.00', '0.00', '1.08', '0.00', '1.46', '2.54', '00:00', '00:00', '08:00', '00:00', '0:00:00', 'False', 'อุบลราชธานี', '2017-10-05 13:05:34', '2017-10-05 17:16:18', '2.55', '7.05'),
 ('NT-Fiber-2017-10-0089', '2017-10-05 10:12:05', 'ยโสธร//โรงเรียนบ้านโพธิ์ไทรโพธิ์ศรี//Internetใช้งานไม่ได้', 'แจ้งตรวจสอบเคเบิล เส้นทาง โรงเรียนชุมชนบ้านหนองคู(SW) - โรงเรียนบ้านโพธิ์ไทรโพธิ์ศรี (RT)', '2017-10-05 10:12:00', '2017-10-05 12:48:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '35020101', 'โรงเรียนบ้านโพธิ์ไทรโพธิ์ศรี', 'อำพร', 'Very low', '0.00', '0.00', '0.00', '0.41', '0.00', '1.54', '2.35', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'ยโสธร', '2017-10-05 12:48:16', '2017-10-05 17:12:50', '2.36', '7.00'),
 ('NT-Fiber-2017-10-0090', '2017-10-05 10:15:29', 'ไฟเบอร์ขาดเส้นทางวิทยาลัยเทคนิคสุพรรณบุรี - มหาวิทยาลัยราชภัฏกาญจนบุรี', 'ตรวจสอบ NMS DWDM พบไฟเบอร์ขาดเส้นทางวิทยาลัยเทคนิคสุพรรณบุรี - มหาวิทยาลัยราชภัฏกาญจนบุรี', '2017-10-05 10:15:00', '2017-10-05 13:25:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายแกนหลัก', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Backbone', '1372016101', 'วิทยาลัยเทคนิคสุพรรณบุรี', 'สุพัชรพงษ์', 'Critical', '0.00', '0.00', '0.00', '1.53', '0.00', '1.17', '3.10', '00:00', '00:00', '06:00', '00:00', '0:00:00', 'True', 'สุพรรณบุรี', '2017-10-05 13:26:14', '2017-10-05 17:11:25', '3.10', '6.55'),
-('NT-Fiber-2017-10-0091', '2017-10-05 10:45:53', 'กาญจนบุรี //โรงเรียนบ้านใหม่พัฒนา//อินเตอร์เน็ตใช้งานไม่ได้', 'แจ้งตรวจสอบสายเคเบิล เส้นทางระหว่าง โรงเรียนสมเด็จพระปิยมหาราชรมณียเขต SW - ห้องสมุดประชาชนเฉลิมราชกุมารี (อำเภอทองผาภูมิ)', '2017-10-05 10:45:00', '2017-10-05 13:45:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายกระจาย', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Distribute', 'LIB0115', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอทองผาภูมิ', 'choocherd', 'Very low', '0.00', '0.00', '0.00', '2.20', '0.00', '0.42', '3.02', '00:00', '00:00', '08:00', '00:00', '0:00:00', 'False', 'กาญจนบุรี', '2017-10-05 13:49:41', '2017-10-05 17:10:36', '3.03', '6.24'),
+('NT-Fiber-2017-10-0091', '2017-10-05 10:45:53', 'กาญจนบุรี //โรงเรียนบ้านใหม่พัฒนา//อินเตอร์เน็ตใช้งานไม่ได้', 'แจ้งตรวจสอบสายเคเบิล เส้นทางระหว่าง โรงเรียนสมเด็จพระปิยมหาราชรมณียเขต SW - ห้องสมุดประชาชนเฉลิมราชกุมารี (อำเภอทองผาภูมิ)', '2017-10-05 10:45:00', '2017-10-05 13:45:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายกระจาย', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Distribute', 'LIB0115', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอทองผาภูมิ', 'choocherd', 'Very low', '0.00', '0.00', '0.00', '2.20', '0.00', '0.42', '3.02', '00:00', '00:00', '08:00', '00:00', '0:00:00', 'False', 'กาญจนบุรี', '2017-10-05 13:49:41', '2017-10-05 17:10:36', '3.03', '6.24'),
 ('NT-Fiber-2017-10-0092', '2017-10-05 10:54:09', 'FB กาญจนบุรี// รร.หนองขาวโกวิทพิทยาคม Internetใช้งานไม่ได้', 'แจ้งตรวจสอบเคเบิล เส้นทาง วิทยาลัยเทคนิคกาญจนบุรี - โรงเรียนหนองขาวโกวิทพิทยาคม', '2017-10-05 10:54:00', '2017-10-05 13:30:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '71012003', 'โรงเรียนหนองขาวโกวิทพิทยาคม', 'สุรชัย', 'Very low', '0.00', '0.00', '0.00', '2.38', '0.00', '0.01', '2.39', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'กาญจนบุรี', '2017-10-05 13:34:08', '2017-10-05 17:09:24', '2.39', '6.15'),
 ('NT-Fiber-2017-10-0093', '2017-10-05 11:12:05', 'สุพรรณบุรี//โรงเรียนตลิ่งชันวิทยา//Internetใช้งานไม่ได้', 'แจ้งตรวจสอบสายเคเบิล เส้นทางระหว่าง วิทยาลัยเทคนิคสุพรรณบุรี - โรงเรียนเมืองสุพรรณบุรี (SW)', '2017-10-05 11:12:00', '2017-10-05 16:55:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายกระจาย', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Distribute', '72010018', 'โรงเรียนเมืองสุพรรณบุรี', 'อ.นันทวรรณ', 'Very low', '0.00', '0.00', '0.00', '4.53', '0.00', '0.55', '5.48', '00:00', '00:00', '08:00', '00:00', '0:00:00', 'False', 'สุพรรณบุรี', '2017-10-05 17:00:51', '2017-10-05 17:08:25', '5.48', '5.56'),
-('NT-Fiber-2017-10-0094', '2017-10-05 11:49:24', 'สุพรรณบุรี//โรงเรียนบ้านทัพหลวง//อินเตอร์เน็ตใช้งานไม่ได้', 'แจ้งตรวจสอบสายเคเบิล เส้นทางระหว่าง วิทยาลัยสารพัดช่างบรรหาร-แจ่มใส - ห้องสมุดประชาชน เฉลิมราชกุมารี (อำเภอดอนเจดีย์) (SW)', '2017-10-05 11:49:00', '2017-10-05 16:55:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายกระจาย', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Distribute', 'LIB0131', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอดอนเจดีย์', 'choocherd', 'Very low', '0.00', '0.00', '0.00', '5.11', '0.00', '0.00', '5.11', '00:00', '00:00', '08:00', '00:00', '0:00:00', 'False', 'สุพรรณบุรี', '2017-10-05 17:05:52', '2017-10-05 17:07:31', '5.16', '5.18'),
+('NT-Fiber-2017-10-0094', '2017-10-05 11:49:24', 'สุพรรณบุรี//โรงเรียนบ้านทัพหลวง//อินเตอร์เน็ตใช้งานไม่ได้', 'แจ้งตรวจสอบสายเคเบิล เส้นทางระหว่าง วิทยาลัยสารพัดช่างบรรหาร-แจ่มใส - ห้องสมุดประชาชน เฉลิมราชกุมารี (อำเภอดอนเจดีย์) (SW)', '2017-10-05 11:49:00', '2017-10-05 16:55:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายกระจาย', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Distribute', 'LIB0131', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอดอนเจดีย์', 'choocherd', 'Very low', '0.00', '0.00', '0.00', '5.11', '0.00', '0.00', '5.11', '00:00', '00:00', '08:00', '00:00', '0:00:00', 'False', 'สุพรรณบุรี', '2017-10-05 17:05:52', '2017-10-05 17:07:31', '5.16', '5.18');
+INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
 ('NT-Fiber-2017-10-0095', '2017-10-05 11:50:32', 'สุพรรณบุรี//โรงเรียนวัดสระพังลาน//อินเตอร์เน็ตใช้งานไม่ได้', 'แจ้งตรวจสอบสายเคเบิล เส้นทางระหว่าง โรงเรียนวัดสระยายโสม (SW) - โรงเรียนวัดสระพังลาน', '2017-10-05 11:50:00', '2017-10-05 17:20:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '72020124', 'โรงเรียนวัดสระพังลาน', 'อ.วีระ', 'Very low', '0.00', '0.00', '0.00', '5.02', '0.00', '0.08', '5.10', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'สุพรรณบุรี', '2017-10-05 17:24:39', '2017-10-06 09:51:03', '5.34', '22.00'),
 ('NT-Fiber-2017-10-0096', '2017-10-05 13:44:56', 'FB สระบุรี// รร.ซับน้อยเหนือวิทยาคม Internetใช้งานไม่ได้', 'แจ้งตรวจสอบเคเบิล เส้นทาง โรงเรียนบ้านซับสนุ่น (SW) - โรงเรียนซับน้อยเหนือวิทยาคม(RT)', '2017-10-05 13:44:00', '2017-10-06 12:00:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '19022009', 'โรงเรียนซับน้อยเหนือวิทยาคม', 'ครูฐิติกร', 'Very low', '0.00', '0.00', '0.01', '0.22', '1.41', '6.12', '8.15', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'สระบุรี', '2017-10-06 13:00:22', '2017-10-09 10:03:35', '23.15', '92.18'),
 ('NT-Fiber-2017-10-0097', '2017-10-05 13:48:24', 'ร้อยเอ็ด//โรงเรียนบ้านโคกกกม่วง//อินเตอร์เน็ตใช้งานไม่ได้', 'แจ้งตรวจสอบเคเบิล เส้นทาง โรงเรียนชุมชนบ้านสว่าง (SW) - โรงเรียนบ้านโคกกกม่วง(RT)', '2017-10-05 13:48:00', '2017-10-06 10:06:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '45030009', 'โรงเรียนบ้านโคกกกม่วง', 'อาจารย์วราภรณ์', 'Very low', '0.00', '0.00', '0.00', '0.30', '0.00', '4.47', '5.17', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'ร้อยเอ็ด', '2017-10-06 10:06:14', '2017-10-10 09:36:31', '20.17', '115.48'),
@@ -4432,8 +4459,7 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NT-Fiber-2017-10-0117', '2017-10-07 12:08:24', 'สุพรรณบุรี//วิทยาลัยเทคนิคสุพรรณบุรี// Fiber ขาด', 'แจ้งซ่อม BB เส้นทาง เทคนิคสุพรรณบุรี - ราชมงคลสุพรรณบุรี', '2017-10-07 12:08:00', '2017-10-07 17:00:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายแกนหลัก', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Backbone', '1372016101', 'วิทยาลัยเทคนิคสุพรรณบุรี', 'พัชรพงษ์', 'Very low', '0.00', '0.00', '0.00', '3.01', '0.02', '0.48', '3.51', '00:00', '00:00', '06:00', '00:00', '0:00:00', 'True', 'สุพรรณบุรี', '2017-10-07 17:09:00', '2017-10-09 09:55:47', '5.00', '45.47'),
 ('NT-Fiber-2017-10-0118', '2017-10-07 12:21:08', 'กาญจนบุรี//มหาวิทยาลัยราชภัฏกาญจนบุรี//fiber ขาด', 'แจ้งซ่อมไฟเบอร์ BB เส้นทาง มหาวิทยาลัยราชภัฏกาญจนบุรี - วิทยาลัยเทคนิคสุพรรณบุรี', '2017-10-07 12:34:00', '2017-10-07 16:30:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายแกนหลัก', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Backbone', '1471213900', 'มหาวิทยาลัยราชภัฏกาญจนบุรี', 'พัชรพงษ์', 'Very low', '0.00', '0.00', '0.00', '2.45', '0.01', '1.23', '4.09', '00:00', '00:00', '06:00', '00:00', '0:00:00', 'True', 'กาญจนบุรี', '2017-10-07 16:31:39', '2017-10-09 09:55:19', '4.10', '45.34'),
 ('NT-Fiber-2017-10-0119', '2017-10-07 12:34:21', 'หนองบัวลำภู//วิทยาลัยชุมชนหนองบัวลำภู//ไฟเบอร์ขาด', 'ไฟเบอร์ BB เส้นทาง หนองบัวลำภู - ราชภัฏเลย ขาด', '2017-10-07 12:34:00', '2017-10-07 16:20:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายแกนหลัก', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Backbone', '1439820306', 'วิทยาลัยชุมชนหนองบัวลำภู', 'พัชรพงษ์', 'Very low', '0.00', '0.00', '0.00', '0.50', '0.01', '2.58', '3.49', '00:00', '00:00', '06:00', '00:00', '0:00:00', 'True', 'หนองบัวลำภู', '2017-10-07 16:24:21', '2017-10-09 09:54:44', '3.50', '45.20'),
-('NT-Fiber-2017-10-0120', '2017-10-08 09:10:35', 'ชลบุรี//มหาวิทยาลัยบูรพา//แก้ปัญหา Hi-loss', 'เส้นทาง : มหาวิทยาลัยบูรพา - วิทยาลัยเทคนิคระยอง แก้ปัญหา Hi-loss', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายแกนหลัก', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Preventive Fiber', '1420101900', 'มหาวิทยาลัยบูรพา', 'เจตนันท์', 'Very low', '0.00', '0.00', '0.00', '9.45', '0.00', '0.47', '10.32', '00:00', '00:00', '168:00', '00:00', '0:00:00', 'True', 'ชลบุรี', '2017-10-08 19:43:18', '2017-10-09 09:53:51', '10.32', '24.43');
-INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
+('NT-Fiber-2017-10-0120', '2017-10-08 09:10:35', 'ชลบุรี//มหาวิทยาลัยบูรพา//แก้ปัญหา Hi-loss', 'เส้นทาง : มหาวิทยาลัยบูรพา - วิทยาลัยเทคนิคระยอง แก้ปัญหา Hi-loss', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายแกนหลัก', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Preventive Fiber', '1420101900', 'มหาวิทยาลัยบูรพา', 'เจตนันท์', 'Very low', '0.00', '0.00', '0.00', '9.45', '0.00', '0.47', '10.32', '00:00', '00:00', '168:00', '00:00', '0:00:00', 'True', 'ชลบุรี', '2017-10-08 19:43:18', '2017-10-09 09:53:51', '10.32', '24.43'),
 ('NT-Fiber-2017-10-0121', '2017-10-08 10:20:17', 'ชัยนาท//มหาวิทยาลัยเทคโนโลยีราชมงคลสุวรรณภูมิ สุพรรณบุรี -วิทยาลันเทคนิคชัยนาท', 'ชัยนาท//มหาวิทยาลัยเทคโนโลยีราชมงคลสุวรรณภูมิ สุพรรณบุรี -วิทยาลันเทคนิคชัยนาท แก้ปัญหา Hi-loss', '2017-10-08 10:20:00', '2017-10-08 16:00:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายแกนหลัก', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Preventive Fiber', 'วิทยาลัยเทคนิคชัยนาท', 'วิทยาลัยเทคนิคชัยนาท', 'withit', 'Very low', '0.00', '0.00', '0.00', '6.38', '0.00', '0.03', '6.41', '00:00', '00:00', '168:00', '00:00', '0:00:00', 'True', 'ชัยนาท', '2017-10-08 17:02:50', '2017-10-09 09:52:58', '6.42', '23.32'),
 ('NT-Fiber-2017-10-0122', '2017-10-08 13:07:19', 'สมุทรสงคราม//เส้นทาง สมุทรสงคราม (วิทยาลัยเทคนิคสมุทรสงคราม) - เพชรบุรี 1 (มหาวิทยาลัยราชภัฎเพชรบุรี) ขาด', 'สมุทรสงคราม//เส้นทาง สมุทรสงคราม (วิทยาลัยเทคนิคสมุทรสงคราม) - เพชรบุรี 1 (มหาวิทยาลัยราชภัฎเพชรบุรี) ขาด', '2017-10-08 13:07:00', '2017-10-08 14:20:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายแกนหลัก', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Backbone', '1375016101', 'วิทยาลัยเทคนิคสมุทรสงคราม', '', 'Very low', '0.00', '0.00', '0.00', '1.12', '0.00', '0.03', '1.15', '00:00', '00:00', '06:00', '00:00', '0:00:00', 'True', 'สมุทรสงคราม', '2017-10-08 14:23:34', '2017-10-09 09:52:32', '1.16', '20.45'),
 ('NT-Fiber-2017-10-0123', '2017-10-08 13:14:25', 'ยะลา//เส้นทาง นราธิวาส (มหาวิทยาลัยนราธิวาสราชนครินทร์) - ยะลา (มหาวิทยาลัยราชภัฎยะลา) ขาด', 'ยะลา//เส้นทาง นราธิวาส (มหาวิทยาลัยนราธิวาสราชนครินทร์) - ยะลา (มหาวิทยาลัยราชภัฎยะลา) ขาด', '2017-10-08 13:14:00', '2017-10-08 16:00:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายแกนหลัก', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Backbone', '1495115700', 'มหาวิทยาลัยราชภัฏยะลา', '', 'Very low', '0.00', '0.00', '0.00', '2.27', '0.00', '0.58', '3.25', '00:00', '00:00', '06:00', '00:00', '0:00:00', 'True', 'ยะลา', '2017-10-08 16:40:30', '2017-10-09 09:52:04', '3.26', '20.37'),
@@ -4471,12 +4497,12 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NT-Fiber-2017-10-0155', '2017-10-10 09:44:10', 'กาญจนบุรี//โรงเรียนวัดจรเข้เผือก//อินเตอร์เน็ตใช้งานไม่ได้', 'แจ้งตรวจสอบสายเคเบิล เส้นทางระหว่าง โรงเรียนวัดยางเกาะ (SW) - โรงเรียนวัดจรเข้เผือก', '2017-10-10 09:44:00', '2017-10-10 13:35:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '71010113', 'โรงเรียนวัดจรเข้เผือก', 'เกษสุดา', 'Very low', '0.00', '0.00', '0.00', '3.30', '0.00', '0.25', '3.55', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'กาญจนบุรี', '2017-10-10 13:40:22', '2017-10-10 13:58:04', '3.56', '4.13'),
 ('NT-Fiber-2017-10-0156', '2017-10-10 09:45:13', 'สมุทรปราการ// รร.วัดบางบ่อ Internetใช้งานไม่ได้', 'แจ้งตรวจสอบเคเบิล เส้นทาง โรงเรียนบางบ่อวิทยาคม(SW) - โรงเรียนวัดบางบ่อ(RT)', '2017-10-10 09:45:00', '2017-10-10 14:58:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '11020019', 'โรงเรียนวัดบางบ่อ', 'อ.เบญจวรรณ', 'Very low', '0.00', '0.00', '0.00', '0.40', '4.30', '0.03', '5.13', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'สมุทรปราการ', '2017-10-10 14:59:36', '2017-10-10 16:00:44', '5.14', '6.15'),
 ('NT-Fiber-2017-10-0157', '2017-10-10 09:45:44', 'ชัยภูมิ//โรงเรียนบ้านเมืองกลางวิทยา//Internetใช้งานไม่ได้', 'แจ้งตรวจสอบเคเบิล เส้นทาง มหาวิทยาลัยราชภัฎชัยภูมิ - โรงเรียนบ้านเมืองกลางวิทยา (SW)', '2017-10-10 09:45:00', '2017-10-10 16:58:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายกระจาย', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Distribute', '36020012', 'โรงเรียนบ้านเมืองกลางวิทยา', 'อ.ทวี', 'Very low', '0.00', '0.00', '0.00', '0.29', '0.00', '6.42', '7.11', '00:00', '00:00', '08:00', '00:00', '0:00:00', 'False', 'ชัยภูมิ', '2017-10-10 17:00:30', '2017-10-11 09:42:24', '7.14', '23.56'),
-('NT-Fiber-2017-10-0158', '2017-10-10 09:46:21', 'หนองบัวลำภู// รร.ชุมชนบ้านกุดดู่ Internetใช้งานไม่ได้', 'แจ้งตรวจสอบเคเบิล เส้นทาง โรงเรียนบ้านขามพิทยาคม (SW) - โรงเรียนชุมชนบ้านกุดดู่ (RT)', '2017-10-10 09:46:00', '2017-10-10 13:50:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '39010079', 'โรงเรียนชุมชนบ้านกุดดู่', 'นันทพร', 'Very low', '0.00', '0.00', '0.00', '0.17', '0.00', '3.47', '4.04', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'หนองบัวลำภู', '2017-10-10 14:43:14', '2017-10-10 14:48:03', '4.56', '5.01');
-INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
+('NT-Fiber-2017-10-0158', '2017-10-10 09:46:21', 'หนองบัวลำภู// รร.ชุมชนบ้านกุดดู่ Internetใช้งานไม่ได้', 'แจ้งตรวจสอบเคเบิล เส้นทาง โรงเรียนบ้านขามพิทยาคม (SW) - โรงเรียนชุมชนบ้านกุดดู่ (RT)', '2017-10-10 09:46:00', '2017-10-10 13:50:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '39010079', 'โรงเรียนชุมชนบ้านกุดดู่', 'นันทพร', 'Very low', '0.00', '0.00', '0.00', '0.17', '0.00', '3.47', '4.04', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'หนองบัวลำภู', '2017-10-10 14:43:14', '2017-10-10 14:48:03', '4.56', '5.01'),
 ('NT-Fiber-2017-10-0159', '2017-10-10 09:47:06', 'FB นครศรีธรรมราช// รร.ทุ่งสง Internetใช้งานไม่ได้', 'แจ้งตรวจสอบสายเคเบิล เส้นทาง สำนักงานเขตพื้นที่การศึกษา นครศรีธรรมราช เขต 2 - โรงเรียนทุ่งสง (RT)', '2017-10-10 09:47:00', '2017-10-10 12:50:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '80022006', 'โรงเรียนทุ่งสง', 'จรรยา', 'Very low', '0.00', '0.00', '0.00', '3.49', '0.00', '0.02', '3.51', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'นครศรีธรรมราช', '2017-10-10 13:39:12', '2017-10-10 13:56:57', '3.52', '4.09'),
 ('NT-Fiber-2017-10-0164', '2017-10-10 10:01:20', 'ชัยภูมิ//โรงเรียนหนองหอยปังบำเหน็จวิทยา//Internetใช้งานไม่ได้', 'แจ้งตรวจสอบเคเบิล เส้นทาง มหาวิทยาลัยราชภัฎชัยภูมิ - โรงเรียนบ้านโนนสะอาด (SW)', '2017-10-10 10:01:00', '2017-10-10 16:50:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายกระจาย', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Distribute', '36010206', 'โรงเรียนบ้านโนนสะอาด(ชัยภูมิ)', 'ธีรพัฒน์', 'Very low', '0.00', '0.00', '0.00', '0.12', '0.00', '6.35', '6.47', '00:00', '00:00', '08:00', '00:00', '0:00:00', 'False', 'ชัยภูมิ', '2017-10-10 16:49:58', '2017-10-10 16:57:23', '6.48', '6.56'),
 ('NT-Fiber-2017-10-0165', '2017-10-10 10:06:58', 'พะเยา//โรงเรียนบ้านผาตั้ง//อินเตอร์เน็ตใช้งานไม่ได้', 'แจ้งตรวจสอบเคเบิล เส้นทาง สำนักงานเขตพื้นที่การศึกษาพะเยา เขต 2 - วิทยาลัยเทคโนโลยีและการจัดการปง(Sw)', '2017-10-10 10:06:00', '2017-10-10 17:34:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายกระจาย', '@MA Fiber Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'MA Fiber', 'SVOA MA Fiber', 'ผู้รับจ้าง MA Fiber', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Distribute', '56020133', 'โรงเรียนบ้านผาตั้ง', 'ประดิษฐ์', 'Very low', '0.00', '0.00', '0.00', '0.09', '4.46', '1.58', '6.53', '00:00', '00:00', '08:00', '00:00', '0:00:00', 'False', 'พะเยา', '2017-10-10 17:34:30', '2017-10-11 09:36:47', '7.27', '23.29'),
-('NT-Fiber-2017-10-0166', '2017-10-10 10:25:21', 'พระนครศรีอยุธยา /สาคลีวิทยา /อินเตอร์เน็ตใช้งานไม่ได้', 'แจ้งตรวจสอบเคเบิล เส้นทาง สำนักงานเขตพื้นที่การศึกษา พระนครศรีอยุธยา เขต 2 (SW) - โรงเรียนสาคลีวิทยา(RT)', '2017-10-10 10:25:00', '2017-10-10 15:40:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '14022011', 'โรงเรียนสาคลีวิทยา', 'ชานินทร์', 'Very low', '0.00', '0.00', '0.00', '5.06', '0.04', '0.04', '5.14', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'พระนครศรีอยุธยา', '2017-10-10 15:40:51', '2017-10-10 15:57:41', '5.15', '5.32'),
+('NT-Fiber-2017-10-0166', '2017-10-10 10:25:21', 'พระนครศรีอยุธยา /สาคลีวิทยา /อินเตอร์เน็ตใช้งานไม่ได้', 'แจ้งตรวจสอบเคเบิล เส้นทาง สำนักงานเขตพื้นที่การศึกษา พระนครศรีอยุธยา เขต 2 (SW) - โรงเรียนสาคลีวิทยา(RT)', '2017-10-10 10:25:00', '2017-10-10 15:40:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '14022011', 'โรงเรียนสาคลีวิทยา', 'ชานินทร์', 'Very low', '0.00', '0.00', '0.00', '5.06', '0.04', '0.04', '5.14', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'พระนครศรีอยุธยา', '2017-10-10 15:40:51', '2017-10-10 15:57:41', '5.15', '5.32');
+INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
 ('NT-Fiber-2017-10-0167', '2017-10-10 11:07:53', 'ยโสธร /ชุมชนบ้านโนนเปือย(มหาพิมพ์สงเคราะห์) /อินเตอร์เน็ตใช้งานไม่ได้', 'แจ้งตรวจสอบเคเบิล เส้นทาง วิทยาลัยเทคนิคอำนาจเจริญ - สำนักงานเขตพื้นที่การศึกษา ยโสธร เขต 2(SW)', '2017-10-10 11:07:00', '2017-10-10 12:56:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายกระจาย', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Distribute', '3502', 'สำนักงานเขตพื้นที่การศึกษาประถมศึกษายโสธร เขต 2', 'choocherd', 'Very low', '0.00', '0.00', '0.00', '1.24', '0.00', '0.23', '1.47', '00:00', '00:00', '08:00', '00:00', '0:00:00', 'False', 'ยโสธร', '2017-10-10 12:55:53', '2017-10-10 13:55:40', '1.48', '2.47'),
 ('NT-Fiber-2017-10-0168', '2017-10-10 11:10:41', 'นครสวรรค์//โรงเรียนอนุบาลชุมแสง (วัดทับกฤชกลาง)//Internetใช้งานไม่ได้', 'แจ้งตรวจสอบเคเบิล เส้นทาง มหาวิทยาลัยราชภัฎนครสวรรค์ - โรงเรียนทับกฤชพัฒนา(SW)', '2017-10-10 11:10:00', '2017-10-10 12:11:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายกระจาย', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber Distribute', '60012011', 'โรงเรียนทับกฤชพัฒนา', 'choocherd', 'Very low', '0.00', '0.00', '0.00', '0.11', '0.26', '0.55', '1.32', '00:00', '00:00', '08:00', '00:00', '0:00:00', 'False', 'นครสวรรค์', '2017-10-10 12:43:35', '2017-10-10 13:51:43', '1.32', '2.41'),
 ('NT-Fiber-2017-10-0169', '2017-10-10 11:11:50', 'แ /แปลงยาวพิทยาคม /อินเตอร์เน็ตใช้งานไม่ได้', 'แจ้งตรวจสอบสายเคเบิล เส้นทางระหว่าง โรงเรียนวัดวังเย็น (SW) - โรงเรียนแปลงยาวพิทยาคม + โรงเรียนไทรทองอุปถัมภ์ + โรงเรียนวัดโกรกแก้ววงพระจันทร์', '0000-00-00 00:00:00', '2017-10-10 14:50:00', 'Closed', 'TICKET FIBER', 'Fiber System', 'สื่อสัญญาณเครือข่ายปลายทาง', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'สอ.1/2561 - Fiber LastMile', '24022011', 'โรงเรียนแปลงยาวพิทยาคม', 'สมุทร', 'Very low', '0.00', '0.00', '0.00', '5.48', '0.00', '0.00', '5.48', '00:00', '00:00', '10:00', '00:00', '0:00:00', 'False', 'ฉะเชิงเทรา', '2017-10-10 19:14:43', '2017-10-11 09:38:48', '8.02', '22.26'),
@@ -4500,7 +4526,7 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NC-2017-10-0009', '2017-10-02 08:46:50', 'โรงเรียนวัดท่าบัวทอง//อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 4 ดวง, Cisco 800 ไฟติดปกติ สถานะมอนิเตอร์ : Down', '2017-10-01 15:50:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '66010109', 'โรงเรียนวัดท่าบัวทอง', 'มลคล', 'Very low', '0.00', '0.00', '0.00', '4.01', '0.00', '15.12', '19.13', '00:00', '00:00', '00:00', '00:00', '19:13:00', 'False', 'พิจิตร', '0000-00-00 00:00:00', '2017-10-04 10:01:04', '', '49.14'),
 ('NC-2017-10-0010', '2017-10-02 08:47:03', 'โรงเรียนศรีธวัชวิทยาลัย//Internetใช้งานไม่ได้', 'Internetใช้งานไม่ได้ restart m/c ไฟติด 4 ดวง สถานะ Link Down รบกวนตรวจสอบด้วยค่ะ // ปรียา (Call Center) *** อาจารย์แจ้งว่าต้องการใช้งานด่วนค่ะ', '2017-09-30 14:31:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '45012008', 'โรงเรียนศรีธวัชวิทยาลัย', 'อ.ทรงศักดิ์', 'Very low', '0.00', '0.00', '0.00', '0.37', '0.00', '0.00', '0.37', '00:00', '00:00', '00:00', '00:00', '0:37:00', 'False', 'ร้อยเอ็ด', '0000-00-00 00:00:00', '2017-10-02 09:25:10', '', '0.38'),
 ('NC-2017-10-0011', '2017-10-02 08:47:42', 'รร.ห้วยทรายประชาสรรค์ /อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 4 ดวง, Cisco 800 ไฟติดปกติ สถานะมอนิเตอร์ : Down', '2017-09-29 06:50:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '76022002', 'โรงเรียนห้วยทรายประชาสรรค์', 'พิริยะ', 'Very low', '0.00', '0.00', '0.00', '4.09', '0.00', '10.44', '14.53', '00:00', '00:00', '00:00', '00:00', '14:53:00', 'False', 'เพชรบุรี', '0000-00-00 00:00:00', '2017-10-03 14:41:00', '', '29.53'),
-('NC-2017-10-0012', '2017-10-02 08:48:18', 'ห้องสมุดประชาชนเฉลิมราชกุมารี อำเภอแสวงหา //อินเตอร์เน็ตใช้งานไม่ได้', '40 ห้องสมุดประชาชนเฉลิมราชกุมารี อำเภอแสวงหา Internetใช้งานไม่ได้ restart m/c ไฟติด 4 ดวง สถานะ link down รบกวนตรวจสอบด้วยครับ /กิติพัฒน์ Callcenter ระยะเวลาที่ Down(ชั่วโมง:นาที:วินาที) = 112:20:02 || Up ครั้งสุดท้ายเมื่อ = 2017-09-27 16:20:02', '2017-10-27 16:20:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', 'LIB0096', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอแสวงหา', 'บุญสม', 'Very low', '0.00', '0.00', '0.00', '2.05', '0.00', '0.00', '2.05', '00:00', '00:00', '00:00', '00:00', '2:05:00', 'False', 'อ่างทอง', '0000-00-00 00:00:00', '2017-10-02 10:54:51', '', '2.06'),
+('NC-2017-10-0012', '2017-10-02 08:48:18', 'ห้องสมุดประชาชนเฉลิมราชกุมารี อำเภอแสวงหา //อินเตอร์เน็ตใช้งานไม่ได้', '40 ห้องสมุดประชาชนเฉลิมราชกุมารี อำเภอแสวงหา Internetใช้งานไม่ได้ restart m/c ไฟติด 4 ดวง สถานะ link down รบกวนตรวจสอบด้วยครับ /กิติพัฒน์ Callcenter ระยะเวลาที่ Down(ชั่วโมง:นาที:วินาที) = 112:20:02 || Up ครั้งสุดท้ายเมื่อ = 2017-09-27 16:20:02', '2017-10-27 16:20:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', 'LIB0096', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอแสวงหา', 'บุญสม', 'Very low', '0.00', '0.00', '0.00', '2.05', '0.00', '0.00', '2.05', '00:00', '00:00', '00:00', '00:00', '2:05:00', 'False', 'อ่างทอง', '0000-00-00 00:00:00', '2017-10-02 10:54:51', '', '2.06'),
 ('NC-2017-10-0013', '2017-10-02 08:49:38', 'รร.เบญจมาศกุญชร /อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 5 ดวง, Cisco 800 ไฟติดปกติ สถานะมอนิเตอร์ : Down', '2017-09-29 13:51:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '31030157', 'โรงเรียนเบญจมาศกุญชร', 'กิตติภูมิ', 'Very low', '0.00', '0.00', '0.00', '1.44', '0.00', '0.00', '1.44', '00:00', '00:00', '00:00', '00:00', '1:44:00', 'False', 'บุรีรัมย์', '0000-00-00 00:00:00', '2017-10-02 10:34:43', '', '1.45'),
 ('NC-2017-10-0014', '2017-10-02 08:49:55', 'FB// รร.บ้านท่าโป่ง Internetใช้งานไม่ได้', 'อินเทอร์เน็ตใช้งานไม่ได้ครับ 36030103 โรงเรียนบ้านท่าโป่ง', '2017-10-29 16:50:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '36030103', 'โรงเรียนบ้านท่าโป่ง', 'จรูญ', 'Very low', '0.00', '0.00', '0.00', '0.43', '0.00', '0.00', '0.43', '00:00', '00:00', '00:00', '00:00', '0:43:00', 'False', 'ชัยภูมิ', '0000-00-00 00:00:00', '2017-10-02 09:34:09', '', '0.44'),
 ('NC-2017-10-0015', '2017-10-02 08:54:09', 'FB// รร.วัดมาบข่า Internetใช้งานได้แต่ช้า', 'โรงเรียนวัดมาบข่า สพป.ระยอง 1 รหัส 21010122 แจ้งอินเทอร์เน็ตช้ากว่าปกติครับ สัญญานมาใช้ได้ แต่ช้ามากๆ ครับ เช็ค สปีดเทสได้ไม่ถึง 10M ครับ เบอร์โทร 0991833441 ครูประเสริฐ', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '21010122', 'โรงเรียนวัดมาบข่า', 'ประเสริฐ', 'Very low', '0.00', '0.00', '0.00', '9.43', '0.00', '0.00', '9.43', '00:00', '00:00', '00:00', '00:00', '9:43:00', 'False', 'ระยอง', '0000-00-00 00:00:00', '2017-10-03 09:37:59', '', '24.43'),
@@ -4515,8 +4541,7 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NC-2017-10-0024', '2017-10-02 09:13:12', 'โรงเรียนบุรพรัตน์วิทยาคาร//อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 5 ดวง, Cisco 800 ไฟติดปกติ สถานะมอนิเตอร์ : Down', '2017-09-29 15:40:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '66020126', 'โรงเรียนบุรพรัตน์วิทยาคาร', 'อ.มนศักดิ์', 'Very low', '0.00', '0.00', '0.00', '4.45', '0.00', '0.00', '7.24', '00:00', '00:00', '00:00', '00:00', '7:24:00', 'False', 'พิจิตร', '0000-00-00 00:00:00', '2017-10-02 16:38:15', '', '7.25'),
 ('NC-2017-10-0025', '2017-10-02 09:16:23', 'โรงเรียนขะเนก//Media Converter เสีย', '32010209 โรงเรียนขะเนก Media Converter เสีย ไฟไม่เข้าไฟ ลองเปลี่ยนลางปลั๊กแล้ว รบกวนตรวจสอบด้วยครับ/กิติพัฒน์ Callcenter ระยะเวลาที่ Down(ชั่วโมง:นาที:วินาที) = 18:50:01 || Up ครั้งสุดท้ายเมื่อ = 2017-10-01 14:10:02', '2017-10-01 14:10:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '32010209', 'โรงเรียนขะเนก', 'พิสิษท์', 'Very low', '0.00', '0.00', '0.00', '0.37', '0.00', '8.47', '9.24', '00:00', '00:00', '00:00', '00:00', '9:24:00', 'False', 'สุรินทร์', '0000-00-00 00:00:00', '2017-10-03 09:41:19', '', '24.24'),
 ('NC-2017-10-0026', '2017-10-02 09:18:44', 'รร.วัดโพธิ์นฤมิตร /อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : ทดสอบต่อตรงที่ Cisco 800 พอร์ต 0-1 แล้วยังใช้งานไม่ได้ ขึ้นเครื่องหมายตกใจสีเหลือง ออกเน็ตไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 5 ดวง, Cisco 800 ไฟติดปกติ สถานะมอนิเตอร์ : UP', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '72010126', 'โรงเรียนวัดโพธิ์นฤมิตร', 'วารินทร์', 'Very low', '0.00', '0.00', '0.00', '0.17', '0.00', '0.00', '0.17', '00:00', '00:00', '00:00', '00:00', '0:17:00', 'False', 'สุพรรณบุรี', '0000-00-00 00:00:00', '2017-10-02 09:36:37', '', '0.17'),
-('NC-2017-10-0027', '2017-10-02 09:19:17', 'โรงเรียนบ้านพระแก้ว//Internetใช้งานไม่ได้', 'Internetใช้งานไม่ได้ restart m/c ไฟติด 5 ดวง สถานะ Link Down รบกวนตรวจสอบด้วยค่ะ // ปรียา (Call Center)', '2017-10-01 16:31:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '32030155', 'โรงเรียนบ้านพระแก้ว', 'วชิรุธ', 'Very low', '0.00', '0.00', '0.00', '9.24', '0.00', '0.00', '9.24', '00:00', '00:00', '00:00', '00:00', '9:24:00', 'False', 'สุรินทร์', '0000-00-00 00:00:00', '2017-10-03 09:43:49', '', '24.24');
-INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
+('NC-2017-10-0027', '2017-10-02 09:19:17', 'โรงเรียนบ้านพระแก้ว//Internetใช้งานไม่ได้', 'Internetใช้งานไม่ได้ restart m/c ไฟติด 5 ดวง สถานะ Link Down รบกวนตรวจสอบด้วยค่ะ // ปรียา (Call Center)', '2017-10-01 16:31:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '32030155', 'โรงเรียนบ้านพระแก้ว', 'วชิรุธ', 'Very low', '0.00', '0.00', '0.00', '9.24', '0.00', '0.00', '9.24', '00:00', '00:00', '00:00', '00:00', '9:24:00', 'False', 'สุรินทร์', '0000-00-00 00:00:00', '2017-10-03 09:43:49', '', '24.24'),
 ('NC-2017-10-0028', '2017-10-02 09:20:21', 'วิทยาลัยสารพัดช่างพระนคร /เครื่องสำรองไฟเสีย', 'ยี่ห้อ : Syndome รุ่น : ไม่ทราบ อาการ : มีเสียงร้องดังตลอดเวลา ลองเปลี่ยนรางปลั๊กแล้ว', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '1310086501', 'วิทยาลัยสารพัดช่างพระนคร', 'สุรี', 'Very low', '0.00', '0.00', '0.00', '3.48', '0.00', '41.56', '45.44', '00:00', '00:00', '00:00', '00:00', '45:44:00', 'False', 'กรุงเทพมหานคร', '0000-00-00 00:00:00', '2017-10-09 10:05:20', '', '168.44'),
 ('NC-2017-10-0029', '2017-10-02 09:28:02', 'รร.บ้านโป่งแคศรีถาวร /อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 4 ดวง, Cisco 800 ไฟติดปกติ สถานะมอนิเตอร์ : Down', '2017-09-30 06:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '39020019', 'โรงเรียนบ้านโป่งแคศรีถาวร', 'บุญช่วย', 'Very low', '0.00', '0.00', '0.00', '3.44', '0.00', '5.39', '9.23', '00:00', '00:00', '00:00', '00:00', '9:23:00', 'False', 'หนองบัวลำภู', '0000-00-00 00:00:00', '2017-10-03 09:51:59', '', '24.23'),
 ('NC-2017-10-0031', '2017-10-02 09:29:08', 'โรงเรียนผักไห่(สุทธาประมุข)ๅๅอินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 4 ดวง, Cisco 800 ไฟติดปกติ สถานะมอนิเตอร์ : Down', '2017-09-30 13:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '14022006', 'โรงเรียนผักไห่(สุทธาประมุข)', 'สุนิสา', 'Very low', '0.00', '0.00', '0.00', '4.01', '0.00', '6.22', '10.23', '00:00', '00:00', '00:00', '00:00', '10:23:00', 'False', 'พระนครศรีอยุธยา', '0000-00-00 00:00:00', '2017-10-03 10:52:53', '', '25.23'),
@@ -4549,7 +4574,8 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NC-2017-10-0059', '2017-10-02 10:29:21', 'โรงเรียนบ้านคลองตาล (กระจ่างจินดา)//เครื่องสำรองไฟCleanline เสีย', '64020074 โรงเรียนบ้านคลองตาล (กระจ่างจินดา) เครื่องสำรองไฟรุ่น Cleanline เสีย ไม่ทำงาน ไมจ่ายไฟเข้าอุปกรณ์ที่เสียบ ปุ่ม Line Out รบกวนตรวจสอบด้วยครับ/กิติพัฒน์ Callcenter', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '64020074', 'โรงเรียนบ้านคลองตาล (กระจ่างจินดา)', 'ประทีป', 'Very low', '0.00', '0.00', '0.00', '3.35', '0.00', '7.00', '10.35', '00:00', '00:00', '00:00', '00:00', '10:35:00', 'False', 'สุโขทัย', '0000-00-00 00:00:00', '2017-10-03 12:05:14', '', '25.35'),
 ('NC-2017-10-0060', '2017-10-02 10:30:36', 'FB// รร.บ้านสำโรง Internetใช้งานไม่ได้', 'โรงเรียนบ้านสำโรง อ.ตาลสุม จ.อุบลราชธานี อินเตอร์เน็ตไม่มาครับ ตรวจสอบให้ทีนะครับ ไฟขึ้น 5 ดวงปกติครับ', '2017-10-01 08:53:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '34040108', 'โรงเรียนบ้านสำโรง(คุรุประชาสามัคคี)', 'ครูสด', 'Very low', '0.00', '0.00', '0.00', '3.32', '0.00', '5.00', '8.32', '00:00', '00:00', '00:00', '00:00', '8:32:00', 'False', 'อุบลราชธานี', '0000-00-00 00:00:00', '2017-10-03 10:03:07', '', '23.32'),
 ('NC-2017-10-0061', '2017-10-02 10:33:56', 'ใช้งานไม่ได้', 'อินเตอร์เน็ตใช้งานไม่ได้ Monitor up (ออกเน็ตไม่ได้)', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'สอ./2561 - Equipment P1 (1)', '84030079', 'โรงเรียนบ้านควนสามัคคี', 'บุญรอด', 'Very low', '0.00', '0.00', '0.00', '2.17', '0.00', '0.00', '2.17', '00:00', '00:00', '06:00', '00:00', '0:00:00', 'True', 'สุราษฎร์ธานี', '0000-00-00 00:00:00', '2017-10-02 12:52:03', '', '2.18'),
-('NC-2017-10-0062', '2017-10-02 10:35:37', 'รร.วัดศิลามูล//Internetใช้งานไม่ได้', '73020082 โรงเรียนวัดศิลามูล Internetใช้งานไม่ได้ restart m/c ไฟติด 4 ดวง สถานะ link down รบกวนตรวจสอบด้วยค่ะ', '2017-10-30 11:30:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '73020082', 'โรงเรียนวัดศิลามูล', 'อ.สุชาติ', 'Very low', '0.00', '0.00', '0.00', '3.24', '0.00', '7.04', '10.28', '00:00', '00:00', '00:00', '00:00', '10:28:00', 'False', 'นครปฐม', '0000-00-00 00:00:00', '2017-10-03 12:04:03', '', '25.28'),
+('NC-2017-10-0062', '2017-10-02 10:35:37', 'รร.วัดศิลามูล//Internetใช้งานไม่ได้', '73020082 โรงเรียนวัดศิลามูล Internetใช้งานไม่ได้ restart m/c ไฟติด 4 ดวง สถานะ link down รบกวนตรวจสอบด้วยค่ะ', '2017-10-30 11:30:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '73020082', 'โรงเรียนวัดศิลามูล', 'อ.สุชาติ', 'Very low', '0.00', '0.00', '0.00', '3.24', '0.00', '7.04', '10.28', '00:00', '00:00', '00:00', '00:00', '10:28:00', 'False', 'นครปฐม', '0000-00-00 00:00:00', '2017-10-03 12:04:03', '', '25.28');
+INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
 ('NC-2017-10-0063', '2017-10-02 10:39:51', 'ใช้งานไม่ได้', 'อินเตอร์เน็ตใช้งานไม่ได้ Monitor up (ออกเน็ตไม่ได้)', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', '', '', '', '', 'อนุจิตร', 'Very low', '0.00', '0.00', '0.00', '0.35', '0.00', '0.00', '0.35', '', '', '', '', '0:35:00', 'True', '', '0000-00-00 00:00:00', '2017-10-02 11:16:00', '', '0.36'),
 ('NC-2017-10-0064', '2017-10-02 10:40:35', 'FB// รร.บ้านห้วยน้ำเที่ยง Internetใช้งานไม่ได้', 'อินเตอร์เน็ตใช้งานไม่ได้ครับ โรงเรียนบ้านห้วยน้ำเที่ยง อำเภอวานรนิวาส จังหวัดสกลนคร. รหัส 47030003. รบกวนตรวจสอบให้ด้วยครับ ครูนิสิต นวลตา 0899374576 ครับ', '2017-10-28 13:02:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Callcenter Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'CallCenter', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '47030003', 'โรงเรียนบ้านห้วยน้ำเที่ยง', 'ครูนิสิต นวลตา', 'Very low', '0.00', '0.00', '0.00', '2.41', '0.00', '0.00', '2.41', '00:00', '00:00', '00:00', '00:00', '2:41:00', 'False', 'สกลนคร', '0000-00-00 00:00:00', '2017-10-02 13:23:09', '', '2.42'),
 ('NC-2017-10-0065', '2017-10-02 10:41:13', 'โรงเรียนบ้านโกรกลึก//Internetใช้งานไม่ได้', 'Internetใช้งานไม่ได้ restart m/c ไฟติด 4 ดวง สถานะ Link Down รบกวนตรวจสอบด้วยค่ะ', '2017-09-27 09:30:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '61010215', 'โรงเรียนบ้านโกรกลึก', 'วรนันท์', 'Very low', '0.00', '0.00', '0.00', '2.02', '0.00', '6.03', '8.05', '00:00', '00:00', '00:00', '00:00', '8:05:00', 'False', 'อุทัยธานี', '0000-00-00 00:00:00', '2017-10-03 09:47:23', '', '23.06'),
@@ -4561,8 +4587,7 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NC-2017-10-0071', '2017-10-02 11:18:28', 'รร.บ้านนาแซง//Internetใช้งานไม่ได้', '45030161 โรงเรียนบ้านนาแซง Internetใช้งานไม่ได้ restart m/c ไฟติด 4 ดวง สถานะ link down รบกวนตรวจสอบด้วยค่ะ', '2017-10-02 09:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '45030161', 'โรงเรียนบ้านนาแซง', 'รุ่งทิวา', 'Very low', '0.00', '0.00', '0.00', '0.26', '0.00', '0.00', '0.26', '00:00', '00:00', '00:00', '00:00', '0:26:00', 'False', 'ร้อยเอ็ด', '0000-00-00 00:00:00', '2017-10-02 11:45:27', '', '0.26'),
 ('NC-2017-10-0072', '2017-10-02 11:22:14', 'FB// รร.วัดตะโกสูง Internetใช้งานไม่ได้', 'แจ้งอินเตอร์เน็ตใช้งานไม่ได้ครับ ไฟมีเดียติดครบ5 ดวง แต่สัญญาณ อินเตอร์เน็ตไม่มีครับ โรงเรียนวัดตะโกสูง 73010121 จ.นครปฐม ครับ', '2017-10-01 19:10:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '73010121', 'โรงเรียนวัดตะโกสูง', 'อาจาร์ณัฐวุฒิ', 'Very low', '0.00', '0.00', '0.00', '1.20', '0.00', '0.00', '1.20', '00:00', '00:00', '00:00', '00:00', '1:20:00', 'False', 'นครปฐม', '0000-00-00 00:00:00', '2017-10-02 12:42:51', '', '1.20'),
 ('NC-2017-10-0073', '2017-10-02 11:25:49', 'โรงเรียนชุมชนศรีจอมทอง//Internetใช้งานไม่ได้', 'Internetใช้งานไม่ได้ restart m/c ไฟติด 5 ดวง สถานะ Link Down รบกวนตรวจสอบด้วยค่ะ // ปรียา (Call Center)', '2017-09-27 18:40:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '50050026', 'โรงเรียนชุมชนศรีจอมทอง', 'อดิศักดิ์', 'Very low', '0.00', '0.00', '0.00', '1.14', '0.00', '0.00', '1.14', '00:00', '00:00', '00:00', '00:00', '1:14:00', 'False', 'เชียงใหม่', '0000-00-00 00:00:00', '2017-10-02 12:40:57', '', '1.15'),
-('NC-2017-10-0074', '2017-10-02 11:38:47', 'รร.ผาเทิบวิทยา /อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 4 ดวง, Cisco 800 ไฟติดปกติ สถานะมอนิเตอร์ : Down', '2017-10-02 10:30:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '49012019', 'โรงเรียนผาเทิบวิทยา', 'จิราพรรณ', 'Very low', '0.00', '0.00', '0.00', '7.50', '0.00', '0.00', '7.50', '00:00', '00:00', '00:00', '00:00', '7:50:00', 'False', 'มุกดาหาร', '0000-00-00 00:00:00', '2017-10-03 10:30:27', '', '22.51');
-INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
+('NC-2017-10-0074', '2017-10-02 11:38:47', 'รร.ผาเทิบวิทยา /อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 4 ดวง, Cisco 800 ไฟติดปกติ สถานะมอนิเตอร์ : Down', '2017-10-02 10:30:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '49012019', 'โรงเรียนผาเทิบวิทยา', 'จิราพรรณ', 'Very low', '0.00', '0.00', '0.00', '7.50', '0.00', '0.00', '7.50', '00:00', '00:00', '00:00', '00:00', '7:50:00', 'False', 'มุกดาหาร', '0000-00-00 00:00:00', '2017-10-03 10:30:27', '', '22.51'),
 ('NC-2017-10-0075', '2017-10-02 11:40:15', 'โรงเรียนอนุบาลบ้านคอกช้าง//อินเตอร์เน็ตใช้งานไม่ได้', '43010135 โรงเรียนอนุบาลบ้านคอกช้าง Internetใช้งานไม่ได้ restart m/c ไฟติด 4 ดวง สถานะ link down รบกวนตรวจสอบด้วยครับ /กิติพัฒน์ Callcenter ระยะเวลาที่ Down(ชั่วโมง:นาที:วินาที) = 66:59:58 || Up ครั้งสุดท้ายเมื่อ = 2017-09-29 16:31:18', '2017-09-29 16:31:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '43010135', 'โรงเรียนอนุบาลบ้านคอกช้าง', 'เดือนเพ็ญ', 'Very low', '0.00', '0.00', '0.00', '6.12', '0.00', '0.00', '6.12', '00:00', '00:00', '00:00', '00:00', '6:12:00', 'False', 'หนองคาย', '0000-00-00 00:00:00', '2017-10-03 08:53:26', '', '21.13'),
 ('NC-2017-10-0076', '2017-10-02 11:45:23', 'โรงเรียนบ้านท่ามักกะสัง//อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 4 ดวง, Cisco 800 ไฟติดปกติ สถานะมอนิเตอร์ : Down', '2017-09-29 15:20:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '64020099', 'โรงเรียนบ้านท่ามักกะสัง', 'อ.ฐิติวัฒน์', 'Very low', '0.00', '0.00', '0.00', '3.21', '0.00', '0.00', '3.21', '00:00', '00:00', '00:00', '00:00', '3:21:00', 'False', 'สุโขทัย', '0000-00-00 00:00:00', '2017-10-02 15:08:14', '', '3.22'),
 ('NC-2017-10-0077', '2017-10-02 11:47:27', 'FB//โรงเรียนนาสะเม็งวิทยา', 'รร.นาสะเม็งวิทยา. อดอนตาล จ.มุกดาหาร. ครูเศรษฐพงศ์ 0848970110. เน็ตไม่มีไฟสี่ดวงตามภาพครับ (ในรูป m/c 4 ดวง)', '2017-10-02 10:30:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '49010118', 'โรงเรียนนาสะเม็งวิทยา', 'ครูเศรษฐพงศ์', 'Very low', '0.00', '0.00', '0.00', '6.46', '0.00', '0.00', '6.46', '00:00', '00:00', '00:00', '00:00', '6:46:00', 'False', 'มุกดาหาร', '0000-00-00 00:00:00', '2017-10-03 09:34:17', '', '21.46'),
@@ -4606,8 +4631,7 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NC-2017-10-0115', '2017-10-03 09:22:24', 'ชัยนาท//โรงเรียนวัดบ้านหนอง//Internetใช้งานไม่ได้', 'Internetใช้งานไม่ได้ restart m/c ไฟติด 4 ดวง สถานะ Link Down รบกวนตรวจสอบด้วยค่ะ // ปรียา (Call Center)', '2017-09-27 13:10:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '18010082', 'โรงเรียนวัดบ้านหนอง', 'ราชันย์', 'Very low', '0.00', '0.00', '0.00', '1.17', '0.00', '11.50', '13.07', '00:00', '00:00', '00:00', '00:00', '13:07:00', 'False', 'ชัยนาท', '0000-00-00 00:00:00', '2017-10-04 13:30:26', '', '28.08'),
 ('NC-2017-10-0116', '2017-10-03 09:23:20', 'โรงเรียนบ้านลำตะคร้อ จ.เพชรบูรณ์//อินเตอร์เน็ตใช้งานไม่ได้', '67030185 โรงเรียนบ้านลำตะคร้อ Internetใช้งานไม่ได้ restart m/c ไฟติด 4 ดวง สถานะ link down รบกวนตรวจสอบด้วยครับ /กิติพัฒน์ Callcenter ระยะเวลาที่ Down(ชั่วโมง:นาที:วินาที) = 18:39:16 || Up ครั้งสุดท้ายเมื่อ = 2017-10-02 14:31:15', '2017-10-02 14:31:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '67030185', 'โรงเรียนบ้านลำตะคร้อ', 'วราภรณ์', 'Very low', '0.00', '0.00', '0.00', '1.15', '0.00', '5.20', '6.35', '00:00', '00:00', '00:00', '00:00', '6:35:00', 'False', 'เพชรบูรณ์', '0000-00-00 00:00:00', '2017-10-03 15:59:06', '', '6.35'),
 ('NC-2017-10-0117', '2017-10-03 09:30:43', 'เชียงใหม่//รร.บ้านตุงลอย//Internetใช้งานไม่ได้', '50050223 โรงเรียนบ้านตุงลอย Internetใช้งานไม่ได้ restart m/c ไฟติด 4 ดวง สถานะ link down รบกวนตรวจสอบด้วยค่ะ', '2017-10-03 08:50:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '50050223', 'โรงเรียนบ้านตุงลอย', 'วสันต์', 'Very low', '0.00', '0.00', '0.00', '0.20', '0.00', '0.00', '0.20', '00:00', '00:00', '00:00', '00:00', '0:20:00', 'False', 'เชียงใหม่', '0000-00-00 00:00:00', '2017-10-03 09:52:03', '', '0.21'),
-('NC-2017-10-0118', '2017-10-03 09:34:11', 'นนทบุรี//โรงเรียนเตรียมอุดมศึกษาน้อมเกล้านนทบุรี//อินเตอร์เน็ตใช้งานไม่ได้', 'Internet ใช้งานไม่ได้ restart M/C ไฟติด 4 ดวง สถานะ Link Down รบกวนตรวจสอบด้วยค่ะ/กมลชนก (Call Center)', '2017-10-03 08:53:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '12022007', 'โรงเรียนเตรียมอุดมศึกษาน้อมเกล้านนทบุรี', 'กิตติพงศ์', 'Very low', '0.00', '0.00', '0.00', '1.02', '0.00', '13.48', '14.50', '00:00', '00:00', '00:00', '00:00', '14:50:00', 'False', 'นนทบุรี', '0000-00-00 00:00:00', '2017-10-04 15:24:32', '', '29.50');
-INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
+('NC-2017-10-0118', '2017-10-03 09:34:11', 'นนทบุรี//โรงเรียนเตรียมอุดมศึกษาน้อมเกล้านนทบุรี//อินเตอร์เน็ตใช้งานไม่ได้', 'Internet ใช้งานไม่ได้ restart M/C ไฟติด 4 ดวง สถานะ Link Down รบกวนตรวจสอบด้วยค่ะ/กมลชนก (Call Center)', '2017-10-03 08:53:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '12022007', 'โรงเรียนเตรียมอุดมศึกษาน้อมเกล้านนทบุรี', 'กิตติพงศ์', 'Very low', '0.00', '0.00', '0.00', '1.02', '0.00', '13.48', '14.50', '00:00', '00:00', '00:00', '00:00', '14:50:00', 'False', 'นนทบุรี', '0000-00-00 00:00:00', '2017-10-04 15:24:32', '', '29.50'),
 ('NC-2017-10-0119', '2017-10-03 09:41:25', 'หนองบัวลำภู//โรงเรียนหนองแกสระแก้ววิทยา//อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 4 ดวง, Cisco 800 ไฟติดปกติ สถานะมอนิเตอร์ : Down', '2017-09-30 10:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '39010206', 'โรงเรียนหนองแกสระแก้ววิทยา', 'อ.อำนวย', 'Very low', '0.00', '0.00', '0.00', '0.53', '0.00', '5.23', '6.16', '00:00', '00:00', '00:00', '00:00', '6:16:00', 'False', 'หนองบัวลำภู', '0000-00-00 00:00:00', '2017-10-03 15:58:07', '', '6.16'),
 ('NC-2017-10-0120', '2017-10-03 09:41:44', 'มหาวิทยาลัยราชภัฏลำปาง // ไฟเบอร์แกนหลัก มหาวิทยาลัยราชภัฏลำปาง - มหาวิทยาลัยพะเยา ขาด', 'มหาวิทยาลัยราชภัฏลำปาง // ไฟเบอร์แกนหลัก มหาวิทยาลัยราชภัฏลำปาง - มหาวิทยาลัยพะเยา ขาด', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '1452116100', 'มหาวิทยาลัยราชภัฏลำปาง', 'รวีพันธ์', 'Very low', '0.00', '0.00', '0.00', '9.16', '0.00', '0.00', '9.16', '00:00', '00:00', '00:00', '00:00', '9:16:00', 'False', 'ลำปาง', '0000-00-00 00:00:00', '2017-10-04 09:58:26', '', '24.16'),
 ('NC-2017-10-0121', '2017-10-03 09:48:13', 'สำนักงานเขตพื้นที่การศึกษาประถมศึกษาชุมพรเขต 2 // ไฟเบอร์แกนหลัก สำนักงานเขตพื้นที่การศึกษาประถมศึกษาชุมพรเขต 2 - วิทยาลัยเกษตรและเทคโนโลยีระนอง ขาด', 'สำนักงานเขตพื้นที่การศึกษาประถมศึกษาชุมพรเขต 2 // ไฟเบอร์แกนหลัก สำนักงานเขตพื้นที่การศึกษาประถมศึกษาชุมพรเขต 2 - วิทยาลัยเกษตรและเทคโนโลยีระนอง ขาด', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '8602', 'สำนักงานเขตพื้นที่การศึกษาประถมศึกษาชุมพร เขต 2', 'สุนันท์', 'Very low', '0.00', '0.00', '0.00', '1.06', '0.00', '0.00', '1.06', '00:00', '00:00', '00:00', '00:00', '1:06:00', 'False', 'ชุมพร', '0000-00-00 00:00:00', '2017-10-03 10:55:30', '', '1.07'),
@@ -4624,7 +4648,8 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NC-2017-10-0132', '2017-10-03 10:55:04', 'นครราชสีมา /นิยมมิตรวิทยาคาร /อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : Huawei Ar160 ไฟ GE4 ไม่ติด Pwr ติด สถานะมอนิเตอร์ : Down', '2017-10-02 08:30:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '30040068', 'โรงเรียนนิยมมิตรวิทยาคาร', 'อ.ปรีชา', 'Very low', '0.00', '0.00', '0.00', '5.13', '0.00', '0.00', '5.13', '00:00', '00:00', '00:00', '00:00', '5:13:00', 'False', 'นครราชสีมา', '0000-00-00 00:00:00', '2017-10-03 16:09:28', '', '5.14'),
 ('NC-2017-10-0133', '2017-10-03 10:57:16', 'โรงเรียนวัดกลางคลองสี่ @ อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 4 ดวง, Cisco 800 ไฟติดปกติ สถานะมอนิเตอร์ : Down', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '13020062', 'โรงเรียนวัดกลางคลองสี่', 'choocherd', 'Very low', '0.00', '0.00', '0.00', '5.14', '0.00', '0.00', '5.14', '00:00', '00:00', '00:00', '00:00', '5:14:00', 'False', 'ปทุมธานี', '0000-00-00 00:00:00', '2017-10-03 16:11:57', '', '5.14'),
 ('NC-2017-10-0134', '2017-10-03 11:14:50', 'ปทุมธานี//โรงเรียนสุเหร่าใหม่เจริญ//อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 4 ดวง, Cisco 800 ไฟติดปกติ สถานะมอนิเตอร์ : Down', '2017-09-08 14:40:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '13010097', 'โรงเรียนสุเหร่าใหม่เจริญ', 'อ.เจนวิทย์', 'Very low', '0.00', '0.00', '0.00', '0.44', '0.00', '6.47', '7.31', '00:00', '00:00', '00:00', '00:00', '7:31:00', 'False', 'ปทุมธานี', '0000-00-00 00:00:00', '2017-10-04 09:46:40', '', '22.31'),
-('NC-2017-10-0135', '2017-10-03 11:17:41', 'นครราชสีมา//รร.บ้านดงบัง (สว่างวิทยา)//Internetใช้งานไม่ได้', '30070156 โรงเรียนบ้านดงบัง (สว่างวิทยา) Internetใช้งานไม่ได้ restart m/c ไฟติด 4 ดวง สถานะ link down รบกวนตรวจสอบด้วยค่ะ', '2017-10-29 17:40:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '30070156', 'โรงเรียนบ้านดงบัง(สว่างวิทยา)', 'วรวุฒิ', 'Very low', '0.00', '0.00', '0.00', '0.54', '0.00', '3.49', '4.43', '00:00', '00:00', '00:00', '00:00', '4:43:00', 'False', 'นครราชสีมา', '0000-00-00 00:00:00', '2017-10-03 16:00:58', '', '4.43'),
+('NC-2017-10-0135', '2017-10-03 11:17:41', 'นครราชสีมา//รร.บ้านดงบัง (สว่างวิทยา)//Internetใช้งานไม่ได้', '30070156 โรงเรียนบ้านดงบัง (สว่างวิทยา) Internetใช้งานไม่ได้ restart m/c ไฟติด 4 ดวง สถานะ link down รบกวนตรวจสอบด้วยค่ะ', '2017-10-29 17:40:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '30070156', 'โรงเรียนบ้านดงบัง(สว่างวิทยา)', 'วรวุฒิ', 'Very low', '0.00', '0.00', '0.00', '0.54', '0.00', '3.49', '4.43', '00:00', '00:00', '00:00', '00:00', '4:43:00', 'False', 'นครราชสีมา', '0000-00-00 00:00:00', '2017-10-03 16:00:58', '', '4.43');
+INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
 ('NC-2017-10-0136', '2017-10-03 11:29:38', 'ศรีสะเกษ //โรงเรียนโนนกระสังวิทยาคม //แจ้งตรวจสอบ SW 3750 Port 1-12 ไฟไม่ติด// HD', 'โรงเรียนโนนกระสังวิทยาคม (ศรีสะเกษ ) แจ้งตรวจสอบ SW 3750 Port 1-12 ไฟไม่ติดค่ะ อ. อัญชลี 087-117-8020', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '33032008', 'โรงเรียนโนนกระสังวิทยาคม', 'อัญชลี', 'Very low', '0.00', '0.00', '0.00', '0.44', '0.00', '10.14', '10.58', '00:00', '00:00', '00:00', '00:00', '10:58:00', 'False', 'ศรีสะเกษ', '0000-00-00 00:00:00', '2017-10-04 13:28:35', '', '25.58'),
 ('NC-2017-10-0137', '2017-10-03 11:30:36', 'ศรีสะเกษ//โรงเรียนบ้านยางน้อยตองปิด//อินเตอร์เน็ตใช้งานไม่ได้', 'Internet ใช้งานไม่ได้ restart M/C ไฟติด 4 ดวง สถานะ Link Down รบกวนตรวจสอบด้วยค่ะ/กมลชนก (Call Center)', '2017-10-02 16:40:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '33010195', 'โรงเรียนบ้านยางน้อยตองปิด', 'วรคุณ', 'Very low', '0.00', '0.00', '0.00', '8.11', '0.00', '0.00', '8.11', '00:00', '00:00', '00:00', '00:00', '8:11:00', 'False', 'ศรีสะเกษ', '0000-00-00 00:00:00', '2017-10-04 10:42:17', '', '23.11'),
 ('NC-2017-10-0138', '2017-10-03 11:31:48', 'มหาวิทยาลัยเทคโนโลยีราชมงคลกรุงเทพ // ใช้งานอินเตอร์เน็ตไม่ได้', 'ตรวจสอบพบ มหาวิทยาลัยเทคโนโลยีราชมงคลกรุงเทพ ไม่สามารถใช้งานอินเตอร์เน็ตได้', '2017-10-03 11:21:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '1410119200', 'มหาวิทยาลัยเทคโนโลยีราชมงคลกรุงเทพ', 'ศุภฤกษ์', 'Very low', '0.00', '0.00', '0.00', '0.03', '0.00', '7.15', '7.18', '00:00', '00:00', '00:00', '00:00', '7:18:00', 'False', 'กรุงเทพมหานคร', '0000-00-00 00:00:00', '2017-10-04 09:50:39', '', '22.18'),
@@ -4651,8 +4676,7 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NC-2017-10-0159', '2017-10-03 14:44:40', 'ปทุมธานี//โรงเรียนวัดพวงแก้ว//อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 5 ดวง, Cisco 800 ไฟติดปกติ สถานะมอนิเตอร์ : Down', '2017-10-03 13:20:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '13020023', 'โรงเรียนวัดพวงแก้ว', 'ธีระชัย', 'Very low', '0.00', '0.00', '0.00', '12.25', '0.00', '0.00', '12.25', '00:00', '00:00', '00:00', '00:00', '12:25:00', 'False', 'ปทุมธานี', '0000-00-00 00:00:00', '2017-10-05 09:11:25', '', '42.26'),
 ('NC-2017-10-0160', '2017-10-03 14:52:16', 'ประจวบ/โรงเรียนสมาคมเลขานุการสตรี 2/ใช้งาน Internet ไม่ได้', 'ใช้งาน Internet ไม่ได้', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '77010052', 'โรงเรียนสมาคมเลขานุการสตรี 2', 'ขจรศักดิ์', 'Very low', '0.00', '0.00', '0.00', '7.39', '0.00', '0.00', '7.39', '00:00', '00:00', '00:00', '00:00', '7:39:00', 'False', 'ประจวบคีรีขันธ์', '0000-00-00 00:00:00', '2017-10-04 13:32:38', '', '22.40'),
 ('NC-2017-10-0161', '2017-10-03 15:09:41', 'ปทุมธานี//โรงเรียนชุมชนบึงบา//อินเตอร์เน็ตใช้งานไม่ได้', 'Internet ใช้งานไม่ได้ restart s/w port 1 ไม่ติด สถานะ Link Down รบกวนตรวจสอบด้วยค่ะ /กมลชนก (Call Center)', '2017-10-03 13:20:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '13020027', 'โรงเรียนชุมชนบึงบา', 'ไพโรจน์', 'Very low', '0.00', '0.00', '0.00', '3.37', '0.00', '6.42', '10.19', '00:00', '00:00', '00:00', '00:00', '10:19:00', 'False', 'ปทุมธานี', '0000-00-00 00:00:00', '2017-10-04 16:29:46', '', '25.20'),
-('NC-2017-10-0162', '2017-10-03 15:52:01', 'สุรินทร์//โรงเรียนสวายวิทยาคาร//M/c ติด 4 ดวง (FX/ACT) ไม่ติดค่ะ// HD', 'โรงเรียนสวายวิทยาคาร (สุรินทร์ ) อ.เบท เบอร์โทร : 063-168-8858 M/c ติด 4 ดวง (FX/ACT) ไม่ติดค่ะ// HD', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '32012003', 'โรงเรียนสวายวิทยาคาร', 'เบท', 'Very low', '0.00', '0.00', '0.00', '0.19', '0.00', '6.15', '6.34', '00:00', '00:00', '00:00', '00:00', '6:34:00', 'False', 'สุรินทร์', '0000-00-00 00:00:00', '2017-10-04 13:26:36', '', '21.34');
-INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
+('NC-2017-10-0162', '2017-10-03 15:52:01', 'สุรินทร์//โรงเรียนสวายวิทยาคาร//M/c ติด 4 ดวง (FX/ACT) ไม่ติดค่ะ// HD', 'โรงเรียนสวายวิทยาคาร (สุรินทร์ ) อ.เบท เบอร์โทร : 063-168-8858 M/c ติด 4 ดวง (FX/ACT) ไม่ติดค่ะ// HD', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '32012003', 'โรงเรียนสวายวิทยาคาร', 'เบท', 'Very low', '0.00', '0.00', '0.00', '0.19', '0.00', '6.15', '6.34', '00:00', '00:00', '00:00', '00:00', '6:34:00', 'False', 'สุรินทร์', '0000-00-00 00:00:00', '2017-10-04 13:26:36', '', '21.34'),
 ('NC-2017-10-0163', '2017-10-03 15:57:02', 'ปราจีนบุรี// รร.บ้านเขาด้วน Internetใช้งานไม่ได้', '25010086 โรงเรียนบ้านเขาด้วน Internetใช้งานไม่ได้ restart m/c ไฟติด 4 ดวง สถานะ link down รบกวนตรวจสอบด้วยค่ะ', '2017-10-03 15:20:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '25010086', 'โรงเรียนบ้านเขาด้วน', 'อ.ทิพวรรณ', 'Very low', '0.00', '0.00', '0.00', '1.39', '0.00', '0.00', '1.39', '00:00', '00:00', '00:00', '00:00', '1:39:00', 'False', 'ปราจีนบุรี', '0000-00-00 00:00:00', '2017-10-04 08:36:32', '', '16.39'),
 ('NC-2017-10-0164', '2017-10-03 16:25:47', 'นครสวรรค์//โรงเรียนบ้านปางสุด//อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 4 ดวง, Cisco 800 ไฟติดปกติ สถานะมอนิเตอร์ : Down', '2017-09-30 14:10:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '60020126', 'โรงเรียนบ้านปางสุด', 'วรเทพ', 'Very low', '0.00', '0.00', '0.00', '2.23', '0.00', '6.39', '9.02', '00:00', '00:00', '00:00', '00:00', '9:02:00', 'False', 'นครสวรรค์', '0000-00-00 00:00:00', '2017-10-04 16:29:00', '', '24.03'),
 ('NC-2017-10-0165', '2017-10-03 16:40:22', 'ไฟเบอร์ขาดเส้นทางวิทยาลัยชุมชนพังงา - มหาวิทยาลัยราชภัฏสุราษฎร์ธานี', 'ตรวจสอบ NMS DWDM พบไฟเบอร์ขาดเส้นทางวิทยาลัยชุมชนพังงา - มหาวิทยาลัยราชภัฏสุราษฎร์ธานี', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '1482820316', 'วิทยาลัยชุมชนพังงา', 'สุธนวัฒน์', 'Critical', '0.00', '0.00', '0.00', '0.01', '0.00', '0.18', '0.19', '00:00', '00:00', '00:00', '00:00', '0:19:00', 'False', 'พังงา', '0000-00-00 00:00:00', '2017-10-04 07:41:14', '', '15.00'),
@@ -4696,9 +4720,9 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NC-2017-10-0203', '2017-10-04 14:00:54', 'FB สุพรรณบุรี// รร.วัดดอนโพธิ์ทอง Internetใช้งานไม่ได้', '72010009 โรงเรียนวัดดอนโพธิ์ทอง โรงเรียนวัดดอนโพธิ์ทอง หมูที่ 1 ตำบลดอนโพธิ์ทอง อำเภอเมืองฯ จังหวัดสุพรรณบุรี รหัส 72010009 อินเตอร์เน็ตใช้งานไม่ได้ ผู้รับผิดชอบ ครูนุ๊ก เบอร์โทร 0867582256', '2017-10-02 18:30:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '72010009', 'โรงเรียนวัดดอนโพธิ์ทอง', 'ครูนุ๊ก', 'Very low', '0.00', '0.00', '0.00', '1.18', '0.00', '5.21', '6.39', '00:00', '00:00', '00:00', '00:00', '6:39:00', 'False', 'สุพรรณบุรี', '0000-00-00 00:00:00', '2017-10-05 11:41:36', '', '21.40'),
 ('NC-2017-10-0204', '2017-10-04 14:23:32', 'อินเตอร์เน็ตใช้งานไม่ได้//โรงเรียนบ้านโต่งโต้น จ.ศรีสะเกษ', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 5 ดวง, Cisco 892 ไฟติดปกติ สถานะมอนิเตอร์ : Up', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '33020046', 'โรงเรียนบ้านโต่งโต้น', 'อาธร', 'Very low', '0.00', '0.00', '0.00', '3.56', '0.00', '0.00', '3.56', '00:00', '00:00', '00:00', '00:00', '3:56:00', 'False', 'ศรีสะเกษ', '0000-00-00 00:00:00', '2017-10-05 09:20:28', '', '18.56'),
 ('NC-2017-10-0205', '2017-10-04 14:34:15', 'พระนครศรีอยุธยา /วัดพุทไธศวรรย์ /อุปกรณ์ Router Cisco 800 เสีย', 'อาการ : Router Cisco 800 เสีย', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '14010031', 'โรงเรียนวัดพุทไธศวรรย์ (ธรรมวงศ์วิทยาคาร)', 'เอกพงษ์', 'Very low', '0.00', '0.00', '0.00', '0.46', '0.00', '7.22', '8.08', '00:00', '00:00', '00:00', '00:00', '8:08:00', 'False', 'พระนครศรีอยุธยา', '0000-00-00 00:00:00', '2017-10-05 13:42:48', '', '23.08'),
-('NC-2017-10-0206', '2017-10-04 14:59:29', 'FB ขอนแก่น // รร.ชุมชนหนองสองห้องคุรุราษฎร์รังสรรค์ Internetใช้งานไม่ได้', 'Internetใช้งานไม่ได้ restart m/c ไฟติด 5 ดวง สถานะ link down รบกวนตรวจสอบด้วยค่ะ', '2017-10-02 11:51:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '40030177', 'โรงเรียนชุมชนหนองสองห้องคุรุราษฎร์รังสรรค์', 'สมดี', 'Very low', '0.00', '0.00', '0.00', '5.18', '0.00', '0.00', '5.18', '00:00', '00:00', '00:00', '00:00', '5:18:00', 'False', 'ขอนแก่น', '0000-00-00 00:00:00', '2017-10-05 11:18:08', '', '20.18');
+('NC-2017-10-0206', '2017-10-04 14:59:29', 'FB ขอนแก่น // รร.ชุมชนหนองสองห้องคุรุราษฎร์รังสรรค์ Internetใช้งานไม่ได้', 'Internetใช้งานไม่ได้ restart m/c ไฟติด 5 ดวง สถานะ link down รบกวนตรวจสอบด้วยค่ะ', '2017-10-02 11:51:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '40030177', 'โรงเรียนชุมชนหนองสองห้องคุรุราษฎร์รังสรรค์', 'สมดี', 'Very low', '0.00', '0.00', '0.00', '5.18', '0.00', '0.00', '5.18', '00:00', '00:00', '00:00', '00:00', '5:18:00', 'False', 'ขอนแก่น', '0000-00-00 00:00:00', '2017-10-05 11:18:08', '', '20.18'),
+('NC-2017-10-0207', '2017-10-04 16:01:30', 'จ.อุบลราชธานี//โรงเรียนบ้านแก้งสมบูรณ์//Router Cisco 892 เสีย', 'Router Cisco 892 เสีย ไฟไม่เข้า', '2017-02-15 15:40:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '34050214', 'โรงเรียนบ้านแก้งสมบูรณ์', 'จงกล', 'Very low', '0.00', '0.00', '0.00', '2.31', '0.00', '0.00', '2.31', '00:00', '00:00', '00:00', '00:00', '2:31:00', 'False', 'อุบลราชธานี', '0000-00-00 00:00:00', '2017-10-05 09:33:28', '', '17.31');
 INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
-('NC-2017-10-0207', '2017-10-04 16:01:30', 'จ.อุบลราชธานี//โรงเรียนบ้านแก้งสมบูรณ์//Router Cisco 892 เสีย', 'Router Cisco 892 เสีย ไฟไม่เข้า', '2017-02-15 15:40:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '34050214', 'โรงเรียนบ้านแก้งสมบูรณ์', 'จงกล', 'Very low', '0.00', '0.00', '0.00', '2.31', '0.00', '0.00', '2.31', '00:00', '00:00', '00:00', '00:00', '2:31:00', 'False', 'อุบลราชธานี', '0000-00-00 00:00:00', '2017-10-05 09:33:28', '', '17.31'),
 ('NC-2017-10-0208', '2017-10-04 16:27:22', 'จ.อุบลราชธานี//โรงเรียนชุมชนบ้านดอนจิก (จรรยาราษฎร์)//Router Cisco 892 เสีย', 'Router Cisco 892 เสีย สถานะไฟ ok ไม่ติด สถานะไฟ WAN GE0 ไม่ติด Media Converter ไฟติด 2 ดวง', '2017-08-07 06:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '34030091', 'โรงเรียนชุมชนบ้านดอนจิก(จรรยาราษฎร์)', 'นฤดล', 'Very low', '0.00', '0.00', '0.00', '2.10', '0.00', '0.00', '2.10', '00:00', '00:00', '00:00', '00:00', '2:10:00', 'False', 'อุบลราชธานี', '0000-00-00 00:00:00', '2017-10-05 09:38:09', '', '17.10'),
 ('NC-2017-10-0209', '2017-10-04 17:00:38', 'จ.อุบลราชธานี//โรงเรียนบ้านหาดทรายคูณ//Router Cisco 892 เสีย', 'Router Cisco 892 เสีย สถานะไฟ ok ไม่ติด สถานะไฟ WAN GE0 ไม่ติด Media Converter สถานะไฟติด 3 ดวง', '2017-09-28 01:14:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '34050188', 'โรงเรียนบ้านหาดทรายคูณ', 'อภิชัย', 'Very low', '0.00', '0.00', '0.00', '1.29', '0.00', '0.00', '1.29', '00:00', '00:00', '00:00', '00:00', '1:29:00', 'False', 'อุบลราชธานี', '0000-00-00 00:00:00', '2017-10-05 09:30:54', '', '16.30'),
 ('NC-2017-10-0211', '2017-10-05 07:50:20', 'ไฟเบอร์ขาดเส้นทางมหาวิทยาลัยเชียงใหม่ - โรงเรียนปายวิทยา', 'ตรวจสอบ NMS DWDM พบไฟเบอร์ขาดเส้นทางมหาวิทยาลัยเชียงใหม่ - โรงเรียนปายวิทยา', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '1450100400', 'มหาวิทยาลัยเชียงใหม่', 'โอภาส', 'Critical', '0.00', '0.00', '0.00', '8.59', '0.00', '0.00', '8.59', '00:00', '00:00', '00:00', '00:00', '8:59:00', 'False', 'เชียงใหม่', '0000-00-00 00:00:00', '2017-10-06 07:20:02', '', '23.29'),
@@ -4740,8 +4764,7 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NC-2017-10-0247', '2017-10-05 13:48:09', 'ปัตตานี//โรงเรียนบ้านบือเจาะ//เครื่องสำรองไฟเสีย HD', 'แจ้งเปิดเคสย้อนหลัง 94010122 โรงเรียนบ้านบือเจาะ จ.ปัตตานี // เปลี่ยนสำรองไฟ UPS เสีย // อ.อัสอารี บือราเห้ง 087-2851477 // เจ้าหน้าที่ดำเนินการเปลี่ยนอุปกรณ์เสร็จเรียบร้อย สามารถใช้งานได้แล้วครับ', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '94010122', 'โรงเรียนบ้านบือเจาะ', 'อัสอารี', 'Very low', '0.00', '0.00', '0.00', '0.04', '0.00', '3.08', '3.12', '00:00', '00:00', '00:00', '00:00', '3:12:00', 'False', 'ปัตตานี', '0000-00-00 00:00:00', '2017-10-05 17:03:28', '', '3.15'),
 ('NC-2017-10-0248', '2017-10-05 14:31:33', 'เพชรบุรี//สำนักงานเขตพื้นที่การศึกษามัธยมศึกษาเขต 10//Internetใช้งานไม่ได้', 'Internetใช้งานไม่ได้ restart m/c ไฟติด 4 ดวง fx/act ไม่ติด สถานะ Link Down รบกวนตรวจสอบด้วยค่ะ // ปรียา (Call Center)', '2017-10-01 09:20:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '101710', 'สํานักงานเขตพื้นที่การศึกษามัธยมศึกษาเขต 10(เพชรบุรี-ประจวบฯ-สมุทรสงคราม-สมุทรสาคร)', 'ธนาวุฒิ', 'Very low', '0.00', '0.00', '0.00', '4.24', '0.00', '8.50', '13.14', '00:00', '00:00', '00:00', '00:00', '13:14:00', 'False', 'เพชรบุรี', '0000-00-00 00:00:00', '2017-10-09 09:47:11', '', '91.15'),
 ('NC-2017-10-0249', '2017-10-05 14:40:40', 'จ.อุบลราชธานี//โรงเรียนสหธาตุสามัคคี(บำเพ็ญพิทยาคาร)//M/C ไฟไม่เข้า', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ M/C ไฟไม่เข้า Restart : Yes สถานะไฟที่อุปกรณ์ : m/c ไม่เข้า, Cisco 800 ไฟติดปกติ สถานะมอนิเตอร์ : Down', '2017-09-11 09:32:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '34010132', 'โรงเรียนสหธาตุสามัคคี(บำเพ็ญพิทยาคาร)', 'สมนึก', 'Very low', '0.00', '0.00', '0.00', '4.22', '0.00', '0.00', '4.22', '00:00', '00:00', '00:00', '00:00', '4:22:00', 'False', 'อุบลราชธานี', '0000-00-00 00:00:00', '2017-10-06 10:03:11', '', '19.22'),
-('NC-2017-10-0250', '2017-10-05 14:54:21', 'ขอนแก่น//โรงเรียนชุมชนหนองสองห้องคุรุราษฎร์รังสรรค์//Internetใช้งานไม่ได้', 'Internetใช้งานไม่ได้ restart m/c ไฟติด 5 ดวง สถานะ Link Down รบกวนตรวจสอบด้วยค่ะ // ปรียา (Call Center)', '2017-10-05 14:20:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '40030177', 'โรงเรียนชุมชนหนองสองห้องคุรุราษฎร์รังสรรค์', 'สมดี', 'Very low', '0.00', '0.00', '0.00', '0.29', '0.00', '0.00', '0.29', '00:00', '00:00', '00:00', '00:00', '0:29:00', 'False', 'ขอนแก่น', '0000-00-00 00:00:00', '2017-10-05 15:24:00', '', '0.29');
-INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
+('NC-2017-10-0250', '2017-10-05 14:54:21', 'ขอนแก่น//โรงเรียนชุมชนหนองสองห้องคุรุราษฎร์รังสรรค์//Internetใช้งานไม่ได้', 'Internetใช้งานไม่ได้ restart m/c ไฟติด 5 ดวง สถานะ Link Down รบกวนตรวจสอบด้วยค่ะ // ปรียา (Call Center)', '2017-10-05 14:20:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '40030177', 'โรงเรียนชุมชนหนองสองห้องคุรุราษฎร์รังสรรค์', 'สมดี', 'Very low', '0.00', '0.00', '0.00', '0.29', '0.00', '0.00', '0.29', '00:00', '00:00', '00:00', '00:00', '0:29:00', 'False', 'ขอนแก่น', '0000-00-00 00:00:00', '2017-10-05 15:24:00', '', '0.29'),
 ('NC-2017-10-0251', '2017-10-05 15:05:59', 'FB กรุงเทพมหานคร// วิทยาลัยเทคนิคกาญจนาภิเษกมหานคร Internetใช้งานไม่ได้', 'วิทยาลัยเทคนิคกาญจนาภิเษกมหานคร (กรุงเทพมหานคร ) Internetใช้งานไม่ได้ restart s/w 3750 port 1 12 ติดปกติ (ไม่พบชื่อสถาบันในมอนิเตอร์) รบกวนตรวจสอบด้วยค่ะ', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '1310106102', 'วิทยาลัยเทคนิคกาญจนาภิเษกมหานคร', 'อ.สินทวี', 'Very low', '0.00', '0.00', '0.00', '3.30', '0.00', '0.00', '3.30', '00:00', '00:00', '00:00', '00:00', '3:30:00', 'False', 'กรุงเทพมหานคร', '0000-00-00 00:00:00', '2017-10-06 09:36:15', '', '18.30'),
 ('NC-2017-10-0252', '2017-10-05 15:07:32', 'นนทบุรี//โรงเรียนเตรียมอุดมศึกษาน้อมเกล้านนทบุรี//อินเตอร์เน็ตใช้งานไม่ได้', 'Internet ใช้งานไม่ได้ restart M/C ไฟติด 4 ดวง สถานะ Link Down รบกวนตรวจสอบด้วยค่ะ/กมลชนก (Call Center)', '2017-10-05 14:43:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '12022007', 'โรงเรียนเตรียมอุดมศึกษาน้อมเกล้านนทบุรี', 'กิตติพงศ์', 'Very low', '0.00', '0.00', '0.00', '0.31', '0.00', '0.00', '0.31', '00:00', '00:00', '00:00', '00:00', '0:31:00', 'False', 'นนทบุรี', '0000-00-00 00:00:00', '2017-10-05 15:39:13', '', '0.31'),
 ('NC-2017-10-0253', '2017-10-05 15:18:56', 'ไฟเบอร์ขาดเส้นทาง มหาวิทยาลัยเกษตรศาสตร์วิทยาลัยเขตบางเขน - มหาวิทยาลัยธรรมศาสตร์วิทยาเขตรังสิต', 'ตรวจสอบ NMS DWDM พบไฟเบอร์ขาดเส้นทาง มหาวิทยาลัยเกษตรศาสตร์วิทยาลัยเขตบางเขน - มหาวิทยาลัยธรรมศาสตร์วิทยาเขตรังสิต', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '1413100502', 'มหาวิทยาลัยธรรมศาสตร์ ศูนยรังสิต', 'ฐิติพงศ์', 'Critical', '0.00', '0.00', '0.00', '1.41', '0.00', '0.00', '1.41', '00:00', '00:00', '00:00', '00:00', '1:41:00', 'False', 'ปทุมธานี', '0000-00-00 00:00:00', '2017-10-06 07:16:04', '', '15.57'),
@@ -4772,7 +4795,8 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NC-2017-10-0279', '2017-10-06 10:24:47', 'กาญจนบุรี//โรงเรียนอนุบาลห้วยกระเจา//Wifi Obec01 ใช้งานไม่ได้', 'Wifi Obec01 ใช้งานไม่ได้ ค้นพบเจอแต่ เข้า website ต่างๆไม่ได้ อุปกรณ์ปล่อยสัญญาณ RTCisco800 serie รบกวนตรวจสอบด้วยครับ', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '71020205', 'โรงเรียนอนุบาลห้วยกระเจา', 'สุรชัย', 'Very low', '0.00', '0.00', '0.00', '0.11', '0.00', '0.00', '0.11', '00:00', '00:00', '00:00', '00:00', '0:11:00', 'False', 'กาญจนบุรี', '0000-00-00 00:00:00', '2017-10-06 10:36:22', '', '0.11'),
 ('NC-2017-10-0280', '2017-10-06 10:41:15', 'ขอนแก่น//โรงเรียนบ้านหนองหลุบ//อินเตอร์เน็ตใช้งานไม่ได้', '40010025 โรงเรียนบ้านหนองหลุบ Internetใช้งานไม่ได้ restart m/c ไฟติด 5 ดวง สถานะ link down รบกวนตรวจสอบด้วยครับ /กิติพัฒน์ Callcenter ระยะเวลาที่ Down(ชั่วโมง:นาที:วินาที) = 479:40:36 || Up ครั้งสุดท้ายเมื่อ = 2017-09-16 10:51:20', '2017-09-16 10:51:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '40010025', 'โรงเรียนบ้านหนองหลุบ', 'สุภาพ', 'Very low', '0.00', '0.00', '0.00', '0.31', '0.00', '0.00', '0.31', '00:00', '00:00', '00:00', '00:00', '0:31:00', 'False', 'ขอนแก่น', '0000-00-00 00:00:00', '2017-10-06 11:13:28', '', '0.32'),
 ('NC-2017-10-0281', '2017-10-06 12:06:28', 'ประจวบคีรีขันธ์//โรงเรียนยางชุมวิทยา//อินเตอร์เน็ตใช้งานไม่ได้', 'Internet ใช้งานไม่ได้ restart M/C ไฟติด 4 ดวง สถานะ Link Down รบกวนตรวจสอบด้วยค่ะ/กมลชนก (Call Center)', '2017-10-06 10:20:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '77022002', 'โรงเรียนยางชุมวิทยา', 'ปิยวัฒน์', 'Very low', '0.00', '0.00', '0.00', '6.01', '0.00', '0.00', '6.01', '00:00', '00:00', '00:00', '00:00', '6:01:00', 'False', 'ประจวบคีรีขันธ์', '0000-00-00 00:00:00', '2017-10-09 09:07:51', '', '69.01'),
-('NC-2017-10-0282', '2017-10-06 12:30:05', 'FB ร้อยเอ็ด// รรบ้านเด่นราษฎร์ Internetใช้งานไม่ได้', 'ขอเรียนแจ้งเน็ตใช้งานไม่ได้ โรงเรียนบ้านเด่นราษฎร์ สพป.ร้อยเอ็ด เขต 2 รหัส 45020335 รบกวนทีมงานประสานงานแก้ไขให้ด้วยครับ ผู้ประสานงาน ครูจะเด็จ โทร.0918072650 ขอบคุณล่วงหน้าครับ', '2017-10-05 06:30:00', '0000-00-00 00:00:00', 'Accepted', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '45020335', 'โรงเรียนบ้านเด่นราษฎร์', 'จะเด็จ', 'Very low', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '43.48', '00:00', '00:00', '00:00', '00:00', '43:48:00', 'False', 'ร้อยเอ็ด', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
+('NC-2017-10-0282', '2017-10-06 12:30:05', 'FB ร้อยเอ็ด// รรบ้านเด่นราษฎร์ Internetใช้งานไม่ได้', 'ขอเรียนแจ้งเน็ตใช้งานไม่ได้ โรงเรียนบ้านเด่นราษฎร์ สพป.ร้อยเอ็ด เขต 2 รหัส 45020335 รบกวนทีมงานประสานงานแก้ไขให้ด้วยครับ ผู้ประสานงาน ครูจะเด็จ โทร.0918072650 ขอบคุณล่วงหน้าครับ', '2017-10-05 06:30:00', '0000-00-00 00:00:00', 'Accepted', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '45020335', 'โรงเรียนบ้านเด่นราษฎร์', 'จะเด็จ', 'Very low', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '43.48', '00:00', '00:00', '00:00', '00:00', '43:48:00', 'False', 'ร้อยเอ็ด', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '');
+INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
 ('NC-2017-10-0283', '2017-10-06 12:37:13', '้HDสกลนคร//วิทยาลัยสารพัดช่างสกลนคร//อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ รบกวนตรวจสอบด้วยค่ะ //hd //cal lcenter', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Accepted', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '1347016501', 'วิทยาลัยสารพัดช่างสกลนคร', 'อ.อนันท์', 'Very low', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '43.41', '00:00', '00:00', '00:00', '00:00', '43:41:00', 'False', 'สกลนคร', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
 ('NC-2017-10-0284', '2017-10-06 13:19:55', 'กาฬสินธุ์ /นาตาลวิทยาคม /อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 5 ดวง, Cisco 800 ไฟติดปกติ สถานะมอนิเตอร์ : Down', '2017-09-29 15:10:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '46020113', 'โรงเรียนนาตาลวิทยาคม', 'พิศมัย', 'Very low', '0.00', '0.00', '0.00', '0.21', '0.00', '0.00', '0.21', '00:00', '00:00', '00:00', '00:00', '0:21:00', 'False', 'กาฬสินธุ์', '0000-00-00 00:00:00', '2017-10-06 13:41:23', '', '0.21'),
 ('NC-2017-10-0285', '2017-10-06 13:25:59', 'ประจวบคีรีขันธ์// รร.บ้านหนองจิก Internetใช้งานไม่ได้', 'Internetใช้งานไม่ได้ restart m/c ไฟติด 4 ดวง สถานะ link down รบกวนตรวจสอบด้วยค่ะ', '2017-10-06 10:20:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '77020079', 'โรงเรียนบ้านหนองจิก(ประจวบคีรีขันธ์)', 'พจชกร', 'Very low', '0.00', '0.00', '0.00', '4.28', '0.00', '0.00', '4.28', '00:00', '00:00', '00:00', '00:00', '4:28:00', 'False', 'ประจวบคีรีขันธ์', '0000-00-00 00:00:00', '2017-10-09 08:54:44', '', '67.28'),
@@ -4786,8 +4810,7 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NC-2017-10-0293', '2017-10-07 09:44:19', 'ไฟเบอร์ hi-loss เส้นทางมหาวิทยาลัยเชียงใหม่ - โรงเรียนปายวิทยา', 'ตรวจสอบ NMS DWDM พบไฟเบอร์hi-loss เส้นทางมหาวิทยาลัยเชียงใหม่ - โรงเรียนปายวิทยา วงจรใช้งานไม่ได้', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '1450100400', 'มหาวิทยาลัยเชียงใหม่', 'โอภาส', 'Critical', '0.00', '0.00', '0.00', '1.57', '0.00', '0.00', '1.57', '00:00', '00:00', '00:00', '00:00', '1:57:00', 'False', 'เชียงใหม่', '0000-00-00 00:00:00', '2017-10-09 09:58:30', '', '48.14'),
 ('NC-2017-10-0294', '2017-10-07 09:53:06', 'ไฟเบอร์ขาดเส้นทางสพท.แม่ฮ่องสอน เขต 2 - สพท. เชียงใหม่ เขต 5', 'ตรวจสอบ NMS DWDM พบไฟเบอร์ขาดเส้นทางสพท.แม่ฮ่องสอน เขต 2 - สพท. เชียงใหม่ เขต 5', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '5004', 'สำนักงานเขตพื้นที่การศึกษาประถมศึกษาเชียงใหม่ เขต 5', 'สุธนวัฒน์', 'Very low', '0.00', '0.00', '0.00', '1.57', '0.00', '0.00', '1.57', '00:00', '00:00', '00:00', '00:00', '1:57:00', 'False', 'เชียงใหม่', '0000-00-00 00:00:00', '2017-10-09 09:58:01', '', '48.04'),
 ('NC-2017-10-0295', '2017-10-07 10:09:34', 'ไฟเบอร์ขาดเส้นทางมหาวิทยาลัยราชภัฏลำปาง - วิทยาลัยการอาชีพเถิน', 'ตรวจสอบ NMS DWDM พบไฟเบอร์ขาดเส้นทางไฟเบอร์ขาดเส้นทางมหาวิทยาลัยราชภัฏลำปาง - วิทยาลัยการอาชีพเถิน', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '1352086401', 'วิทยาลัยการอาชีพเถิน', 'คุณณัฐพงศ์', 'Critical', '0.00', '0.00', '0.00', '1.55', '0.00', '0.00', '1.55', '00:00', '00:00', '00:00', '00:00', '1:55:00', 'False', 'ลำปาง', '0000-00-00 00:00:00', '2017-10-09 09:56:46', '', '47.47'),
-('NC-2017-10-0296', '2017-10-07 10:15:26', 'ไฟเบอร์ขาดเส้นทางมหาวิทยาลัยแม่โจ้วิทยาลัยเขตแพร่ - มหาวิทยาลัยราชภัฏอุตรดิตถ์', 'ตรวจสอบ NMS DWDM พบไฟเบอร์ขาดเส้นทางมหาวิทยาลัยแม่โจ้วิทยาลัยเขตแพร่ - มหาวิทยาลัยราชภัฏอุตรดิตถ์', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '1454101301', 'มหาวิทยาลัยแม่โจ้ - แพร่ ฉลิมพระเกียรติ', 'สุธนวัฒน์', 'Critical', '0.00', '0.00', '0.00', '1.55', '0.00', '0.00', '1.55', '00:00', '00:00', '00:00', '00:00', '1:55:00', 'False', 'แพร่', '0000-00-00 00:00:00', '2017-10-09 09:56:18', '', '47.40');
-INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
+('NC-2017-10-0296', '2017-10-07 10:15:26', 'ไฟเบอร์ขาดเส้นทางมหาวิทยาลัยแม่โจ้วิทยาลัยเขตแพร่ - มหาวิทยาลัยราชภัฏอุตรดิตถ์', 'ตรวจสอบ NMS DWDM พบไฟเบอร์ขาดเส้นทางมหาวิทยาลัยแม่โจ้วิทยาลัยเขตแพร่ - มหาวิทยาลัยราชภัฏอุตรดิตถ์', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '1454101301', 'มหาวิทยาลัยแม่โจ้ - แพร่ ฉลิมพระเกียรติ', 'สุธนวัฒน์', 'Critical', '0.00', '0.00', '0.00', '1.55', '0.00', '0.00', '1.55', '00:00', '00:00', '00:00', '00:00', '1:55:00', 'False', 'แพร่', '0000-00-00 00:00:00', '2017-10-09 09:56:18', '', '47.40'),
 ('NC-2017-10-0297', '2017-10-07 12:07:00', 'สุพรรณบุรี//วิทยาลัยเทคนิคสุพรรณบุรี// Fiber ขาด', 'แจ้งซ่อม BB เส้นทาง เทคนิคสุพรรณบุรี - ราชมงคลสุพรรณบุรี', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '1372016101', 'วิทยาลัยเทคนิคสุพรรณบุรี', 'พัชรพงษ์', 'Critical', '0.00', '0.00', '0.00', '1.55', '0.00', '0.00', '1.55', '00:00', '00:00', '00:00', '00:00', '1:55:00', 'False', 'สุพรรณบุรี', '0000-00-00 00:00:00', '2017-10-09 09:55:48', '', '45.48'),
 ('NC-2017-10-0298', '2017-10-07 12:19:33', 'กาญจนบุรี//มหาวิทยาลัยราชภัฏกาญจนบุรี//fiber ขาด', 'แจ้งซ่อมไฟเบอร์ BB เส้นทาง มหาวิทยาลัยราชภัฏกาญจนบุรี - วิทยาลัยเทคนิคสุพรรณบุรี', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '1471213900', 'มหาวิทยาลัยราชภัฏกาญจนบุรี', 'พัชรพงษ์', 'Very low', '0.00', '0.00', '0.00', '1.53', '0.00', '0.00', '1.53', '00:00', '00:00', '00:00', '00:00', '1:53:00', 'False', 'กาญจนบุรี', '0000-00-00 00:00:00', '2017-10-09 09:55:20', '', '45.35'),
 ('NC-2017-10-0299', '2017-10-07 12:32:45', 'หนองบัวลำภู//วิทยาลัยชุมชนหนองบัวลำภู//ไฟเบอร์ขาด', 'ไฟเบอร์ BB เส้นทาง หนองบัวลำภู - ราชภัฏเลย ขาด', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '1439820306', 'วิทยาลัยชุมชนหนองบัวลำภู', 'พัชรพงษ์', 'Very low', '0.00', '0.00', '0.00', '1.53', '0.00', '0.00', '1.53', '00:00', '00:00', '00:00', '00:00', '1:53:00', 'False', 'หนองบัวลำภู', '0000-00-00 00:00:00', '2017-10-09 09:54:45', '', '45.22'),
@@ -4832,8 +4855,7 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NC-2017-10-0338', '2017-10-09 10:06:41', 'อำนาจเจริญ//โรงเรียนอำนาจเจริญ 2//Internet ใช้งานไม่ได้', 'Internet ใช้งานไม่ได้ Restart M/C ไฟติด 5 ดวง สถานะ Link Down', '2017-10-07 17:20:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '37012013', 'โรงเรียนอำนาจเจริญ 2', 'สุรเดช', 'Very low', '0.00', '0.00', '0.00', '0.26', '0.00', '9.59', '10.25', '00:00', '00:00', '00:00', '00:00', '10:25:00', 'False', 'อำนาจเจริญ', '0000-00-00 00:00:00', '2017-10-10 11:32:06', '', '25.25'),
 ('NC-2017-10-0339', '2017-10-09 10:13:39', 'อุดรธานี //โรงเรียนบ้านนาพู่//อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 5 ดวง, Cisco 800 ไฟติดปกติ สถานะ link down รบกวตรวจสอบด้วยค่ะ', '2017-10-07 14:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '41010177', 'โรงเรียนบ้านนาพู่', 'อ.เอกภพ', 'Very low', '0.00', '0.00', '0.00', '5.40', '0.00', '0.00', '5.40', '00:00', '00:00', '00:00', '00:00', '5:40:00', 'False', 'อุดรธานี', '0000-00-00 00:00:00', '2017-10-09 15:53:55', '', '5.40'),
 ('NC-2017-10-0340', '2017-10-09 10:20:46', 'สงขลา//โรงเรียนวัดเนินยพิชั//Router Cisco 800 เสียไฟไม่เข้า', 'Router Cisco 800 เสียไฟไม่เข้า ทดสอบดึงปลั๊กเสียบใหม่แล้ว รบกวนตรวจสอบด้วยค่ะ // ปรียา (Call Center)', '2017-10-08 17:10:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '90020112', 'โรงเรียนวัดเนินพิชัย', 'เจษฎารัตน์', 'Very low', '0.00', '0.00', '0.00', '0.11', '0.00', '5.37', '5.48', '00:00', '00:00', '00:00', '00:00', '5:48:00', 'False', 'สงขลา', '0000-00-00 00:00:00', '2017-10-09 16:09:41', '', '5.48'),
-('NC-2017-10-0341', '2017-10-09 10:22:48', 'ศรีสะเกษ//โรงเรียนบ้านภูมิศาลา//อุปกรณ์M/Cไฟไม่เข้า', 'โรงเรียนบ้านภูมิศาลา 33030009 อุปกรณ์ Media Converter ไฟไม่เข้า ทดสอบต่อตรงและเปลี่ยนปลั๊กแล้วไฟไม่ขึ้นค่ะ', '2017-10-06 01:20:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '33030009', 'โรงเรียนบ้านภูมิศาลา', 'พรเกษม', 'Very low', '0.00', '0.00', '0.00', '0.49', '0.00', '0.00', '0.49', '00:00', '00:00', '00:00', '00:00', '0:49:00', 'False', 'ศรีสะเกษ', '0000-00-00 00:00:00', '2017-10-09 11:13:17', '', '0.50');
-INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
+('NC-2017-10-0341', '2017-10-09 10:22:48', 'ศรีสะเกษ//โรงเรียนบ้านภูมิศาลา//อุปกรณ์M/Cไฟไม่เข้า', 'โรงเรียนบ้านภูมิศาลา 33030009 อุปกรณ์ Media Converter ไฟไม่เข้า ทดสอบต่อตรงและเปลี่ยนปลั๊กแล้วไฟไม่ขึ้นค่ะ', '2017-10-06 01:20:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '33030009', 'โรงเรียนบ้านภูมิศาลา', 'พรเกษม', 'Very low', '0.00', '0.00', '0.00', '0.49', '0.00', '0.00', '0.49', '00:00', '00:00', '00:00', '00:00', '0:49:00', 'False', 'ศรีสะเกษ', '0000-00-00 00:00:00', '2017-10-09 11:13:17', '', '0.50'),
 ('NC-2017-10-0342', '2017-10-09 10:23:35', 'น่าน/โรงเรียนบ้านทุ่งน้อย/เคเบิลหลุดร่วง', 'เรื่องการเดินสายสัญญาณอินเตอร์เน็ตของUninet รุกล้ำกีดขวางที่ทำกินของชาวบ้าน ซึ่งทางชาวบ้านจะปลูกสิ่งก่อสร้าง ขอให้ทางหน่วยงานต้นสังกัดแก้ไขปรับปรุงด่วน', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '55010216', 'โรงเรียนบ้านทุ่งน้อย', 'พัฒนา', 'Very low', '0.00', '0.00', '0.00', '33.37', '0.00', '0.00', '33.37', '00:00', '00:00', '00:00', '00:00', '33:37:00', 'False', 'น่าน', '0000-00-00 00:00:00', '2017-10-14 08:59:10', '', '118.35'),
 ('NC-2017-10-0343', '2017-10-09 10:24:48', 'FB ศรีสะเกษ// รร.นิคมสร้างตนเองห้วยคล้า 2 Internetใช้งานไม่ได้', 'แจ้งอินเตอร์เน็ตใช้งานไม่ได้ รร.นิคมสร้างตนเองห้วยคล้า 2 วังหิน ศรีสะเกษ รหัส รร 33010223 ผู้ประสานงาน ว่าที่พันตรีมานพ บุญช่วย โทร 0801793998 ไฟติดไม่ครบครับ', '2017-10-08 10:10:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '33010223', 'โรงเรียนนิคมสร้างตนเองห้วยคล้า 2', 'ว่าที่ พ.ต.มานพ', 'Very low', '0.00', '0.00', '0.00', '0.21', '0.00', '9.18', '9.39', '00:00', '00:00', '00:00', '00:00', '9:39:00', 'False', 'ศรีสะเกษ', '0000-00-00 00:00:00', '2017-10-10 11:04:40', '', '24.39'),
 ('NC-2017-10-0344', '2017-10-09 10:29:48', 'อุตรดิตถ์//โรงเรียนนิคมสร้างตนเองลําน้ำน่านสงเคราะห์ 3//Internet ใช้งานไม่ได้', 'Internetใช้งานไม่ได้ สัญญาณปล่อยผ่าน Router Huawei AR160 ไฟที่ PWR ติด ไฟ GE4 ติดกระพริบ สถานะ Link Down', '2017-10-06 15:50:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '53020041', 'โรงเรียนนิคมสร้างตนเองลําน้ำน่านสงเคราะห์ 3', 'อรยา', 'Very low', '0.00', '0.00', '0.00', '0.30', '0.00', '5.04', '5.34', '00:00', '00:00', '00:00', '00:00', '5:34:00', 'False', 'อุตรดิตถ์', '0000-00-00 00:00:00', '2017-10-09 16:04:54', '', '5.35'),
@@ -4848,11 +4870,12 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NC-2017-10-0354', '2017-10-09 11:00:42', 'ฉะเชิงเทรา / วิทยาลัยเกษตรและเทคโนโลยีฉะเชิงเทรา ตรวจสอบพบ link down', 'ตรวจสอบพล link down เส้นทาง สำนักงานเขตพื้นที่การศึกษาฉะเชิงเทรา เขต 2 - วิทยาลัยเกษตรและเทคโนโลยีฉะเชิงเทรา', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '1324066301', 'วิทยาลัยเกษตรและเทคโนโลยีฉะเชิงเทรา', 'choocherd', 'Very low', '0.00', '0.00', '0.00', '5.04', '0.00', '0.00', '5.04', '00:00', '00:00', '00:00', '00:00', '5:04:00', 'False', 'ฉะเชิงเทรา', '0000-00-00 00:00:00', '2017-10-09 16:06:10', '', '5.05'),
 ('NC-2017-10-0355', '2017-10-09 11:09:09', 'ตรัง//โรงเรียนบ้านเขากอบ//เปลี่ยนSW เนื่องจาก sw up /down ตลอด //HD', '92020076 โรงเรียนบ้านเขากอบ จ.ตรัง เปลี่ยนSW เนื่องจาก sw up /down ตลอด อ.ภาวดี ล่องตี้ 089-7239783 //HD เจ้าหน้าที่ดำเนินการเปลี่ยนอุปกรณ์เสร็จเรียบร้อย รบกวนตรวจสอบให้ด้วยครับ', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '92020076', 'โรงเรียนบ้านเขากอบ', 'ภาวดี', 'Very low', '0.00', '0.00', '0.00', '0.20', '0.00', '7.08', '7.28', '00:00', '00:00', '00:00', '00:00', '7:28:00', 'False', 'ตรัง', '0000-00-00 00:00:00', '2017-10-10 09:38:36', '', '22.29'),
 ('NC-2017-10-0356', '2017-10-09 11:15:35', 'สมุทรปราการ//โรงเรียนรัตนโกสินทร์ 9//Internetใช้งานไม่ได้', 'Internetใช้งานไม่ได้ restart m/c ไฟติด 5 ดวง สถานะ Link Down รบกวนตรวจสอบด้วยค่ะ // ปรียา (Call Center)', '2017-10-07 11:30:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '11020068', 'โรงเรียนรัตนโกสินทร์ 9', 'พูนศักดิ์', 'Very low', '0.00', '0.00', '0.00', '5.22', '0.00', '0.00', '5.22', '00:00', '00:00', '00:00', '00:00', '5:22:00', 'False', 'สมุทรปราการ', '0000-00-00 00:00:00', '2017-10-09 16:37:40', '', '5.22'),
-('NC-2017-10-0357', '2017-10-09 11:17:56', 'มหาสารคาม// รร.บ้านขามเรียน Internetใช้งานไม่ได้', 'Internetใช้งานไม่ได้ restart m/c ไฟติด 5 ดวง สถานะ link down รบกวนตรวจสอบด้วยค่ะ', '2017-10-07 06:30:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '44020160', 'โรงเรียนบ้านขามเรียน', 'สมบัติ', 'Very low', '0.00', '0.00', '0.00', '3.06', '0.00', '0.00', '3.06', '00:00', '00:00', '00:00', '00:00', '3:06:00', 'False', 'มหาสารคาม', '0000-00-00 00:00:00', '2017-10-09 14:25:04', '', '3.07'),
+('NC-2017-10-0357', '2017-10-09 11:17:56', 'มหาสารคาม// รร.บ้านขามเรียน Internetใช้งานไม่ได้', 'Internetใช้งานไม่ได้ restart m/c ไฟติด 5 ดวง สถานะ link down รบกวนตรวจสอบด้วยค่ะ', '2017-10-07 06:30:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@Helpdesk Center Team', 'บริษัท เอสวีโอเอ จำกัด (มหาชน)', 'Helpdesk Center', 'SVOA MA Equipment', 'ผู้รับจ้าง MA อุปกรณ์', 'สมาชิกเครือข่ายฯ', 'Case', '44020160', 'โรงเรียนบ้านขามเรียน', 'สมบัติ', 'Very low', '0.00', '0.00', '0.00', '3.06', '0.00', '0.00', '3.06', '00:00', '00:00', '00:00', '00:00', '3:06:00', 'False', 'มหาสารคาม', '0000-00-00 00:00:00', '2017-10-09 14:25:04', '', '3.07');
+INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
 ('NC-2017-10-0358', '2017-10-09 11:35:30', 'กรุงเทพ//โรงเรียนราชวินิตบางเขน//Internet ใช้งานไม่ได้', 'Internet ใช้งานไม่ได้ Restart M/C ไฟติด 5 ดวง สถานะ Link Down', '2017-09-03 21:11:00', '0000-00-00 00:00:00', 'In Progress', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '10022026', 'โรงเรียนราชวินิตบางเขน', 'กฤษดา', 'Very low', '0.00', '0.00', '0.00', '21.10', '0.00', '0.00', '35.43', '00:00', '00:00', '00:00', '00:00', '35:43:00', 'False', 'กรุงเทพมหานคร', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
 ('NC-2017-10-0359', '2017-10-09 11:38:00', 'FB//ราชบุรี//โรงเรียนอนุบาลวัดดอนตูม//Internetใช้งานไม่ได้', 'โรงเรียนวัดดอนตูม บ้านโป่ง จ.ราชบุรี ใช้งานอินเตอร์เน็ตไม่ได้ครับ ครูสุพร0877576077 (m/c 5 ดวง)', '2017-10-09 09:20:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '70022010', 'โรงเรียนวัดดอนตูม', 'สุพร', 'Very low', '0.00', '0.00', '0.00', '1.36', '0.00', '3.31', '5.07', '00:00', '00:00', '00:00', '00:00', '5:07:00', 'False', 'ราชบุรี', '0000-00-00 00:00:00', '2017-10-09 16:46:20', '', '5.08'),
 ('NC-2017-10-0360', '2017-10-09 11:39:21', 'ชัยภูมิ//วิทยาลัยเทคนิคชัยภูมิ//อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : S/W 1 ไม่ติด', '2017-10-08 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '1336016101', 'วิทยาลัยเทคนิคชัยภูมิ', 'อ.อรงค์กร', 'Very low', '0.00', '0.00', '0.00', '0.20', '0.00', '0.00', '0.20', '00:00', '00:00', '00:00', '00:00', '0:20:00', 'False', 'ชัยภูมิ', '0000-00-00 00:00:00', '2017-10-09 12:00:15', '', '0.20'),
-('NC-2017-10-0361', '2017-10-09 11:50:27', 'ชัยภูมิ//ห้องสมุดประชาชน เฉลิมราชกุมารี อำเภอจัตุรัส//อินเตอร์เน็ตใช้งานไม่ได้', 'ห้องสมุดประชาชน เฉลิมราชกุมารี อำเภอจัตุรัส Internetใช้งานไม่ได้ restart m/c ไฟติด 5 ดวง สถานะ link down รบกวนตรวจสอบด้วยครับ /กิติพัฒน์ Callcenter', '2017-10-08 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', 'LIB0053', 'ห้องสมุดประชาชน"เฉลิมราชกุมารี" อำเภอจัตุรัส', 'เกวลิน', 'Very low', '0.00', '0.00', '0.00', '1.13', '0.00', '0.00', '1.13', '00:00', '00:00', '00:00', '00:00', '1:13:00', 'False', 'ชัยภูมิ', '0000-00-00 00:00:00', '2017-10-09 13:03:40', '', '1.13'),
+('NC-2017-10-0361', '2017-10-09 11:50:27', 'ชัยภูมิ//ห้องสมุดประชาชน เฉลิมราชกุมารี อำเภอจัตุรัส//อินเตอร์เน็ตใช้งานไม่ได้', 'ห้องสมุดประชาชน เฉลิมราชกุมารี อำเภอจัตุรัส Internetใช้งานไม่ได้ restart m/c ไฟติด 5 ดวง สถานะ link down รบกวนตรวจสอบด้วยครับ /กิติพัฒน์ Callcenter', '2017-10-08 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', 'LIB0053', 'ห้องสมุดประชาชน\"เฉลิมราชกุมารี\" อำเภอจัตุรัส', 'เกวลิน', 'Very low', '0.00', '0.00', '0.00', '1.13', '0.00', '0.00', '1.13', '00:00', '00:00', '00:00', '00:00', '1:13:00', 'False', 'ชัยภูมิ', '0000-00-00 00:00:00', '2017-10-09 13:03:40', '', '1.13'),
 ('NC-2017-10-0362', '2017-10-09 11:58:47', 'อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 5 ดวง, Cisco 800 ไฟติดปกติ', '2017-10-09 12:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '90020062', 'โรงเรียนวัดหินเกลี้ยง', 'อัมพร', 'Very low', '0.00', '0.00', '0.00', '1.49', '0.00', '0.00', '1.49', '00:00', '00:00', '00:00', '00:00', '1:49:00', 'False', 'สงขลา', '0000-00-00 00:00:00', '2017-10-09 13:48:46', '', '1.49'),
 ('NC-2017-10-0363', '2017-10-09 12:02:39', 'ไฟเบอร์ขาดเส้นทางมหาวิทยาลัยมหิดลวิทยาเขตศาลายา - มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ', 'ตรวจสอบ NMS DWDM พบไฟเบอร์ขาดเส้นทางมหาวิทยาลัยมหิดลวิทยาเขตศาลายา - มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', 'มหาวิทยาลัย', 'มหาวิทยาลัยมหิดล ศาลายา', 'สุธนวัฒน์', 'Very low', '0.00', '0.00', '0.00', '4.58', '0.00', '0.00', '4.58', '00:00', '00:00', '00:00', '00:00', '4:58:00', 'False', '', '0000-00-00 00:00:00', '2017-10-10 06:45:08', '', '18.42'),
 ('NC-2017-10-0364', '2017-10-09 12:07:44', 'กาญจนบุรี//โรงเรียนบ้านท่ามะกา//Internetใช้งานไม่ได้', 'Internetใช้งานไม่ได้ restart m/c ไฟติด 5 ดวง สถานะ Link Down รบกวนตรวจสอบด้วยค่ะ // ปรียา (Call Center)', '2017-10-09 09:20:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '71020054', 'โรงเรียนบ้านท่ามะกา', 'กุลนิสา', 'Very low', '0.00', '0.00', '0.00', '1.09', '0.00', '3.27', '4.36', '00:00', '00:00', '00:00', '00:00', '4:36:00', 'False', 'กาญจนบุรี', '0000-00-00 00:00:00', '2017-10-09 16:45:11', '', '4.37'),
@@ -4879,8 +4902,7 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NC-2017-10-0386', '2017-10-10 09:17:57', 'อำนาจเจริญ /คึมใหญ่วิทยา /อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : sw3750 port 1 ไฟติด 12 ไฟติด Monitor : Down', '2017-10-10 09:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '37012005', 'โรงเรียนคึมใหญ่วิทยา', 'ธนธร', 'Very low', '0.00', '0.00', '0.00', '0.22', '0.00', '4.21', '4.43', '00:00', '00:00', '00:00', '00:00', '4:43:00', 'False', 'อำนาจเจริญ', '0000-00-00 00:00:00', '2017-10-10 14:01:44', '', '4.43'),
 ('NC-2017-10-0387', '2017-10-10 09:20:09', 'สระบุรี//โรงเรียนบ้านครัว (ซิเมนต์ไทยสงเคราะห์)//s/w 3560 เสีย', 's/w 3560 เสีย ไม่มีไฟเข้าลองขยับรางปลั้กแล้ว รบกวนตรวจสอบด้วยค่ะ', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '19010047', 'โรงเรียนบ้านครัว(ซิเมนต์ไทยสงเคราะห์)', 'อ.กฤษตินนท์', 'Very low', '0.00', '0.00', '0.00', '0.44', '0.00', '0.00', '0.44', '00:00', '00:00', '00:00', '00:00', '0:44:00', 'False', 'สระบุรี', '0000-00-00 00:00:00', '2017-10-10 10:05:10', '', '0.45'),
 ('NC-2017-10-0388', '2017-10-10 09:59:06', 'พระนครศรีอยุธยา /สาคลีวิทยา /อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 4 ดวง, Cisco 800 ไฟติดปกติ Monitor : Down', '2017-10-08 08:31:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '14022011', 'โรงเรียนสาคลีวิทยา', 'ชานินทร์', 'Very low', '0.00', '0.00', '0.00', '0.24', '0.00', '5.34', '5.58', '00:00', '00:00', '00:00', '00:00', '5:58:00', 'False', 'พระนครศรีอยุธยา', '0000-00-00 00:00:00', '2017-10-10 15:57:41', '', '5.58'),
-('NC-2017-10-0389', '2017-10-10 10:03:48', 'ร้อยเอ็ด//โรงเรียนบ้านงิ้วหว่านศึกษาคาร//Internet ใช้งานไม่ได้', 'Internet ใช้งานไม่ได้ Restart M/C ไฟติด 4 ดวง สถานะ Link Down', '2017-10-08 13:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '45030020', 'โรงเรียนบ้านงิ้วหว่านศึกษาคาร', 'สมศักดิ์', 'Very low', '0.00', '0.00', '0.00', '0.30', '0.00', '0.00', '0.30', '00:00', '00:00', '00:00', '00:00', '0:30:00', 'False', 'ร้อยเอ็ด', '0000-00-00 00:00:00', '2017-10-10 10:34:31', '', '0.30');
-INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_description`, `downtime`, `uptime`, `case_status`, `service_type`, `case_category`, `case_sub_category`, `engineer`, `office`, `team`, `section`, `department`, `customer`, `contract`, `site_id`, `site_Name`, `contact`, `priority`, `response_overdue`, `onsite_overdue`, `resolve_overdue`, `response_duration`, `onsite_duration`, `resolve_duration`, `case_duration`, `response`, `onsite`, `resolve`, `auto_close`, `sla_overdue`, `24x7`, `province`, `resolved_time`, `closed_time`, `hour_to_resolve`, `hour_to_close`) VALUES
+('NC-2017-10-0389', '2017-10-10 10:03:48', 'ร้อยเอ็ด//โรงเรียนบ้านงิ้วหว่านศึกษาคาร//Internet ใช้งานไม่ได้', 'Internet ใช้งานไม่ได้ Restart M/C ไฟติด 4 ดวง สถานะ Link Down', '2017-10-08 13:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '45030020', 'โรงเรียนบ้านงิ้วหว่านศึกษาคาร', 'สมศักดิ์', 'Very low', '0.00', '0.00', '0.00', '0.30', '0.00', '0.00', '0.30', '00:00', '00:00', '00:00', '00:00', '0:30:00', 'False', 'ร้อยเอ็ด', '0000-00-00 00:00:00', '2017-10-10 10:34:31', '', '0.30'),
 ('NC-2017-10-0390', '2017-10-10 10:06:37', 'กรุงเทพฯ//SW 3560 เสีย 1 ตัว', 'กรุงเทพฯ//SW 3560 เสีย 1 ตัว // เป็น SW ใช้สำหรับโครงการ tdc.thailis.or.th', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', 'OHEC', 'สำนักงานคณะกรรการการอุดมศึกษา', 'เกรียงศักดิ์', 'Very low', '0.00', '0.00', '0.00', '4.43', '0.00', '0.00', '4.43', '00:00', '00:00', '00:00', '00:00', '4:43:00', 'False', '', '0000-00-00 00:00:00', '2017-10-10 14:50:21', '', '4.43'),
 ('NC-2017-10-0391', '2017-10-10 10:12:20', 'นนทบุรี//โรงเรียนไทยรัฐวิทยา 55 //อินเตอร์เน็ตใช้งานไม่ได้', '12010017 โรงเรียนไทยรัฐวิทยา 55 Internetใช้งานไม่ได้ restart m/c ไฟติด 5 ดวง สถานะ link down รบกวนตรวจสอบด้วยครับ /กิติพัฒน์ Callcenter', '2017-10-10 09:53:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '12010017', 'โรงเรียนไทยรัฐวิทยา 55', 'จักรพันธ์', 'Very low', '0.00', '0.00', '0.00', '0.15', '0.00', '0.00', '0.15', '00:00', '00:00', '00:00', '00:00', '0:15:00', 'False', 'นนทบุรี', '0000-00-00 00:00:00', '2017-10-10 10:28:22', '', '0.16'),
 ('NC-2017-10-0392', '2017-10-10 10:30:40', 'แ /แปลงยาวพิทยาคม /อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes สถานะไฟที่อุปกรณ์ : m/c 4 ดวง, Cisco 800 ไฟติดปกติ Monitor : Down', '2017-10-09 19:30:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '24022011', 'โรงเรียนแปลงยาวพิทยาคม', 'สมุทร', 'Very low', '0.00', '0.00', '0.00', '0.40', '0.00', '7.27', '8.07', '00:00', '00:00', '00:00', '00:00', '8:07:00', 'False', 'ฉะเชิงเทรา', '0000-00-00 00:00:00', '2017-10-11 09:38:49', '', '23.08'),
@@ -4904,6 +4926,129 @@ INSERT INTO `tb_ticket` (`case_id`, `created_date`, `case_title`, `case_descript
 ('NC-2017-10-0410', '2017-10-10 13:48:17', 'ชลบุรี//โรงเรียนชุมชนบ้านหนองปรือ//อินเตอร์เน็ตใช้งานไม่ได้', 'อาการ : อินเตอร์เน็ตใช้งานไม่ได้ Restart : Yes HUAWEI AR160 ge4 ติดปกติ Monitor : Down รบกวนตรวจสอบด้วยค่ะ', '2017-10-09 18:30:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '', '', '', '', '', 'สมาชิกเครือข่ายฯ', 'Case', '20030017', 'โรงเรียนชุมชนบ้านหนองปรือ', 'อ.สันติ', 'Very low', '0.00', '0.00', '0.00', '4.28', '0.00', '0.00', '4.28', '00:00', '00:00', '00:00', '00:00', '4:28:00', 'False', 'ชลบุรี', '0000-00-00 00:00:00', '2017-10-11 09:17:22', '', '19.29'),
 ('NC-2017-10-0411', '2017-10-10 14:51:39', 'FB ร้อยเอ็ด // วิทยาลัยการอาชีพเกษตรวิสัย Internetใช้งานไม่ได้', 'แจ้งตรวจสอบสายเคเบิล เส้นทาง โรงเรียนสุวรรณภูมิ (SW) - วิทยาลัยการอาชีพเกษตรวิสัย (SW)', '2017-10-09 08:50:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '1345026401', 'วิทยาลัยการอาชีพเกษตรวิสัย', 'ศราวุธ', 'Very low', '0.00', '0.00', '0.00', '0.31', '0.00', '4.00', '4.31', '00:00', '00:00', '00:00', '00:00', '4:31:00', 'False', 'ร้อยเอ็ด', '0000-00-00 00:00:00', '2017-10-11 10:24:24', '', '19.32'),
 ('NC-2017-10-0412', '2017-10-10 14:52:35', 'ไฟเบอร์hi-loss เส้นทาง สพท. เพชรบูรณ์ เขต 2 - วิทยาลัยอาชีพด่านซ้าย', 'ตรวจสอบ NMS DWDM พบไฟเบอร์hi-loss เส้นทาง สพท. เพชรบูรณ์ เขต 2 - วิทยาลัยอาชีพด่านซ้าย ด้านรับ เขต 2 35.8 dB ด้านรับ ด่านซ้าย 41.1 dB วงจรไม่สามารถใช้งานได้', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Closed', 'CASE', 'Case', 'NOC Case', '@NOC Team', 'OHEC', 'NOC', 'แผนกบริหารระบบเครือข่าย', 'ฝ่ายบริหารระบบเครือข่าย (NOC)', 'สมาชิกเครือข่ายฯ', 'Case', '6702', 'สำนักงานเขตพื้นที่การศึกษาประถมศึกษาเพชรบูรณ์ เขต2', 'สุธนวัฒน์', 'Critical', '0.00', '0.00', '0.00', '3.44', '0.00', '0.00', '3.44', '00:00', '00:00', '00:00', '00:00', '3:44:00', 'False', 'เพชรบูรณ์', '0000-00-00 00:00:00', '2017-10-11 09:37:45', '', '18.45');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tb_contact`
+--
+ALTER TABLE `tb_contact`
+  ADD PRIMARY KEY (`site_id`,`contact_no`);
+
+--
+-- Indexes for table `tb_eform`
+--
+ALTER TABLE `tb_eform`
+  ADD PRIMARY KEY (`row_id`);
+
+--
+-- Indexes for table `tb_eform_attachment`
+--
+ALTER TABLE `tb_eform_attachment`
+  ADD PRIMARY KEY (`attachment_no`);
+
+--
+-- Indexes for table `tb_eform_checklist`
+--
+ALTER TABLE `tb_eform_checklist`
+  ADD PRIMARY KEY (`eform_id`,`form_id`,`page_no`,`panel_no`,`question_no`);
+
+--
+-- Indexes for table `tb_eform_note`
+--
+ALTER TABLE `tb_eform_note`
+  ADD PRIMARY KEY (`eform_id`,`note_no`);
+
+--
+-- Indexes for table `tb_form`
+--
+ALTER TABLE `tb_form`
+  ADD PRIMARY KEY (`form_id`);
+
+--
+-- Indexes for table `tb_form_answer`
+--
+ALTER TABLE `tb_form_answer`
+  ADD PRIMARY KEY (`form_id`,`page_no`,`panel_no`,`element_no`,`question_no`,`answer_no`);
+
+--
+-- Indexes for table `tb_form_element`
+--
+ALTER TABLE `tb_form_element`
+  ADD PRIMARY KEY (`form_id`,`page_no`,`panel_no`,`element_no`);
+
+--
+-- Indexes for table `tb_form_page`
+--
+ALTER TABLE `tb_form_page`
+  ADD PRIMARY KEY (`form_id`,`page_no`);
+
+--
+-- Indexes for table `tb_form_panel`
+--
+ALTER TABLE `tb_form_panel`
+  ADD PRIMARY KEY (`form_id`,`page_no`,`panel_no`);
+
+--
+-- Indexes for table `tb_form_question`
+--
+ALTER TABLE `tb_form_question`
+  ADD PRIMARY KEY (`form_id`,`page_no`,`panel_no`,`element_no`,`question_no`);
+
+--
+-- Indexes for table `tb_region`
+--
+ALTER TABLE `tb_region`
+  ADD PRIMARY KEY (`region_id`);
+
+--
+-- Indexes for table `tb_schedule`
+--
+ALTER TABLE `tb_schedule`
+  ADD PRIMARY KEY (`row_id`);
+
+--
+-- Indexes for table `tb_schedule_destination`
+--
+ALTER TABLE `tb_schedule_destination`
+  ADD PRIMARY KEY (`schedule_id`,`site_id`);
+
+--
+-- Indexes for table `tb_schedule_member`
+--
+ALTER TABLE `tb_schedule_member`
+  ADD PRIMARY KEY (`schedule_id`,`name`);
+
+--
+-- Indexes for table `tb_schedule_task`
+--
+ALTER TABLE `tb_schedule_task`
+  ADD PRIMARY KEY (`schedule_id`,`site_id`,`ticket_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tb_eform`
+--
+ALTER TABLE `tb_eform`
+  MODIFY `row_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `tb_eform_attachment`
+--
+ALTER TABLE `tb_eform_attachment`
+  MODIFY `attachment_no` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tb_schedule`
+--
+ALTER TABLE `tb_schedule`
+  MODIFY `row_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
