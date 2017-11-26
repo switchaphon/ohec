@@ -11,7 +11,7 @@ class Eform extends MY_Controller {
     
 	public function __construct() {
 		parent::__construct();
-		$this->load->helper(array('form', 'url'));
+		$this->load->helper(array('form', 'url','file'));
 		$this->output->set_title('OHEC : eForm');
 	}
 
@@ -111,7 +111,8 @@ class Eform extends MY_Controller {
 	}   
 	
 	public function create_ops(){
-
+		echo "<pre>"; print_r($_POST); echo "</pre>";
+		$this->load->library( array('Utilities') );
 		$this->load->model( array('Utilities_model','Eform_model'));
 
 		//Initiate eform_id
@@ -134,7 +135,7 @@ class Eform extends MY_Controller {
 		);
 
 		// echo "<pre>"; print_r($eform); echo "</pre>";
-		$res = $this->Utilities_model->_insert_array('tb_eform',$eform);
+		// $res = $this->Utilities_model->_insert_array('tb_eform',$eform);
 
 		$question = $this->Eform_model->load_question($_POST['form_id'],$_POST['panel_name']);
 		
@@ -152,32 +153,49 @@ class Eform extends MY_Controller {
 					);
 
 					// echo "<pre>"; print_r($eform_checklist); echo "</pre>";
-					$res = $this->Utilities_model->_insert_array('tb_eform_checklist',$eform_checklist);
+					// $res = $this->Utilities_model->_insert_array('tb_eform_checklist',$eform_checklist);
 				}
 			}else{
 				//Upload file to folder
-				
-				//attachment
-				// $eform_attachment = array(
-				// 	'eform_id' => $eform_id
-				// 	,'form_id' => $_POST['form_id']
-				// 	,'page_no' => $_POST['page_no']
-				// 	,'panel_no' => $val['panel_no']
-				// 	,'question_no' => $val['question_no']
-				// 	// ,'attachment_no' => 
-				// 	// ,'attachment_type' => 
-				// 	// ,'attachment_path' => 
-				// );
+				// echo "<pre>"; print_r($_POST[$val['question_name']]); echo "</pre>";
+				// foreach($_POST[$val['question_name']] as $attach_key => $attach_val):
+				// foreach($_POST['file'] as $attach_key => $attach_val):
 
-				// echo "<pre>"; print_r($eform_attachment); echo "</pre>";
-				// // $res = $this->Schedule_model->_insert_array('tb_eform_attachment',$eform_attachment);
+					//Read uploaded file
+					// $uploadedFile = $_POST[$val['question_name']];
+					$uploadedFile = 'file';
+					
+					//Prepare upload config
+					$config['upload_path'] = 'files';
+					// $config['allowed_types'] = 'xls|xlsx';
+					$config['file_name'] = $eform_id;
+					$config['overwrite'] = FALSE;
+					$config['max_size'] = 0;
+
+					//Upload file
+					$alert_msg = $this->utilities->upload($uploadedFile,$config);
+
+					$eform_attachment = array(
+						'eform_id' => $eform_id
+						,'form_id' => $_POST['form_id']
+						,'page_no' => $_POST['page_no']
+						,'panel_no' => $val['panel_no']
+						,'question_no' => $val['question_no']
+						// ,'attachment_no' => 
+						// ,'attachment_type' => 
+						// ,'attachment_path' => 
+					);
+
+					// echo "<pre>"; print_r($eform_attachment); echo "</pre>";
+					// // $res = $this->Schedule_model->_insert_array('tb_eform_attachment',$eform_attachment);
+				// endforeach;
 			}
 		endforeach;
 
 		//Log
 
 		//Redirect
-		redirect( site_url('/schedule/view/'.$_POST['schedule_id']) );
+		// redirect( site_url('/schedule/view/'.$_POST['schedule_id']) );
 
 
 	}

@@ -83,7 +83,7 @@
                             </div>
                             <!-- /.row -->                            
 
-                            <form role="form" id="createEform" name="createEform" class="form-horizontal form-label-left" data-toggle="validator" action="<?=site_url('eform/create_ops');?>" method="POST">
+                            <form role="form" id="createEform" name="createEform" class="form-horizontal form-label-left" data-toggle="validator" action="<?=site_url('eform/create_ops');?>" enctype="multipart/form-data" method="post">
                             <input type="hidden" id="schedule_id" name="schedule_id" value="<?=$schedule_id;?>" />
                             <input type="hidden" id="site_id" name="site_id" value="<?=$site_id;?>" />
                             <input type="hidden" id="ticket_id" name="ticket_id" value="<?=$ticket_id;?>" />
@@ -151,10 +151,14 @@
                                                         break;
                                                     case "dropbox":
                                                         $answer = null;
+                                                        // $answer = "
+                                                        //     <div class=\"col-md-4 col-sm-4 col-xs-12 \">
+                                                        //         <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple data-show-upload=\"false\" data-show-caption=\"false\" data-msg-placeholder=\"เลือกภาพที่ต้องการแนบ...\">
+                                                        //     </div>";
                                                         $answer = "
                                                             <div class=\"col-md-4 col-sm-4 col-xs-12 \">
-                                                                <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple data-show-upload=\"false\" data-show-caption=\"false\" data-msg-placeholder=\"เลือกภาพที่ต้องการแนบ...\">
-                                                            </div>";
+                                                                <input name=\"file[]\" id=\"file\" type=\"file\" class=\"form-control\"  multiple>
+                                                            </div>";                                                            
                                                         break;    
                                                 }
 
