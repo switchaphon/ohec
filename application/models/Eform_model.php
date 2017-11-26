@@ -330,7 +330,7 @@ class Eform_model extends CI_Model {
     
     function get_schedule_eform($schedule_id = null){
         $sql ="
-            SELECT eform.eform_id,site.site_name,site.province,ticket.case_category,eform.created_by,eform.created_date
+            SELECT eform.eform_id,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date
             FROM `tb_eform` eform
             LEFT JOIN `tb_site` site ON site.site_id = eform.site_id
             LEFT JOIN `tb_ticket` ticket ON ticket.case_id = eform.ticket_id

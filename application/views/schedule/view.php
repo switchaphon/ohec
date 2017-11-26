@@ -172,7 +172,6 @@
 
                             if( !in_array($this->session->userdata('cn'), $committee_list, true) ) {
                         ?>
-                          <!-- <a href="<?=site_url('schedule/join_schedule_ops?schedule_id='.$schedule[0]['schedule_id'])."&name=".$this->session->userdata('cn');?>" class="btn btn-round btn-info pull-right" id='joinSchedulebtn' name='joinSchedulebtn' ><span class="fa fa-plus-circle" aria-hidden="true"></span> เข้าร่วม</a> -->
                           <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
                         <?  
                             }
@@ -192,6 +191,7 @@
                         </thead>
                         <tbody>        
                         <? 
+                          // echo "<pre>"; print_r($committee_list); echo "</pre>";
                           if(!empty($committee_list)){ 
                             foreach($committee_list as $key => $val): 
                         ?>
@@ -199,10 +199,8 @@
                               <td class="text-left"><a href="#"><?=$val;?></a></td>
                               <? if($val == $this->session->userdata('cn')){ ?>
                                 <td class="text-left">
-                                  <!-- <a href="<?=site_url('schedule/disjoin_schedule_ops')."?schedule_id=".$schedule[0]['schedule_id']."&name=".$this->session->userdata('cn') ?>" class="btn btn-round btn-warning btn-xs pull-right" id="cancelSchedulebtn" name="cancelSchedulebtn"><span class="fa fa-minus-circle" aria-hidden="true"></span> ยกเลิก</a> -->
                                   <a href="#" class="btn btn-round btn-danger btn-xs" id='disjoinSchedulebtn' name='disjoinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#disjoinScheduleModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
-                                  <!-- <a href="#" class="btn btn-round btn-danger btn-xs"><i class="fa fa-trash-o"></i>  </a> -->
-                                </td>
+                                 </td>
                                 
                               <? }else{ ?>
                                 <td class="text-left"></td>
@@ -249,26 +247,38 @@
                           <thead>
                               <tr>
                               <th class="text-center">สถานที่</th>
-                              <!-- <th class="text-center">ทรัพย์สิน</th> -->
                               <th class="text-center">หมายเลขเคส</th>
                               <th class="text-center"></th>
                               </tr>
                           </thead>
                           <tbody>        
                           <?
+                            // echo "<pre>"; print_r($task_list); echo "</pre>";
                             if(!empty($task_list)){ 
                               foreach($task_list as $key => $val):
+                                $flag = false;
+                                for($i = 0; $i < count($eform_list); $i++){
+                                  if( ($eform_list[$i]['site_id'] == $val['site_id']) && ($eform_list[$i]['case_id'] == $val['ticket_id']) && ($eform_list[$i]['created_by'] == $this->session->userdata('cn')) ){
+                                    $flag = true;
+                                  }
+                                }
                           ?>
                             <tr>
                                 <td class="text-left"><a href="#"><?=$val['site_name'];?></a></td>
-                                <!-- <td class="text-left"><a href="#"><?=$val['ma_type'];?></a></td> -->
                                 <td class="text-left"><a href="#"><?=$val['ticket_id'];?></a></td>
                                 <td class="text-left">
-                                  <!-- <a href="#" class="btn btn-round btn-primary btn-xs"><i class="fa fa-folder"></i>  </a> -->
+                                <? 
+                                  if(in_array($this->session->userdata('cn'), $committee_list) ){
+                                    if( !$flag ) {
+                                ?>
                                   <a href="<?=site_url('eform/create/'.$schedule[0]['schedule_id']).'/'.$val['ticket_id'];?>" class="btn btn-round btn-success btn-xs"><i class="fa fa-file-text"></i> ตรวจ </a>
+                                <?  } 
+                                    if( $this->session->userdata('role') == 'Administrator'){?>  
                                   <a href="#" class="btn btn-round btn-danger btn-xs" id='cancelTaskbtn' name='cancelTaskbtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-site_id="<?=$val['site_id'];?>" data-site_name="<?=$val['site_name'];?>" data-ticket_id="<?=$val['ticket_id'];?>" data-toggle="modal" data-target="#cancelTaskModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
-                                  
-                                  <!-- <a href="#" class="btn btn-round btn-info btn-xs pull-right" name='addTaskbtn'><span class="fa fa-plus-circle" aria-hidden="true"></span> แบบตรวจ</a> -->
+                                <? 
+                                    } 
+                                  }
+                                ?>
                                 </td>
                             </tr>
 
@@ -318,11 +328,9 @@
                         <table id="tbEform" name="tbEform" class="table table-striped">
                         <thead>
                             <tr>
-                            <!-- <th class="text-center">หมายเลข</th> -->
                             <th class="text-center">ชื่อหน่วยงาน</th>
                             <th class="text-center">จังหวัด</th>
-                            <th class="text-center">ทรัพย์สิน</th>
-                            <!-- <th class="text-center">ประเภทการตรวจสอบ</th> -->
+                            <th class="text-center">ประเภทการตรวจสอบ</th>
                             <th class="text-center">ผู้ตรวจสอบ</th>
                             <th class="text-center">วันที่ตรวจสอบ</th>
                             <th class="text-center"></th>
@@ -331,15 +339,14 @@
                         
                         <tbody>
                         <? 
-                           if(!empty($eform_list)){ 
+                          // echo "<pre>"; print_r($eform_list); echo "</pre>";
+                          if(!empty($eform_list)){ 
                             foreach($eform_list as $eform_key => $eform_val):
                         ?>
                             <tr>
-                              <!-- <td class="text-left"><a href="#"><?=$eform_val['eform_id'];?></a></td> -->
                               <td class="text-left"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['site_name'];?></a></td>
                               <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['province'];?></a></td>
-                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['case_category'];?>[PM]</a></td>
-                              <!-- <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>">PM</a></td> -->
+                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['case_category'];?> [PM]</a></td>
                               <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['created_by'];?></a></td>
                               <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['created_date'];?></a></td>
                               <td class="text-center"></td>

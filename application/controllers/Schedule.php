@@ -17,7 +17,7 @@ class Schedule extends MY_Controller {
 		//Fixed value
 		$customdata = array(
 			'username' => 'witchaphon.sa'
-			,'cn' => 'วิชญ์พล แสงอร่าม'
+			,'cn' => 'Wiriya Damrong'
 			,'role' => 'User'
 			,'logged_in' => TRUE
 		);                            

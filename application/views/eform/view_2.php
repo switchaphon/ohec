@@ -34,12 +34,14 @@
                             <section class="content invoice">
                                 <!-- title row -->
                                 <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="100px"></center>
+                                
                                 <div class="row">
                                     <div class="col-xs-12 invoice-header">
                                         <h2><?=$eform[0]['form_name']?></h2>
                                     </div>
                                 <!-- /.col -->
                                 </div>
+
                                 <!-- info row -->
                                 <div class="row invoice-info">
                                     <div class="col-sm-7 invoice-col">
@@ -68,6 +70,7 @@
                                     </div>
                                     <!-- /.col -->
                                 </div>
+
                                 <div class="row no-print">
                                     <div class="<col-sm-12 invoice-col">
                                         <button class="btn btn-round btn-default pull-right" onclick="window.print();"><i class="fa fa-print"></i> พิมพ์</button> 
@@ -76,12 +79,13 @@
                                     <!-- /.col -->
                                 </div>                    
                                 <!-- /.row -->
+
                                 <div class="ln_solid"></div>
 
                                 <div class="row">
-                                    <!-- accepted payments column -->
-                                    <div class="col-md-12 col-md-12 col-md-12">
-                                    <!-- Router -->
+
+                                    <!-- Checklist -->
+                                    <div class="col-md-7 col-md-7 col-md-12">
                                         <div class="row">
                                         
                                             <? 
@@ -158,13 +162,12 @@
                                                 endforeach;
                                             ?>
                                         </div>
-                                    <!-- /Router -->
+                                                                      
                                     </div>
-                                </div>
-                                <!-- /.row -->
-                                <div class="row">
-                                    <!-- /.col -->
-                                    <div class="col-md-12 col-md-12 col-md-12">
+                                    <!-- /Checklist --> 
+
+                                    <!-- /Attachment-->
+                                    <div class="col-md-5 col-md-5 col-md-12">
                                         <p class="lead">ภาพประกอบ</p>
                                         <h7>&nbsp;</h7>
                                         <div class="row">    
@@ -182,7 +185,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="caption">
-                                                        <p><strong>ภาพด้านหน้า</strong></p>
+                                                        <!-- <p><strong>ภาพด้านหน้า</strong></p> -->
                                                     </div>
                                                 <!-- </div> -->
                                             </div>
@@ -199,9 +202,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="caption">
+                                                    <!-- <div class="caption">
                                                         <p><strong>ภาพข้างซ้าย</strong></p>
-                                                    </div>
+                                                    </div> -->
                                                 <!-- </div> -->
                                             </div>
                                         </div>
@@ -219,7 +222,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="caption">
-                                                        <p><strong>ภาพด้านหน้า</strong></p>
+                                                        <!-- <p><strong>ภาพด้านหน้า</strong></p> -->
                                                     </div>
                                                 <!-- </div> -->
                                             </div>
@@ -237,27 +240,15 @@
                                                         </div>
                                                     </div>
                                                     <div class="caption">
-                                                        <p><strong>ภาพด้านหน้า</strong></p>
+                                                        <!-- <p><strong>ภาพด้านหน้า</strong></p> -->
                                                     </div>
                                                 <!-- </div> -->
                                             </div>                            
 
                                         </div>
                                     </div>
-                                    <!-- /.col -->
+                                    <!-- /Attachment--> 
                                 </div>
-                                <!-- /.row -->
-
-                                <!-- this row will not appear when printing -->
-                                <!-- <div class="row no-print">
-                                    <div class="col-sm-9 invoice-col"></div>
-                                    <div class="col-xs-3">
-                                        <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> พิมพ์</button>
-                                        <button class="btn btn-success pull-right"><i class="fa fa-edit"></i> แก้ไข</button>
-                                        <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> PDF</button>
-                                    </div>
-                                </div> -->
-
                             </section>
                         </div>
                     </div>

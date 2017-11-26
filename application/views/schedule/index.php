@@ -80,7 +80,9 @@
                             <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>">
                               <a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-folder-open"></i> เรียกดู</a>
                               <a href="<?=site_url('schedule/edit')?>/<?=$row['schedule_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-pencil"></i> แก้ไข </a>
-                              <a href="#" class="btn btn-round btn-danger btn-xs"><i class="fa fa-trash-o"> ยกเลิก</i>  </a>
+                              <? if( $this->session->userdata('role') == 'Administrator'){?> 
+                                <a href="#" class="btn btn-round btn-danger btn-xs"><i class="fa fa-trash-o"> ยกเลิก</i>  </a>
+                              <? } ?>
                             </td>
                         </tr>
 
