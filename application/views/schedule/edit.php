@@ -351,29 +351,45 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <table id="scheduleEform" name="scheduleEform" class="table table-striped">
+                        <table id="tbEform" name="tbEform" class="table table-striped">
                         <thead>
                             <tr>
-                            <th class="text-center">หมายเลข</th>
+                            <!-- <th class="text-center">หมายเลข</th> -->
                             <th class="text-center">ชื่อหน่วยงาน</th>
                             <th class="text-center">จังหวัด</th>
                             <th class="text-center">ทรัพย์สิน</th>
-                            <th class="text-center">ประเภทการตรวจสอบ</th>
+                            <!-- <th class="text-center">ประเภทการตรวจสอบ</th> -->
                             <th class="text-center">ผู้ตรวจสอบ</th>
                             <th class="text-center">วันที่ตรวจสอบ</th>
                             <th class="text-center"></th>
                             </tr>
                         </thead>
                         
-                        <tbody>                            
+                        <tbody>
+                        <? 
+                            //echo "<pre>"; print_r($eform_list); echo "</pre>"; 
+                            foreach($eform_list as $eform_key => $eform_val):
+                        ?>
+                            <tr>
+                              <!-- <td class="text-left"><a href="#"><?=$eform_val['eform_id'];?></a></td> -->
+                              <td class="text-left"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['site_name'];?></a></td>
+                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['province'];?></a></td>
+                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['case_category'];?>[PM]</a></td>
+                              <!-- <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>">PM</a></td> -->
+                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['created_by'];?></a></td>
+                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['created_date'];?></a></td>
+                              <td class="text-center"></td>
+                            </tr>  
+                        <?      
+                            endforeach;
+                        ?>                            
                         </tbody>
                         
                         </table>
                     </div>
                 </div>
             </div>
-
-        </div>         
+        </div>      
         <!-- /bottom row -->
         
     </div>

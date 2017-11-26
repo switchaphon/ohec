@@ -99,7 +99,7 @@
                             <div class="ln_solid"></div>
 
                             <div class="form-group">
-                                <div class="col-md-9 text-right">
+                                <div class="col-md-5 pull-right">
                                 <button type="submit" class="btn btn-round btn-default">ยกเลิก</button>
                                 <button id="submit" type="submit" class="btn btn-round btn-primary">บันทึก</button>
                                 </div>

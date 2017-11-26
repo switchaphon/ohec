@@ -15,13 +15,13 @@
 </style>
 <div class="left_col scroll-view">
   <div class="navbar nav_title" style="border: 0;">
-    <a href="http://www.mua.go.th" class="site_title2"> <span>OHEC</span></a>
+    <a href="http://www.mua.go.th" class="site_title2 text-center"> <span>สำนักงานคณะกรรมการการอุดมศึกษา</span></a>
   </div>
 
   <div class="clearfix"></div>
 
   <!-- menu profile quick info -->
-  <div class="profile clearfix">
+  <!-- <div class="profile clearfix">
     <div class="profile_pic">
       <img src="<?=base_url('assets/img/img.jpg');?>" alt="..." class="img-circle profile_img">
     </div>
@@ -30,7 +30,7 @@
       <h2><?=$this->session->userdata('cn');?></h2>
     </div>
     <div class="clearfix"></div>
-  </div>
+  </div> -->
   <!-- /menu profile quick info -->
 
   <br />

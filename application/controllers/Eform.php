@@ -30,7 +30,8 @@ class Eform extends MY_Controller {
 		$this->load->model( array('Eform_model','Ticket_model'));
 		
 		//Get schedule
-		$this->data['eform'] = $this->Eform_model->view_eform($eform_id );
+		$this->data['eform'] = $this->Eform_model->view_eform($eform_id);
+		$this->data['eform_checklist'] = $this->Eform_model->view_eform_checklist($eform_id);
 		
 		$this->load->view('eform/view',$this->data);
 	}

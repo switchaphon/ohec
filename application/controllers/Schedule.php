@@ -136,7 +136,7 @@ class Schedule extends MY_Controller {
 	public function edit($schedule_id = null){
 		$this->_init();
 		$this->_init_assets( array('datatables','bootstrap_validator','bootstrap_select','bootstrap-daterangepicker') );
-		$this->load->model( array('Schedule_model','Site_model'));
+		$this->load->model( array('Schedule_model','Site_model','Eform_model'));
 
 		//Get schedule
 		$this->data['schedule'] = $this->Schedule_model->view_schedule($schedule_id);
@@ -155,7 +155,8 @@ class Schedule extends MY_Controller {
 		// $this->data['site_list'] = $this->Site_model->list_site_by_province($province_list);
 		$this->data['site_list'] = $this->Site_model->list_site_by_province($province_list,$ticket_start_date,$ticket_end_date,$schedule_id);
 		$this->data['task_list'] = $this->Schedule_model->get_schedule_task($schedule_id);
-		$this->data['committee_list'] = $this->Schedule_model->get_committee($schedule_id);
+		$this->data['committee_list'] = $this->Schedule_model->get_schedule_committee($schedule_id);
+		$this->data['eform_list'] = $this->Eform_model->get_schedule_eform($schedule_id);
 
         $this->load->view('schedule/edit',$this->data);
 	}	

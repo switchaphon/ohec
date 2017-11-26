@@ -1,7 +1,7 @@
 <!-- footer content -->
 <footer>
   <div class="pull-right">
-    Copyright<a href="#"> © OHEC. </a>
+    <a href="#"> © Office of Higher Education Commission (OHEC) Thailand. </a>
   </div>
   <div class="clearfix"></div>
 </footer>
