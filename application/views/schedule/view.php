@@ -256,7 +256,8 @@
                           </thead>
                           <tbody>        
                           <?
-                          foreach($task_list as $key => $val):
+                            if(!empty($task_list)){ 
+                              foreach($task_list as $key => $val):
                           ?>
                             <tr>
                                 <td class="text-left"><a href="#"><?=$val['site_name'];?></a></td>
@@ -272,7 +273,8 @@
                             </tr>
 
                           <?
-                            endforeach;
+                              endforeach;
+                            }
                           ?>       
                           </tbody>
                         </table>             
@@ -329,7 +331,7 @@
                         
                         <tbody>
                         <? 
-                            //echo "<pre>"; print_r($eform_list); echo "</pre>"; 
+                           if(!empty($eform_list)){ 
                             foreach($eform_list as $eform_key => $eform_val):
                         ?>
                             <tr>
@@ -344,6 +346,7 @@
                             </tr>  
                         <?      
                             endforeach;
+                          }
                         ?>                            
                         </tbody>
                         

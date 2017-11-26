@@ -368,14 +368,14 @@ class Eform_model extends CI_Model {
 
     function view_eform_checklist($eform_id = null){
         $sql ="
-        SELECT checklist.panel_no,checklist.question_no,panel.panel_name,panel.panel_title,question.question_no,question.question_name,question.question_text,question.question_value,question.question_type,answer_value
-        FROM `tb_eform_checklist` checklist
-        LEFT JOIN `tb_form_panel` panel ON panel.panel_no = checklist.panel_no
-        INNER JOIN `tb_form_question` question ON checklist.question_no = question.question_no AND checklist.panel_no = question.panel_no
-        WHERE checklist.eform_id = '$eform_id '
-        AND question.panel_no IN (SELECT panel_no FROM `tb_eform_checklist` checklist WHERE checklist.eform_id = '$eform_id ' GROUP BY panel_no ORDER BY checklist.panel_no ASC) 
-        AND question.form_id = (SELECT form_id FROM tb_eform eform WHERE eform.eform_id = '$eform_id ' )
-        ORDER BY panel.panel_no ASC
+            SELECT checklist.panel_no,checklist.question_no,panel.panel_name,panel.panel_title,question.question_no,question.question_name,question.question_text,question.question_value,question.question_type,answer_value
+            FROM `tb_eform_checklist` checklist
+            LEFT JOIN `tb_form_panel` panel ON panel.panel_no = checklist.panel_no
+            LEFT JOIN `tb_form_question` question ON checklist.question_no = question.question_no AND checklist.panel_no = question.panel_no
+            WHERE checklist.eform_id = '$eform_id'
+            AND question.panel_no IN (SELECT panel_no FROM `tb_eform_checklist` checklist WHERE checklist.eform_id = '$eform_id' GROUP BY panel_no ORDER BY checklist.panel_no ASC) 
+            AND question.form_id = (SELECT form_id FROM tb_eform eform WHERE eform.eform_id = '$eform_id' )
+            ORDER BY panel.panel_no ASC
         ";
 
         $query = $this->db->query($sql);
@@ -385,33 +385,33 @@ class Eform_model extends CI_Model {
         if($query->result()){
             foreach ($query->result_array() as $key => $val) {
 
-                // $eform_checklist[$val['panel_no']] = array(
-                //     'panel_name' => $val['panel_name']
-                //     ,'panel_title' => $val['panel_title']
-                // );
-
-if( empty( $eform_checklist[$val['panel_no']]  ) ){
+                if( empty( $eform_checklist[$val['panel_no']]  ) ){
                     $eform_checklist[$val['panel_no']] = array(
-                    'panel_name' => $val['panel_name']
-                    ,'panel_title' => $val['panel_title']
-                );
-                if( empty( $eform_checklist[$val['panel_no']]['question'] ) ){
-                    $eform_checklist[$val['panel_no']]['question'][] = array(
-                        // 'panel_no' => $val['panel_no']
-                        // ,'panel_name' => $val['panel_name']
-                        // ,'panel_title' => $val['panel_title']
-                        'question_no' => $val['question_no']
-                        ,'question_name' => $val['question_name']
-                        ,'question_text' => $val['question_text']
-                        ,'question_value' => $val['question_value']
-                        ,'question_type' => $val['question_type']
-                        ,'answer_value' => $val['answer_value']
+                        'panel_name' => $val['panel_name']
+                        ,'panel_title' => $val['panel_title']
                     );
+                    
+                    if( empty( $eform_checklist[$val['panel_no']]['question'] ) ){
+                        $eform_checklist[$val['panel_no']]['question'][] = array(
+                            'question_no' => $val['question_no']
+                            ,'question_name' => $val['question_name']
+                            ,'question_text' => $val['question_text']
+                            ,'question_value' => $val['question_value']
+                            ,'question_type' => $val['question_type']
+                            ,'answer_value' => $val['answer_value']
+                        );
+                    }else{
+                        $eform_checklist[$val['panel_no']]['question'][] = array(
+                            'question_no' => $val['question_no']
+                            ,'question_name' => $val['question_name']
+                            ,'question_text' => $val['question_text']
+                            ,'question_value' => $val['question_value']
+                            ,'question_type' => $val['question_type']
+                            ,'answer_value' => $val['answer_value']
+                        );
+                    }
                 }else{
                     $eform_checklist[$val['panel_no']]['question'][] = array(
-                        // 'panel_no' => $val['panel_no']
-                        // ,'panel_name' => $val['panel_name']
-                        // ,'panel_title' => $val['panel_title']
                         'question_no' => $val['question_no']
                         ,'question_name' => $val['question_name']
                         ,'question_text' => $val['question_text']
@@ -419,25 +419,49 @@ if( empty( $eform_checklist[$val['panel_no']]  ) ){
                         ,'question_type' => $val['question_type']
                         ,'answer_value' => $val['answer_value']
                     );
-                }
-            }else{
-                $eform_checklist[$val['panel_no']]['question'][] = array(
-                    // 'panel_no' => $val['panel_no']
-                    // ,'panel_name' => $val['panel_name']
-                    // ,'panel_title' => $val['panel_title']
-                    'question_no' => $val['question_no']
-                    ,'question_name' => $val['question_name']
-                    ,'question_text' => $val['question_text']
-                    ,'question_value' => $val['question_value']
-                    ,'question_type' => $val['question_type']
-                    ,'answer_value' => $val['answer_value']
-                );
-            }    
-}                   
+                }    
+            }                   
                 return $eform_checklist;
             }else{
                 return FALSE;
             }
     }    
+    function view_eform_checklist_answer($eform_id = null){
+        $sql ="
+        SELECT answer.panel_no,answer.question_no,answer.answer_no,answer.answer_name,answer.answer_text,answer.answer_value
+        FROM `tb_form_answer` answer
+        WHERE answer.answer_status = '1' 
+        AND answer.form_id = (SELECT form_id FROM `tb_eform` eform WHERE eform.eform_id = '$eform_id')
+        AND answer.panel_no IN (SELECT panel_no FROM `tb_eform_checklist` checklist WHERE checklist.eform_id = '$eform_id' GROUP BY panel_no ORDER BY checklist.panel_no ASC)
+        ORDER BY answer.panel_no,answer.question_no,answer.answer_no,answer.answer_order
+        ";
+
+        $query = $this->db->query($sql);
+        
+        $eform_checklist_answer = array();
+        
+        if($query->result()){
+            foreach ($query->result_array() as $key => $value) {
+                if( empty( $eform_checklist_answer[$value['panel_no']][$value['question_no']][$value['answer_no']] ) ){
+                    $eform_checklist_answer[$value['panel_no']][$value['question_no']][$value['answer_no']] = array(
+                        'answer_no' => $value['answer_no']
+                        ,'answer_name' => $value['answer_name']
+                        ,'answer_text' => $value['answer_text']
+                        ,'answer_value' => $value['answer_value']
+                    );
+                }else{
+                    $eform_checklist_answer[$value['panel_no']][$value['question_no']][$value['answer_no']] = array(
+                        'answer_no' => $value['answer_no']
+                        ,'answer_name' => $value['answer_name']
+                        ,'answer_text' => $value['answer_text']
+                        ,'answer_value' => $value['answer_value']
+                    );
+                }
+            }        
+                return $eform_checklist_answer;
+            }else{
+                return FALSE;
+            }
+    }
 }
 ?>

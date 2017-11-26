@@ -86,6 +86,7 @@
                                         
                                             <? 
                                                 // echo "<pre>"; print_r($eform_checklist); echo "</pre>";
+                                                // echo "<pre>"; print_r($eform_checklist_answer); echo "</pre>";
                                                 foreach($eform_checklist as $key => $val):
                                                     echo "<div class=\"col-md-12 col-md-12 col-md-12\"><span class=\"section\">".$val['panel_name']."</span></div>";  
                                                     
@@ -98,71 +99,60 @@
                                                         $question_text = $val['question'][$question]['question_text'];
                                                         $question_value = $val['question'][$question]['question_value'];
                                                         $question_type = $val['question'][$question]['question_type'];
-
+                                                        $answer_value = $val['question'][$question]['answer_value'];
+                                                        
                                                         // echo "<pre>"; print_r($val['question'][$question]); echo "</pre>";
-                                                        // switch( $question_type ){
-                                                        //     case "textbox":
-                                                        //         $answer = null;
-                                                        //         $answer = "
-                                                        //             <div class=\"col-md-4 col-sm-4 col-xs-12 \">
-                                                        //                 <input type=\"text\" class=\"form-control col-md-7 col-xs-12\" name=\"".$question_name."\" id=\"".$question_name."\">
-                                                        //             </div>";
-                                                        //         break;
-                                                        //     case "textarea":
-                                                        //         $answer = null;
-                                                        //         $answer = "
-                                                        //             <div class=\"col-md-4 col-sm-4 col-xs-12 \">
-                                                        //                 <textarea name=\"".$question_name."\" id=\"".$question_name."\" class=\"form-control\" rows=\"3\"></textarea>
-                                                        //             </div>";
-                                                        //         break;
-                                                        //     case "radiobox":
-                                                        //         $answer = null;
-                                                        //         foreach($val['question'][$question]['answer'] as $ans_key => $ans_val):
-                                                        //             $answer_no = $ans_val['answer_no'];
-                                                        //             $answer_name = $ans_val['answer_name'];
-                                                        //             $answer_text = $ans_val['answer_text'];
-                                                        //             $answer_value = $ans_val['answer_value'];
+                                                        switch( $question_type ){
+                                                            case "textbox":
+                                                                $answer = null;
+                                                                $answer = "
+                                                                    <div class=\"col-sm-3 col-sm-3 col-xs-12\">".$answer_value."</div>";
+                                                                break;
+                                                            case "textarea":
+                                                                $answer = null;
+                                                                $answer = "
+                                                                    <div class=\"col-sm-3 col-sm-3 col-xs-12\">".$answer_value."</div>";
+                                                                break;
+                                                            case "radiobox":
+                                                                $answer = null;
+                                                                // echo "<pre>"; print_r($eform_checklist_answer[$key][$question_no]); echo "</pre>";
+                                                                foreach($eform_checklist_answer[$key][$question_no] as $ans_key => $ans_val):
+                                                                    $ans_no = $ans_val['answer_no'];
+                                                                    $ans_name = $ans_val['answer_name'];
+                                                                    $ans_text = $ans_val['answer_text'];
+                                                                    $ans_value = $ans_val['answer_value'];
         
-                                                        //             if($answer_name  == 'passed'){$checked = 'checked'; }else{$checked = null;}
+                                                                    // if($ans_value  == $answer_value){$checked = "<i class=\"fa fa-check-square-o\"></i>"; }else{$checked = "<i class=\"fa fa-square-o\"></i>";}
+                                                                    if($ans_value  == $answer_value){$checked = "<i class=\"fa fa-check-circle-o\"></i>"; }else{$checked = "<i class=\"fa fa-circle-o\"></i>";}
         
-                                                        //             $answer = $answer."
-                                                        //                 <div class=\"col-md-2 col-sm-2 col-xs-12\">
-                                                        //                     <div class=\"radio-inline\">
-                                                        //                         <label><input type=\"radio\" class=\"flat\" name=\"".$question_name."\" id=\"".$question_name."\" value=\"".$answer_value."\" ".$checked."> ".$answer_text."</label>
-                                                        //                     </div>
-                                                        //                 </div>";  
-                                                        //         endforeach;
-                                                        //         break;
-                                                        //     case "checkbox":
-                                                        //         $answer = null;
+                                                                    $answer = $answer."
+                                                                        <div class=\"col-sm-3 col-sm-3 col-xs-12\">
+                                                                            <div class=\"radio-inline\">
+                                                                                <label>".$checked." ".$ans_text."</label>
+                                                                            </div>
+                                                                        </div>";  
+                                                                endforeach;
+                                                                break;
+                                                            case "checkbox":
+                                                                $answer = null;
                                                                 
-                                                        //         break;
-                                                        //     case "selectbox":
-                                                        //         $answer = null;
-                                                        //         break;
-                                                        //     case "dropbox":
-                                                        //         $answer = null;
-                                                        //         $answer = "
-                                                        //             <div class=\"col-md-4 col-sm-4 col-xs-12 \">
-                                                        //                 <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple data-show-upload=\"false\" data-show-caption=\"false\" data-msg-placeholder=\"เลือกภาพที่ต้องการแนบ...\">
-                                                        //             </div>";
-                                                        //         break;    
-                                                        // }
+                                                                break;
+                                                            case "selectbox":
+                                                                $answer = null;
+                                                                break;
+                                                            case "dropbox":
+                                                                $answer = null;
+                                                                $answer = "
+                                                                    <div class=\"col-md-4 col-sm-4 col-xs-12 \">
+                                                                        <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple data-show-upload=\"false\" data-show-caption=\"false\" data-msg-placeholder=\"เลือกภาพที่ต้องการแนบ...\">
+                                                                    </div>";
+                                                                break;    
+                                                        }
                                                         
                                                         //--Renfer question--//
                                                         echo "
                                                         <div class=\"col-md-12 col-md-12 col-md-12 \">
-                                                            <label class=\"control-label col-md-7 col-md-7 col-md-12\" for=\"".$question_name."\">".$question_text."</label>
-                                                            <div class=\"col-sm-2 col-sm-2 col-xs-12\">
-                                                                <div class=\"radio-inline\">
-                                                                <label><input type=\"radio\" class=\"flat\" name=\"".$question_name."\" id=\"".$question_name."\" value=\"\"> ผ่าน</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class=\"col-sm-3 col-sm-3 col-xs-12\">
-                                                                <div class=\"radio-inline\">
-                                                                <label><input type=\"radio\" class=\"flat\" name=\"".$question_name."\" id=\"".$question_name."\" value=\"\"> ไม่ผ่าน</label>
-                                                                </div>
-                                                            </div>
+                                                            <label class=\"control-label col-md-6 col-md-6 col-md-12\" for=\"".$question_name."\">".$question_text."</label>".$answer."
                                                         </div>";
                                                     }
                                                 endforeach;
