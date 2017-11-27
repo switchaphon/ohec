@@ -45,20 +45,25 @@ class Eform extends MY_Controller {
 		$this->_init();
 		$this->_init_assets( array('icheck','dropzone','bootstrap-fileinput') );
 		$this->load->library( array('Eform_action') );
-		$this->load->model( array('Eform_model','Ticket_model'));
+		$this->load->model( array('Eform_model','Ticket_model','Schedule_model'));
 		
 		//Get ticket's detail
 		$ticket = $this->Ticket_model->view_ticket($ticket_id);
 		
-		$this->data['schedule_id'] = $schedule_id;
+		//Get schedule's detail
+		$schedule = $this->Schedule_model->view_schedule($schedule_id);
+
+		$this->data['schedule_id'] = $schedule[0]['schedule_id'];
+		$this->data['schedule_name'] = $schedule[0]['schedule_name'];
 		$this->data['site_id'] = $ticket[0]['site_id'];
+		$this->data['site_name'] = $ticket[0]['site_Name'];
+		$this->data['contact'] = $ticket[0]['contact'];
 		$this->data['ticket_id'] = $ticket_id;
 		$this->data['case_category'] = $ticket[0]['case_category'];
 		$this->data['case_sub_category'] = $ticket[0]['case_sub_category'];
 		$this->data['ma_type'] = 'pm'; //Should be get from ticket database
 		$this->data['ma_contract'] = $ticket[0]['contract'];
-		// echo $this->data['case_category'].$this->data['case_sub_category'];
-		// echo $this->data['case_category']; echo strpos($this->data['case_category'], 'Equipment');
+
 		switch (true) {
 			
 			case strpos($this->data['case_category'], 'Equipment') !== false:
@@ -105,8 +110,7 @@ class Eform extends MY_Controller {
 				}
 				break;
 		}	
-		// echo $asset_group.$asset_type;
-		
+
 		//Load checklist by asset_type and ma_type
 		$this->data['checklist'] = $this->eform_action->load_form($asset_group,$asset_type, $this->data['ma_type']);
 		

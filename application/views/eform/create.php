@@ -11,7 +11,7 @@
             <div class="col-sm-12 col-sm-12 col-sm-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>สร้างแบบตรวจออนไลน์ <small>(<?=$case_category;?>)</small></h2>
+                        <h2><?=$checklist['form_name'];?><small></small></h2>
                         <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -38,22 +38,20 @@
                             <!-- <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="100px"></center> -->
                             
                             <div class="row">
-                                <div class="col-sm-12 invoice-header">
-                                    <h2><?=$checklist['form_name'];?></h2>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                                    <h1><?=$site_name;?></h1>
                                 </div>
-                            <!-- /.col -->
                             </div>
 
                             <!-- info row -->
                             <div class="row invoice-info">
-                                <div class="col-sm-7 invoice-col">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                                     <address>
-                                        <h2><?=$site_id;?></h2>
-        
-                                        <b>สัญญา :</b> <?=$ma_contract;?>
-                                        <br><b>เจ้าหน้าที่ประจำสถานที่ :</b> <?//=$eform[0]['contact']?>
+                                        <b>ตารางตรวจงาน :</b> <a href="<?=site_url('schedule/view/'.$schedule_id)?>"><?=$schedule_name;?></a>
+                                        <br><b>สัญญา :</b> <?=$ma_contract;?>
                                         <br><b>หมายเลขเคส :</b> <a href="#" target="_blank"><?=$ticket_id;?></a>
                                         <br><b>ทรัพย์สิน :</b> <?=$case_sub_category;?>
+                                        <br><b>เจ้าหน้าที่ประจำสถานที่ :</b> <?=$contact;?>
                                         
                                     </address>
                                 </div>
