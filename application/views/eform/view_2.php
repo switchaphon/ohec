@@ -12,7 +12,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>แบบตรวจสอบออนไลน์</h2>
+                            <h2><?=$eform[0]['form_name']?></h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -33,50 +33,42 @@
                         <div class="x_content">
                             <section class="content invoice">
                                 <!-- title row -->
-                                <!-- <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="100px"></center> -->
+                                <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="100px"></center>
                                 
                                 <div class="row">
-                                    <div class="col-xs-12 invoice-header">
-                                        <h2><?=$eform[0]['form_name']?></h2>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                                        <h2><?=$eform[0]['site_name']?></h2>
                                     </div>
                                 <!-- /.col -->
                                 </div>
 
                                 <!-- info row -->
                                 <div class="row invoice-info">
-                                    <div class="col-sm-7 invoice-col">
+                                    <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
                                         <address>
-                                            <h2><?=$eform[0]['site_name']?></h2>
-            
                                             <b>สัญญา :</b> <?=$eform[0]['contract']?>
                                             <br><b>เจ้าหน้าที่ประจำสถานที่ :</b> <?=$eform[0]['contact']?>
                                             <br><b>หมายเลขเคส :</b> <a href="#" target="_blank"><?=$eform[0]['case_id']?></a>
                                             <br><b>ทรัพย์สิน :</b> <?=$eform[0]['case_sub_category']?>
-                                            
                                         </address>
                                     </div>
                                     <!-- /.col -->
-                                    <div class="col-sm-3 invoice-col">
-                    
-                                    </div>
                                     <!-- /.col -->
-                                    <div class="<col-sm-4 invoice-col">
-                                        <br><br><b>หมายเลขการตรวจ : <?=$eform[0]['eform_id']?></b>
-                                        <br><b>ตารางงาน : <a href="<?=site_url('schedule/view/'.$eform[0]['schedule_id'])?>"><?=$eform[0]['schedule_name']?></a></b>
+                                    <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">
+                                        <b>หมายเลขการตรวจ : <?=$eform[0]['eform_id']?></b>
+                                        <br><b>ตารางงาน : <a href="#"><?=$eform[0]['schedule_name']?></a></b>
                                         <br><b>ผู้ตรวจสอบ</b> <?=$eform[0]['created_by']?></b>
                                         <br><b>วันที่ตรวจสอบ</b> <?=$eform[0]['created_date']?></b>
-                                        <!-- <button class="btn btn-round btn-default pull-right" onclick="window.print();"><i class="fa fa-print"></i> พิมพ์</button>  -->
-                                        <!-- <button class="btn btn-round  btn-success pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> PDF</button> -->
                                     </div>
                                     <!-- /.col -->
                                 </div>
-
+                                
+                                <!-- .row -->
                                 <div class="row no-print">
-                                    <div class="<col-sm-12 invoice-col">
-                                        <button class="btn btn-round btn-default pull-right" onclick="window.print();"><i class="fa fa-print"></i> พิมพ์</button> 
-                                        <button class="btn btn-round  btn-success pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> PDF</button>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                                        <button class="btn btn-round btn-default" onclick="window.print();"><i class="fa fa-print"></i> พิมพ์</button> 
+                                        <button class="btn btn-round btn-success" style="margin-right: 5px;"><i class="fa fa-download"></i> PDF</button>
                                     </div>
-                                    <!-- /.col -->
                                 </div>                    
                                 <!-- /.row -->
 
@@ -85,7 +77,7 @@
                                 <div class="row">
 
                                     <!-- Checklist -->
-                                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                    <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
                                         <div class="row">
                                         
                                             <? 
@@ -156,7 +148,7 @@
                                                         //--Renfer question--//
                                                         echo "
                                                         <div class=\"col-lg-12 col-md-12 col-sm-12 col-xs-12\">
-                                                            <label class=\"control-label col-lg-5 col-md-12 col-sm-6 col-xs-12 \" for=\"".$question_name."\">".$question_text."</label>".$answer."
+                                                            <label class=\"control-label col-lg-5 col-md-6 col-sm-6 col-xs-12 \" for=\"".$question_name."\">".$question_text."</label>".$answer."
                                                         </div>";
                                                     }
                                                 endforeach;
@@ -167,7 +159,7 @@
                                     <!-- /Checklist --> 
                                            
                                     <!-- /Attachment-->
-                                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                    <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
                                     <!-- echo "<div class=\"col-md-12 col-sm-12 col-xs-12\"><span class=\"section\">".$val['panel_name']."</span></div>";   -->
                                         <span class="section">ภาพประกอบ</span>
                                         <div class="row">    

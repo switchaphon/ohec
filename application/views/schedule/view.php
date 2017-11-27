@@ -64,55 +64,55 @@
                     </div> -->
 
                     <div class="row">
-                      <label class="col-md-4 control-label text-right">ชื่อ</label>
-                      <div class="col-md-8 text-left"><?=$val['schedule_name'];?></div>
+                      <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">ชื่อ</label>
+                      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$val['schedule_name'];?></div>
                     </div>
 
                     <div class="row">
-                      <label class="col-md-4 control-label text-right">รายละเอียด</label>
-                      <div class="col-md-8 text-left"><?=$val['schedule_description'];?></div>
+                      <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">รายละเอียด</label>
+                      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$val['schedule_description'];?></div>
                     </div>
           
                     <div class="row">
-                      <label class="col-md-4 control-label text-right">กำหนดการเดินทาง</label>
-                      <div class="col-md-8 text-left"><?=convert_to_yyyymmdd( $val['start_date'] );?> ถึง <?=convert_to_yyyymmdd( $val['end_date'] );?></div>
+                      <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">กำหนดการ</label>
+                      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=convert_to_yyyymmdd( $val['start_date'] );?> ถึง <?=convert_to_yyyymmdd( $val['end_date'] );?></div>
                     </div>
 
                     <div class="row">
-                      <label class="col-md-4 control-label text-right">Ticket</label>
-                      <div class="col-md-8 text-left"><?=convert_to_yyyymmdd( $val['ticket_start_date'] );?> ถึง <?=convert_to_yyyymmdd( $val['ticket_end_date'] );?></div>
+                      <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">Ticket</label>
+                      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=convert_to_yyyymmdd( $val['ticket_start_date'] );?> ถึง <?=convert_to_yyyymmdd( $val['ticket_end_date'] );?></div>
                     </div>
 
                     <div class="row">
-                      <label class="col-md-4 control-label text-right">พื้นที่</label>
-                      <div class="col-md-8 text-left"><?=$val['region_name'];?></div>
+                      <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">พื้นที่</label>
+                      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$val['region_name'];?></div>
                     </div>
 
                     <div class="row">
-                      <label class="col-md-4 control-label text-right">จังหวัด</label>
-                      <div class="col-md-8 text-left"><?=$val['province'];?></div>
+                      <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">จังหวัด</label>
+                      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$val['province'];?></div>
                     </div>
                     <div class="ln_solid"></div>    
                     <div class="row">
-                      <label class="col-md-4 control-label text-right">สร้างเมื่อ</label>
-                      <div class="col-md-8 text-left"><?=$val['created_date'];?></div>
+                      <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">สร้างเมื่อ</label>
+                      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$val['created_date'];?></div>
                     </div>
 
                     <div class="row">
-                      <label class="col-md-4 control-label text-right">สร้างโดย</label>
-                      <div class="col-md-8 text-left"><?=$val['created_by'];?></div>
+                      <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">สร้างโดย</label>
+                      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$val['created_by'];?></div>
                     </div>
                     
                     <? if($val['updated_date'] != NULL){?>
 
                     <div class="row">
-                      <label class="col-md-4 control-label text-right">แก้ไขเมื่อ</label>
-                      <div class="col-md-8 text-left"><?=$val['updated_date'];?></div>
+                      <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">แก้ไขเมื่อ</label>
+                      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$val['updated_date'];?></div>
                     </div>
 
                     <div class="row">
-                      <label class="col-md-4 control-label text-right">แก้ไขโดย</label>
-                      <div class="col-md-8 text-left"><?=$val['updated_by'];?></div>
+                      <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">แก้ไขโดย</label>
+                      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$val['updated_by'];?></div>
                     </div>
 
                     <? } ?>
@@ -123,7 +123,7 @@
                     <div class="ln_solid"></div>
 
                       <div class="form-group">
-                        <div class="col-md-12 text-right">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                           <!-- <button type="reset" class="btn btn-round btn-primary">ย้อนกลับ</button> -->
                           <!-- <button type="submit" class="btn btn-round btn btn-success">แก้ไข</button> -->
                           <a href="<?=site_url('schedule')?>" class="btn btn-round btn-default" id='backSchedulebtn' name='backSchedulebtn' ><span class="fa fa-edit" aria-hidden="true"></span> ย้อนกลับ</a>

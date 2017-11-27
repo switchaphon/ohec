@@ -66,22 +66,22 @@
                     </div> -->
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label text-right" >ชื่อ <span class="required">*</span></label>
-                        <div class="col-md-8 text-left">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" >ชื่อ <span class="required">*</span></label>
+                        <div class="col-md-8 col-sm-9 col-xs-12 text-left">
                             <input type="text" id="name"  name="name" class="form-control" value="<?=$val['schedule_name'];?>" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label class="col-md-4 control-label text-right" for="textarea">รายละเอียด <span class="required">*</span></label>
-                        <div class="col-md-8 text-left">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="textarea">รายละเอียด <span class="required">*</span></label>
+                        <div class="col-md-8 col-sm-9 col-xs-12 text-left">
                             <textarea id="description"  name="description" class="form-control" required><?=$val['schedule_description'];?></textarea>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label text-right" for="name">กำหนดการเดินทาง <span class="required">*</span></label>
-                        <div class="col-md-8 text-left">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="name">กำหนดการ <span class="required">*</span></label>
+                        <div class="col-md-8 col-sm-9 col-xs-12 text-left">
                             <input type="hidden" name="start_date" id="start_date" value="<?=convert_to_yyyymmdd( $val['start_date'] );?>" />  
                             <input type="hidden" name="end_date" id="end_date" value="<?=convert_to_yyyymmdd( $val['end_date'] );?>" />                          
                             <fieldset>
@@ -98,8 +98,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label text-right" for="name">Ticket <span class="required">*</span></label>
-                        <div class="col-md-8 text-left">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="name">Ticket <span class="required">*</span></label>
+                        <div class="col-md-8 col-sm-9 col-xs-12 text-left">
                             <input type="hidden" name="ticket_start_date" id="ticket_start_date" value="<?=convert_to_yyyymmdd( $val['ticket_start_date'] );?>" />  
                             <input type="hidden" name="ticket_end_date" id="ticket_end_date" value="<?=convert_to_yyyymmdd( $val['ticket_end_date'] );?>" />  
                             <fieldset>
@@ -116,8 +116,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label text-right" for="name">พื้นที่ <span class="required">*</span></label>
-                        <div class="col-md-8 text-left">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="name">พื้นที่ <span class="required">*</span></label>
+                        <div class="col-md-8 col-sm-9 col-xs-12 text-left">
                             <?
                                 echo "<select name=\"region[]\" id=\"region\" class=\"form-control selectpicker show-tick\" title=\"select \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" multiple required>";
                                 foreach($region_list as $reg_key => $reg_val):
@@ -133,8 +133,8 @@
                     </div>         
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label text-right" for="name">จังหวัด <span class="required">*</span></label>
-                        <div class="col-md-8 text-left">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="name">จังหวัด <span class="required">*</span></label>
+                        <div class="col-md-8 col-sm-9 col-xs-12 text-left">
                             <input type="hidden" name="province_list" id="province_list" value="<?=$val['province'];?>" />        
                             <?
                                 $province_array = explode("," , $val['province']);
@@ -165,7 +165,7 @@
                     <div class="ln_solid"></div>
 
                       <div class="form-group">
-                        <div class="col-md-12 text-right">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                             <a href="<?=site_url('schedule/view')?>/<?=$val['schedule_id'];?>" class="btn btn-round btn-default" id='backSchedulebtn' name='backSchedulebtn' ><span class="fa fa-edit" aria-hidden="true"></span> ย้อนกลับ</a>
                             <button id="submit" type="submit" class="btn btn-round btn-primary">บันทึก</button>
                             <!-- <a href="<?=site_url('schedule/edit')?>/<?=$val['schedule_id'];?>" class="btn btn-round btn-primary" id='editSchedulebtn' name='editSchedulebtn' ><span class="fa fa-edit" aria-hidden="true"></span> บันทึก</a> -->
@@ -287,7 +287,7 @@
                           <thead>
                               <tr>
                               <th class="text-center">สถานที่</th>
-                              <th class="text-center">ทรัพย์สิน</th>
+                              <th class="text-center">หมายเลขเคส</th>
                               <th class="text-center"></th>
                               </tr>
                           </thead>
@@ -308,15 +308,17 @@
                                 <td class="text-left"><a href="#"><?=$val['ticket_id'];?></a></td>
                                 <td class="text-left">
                                 <? 
-                                  if(in_array($this->session->userdata('cn'), $committee_list) ){
-                                    if( !$flag ) {
+                                  if( !empty($committee_list) ){
+                                    if(in_array($this->session->userdata('cn'), $committee_list) ){
+                                      if( !$flag ) {
                                 ?>
                                   <a href="<?=site_url('eform/create/'.$schedule[0]['schedule_id']).'/'.$val['ticket_id'];?>" class="btn btn-round btn-success btn-xs"><i class="fa fa-file-text"></i> ตรวจ </a>
                                 <?  } 
                                     if( $this->session->userdata('role') == 'Administrator'){?>  
                                   <a href="#" class="btn btn-round btn-danger btn-xs" id='cancelTaskbtn' name='cancelTaskbtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-site_id="<?=$val['site_id'];?>" data-site_name="<?=$val['site_name'];?>" data-ticket_id="<?=$val['ticket_id'];?>" data-toggle="modal" data-target="#cancelTaskModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
                                 <? 
-                                    } 
+                                      } 
+                                    }
                                   }
                                 ?>
                                 </td>
