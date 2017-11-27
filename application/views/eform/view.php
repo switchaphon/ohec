@@ -33,7 +33,7 @@
                         <div class="x_content">
                             <section class="content invoice">
                                 <!-- title row -->
-                                <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="100px"></center>
+                                <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="150px"></center>
                                 
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
@@ -77,7 +77,11 @@
                                 <div class="row">
 
                                     <!-- Checklist -->
+                                    <? if(!empty($eform_attachment)){ ?>
                                     <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+                                    <?}else{?>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <?}?>
                                         <div class="row">
                                         
                                             <? 
@@ -157,88 +161,36 @@
                                                                       
                                     </div>
                                     <!-- /Checklist --> 
-                                           
+
+                                    <? if(!empty($eform_attachment)){ ?>       
                                     <!-- /Attachment-->
                                     <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
                                     <!-- echo "<div class=\"col-md-12 col-sm-12 col-xs-12\"><span class=\"section\">".$val['panel_name']."</span></div>";   -->
                                         <span class="section">ภาพประกอบ</span>
-                                        <div class="row">    
-                                            <div class="col-xs-6 col-xs-6 col-xs-12">
-                                                <!-- <div class="thumbnail"> -->
-                                                    <div class="image view view-first">
-                                                        <img style="width: 100%; display: block;" src="<?=base_url('assets/img/media.jpg');?>" alt="image" />
-                                                        <div class="mask no-caption">
-                                                            <div class="tools tools-bottom">
-                                                            <a href="#"><i class="fa fa-link"></i></a>
-                                                            <a href="#"><i class="fa fa-pencil"></i></a>
-                                                            <a href="#"><i class="fa fa-times"></i></a>
+                                        <div class="row">
+                                        <?  
+                                                foreach($eform_attachment as $attach_key => $attach_val):
+                                                    echo "
+                                                    <div class=\"col-xs-6 col-xs-6 col-xs-12\">
+                                                        <div class=\"image view view-first\">
+                                                            <img style=\"width: 100%; display: block;\" src=\"".base_url('files/eform/'.$attach_val['attachment_path'])."\" alt=\"image\" />
+                                                            <div class=\"mask no-caption\">
+                                                                <div class=\"tools tools-bottom\">
+                                                                <a href=\"".base_url('files/eform/'.$attach_val['attachment_path'])."\"><i class=\"fa fa-arrows-alt\"></i> ขยาย</a> 
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="caption">
-                                                        <!-- <p><strong>ภาพด้านหน้า</strong></p> -->
-                                                    </div>
-                                                <!-- </div> -->
-                                            </div>
-
-                                            <div class="col-xs-6 col-xs-6 col-xs-12">
-                                                <!-- <div class="thumbnail"> -->
-                                                    <div class="image view view-first">
-                                                        <img style="width: 100%; display: block;" src="<?=base_url('assets/img/media.jpg');?>" alt="image" />
-                                                        <div class="mask no-caption">
-                                                            <div class="tools tools-bottom">
-                                                            <a href="#"><i class="fa fa-link"></i></a>
-                                                            <a href="#"><i class="fa fa-pencil"></i></a>
-                                                            <a href="#"><i class="fa fa-times"></i></a>
-                                                            </div>
+                                                        <div class=\"caption\">
                                                         </div>
-                                                    </div>
-                                                    <!-- <div class="caption">
-                                                        <p><strong>ภาพข้างซ้าย</strong></p>
-                                                    </div> -->
-                                                <!-- </div> -->
-                                            </div>
-                                        </div>
-                                        <div class="row">  
-                                            <div class="col-xs-6 col-xs-6 col-xs-12">
-                                                <!-- <div class="thumbnail"> -->
-                                                    <div class="image view view-first">
-                                                        <img style="width: 100%; display: block;" src="<?=base_url('assets/img/media.jpg');?>" alt="image" />
-                                                        <div class="mask no-caption">
-                                                            <div class="tools tools-bottom">
-                                                            <a href="#"><i class="fa fa-link"></i></a>
-                                                            <a href="#"><i class="fa fa-pencil"></i></a>
-                                                            <a href="#"><i class="fa fa-times"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="caption">
-                                                        <!-- <p><strong>ภาพด้านหน้า</strong></p> -->
-                                                    </div>
-                                                <!-- </div> -->
-                                            </div>
+                                                    </div>                                                
+                                                    ";
+                                                endforeach;
                                             
-                                            <div class="col-xs-6 col-xs-6 col-xs-12">
-                                                <!-- <div class="thumbnail"> -->
-                                                    <div class="image view view-first">
-                                                        <img style="width: 100%; display: block;" src="<?=base_url('assets/img/media.jpg');?>" alt="image" />
-                                                        <div class="mask no-caption">
-                                                            <div class="tools tools-bottom">
-                                                            <a href="#"><i class="fa fa-link"></i></a>
-                                                            <a href="#"><i class="fa fa-pencil"></i></a>
-                                                            <a href="#"><i class="fa fa-times"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="caption">
-                                                        <!-- <p><strong>ภาพด้านหน้า</strong></p> -->
-                                                    </div>
-                                                <!-- </div> -->
-                                            </div>                            
-
+                                        ?>
                                         </div>
                                     </div>
                                     <!-- /Attachment--> 
+                                    <? } ?>
                                 </div>
                             </section>
                         </div>

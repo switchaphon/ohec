@@ -33,7 +33,7 @@
                         <section class="content invoice">
 
                             <!-- title row -->
-                            <!-- <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="100px"></center> -->
+                            <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="150px"></center>
                             
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
@@ -50,7 +50,6 @@
                                         <br><b>หมายเลขเคส :</b> <a href="#" target="_blank"><?=$ticket_id;?></a>
                                         <br><b>ทรัพย์สิน :</b> <?=$case_sub_category;?>
                                         <br><b>เจ้าหน้าที่ประจำสถานที่ :</b> <?=$contact;?>
-                                        
                                     </address>
                                 </div>
                             </div>
@@ -58,10 +57,14 @@
                             <div class="ln_solid"></div>
                             
                             <form role="form" id="createEform" name="createEform" class="form-horizontal form-label-left" data-toggle="validator" action="<?=site_url('eform/create_ops');?>" enctype="multipart/form-data" method="post">
+                                
+                                <!-- passing hidden data -->
                                 <input type="hidden" id="schedule_id" name="schedule_id" value="<?=$schedule_id;?>" />
                                 <input type="hidden" id="site_id" name="site_id" value="<?=$site_id;?>" />
                                 <input type="hidden" id="ticket_id" name="ticket_id" value="<?=$ticket_id;?>" />
                                 <input type="hidden" id="form_id" name="form_id" value="<?=$checklist['form_id'];?>" />
+                                <!-- /passing hidden data -->
+                                
                                 <?
                                     //--/Get form properties
 
@@ -127,11 +130,11 @@
                                                         $answer = null;
                                                         $answer = "
                                                             <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
-                                                                <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple data-show-upload=\"true\" data-show-caption=\"true\" >
+                                                                <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple data-show-upload=\"false\" data-show-caption=\"true\" multiple>
                                                             </div>";
                                                         // $answer = "
-                                                        //     <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-6\">
-                                                        //         <input name=\"file[]\" id=\"file\" type=\"file\" class=\"form-control\"  multiple>
+                                                        //     <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+                                                        //         <input name=\"file\" id=\"file\" type=\"file\" class=\"form-control\">
                                                         //     </div>";                                                            
                                                         break;    
                                                 }
@@ -171,6 +174,7 @@
                                             }                                            
                                         endforeach;  
                                     }                    
+                                
                                 ?>
 
                                 <div class="ln_solid"></div>

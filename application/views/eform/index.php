@@ -40,7 +40,7 @@
                     <!-- <a class="btn btn-app pull-right" href="<?=site_url('ef/equip')?>" name='create'>
                       <i class="fa fa-edit"></i> สร้างใหม่
                     </a> -->
-                      <a class="btn btn-round btn-success pull-right" href="<?=site_url('ef/equip')?>" name='create'><span class="fa fa-edit" aria-hidden="true"></span> สร้างใหม่</a>
+                      <!-- <a class="btn btn-round btn-success pull-right" href="<?=site_url('ef/equip')?>" name='create'><span class="fa fa-edit" aria-hidden="true"></span> สร้างใหม่</a> -->
                     </span>
                     <table id="tbEform" name="tbEform" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline">
                       <thead>

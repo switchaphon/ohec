@@ -481,5 +481,21 @@ class Eform_model extends CI_Model {
                 return FALSE;
             }
     }
+
+    function view_eform_attachment($eform_id = null){
+        $sql = "
+            SELECT * 
+            FROM `tb_eform_attachment` 
+            WHERE `eform_id` = '$eform_id'
+        ";
+        
+        $query = $this->db->query($sql);
+        
+        if($query->result()){   
+            return $query->result_array();
+        }else{
+            return FALSE;
+        }
+    }
 }
 ?>

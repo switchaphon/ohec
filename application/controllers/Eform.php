@@ -11,8 +11,8 @@ class Eform extends MY_Controller {
     
 	public function __construct() {
 		parent::__construct();
-		$this->load->helper(array('form', 'url','file'));
-		$this->output->set_title('OHEC : eForm');
+		$this->load->helper(array('form','url','file'));
+		$this->output->set_title('แบบตรวจสอบออนไลน์');
 	}
 
 	public function index()
@@ -36,6 +36,7 @@ class Eform extends MY_Controller {
 		$this->data['eform'] = $this->Eform_model->view_eform($eform_id);
 		$this->data['eform_checklist'] = $this->Eform_model->view_eform_checklist($eform_id);
 		$this->data['eform_checklist_answer'] = $this->Eform_model->view_eform_checklist_answer($eform_id);
+		$this->data['eform_attachment'] = $this->Eform_model->view_eform_attachment($eform_id);
 
 		$this->load->view('eform/view',$this->data);
 	}
@@ -118,7 +119,12 @@ class Eform extends MY_Controller {
 	}   
 	
 	public function create_ops(){
-		echo "<pre>"; print_r($_POST); echo "</pre>";
+
+		$this->load->library('upload');
+
+		// echo "<pre>"; print_r($_POST); echo "</pre>";
+		// echo "<pre>"; print_r($_FILES); echo "</pre>";
+
 		$this->load->library( array('Utilities') );
 		$this->load->model( array('Utilities_model','Eform_model'));
 
@@ -142,7 +148,7 @@ class Eform extends MY_Controller {
 		);
 
 		// echo "<pre>"; print_r($eform); echo "</pre>";
-		// $res = $this->Utilities_model->_insert_array('tb_eform',$eform);
+		$res = $this->Utilities_model->_insert_array('tb_eform',$eform);
 
 		$question = $this->Eform_model->load_question($_POST['form_id'],$_POST['panel_name']);
 		
@@ -160,49 +166,56 @@ class Eform extends MY_Controller {
 					);
 
 					// echo "<pre>"; print_r($eform_checklist); echo "</pre>";
-					// $res = $this->Utilities_model->_insert_array('tb_eform_checklist',$eform_checklist);
+					$res = $this->Utilities_model->_insert_array('tb_eform_checklist',$eform_checklist);
 				}
 			}else{
-				//Upload file to folder
-				// echo "<pre>"; print_r($_POST[$val['question_name']]); echo "</pre>";
-				// foreach($_POST[$val['question_name']] as $attach_key => $attach_val):
-				// foreach($_POST['file'] as $attach_key => $attach_val):
+				//Read each file and upload file to folder
+				for($i = 0; $i < count($_FILES[$val['question_name']]['name']); $i++){
+					// echo $i;
+
+					$_FILES['uploadfile']['name'] = $_FILES[$val['question_name']]['name'][$i];
+					$_FILES['uploadfile']['type'] = $_FILES[$val['question_name']]['type'][$i];
+					$_FILES['uploadfile']['tmp_name'] = $_FILES[$val['question_name']]['tmp_name'][$i];
+					$_FILES['uploadfile']['error'] = $_FILES[$val['question_name']]['error'][$i];
+					$_FILES['uploadfile']['size'] = $_FILES[$val['question_name']]['size'][$i];
 
 					//Read uploaded file
-					// $uploadedFile = $_POST[$val['question_name']];
-					$uploadedFile = 'file';
-					
+					$uploadedFile = 'uploadfile';
+
 					//Prepare upload config
-					$config['upload_path'] = 'files';
-					// $config['allowed_types'] = 'xls|xlsx';
+					$config['upload_path'] = 'files/eform';
+					$config['allowed_types'] = 'jpg|jpeg|png|gif';
 					$config['file_name'] = $eform_id;
 					$config['overwrite'] = FALSE;
-					$config['max_size'] = 0;
+					$config['encrypt_name'] = TRUE;
+					// $config['max_size'] = '5120';
+					$config['width'] = 75;
+					$config['height'] = 50;
 
 					//Upload file
 					$alert_msg = $this->utilities->upload($uploadedFile,$config);
-
+					echo "<pre>"; print_r($alert_msg); echo "</pre>";
 					$eform_attachment = array(
 						'eform_id' => $eform_id
 						,'form_id' => $_POST['form_id']
 						,'page_no' => $_POST['page_no']
 						,'panel_no' => $val['panel_no']
 						,'question_no' => $val['question_no']
-						// ,'attachment_no' => 
-						// ,'attachment_type' => 
-						// ,'attachment_path' => 
+						,'attachment_type' => $alert_msg[0]['result']['image_type']
+						,'attachment_path' => $alert_msg[0]['result']['file_name']
 					);
 
 					// echo "<pre>"; print_r($eform_attachment); echo "</pre>";
-					// // $res = $this->Schedule_model->_insert_array('tb_eform_attachment',$eform_attachment);
+					$res = $this->Utilities_model->_insert_array('tb_eform_attachment',$eform_attachment);
 				// endforeach;
+				}
 			}
 		endforeach;
 
 		//Log
 
 		//Redirect
-		// redirect( site_url('/schedule/view/'.$_POST['schedule_id']) );
+		redirect( site_url('/schedule/view/'.$_POST['schedule_id']) );
 
 
 	}
