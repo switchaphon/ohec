@@ -71,12 +71,11 @@
                         foreach($schedule as $row):
                       ?>
                         <tr>
-                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['schedule_name'];?></a></td>
                             <!-- <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['schedule_name'];?></a></td> -->
-                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['schedule_description'];?></a></td>
-                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=convert_to_yyyymmdd($row['start_date']);?> ถึง <?=convert_to_yyyymmdd($row['end_date']);?></a></td>
-                            <!-- <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['region'];?></a></td> -->
-                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['province'];?></a></td>
+                            <td class="text-center"><?=$row['schedule_name'];?></td>
+                            <td class="text-center"><?=$row['schedule_description'];?></td>
+                            <td class="text-center"><?=convert_to_yyyymmdd($row['start_date']);?> ถึง <?=convert_to_yyyymmdd($row['end_date']);?></td>
+                            <td class="text-center"><?=$row['province'];?></td>
                             <td class="text-center">
                               <a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-folder-open"></i> เรียกดู</a>
                               <a href="<?=site_url('schedule/edit')?>/<?=$row['schedule_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-pencil"></i> แก้ไข </a>

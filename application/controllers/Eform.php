@@ -37,7 +37,7 @@ class Eform extends MY_Controller {
 		$this->data['eform_checklist'] = $this->Eform_model->view_eform_checklist($eform_id);
 		$this->data['eform_checklist_answer'] = $this->Eform_model->view_eform_checklist_answer($eform_id);
 
-		$this->load->view('eform/view_2',$this->data);
+		$this->load->view('eform/view',$this->data);
 	}
 
 	public function create($schedule_id = null,$ticket_id = null)

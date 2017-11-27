@@ -61,11 +61,12 @@
                             foreach($eform_list as $eform_key => $eform_val):
                         ?>
                             <tr>
-                              <td class="text-left"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['site_name'];?></a></td>
-                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['province'];?></a></td>
-                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['case_category'];?> [PM]</a></td>
-                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['created_by'];?></a></td>
-                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['created_date'];?></a></td>
+                              <!-- <td class="text-left"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['site_name'];?></a></td> -->
+                              <td class="text-left"><?=$eform_val['site_name'];?></td>
+                              <td class="text-center"><?=$eform_val['province'];?></td>
+                              <td class="text-center"><?=$eform_val['case_category'];?> [PM]</td>
+                              <td class="text-center"><?=$eform_val['created_by'];?></td>
+                              <td class="text-center"><?=$eform_val['created_date'];?></td>
                               <td class="text-center">
                                 <a href="<?=site_url('eform/view')?>/<?=$eform_val['eform_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-folder-open"></i> เรียกดู</a>
                                <? if( $this->session->userdata('role') == 'Administrator'){?> 

@@ -11,8 +11,8 @@
             <div class="col-sm-12 col-sm-12 col-sm-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2><?=$checklist['form_name'];?><small></small></h2>
-                        <ul class="nav navbar-right panel_toolbox">
+                        <h2></h2>
+                        <!-- <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
                         <li class="dropdown">
@@ -26,20 +26,18 @@
                         </li>
                         <li><a class="close-link"><i class="fa fa-close"></i></a>
                         </li>
-                        </ul>
+                        </ul> -->
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
                         <section class="content invoice">
 
-                            <!-- info row -->
-                            <section class="content invoice">
                             <!-- title row -->
                             <!-- <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="100px"></center> -->
                             
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                                    <h1><?=$site_name;?></h1>
+                                    <!-- <h1><?=$site_name;?></h1> -->
                                 </div>
                             </div>
 
@@ -55,27 +53,15 @@
                                         
                                     </address>
                                 </div>
-                                <!-- /.col -->
-                                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 invoice-col">
-                
-                                </div>
-                                <!-- /.col -->
-                                <!-- <div class="<col-sm-4 invoice-col">
-                                    <br><br><b>หมายเลขการตรวจ : <?//=$eform[0]['eform_id']?></b>
-                                    <br><b>ตารางงาน : <a href="<?//=site_url('schedule/view/'.$eform[0]['schedule_id'])?>"><?//=$eform[0]['schedule_name']?></a></b>
-                                    <br><b>ผู้ตรวจสอบ</b> <?//=$eform[0]['created_by']?></b>
-                                    <br><b>วันที่ตรวจสอบ</b> <?//=$eform[0]['created_date']?></b>
-                                </div> -->
-                                <!-- /.col -->
                             </div>
                   
                             <div class="ln_solid"></div>
                             
                             <form role="form" id="createEform" name="createEform" class="form-horizontal form-label-left" data-toggle="validator" action="<?=site_url('eform/create_ops');?>" enctype="multipart/form-data" method="post">
-                            <input type="hidden" id="schedule_id" name="schedule_id" value="<?=$schedule_id;?>" />
-                            <input type="hidden" id="site_id" name="site_id" value="<?=$site_id;?>" />
-                            <input type="hidden" id="ticket_id" name="ticket_id" value="<?=$ticket_id;?>" />
-                            <input type="hidden" id="form_id" name="form_id" value="<?=$checklist['form_id'];?>" />
+                                <input type="hidden" id="schedule_id" name="schedule_id" value="<?=$schedule_id;?>" />
+                                <input type="hidden" id="site_id" name="site_id" value="<?=$site_id;?>" />
+                                <input type="hidden" id="ticket_id" name="ticket_id" value="<?=$ticket_id;?>" />
+                                <input type="hidden" id="form_id" name="form_id" value="<?=$checklist['form_id'];?>" />
                                 <?
                                     //--/Get form properties
 
@@ -101,14 +87,14 @@
                                                     case "textbox":
                                                         $answer = null;
                                                         $answer = "
-                                                            <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">
+                                                            <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
                                                                 <input type=\"text\" class=\"form-control\" name=\"".$question_name."\" id=\"".$question_name."\">
                                                             </div>";
                                                         break;
                                                     case "textarea":
                                                         $answer = null;
                                                         $answer = "
-                                                            <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">
+                                                            <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
                                                                 <textarea name=\"".$question_name."\" id=\"".$question_name."\" class=\"form-control\" rows=\"3\"></textarea>
                                                             </div>";
                                                         break;
@@ -123,7 +109,7 @@
                                                             if($answer_name  == 'passed'){$checked = 'checked'; }else{$checked = null;}
 
                                                             $answer = $answer."
-                                                                <div class=\"col-lg-2 col-md-2 col-sm-3 col-xs-5\">
+                                                                <div class=\"col-lg-2 col-lg-offset-0 col-md-2 col-md-offset-0 col-sm-2 col-sm-offset-0 col-xs-5 col-xs-offset-1\">
                                                                     <div class=\"radio-inline\">
                                                                         <label><input type=\"radio\" class=\"flat\" name=\"".$question_name."\" id=\"".$question_name."\" value=\"".$answer_value."\" ".$checked."> ".$answer_text."</label>
                                                                     </div>
@@ -139,22 +125,48 @@
                                                         break;
                                                     case "dropbox":
                                                         $answer = null;
-                                                        // $answer = "
-                                                        //     <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">
-                                                        //         <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple data-show-upload=\"false\" data-show-caption=\"false\" data-msg-placeholder=\"เลือกภาพที่ต้องการแนบ...\">
-                                                        //     </div>";
                                                         $answer = "
-                                                            <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">
-                                                                <input name=\"file[]\" id=\"file\" type=\"file\" class=\"form-control\"  multiple>
-                                                            </div>";                                                            
+                                                            <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+                                                                <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple data-show-upload=\"true\" data-show-caption=\"true\" >
+                                                            </div>";
+                                                        // $answer = "
+                                                        //     <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-6\">
+                                                        //         <input name=\"file[]\" id=\"file\" type=\"file\" class=\"form-control\"  multiple>
+                                                        //     </div>";                                                            
                                                         break;    
                                                 }
 
                                                 //--Renfer question--//
-                                                echo "
-                                                <div class=\"form-group \">
-                                                    <label class=\"control-label col-lg-5 col-md-5 col-sm-5 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>".$answer."
-                                                </div>";
+                                                switch( $question_type ){
+                                                    case "textbox":
+                                                        echo "
+                                                        <div class=\"form-group \">
+                                                            <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                        </div>";                                                    
+                                                        break;
+                                                    case "textarea":
+                                                        echo "
+                                                        <div class=\"form-group \">
+                                                            <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                        </div>";                                                    
+                                                        break;
+                                                    case "radiobox":
+                                                        echo "
+                                                        <div class=\"form-group \">
+                                                            <label class=\"control-label col-lg-5 col-md-5 col-sm-5 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>".$answer."
+                                                        </div>";
+                                                        break;
+                                                    case "checkbox":
+                                                        break;
+                                                    case "selectbox":
+                                                        break;       
+                                                    case "dropbox":
+                                                        echo "
+                                                        <div class=\"form-group \">
+                                                            <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                        </div>";
+                                                        break;                                                                                                             
+                                                }
 
                                             }                                            
                                         endforeach;  
@@ -172,6 +184,7 @@
                                     </div>
                                 </div>
                             </form>
+                            
                         </section>
                     </div>
                 </div>
