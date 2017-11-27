@@ -33,7 +33,7 @@
                         <div class="x_content">
                             <section class="content invoice">
                                 <!-- title row -->
-                                <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="100px"></center>
+                                <!-- <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="100px"></center> -->
                                 
                                 <div class="row">
                                     <div class="col-xs-12 invoice-header">
@@ -85,14 +85,14 @@
                                 <div class="row">
 
                                     <!-- Checklist -->
-                                    <div class="col-md-7 col-md-7 col-md-12">
+                                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
                                         <div class="row">
                                         
                                             <? 
                                                 // echo "<pre>"; print_r($eform_checklist); echo "</pre>";
                                                 // echo "<pre>"; print_r($eform_checklist_answer); echo "</pre>";
                                                 foreach($eform_checklist as $key => $val):
-                                                    echo "<div class=\"col-md-12 col-md-12 col-md-12\"><span class=\"section\">".$val['panel_name']."</span></div>";  
+                                                    echo "<div class=\"col-lg-12 col-md-12 col-sm-12 col-xs-12\"><span class=\"section\">".$val['panel_name']."</span></div>";  
                                                     
                                                     // echo "<pre>"; print_r($val['question']); echo "</pre>";
                                                     // echo count($val['question']);
@@ -110,12 +110,12 @@
                                                             case "textbox":
                                                                 $answer = null;
                                                                 $answer = "
-                                                                    <div class=\"col-sm-3 col-sm-3 col-xs-12\">".$answer_value."</div>";
+                                                                    <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">".$answer_value."</div>";
                                                                 break;
                                                             case "textarea":
                                                                 $answer = null;
                                                                 $answer = "
-                                                                    <div class=\"col-sm-3 col-sm-3 col-xs-12\">".$answer_value."</div>";
+                                                                    <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">".$answer_value."</div>";
                                                                 break;
                                                             case "radiobox":
                                                                 $answer = null;
@@ -130,7 +130,7 @@
                                                                     if($ans_value  == $answer_value){$checked = "<i class=\"fa fa-check-circle-o\"></i>"; }else{$checked = "<i class=\"fa fa-circle-o\"></i>";}
         
                                                                     $answer = $answer."
-                                                                        <div class=\"col-sm-3 col-sm-3 col-xs-12\">
+                                                                        <div class=\"col-lg-3 col-md-3 col-sm-3 col-xs-5\">
                                                                             <div class=\"radio-inline\">
                                                                                 <label>".$checked." ".$ans_text."</label>
                                                                             </div>
@@ -147,7 +147,7 @@
                                                             case "dropbox":
                                                                 $answer = null;
                                                                 $answer = "
-                                                                    <div class=\"col-md-4 col-sm-4 col-xs-12 \">
+                                                                    <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">
                                                                         <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple data-show-upload=\"false\" data-show-caption=\"false\" data-msg-placeholder=\"เลือกภาพที่ต้องการแนบ...\">
                                                                     </div>";
                                                                 break;    
@@ -155,8 +155,8 @@
                                                         
                                                         //--Renfer question--//
                                                         echo "
-                                                        <div class=\"col-md-12 col-md-12 col-md-12 \">
-                                                            <label class=\"control-label col-md-6 col-md-6 col-md-12\" for=\"".$question_name."\">".$question_text."</label>".$answer."
+                                                        <div class=\"col-lg-12 col-md-12 col-sm-12 col-xs-12\">
+                                                            <label class=\"control-label col-lg-5 col-md-12 col-sm-6 col-xs-12 \" for=\"".$question_name."\">".$question_text."</label>".$answer."
                                                         </div>";
                                                     }
                                                 endforeach;
@@ -165,13 +165,12 @@
                                                                       
                                     </div>
                                     <!-- /Checklist --> 
-
+                                           
                                     <!-- /Attachment-->
-                                    <div class="col-md-5 col-md-5 col-md-12">
-                                        <p class="lead">ภาพประกอบ</p>
-                                        <h7>&nbsp;</h7>
+                                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                    <!-- echo "<div class=\"col-md-12 col-sm-12 col-xs-12\"><span class=\"section\">".$val['panel_name']."</span></div>";   -->
+                                        <span class="section">ภาพประกอบ</span>
                                         <div class="row">    
-
                                             <div class="col-xs-6 col-xs-6 col-xs-12">
                                                 <!-- <div class="thumbnail"> -->
                                                     <div class="image view view-first">

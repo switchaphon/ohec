@@ -11,7 +11,7 @@
     <div class="right_col" role="main">
         <div class="page-title">
             <div class="title_left">
-                <h3>ตารางตรวจงาน</h3>
+                <h3></h3>
             </div>
 
             <!-- <div class="title_right">
@@ -36,7 +36,7 @@
               <div class="col-md-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>รายละเอียด <i class="fa fa-info-circle"></i><small></small></h2>
+                    <h2>รายละเอียดตารางตรวจงาน <i class="fa fa-info-circle"></i><small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -268,15 +268,17 @@
                                 <td class="text-left"><a href="#"><?=$val['ticket_id'];?></a></td>
                                 <td class="text-left">
                                 <? 
-                                  if(in_array($this->session->userdata('cn'), $committee_list) ){
-                                    if( !$flag ) {
+                                  if( !empty($committee_list) ){
+                                    if(in_array($this->session->userdata('cn'), $committee_list) ){
+                                      if( !$flag ) {
                                 ?>
                                   <a href="<?=site_url('eform/create/'.$schedule[0]['schedule_id']).'/'.$val['ticket_id'];?>" class="btn btn-round btn-success btn-xs"><i class="fa fa-file-text"></i> ตรวจ </a>
                                 <?  } 
                                     if( $this->session->userdata('role') == 'Administrator'){?>  
                                   <a href="#" class="btn btn-round btn-danger btn-xs" id='cancelTaskbtn' name='cancelTaskbtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-site_id="<?=$val['site_id'];?>" data-site_name="<?=$val['site_name'];?>" data-ticket_id="<?=$val['ticket_id'];?>" data-toggle="modal" data-target="#cancelTaskModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
                                 <? 
-                                    } 
+                                      } 
+                                    }
                                   }
                                 ?>
                                 </td>

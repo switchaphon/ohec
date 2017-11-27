@@ -1,27 +1,14 @@
 <!-- page content -->
 <article>
     <div class="right_col" role="main">
-        <!-- <div class="page-title">
-            <div class="title_left">
-            <h3>xxx</h3>
-            </div>
-
-            <div class="title_right">
-            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Go!</button>
-                </span>
-                </div>
-            </div>
-            </div>
-        </div> -->
+        <div class="page-title">
+            <div class="title_left"> <h3></h3></div>
+        </div>
 
         <div class="clearfix"></div>
 
         <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-sm-12 col-sm-12 col-sm-12">
                 <div class="x_panel">
                     <div class="x_title">
                         <h2>สร้างแบบตรวจออนไลน์ <small>(<?=$case_category;?>)</small></h2>
@@ -44,10 +31,14 @@
                     </div>
                     <div class="x_content">
                         <section class="content invoice">
+
+                            <!-- info row -->
+                            <section class="content invoice">
                             <!-- title row -->
-                            <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="150px"></center>
+                            <!-- <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="100px"></center> -->
+                            
                             <div class="row">
-                                <div class="col-xs-12 invoice-header">
+                                <div class="col-sm-12 invoice-header">
                                     <h2><?=$checklist['form_name'];?></h2>
                                 </div>
                             <!-- /.col -->
@@ -57,32 +48,31 @@
                             <div class="row invoice-info">
                                 <div class="col-sm-7 invoice-col">
                                     <address>
-                                        <!-- <strong>โครงการจ้างบำรุงรักษา ซ่อมแซม แก้ไข และปรับเปลี่ยนอุปกรณ์ ระบบเครือข่ายสารสนเทศเพื่อพัฒนาการศึกษา ปีงบประมาณ 2560</strong> -->
-                                        <br><br>
-                                        <strong>สภานที่: <?=$site_id;?></strong>
-                                        <br><b>หมายเลขเคส: </b><?=$ticket_id;?>
-                                        <br><b>ทรัพย์สิน: </b> <?=$case_category;?>
-                                        <br><b>ประเภท: </b> <?=$case_sub_category;?> 
-                                        <br><b>สัญญา: </b> <?=$ma_contract;?>
+                                        <h2><?=$site_id;?></h2>
+        
+                                        <b>สัญญา :</b> <?=$ma_contract;?>
+                                        <br><b>เจ้าหน้าที่ประจำสถานที่ :</b> <?//=$eform[0]['contact']?>
+                                        <br><b>หมายเลขเคส :</b> <a href="#" target="_blank"><?=$ticket_id;?></a>
+                                        <br><b>ทรัพย์สิน :</b> <?=$case_sub_category;?>
                                         
                                     </address>
                                 </div>
                                 <!-- /.col -->
-                                <div class="col-sm-2 invoice-col">
+                                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 invoice-col">
+                
                                 </div>
                                 <!-- /.col -->
-                                <!-- <div class="col-sm-3 invoice-col">
-                                    <b>หมายเลข : equip-cm-2017080100</b>
-                                    <br><br><b>ผู้ตรวจสอบ</b> วิชญ์พล แสงอร่าม
-                                    <br><b>วันที่ตรวจสอบ</b> 2017-10-01
-                                    <br><br><button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> พิมพ์</button> 
-                                    <button class="btn btn-success pull-right"><i class="fa fa-edit"></i> แก้ไข</button>
-                                    <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> PDF</button>
+                                <!-- <div class="<col-sm-4 invoice-col">
+                                    <br><br><b>หมายเลขการตรวจ : <?//=$eform[0]['eform_id']?></b>
+                                    <br><b>ตารางงาน : <a href="<?//=site_url('schedule/view/'.$eform[0]['schedule_id'])?>"><?//=$eform[0]['schedule_name']?></a></b>
+                                    <br><b>ผู้ตรวจสอบ</b> <?//=$eform[0]['created_by']?></b>
+                                    <br><b>วันที่ตรวจสอบ</b> <?//=$eform[0]['created_date']?></b>
                                 </div> -->
                                 <!-- /.col -->
                             </div>
-                            <!-- /.row -->                            
-
+                  
+                            <div class="ln_solid"></div>
+                            
                             <form role="form" id="createEform" name="createEform" class="form-horizontal form-label-left" data-toggle="validator" action="<?=site_url('eform/create_ops');?>" enctype="multipart/form-data" method="post">
                             <input type="hidden" id="schedule_id" name="schedule_id" value="<?=$schedule_id;?>" />
                             <input type="hidden" id="site_id" name="site_id" value="<?=$site_id;?>" />
@@ -113,14 +103,14 @@
                                                     case "textbox":
                                                         $answer = null;
                                                         $answer = "
-                                                            <div class=\"col-md-4 col-sm-4 col-xs-12 \">
-                                                                <input type=\"text\" class=\"form-control col-md-7 col-xs-12\" name=\"".$question_name."\" id=\"".$question_name."\">
+                                                            <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">
+                                                                <input type=\"text\" class=\"form-control\" name=\"".$question_name."\" id=\"".$question_name."\">
                                                             </div>";
                                                         break;
                                                     case "textarea":
                                                         $answer = null;
                                                         $answer = "
-                                                            <div class=\"col-md-4 col-sm-4 col-xs-12 \">
+                                                            <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">
                                                                 <textarea name=\"".$question_name."\" id=\"".$question_name."\" class=\"form-control\" rows=\"3\"></textarea>
                                                             </div>";
                                                         break;
@@ -135,7 +125,7 @@
                                                             if($answer_name  == 'passed'){$checked = 'checked'; }else{$checked = null;}
 
                                                             $answer = $answer."
-                                                                <div class=\"col-md-2 col-sm-2 col-xs-12\">
+                                                                <div class=\"col-lg-2 col-md-2 col-sm-3 col-xs-5\">
                                                                     <div class=\"radio-inline\">
                                                                         <label><input type=\"radio\" class=\"flat\" name=\"".$question_name."\" id=\"".$question_name."\" value=\"".$answer_value."\" ".$checked."> ".$answer_text."</label>
                                                                     </div>
@@ -152,11 +142,11 @@
                                                     case "dropbox":
                                                         $answer = null;
                                                         // $answer = "
-                                                        //     <div class=\"col-md-4 col-sm-4 col-xs-12 \">
+                                                        //     <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">
                                                         //         <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple data-show-upload=\"false\" data-show-caption=\"false\" data-msg-placeholder=\"เลือกภาพที่ต้องการแนบ...\">
                                                         //     </div>";
                                                         $answer = "
-                                                            <div class=\"col-md-4 col-sm-4 col-xs-12 \">
+                                                            <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">
                                                                 <input name=\"file[]\" id=\"file\" type=\"file\" class=\"form-control\"  multiple>
                                                             </div>";                                                            
                                                         break;    
@@ -164,8 +154,8 @@
 
                                                 //--Renfer question--//
                                                 echo "
-                                                <div class=\"form-group\">
-                                                    <label class=\"control-label col-md-5 col-sm-5 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>".$answer."
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-5 col-md-5 col-sm-5 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>".$answer."
                                                 </div>";
 
                                             }                                            
@@ -176,9 +166,11 @@
                                 <div class="ln_solid"></div>
 
                                 <div class="form-group">
-                                    <div class="col-md-9 text-right">
-                                    <button type="submit" class="btn btn-round btn-default">ยกเลิก</button>
-                                    <button id="submit" type="submit" class="btn btn-round btn-primary">บันทึก</button>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                                    <!-- <span class="text-center"> -->
+                                        <button type="submit" class="btn btn-round btn-default">ยกเลิก</button>
+                                        <button id="submit" type="submit" class="btn btn-round btn-primary">บันทึก</button>
+                                    <!-- </span> -->
                                     </div>
                                 </div>
                             </form>
