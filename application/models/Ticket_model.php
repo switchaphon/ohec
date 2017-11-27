@@ -10,13 +10,6 @@ class Ticket_model extends CI_Model {
     }
 
     function list_ticket_by_site($schedule_id = null , $site_id = null , $ticket_start_date = null , $ticket_end_date = null) {
-        // $sql ="
-        // SELECT case_sub_category,contract,case_id
-        // FROM tb_ticket
-        // WHERE site_id = '$site' AND created_date BETWEEN '$ticket_start_date' AND '$ticket_end_date' AND (case_id LIKE 'NT-Fibre%' OR case_id LIKE 'NT-Equip%' ) AND case_status = 'Closed'
-        // GROUP BY case_sub_category,contract,case_id
-        // ORDER BY case_id ASC
-        //     ";
 
         $sql="
         SELECT case_sub_category,contract,case_id

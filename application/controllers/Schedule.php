@@ -17,7 +17,7 @@ class Schedule extends MY_Controller {
 		//Fixed value
 		$customdata = array(
 			'username' => 'witchaphon.sa'
-			,'cn' => 'Wiriya Damrong'
+			,'cn' => 'วิชญ์พล แสงอร่าม'
 			,'role' => 'User'
 			,'logged_in' => TRUE
 		);                            
@@ -49,7 +49,7 @@ class Schedule extends MY_Controller {
 	}  
 	
 	public function create_ops(){
-		$this->load->model( array('Schedule_model'));
+		$this->load->model( array('Utilities_model','Schedule_model'));
 
 		// echo "<pre>"; print_r($_POST); echo "</pre>";
 		$region = $provice = null;
@@ -103,7 +103,7 @@ class Schedule extends MY_Controller {
 			,'status' => '1'
 		);
 		
-		$res = $this->Schedule_model->_insert_array('tb_schedule',$data);
+		$res = $this->Utilities_model->_insert_array('tb_schedule',$data);
 		
 		//Log
 

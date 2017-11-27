@@ -92,11 +92,12 @@
                 data: "site="+ $('#site').val()+"&schedule_id="+$('#schedule_id').val()+"&ticket_start_date="+$('#ticket_start_date').val()+"&ticket_end_date="+$('#ticket_end_date').val(),
                 success: function(result)
                 {
+                    console.log(result);
                     $.each(result,function(index,val){
                         var str = '';
                         var opt = '';
                         for(i = 0; i<val.length; i++) {
-                            opt += '<option value="'+val[i]['case_id']+'"> ['+val[i]['contract']+'] '+val[i]['case_id']+'</option>';                       
+                            opt += '<option value="'+val[i]['case_id']+'">['+val[i]['contract']+'] '+val[i]['case_id']+'</option>';                       
                         }
 
                         str += '<optgroup label="'+index+'">'+opt+'</optgroup>';
