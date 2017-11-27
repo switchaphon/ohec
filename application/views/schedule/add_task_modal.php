@@ -9,8 +9,8 @@
         <div class="panel panel-default text-center">
         <!-- <div class="panel-heading">Dynamic Form Fields - Add & Remove Multiple fields</div> -->
             <div class="panel-body">
-                <div class="form-group col-md-1 col-md-1 col-md-12"></div>
-                <div class="form-group col-md-5 col-md-5 col-md-12">
+                <div class="form-group col-lg-2 col-md-2 col-sm-1 col-xs-1"></div>
+                <div class="form-group col-lg-4 col-md-4 col-sm-5 col-xs-5">
                     <?  
                         $str = $opt = null;
 
@@ -26,13 +26,13 @@
                     ?>
                 </div>
 
-                <div class="form-group col-md-4 col-md-4 col-md-12">
+                <div class="form-group col-lg-4 col-md-4 col-sm-5 col-xs-5">
                     <select id="ticket" name="ticket[]" class="form-control selectpicker show-tick" title="select" data-live-search="true" data-size="10" data-width="css-width" required></select>
                 </div>
 
-                <div class="form-group col-md-2 col-md-2 col-md-12">
+                <!-- <div class="form-group col-md-2 col-md-2 col-md-12">
                     <button class="btn btn-success" type="button"  onclick="add_task_fields();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
-                </div>
+                </div> -->
 
                 <div class="clear"></div>
 
