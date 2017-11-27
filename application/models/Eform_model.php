@@ -497,5 +497,23 @@ class Eform_model extends CI_Model {
             return FALSE;
         }
     }
+    
+    function view_eform_note($eform_id = null){
+        $sql = "
+            SELECT * 
+            FROM `tb_eform_note` 
+            WHERE `eform_id` = '$eform_id'
+            ORDER BY created_date ASC
+        ";
+        
+        $query = $this->db->query($sql);
+        
+        if($query->result()){   
+            return $query->result_array();
+        }else{
+            return FALSE;
+        }
+    }
+
 }
 ?>

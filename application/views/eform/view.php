@@ -156,7 +156,43 @@
                                                         </div>";
                                                     }
                                                 endforeach;
+                                                // echo "<br>";
                                             ?>
+                                                <!-- /Eform note -->
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <span class="section">บันทึกข้อความ</span>
+                                                    <span id="panelEformNote">
+                                                        <a href="#" class="btn btn-round btn-success pull-right" id='addEformNote' name='addEformNote' data-toggle="modal" data-target="#addEformNoteModal"  ><span class="fa fa-plus" aria-hidden="true"></span> ข้อความ</a>
+                                                    </span>
+                                                    <table id="tbEformNote" name="tbEformNote" class="table table-striped dt-responsive nowrap dataTable no-footer dtr-inline">
+                                                        <thead>
+                                                            <tr>
+                                                            <th class="text-center">วันที่</th>
+                                                            <th class="text-center">บันทึกข้อความ</th>
+                                                            <th class="text-center">ผู้บันทึก</th>
+                                                            </tr>
+                                                        </thead>
+                                                        
+                                                        <tbody>
+                                                        <? 
+                                                        // echo "<pre>"; print_r($eform_note); echo "</pre>";
+                                                        if(!empty($eform_note)){ 
+                                                            foreach($eform_note as $note_key => $note_val):
+                                                        ?>
+                                                            <tr>
+                                                                <td class="text-left"><?=$note_val['created_date'];?></td>
+                                                                <td class="text-center"><?=$note_val['note_detail'];?></td>
+                                                                <td class="text-center"><?=$note_val['created_by'];?></td>
+                                                            </tr>  
+                                                        <?      
+                                                            endforeach;
+                                                        }
+                                                        ?>                            
+                                                        </tbody>
+                                                        
+                                                    </table>
+                                                </div>
+                                                <!--/Eform note-->
                                         </div>
                                                                       
                                     </div>
@@ -169,23 +205,22 @@
                                         <span class="section">ภาพประกอบ</span>
                                         <div class="row">
                                         <?  
-                                                foreach($eform_attachment as $attach_key => $attach_val):
-                                                    echo "
-                                                    <div class=\"col-xs-6 col-xs-6 col-xs-12\">
-                                                        <div class=\"image view view-first\">
-                                                            <img style=\"width: 100%; display: block;\" src=\"".base_url('files/eform/'.$attach_val['attachment_path'])."\" alt=\"image\" />
-                                                            <div class=\"mask no-caption\">
-                                                                <div class=\"tools tools-bottom\">
-                                                                <a href=\"".base_url('files/eform/'.$attach_val['attachment_path'])."\"><i class=\"fa fa-arrows-alt\"></i> ขยาย</a> 
-                                                                </div>
+                                            foreach($eform_attachment as $attach_key => $attach_val):
+                                                echo "
+                                                <div class=\"col-xs-6 col-xs-6 col-xs-12\">
+                                                    <div class=\"image view view-first\">
+                                                        <img style=\"width: 100%; display: block;\" src=\"".base_url('files/eform/'.$attach_val['attachment_path'])."\" alt=\"image\" />
+                                                        <div class=\"mask no-caption\">
+                                                            <div class=\"tools tools-bottom\">
+                                                            <a href=\"".base_url('files/eform/'.$attach_val['attachment_path'])."\"><i class=\"fa fa-arrows-alt\"></i> ขยาย</a> 
                                                             </div>
                                                         </div>
-                                                        <div class=\"caption\">
-                                                        </div>
-                                                    </div>                                                
-                                                    ";
-                                                endforeach;
-                                            
+                                                    </div>
+                                                    <div class=\"caption\">
+                                                    </div>
+                                                </div>                                                
+                                                ";
+                                            endforeach;
                                         ?>
                                         </div>
                                     </div>
@@ -201,3 +236,54 @@
     </div>
 </artical>
 <!-- /page content -->
+
+<!-- modal content -->
+  <!-- addEformNoteModal -->
+  <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="addEformNoteModal">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <? $this->load->view('eform/add_note_modal'); ?>
+      </div>
+    </div>
+  </div>
+  <!-- /addEformNoteModal -->
+<!-- /modal content -->  
+
+<!-- page script -->
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#tbEformNote').DataTable({
+        "pageLength": 10,
+        "paging":   false,
+        "ordering": true,
+        "info":     false,
+        language: { search: "_INPUT_" , searchPlaceholder: "ค้นหา..." }, //remove "search" label and put in placeholder
+        "dom": '<"toolbartbEformNote">frtip'
+        });
+
+    $("div.toolbartbEformNote").html('<span id="tbEformNote_filter2" class="dataTables_filter"></span>');
+    //Search box
+    $('#tbEformNote_filter').css('display','none');
+    $('#tbEformNote_filter').css('text-align','left');
+
+    $('#tbEformNote_filter2').css('float','right');
+    $('#tbEformNote_filter2').append($('#panelEformNote'));
+    $("div.toolbartbEformNote").append($('#tbEformNote_filter'));
+
+    $('#tbEformNote').removeClass('hidden');
+
+    $('#addEformNoteModal').on('show.bs.modal', function(e) {
+      var schedule_id = $(e.relatedTarget).data('schedule_id')
+      var schedule_name = $(e.relatedTarget).data('schedule_name')
+      var schedule_description = $(e.relatedTarget).data('schedule_description')
+      var name = $(e.relatedTarget).data('name')
+
+      $("#addEformNoteModal .modal-header .modal-title").html('เพิ่มบันทึกข้อความ');
+      $("#addEformNoteModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกเป็นกรรมการการตรวจงาน<BR><BR><b>'+schedule_description+'</b><BR><BR>ใช่หรือไม่ ?</div>');
+
+      $(e.currentTarget).find('input[name="schedule_id"]').val(schedule_id);
+      $(e.currentTarget).find('input[name="name"]').val(name);
+    });
+
+});
+</script>

@@ -37,6 +37,7 @@ class Eform extends MY_Controller {
 		$this->data['eform_checklist'] = $this->Eform_model->view_eform_checklist($eform_id);
 		$this->data['eform_checklist_answer'] = $this->Eform_model->view_eform_checklist_answer($eform_id);
 		$this->data['eform_attachment'] = $this->Eform_model->view_eform_attachment($eform_id);
+		$this->data['eform_note'] = $this->Eform_model->view_eform_note($eform_id);
 
 		$this->load->view('eform/view',$this->data);
 	}
@@ -194,7 +195,7 @@ class Eform extends MY_Controller {
 
 					//Upload file
 					$alert_msg = $this->utilities->upload($uploadedFile,$config);
-					echo "<pre>"; print_r($alert_msg); echo "</pre>";
+					// echo "<pre>"; print_r($alert_msg); echo "</pre>";
 					$eform_attachment = array(
 						'eform_id' => $eform_id
 						,'form_id' => $_POST['form_id']
@@ -215,9 +216,26 @@ class Eform extends MY_Controller {
 		//Log
 
 		//Redirect
-		redirect( site_url('/schedule/view/'.$_POST['schedule_id']) );
+		redirect( site_url('/schedule/view/'.$_POST['schedule_id']));
 
 
+	}
+
+	public function add_note_ops(){
+
+		$this->load->model( array('Utilities_model'));
+
+		//Prepate date for insert to tb_eform
+		$eform_note = array(
+			'eform_id' => $_POST['eform_id']
+			,'note_detail' => $_POST['note']
+			,'created_by' => $this->session->userdata('cn')
+		);
+
+		// echo "<pre>"; print_r($eform); echo "</pre>";
+		$res = $this->Utilities_model->_insert_array('tb_eform_note',$eform_note);
+
+		redirect( site_url('/eform/view/'.$_POST['eform_id']));
 	}
 
 }

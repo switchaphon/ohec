@@ -29,14 +29,14 @@
                         <form role="form" id="createSchedule" name="createSchedule" class="form-horizontal form-label-left" data-toggle="validator" action="<?=site_url('schedule/create_ops');?>" method="POST">
                             <!-- <span class="section"><small>ข้อมูลตารางตรวจงาน</small></span> -->
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">ชื่อ <span class="required">*</span></label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">ชื่อ <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="name"  name="name" class="form-control col-md-7 col-xs-12" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">รายละเอียด <span class="required">*</span></label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">รายละเอียด <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <textarea id="description"  name="description" class="form-control col-md-7 col-xs-12" required></textarea>
                                 </div>
