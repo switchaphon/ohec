@@ -18,8 +18,11 @@ class Eform extends MY_Controller {
 	public function index()
 	{
 		$this->_init();
-        $this->_init_assets( array('datatables', 'icheck', 'jszip', 'pdfmake') );
-        $this->load->view('eform/index');
+		$this->_init_assets( array('datatables') );
+		$this->load->model( array('Eform_model'));
+
+		$this->data['eform_list'] = $this->Eform_model->get_eform();	
+        $this->load->view('eform/index',$this->data);
 	}
 	
 	public function view($eform_id = null)

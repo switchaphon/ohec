@@ -53,7 +53,7 @@
                     </a> -->
                       <a class="btn btn-round btn-success pull-right" href="<?=site_url('schedule/create')?>" name='create'><span class="fa fa-edit" aria-hidden="true"></span> สร้างใหม่</a>
                     </span>
-                    <table id="tbSchedule" name="tbSchedule" class="table table-striped table-bordered">
+                    <table id="tbSchedule" name="tbSchedule" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline">
                       <thead>
                         <tr>
                           <th class="text-center">หมายเลข</th>
@@ -62,7 +62,7 @@
                           <th class="text-center">วันเดินทาง</th>
                           <!-- <th class="text-center">พื้นที่</th> -->
                           <th class="text-center">จังหวัด</th>
-                          <th class="text-center">Action</th>
+                          <th class="text-center"></th>
                         </tr>
                       </thead>
                       
@@ -71,13 +71,13 @@
                         foreach($schedule as $row):
                       ?>
                         <tr>
-                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['schedule_id'];?></a></td>
+                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['schedule_name'];?></a></td>
                             <!-- <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['schedule_name'];?></a></td> -->
                             <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['schedule_description'];?></a></td>
                             <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=convert_to_yyyymmdd($row['start_date']);?> ถึง <?=convert_to_yyyymmdd($row['end_date']);?></a></td>
                             <!-- <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['region'];?></a></td> -->
                             <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['province'];?></a></td>
-                            <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>">
+                            <td class="text-center">
                               <a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-folder-open"></i> เรียกดู</a>
                               <a href="<?=site_url('schedule/edit')?>/<?=$row['schedule_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-pencil"></i> แก้ไข </a>
                               <? if( $this->session->userdata('role') == 'Administrator'){?> 

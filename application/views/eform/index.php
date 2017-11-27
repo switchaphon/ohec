@@ -6,17 +6,6 @@
       <div class="title_left">
         <h3></h3>
       </div>
-
-      <div class="title_right">
-        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for...">
-            <span class="input-group-btn">
-              <button class="btn btn-default" type="button">Go!</button>
-            </span>
-          </div>
-        </div>
-      </div>
     </div>
 
     <div class="clearfix"></div>
@@ -51,166 +40,43 @@
                     <!-- <a class="btn btn-app pull-right" href="<?=site_url('ef/equip')?>" name='create'>
                       <i class="fa fa-edit"></i> สร้างใหม่
                     </a> -->
-                      <a class="btn btn-round btn-default pull-right" href="<?=site_url('ef/equip')?>" name='create'><span class="fa fa-edit" aria-hidden="true"></span> สร้างใหม่</a>
+                      <a class="btn btn-round btn-success pull-right" href="<?=site_url('ef/equip')?>" name='create'><span class="fa fa-edit" aria-hidden="true"></span> สร้างใหม่</a>
                     </span>
-                    <table id="datatable-responsive" class="table table-striped table-bordered">
+                    <table id="tbEform" name="tbEform" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline">
                       <thead>
                         <tr>
-                          <th>หมายเลข</th>
-                          <th>ชื่อหน่วยงาน</th>
-                          <th>จังหวัด</th>
-                          <th>ทรัพย์สิน</th>
-                          <th>ประเภทการตรวจสอบ</th>
-                          <th>ผู้ตรวจสอบ</th>
-                          <th>วันที่ตรวจสอบ</th>
-                          <th></th>
+                          <th class="text-center">ชื่อหน่วยงาน</th>
+                          <th class="text-center">จังหวัด</th>
+                          <th class="text-center">ประเภทการตรวจสอบ</th>
+                          <th class="text-center">ผู้ตรวจสอบ</th>
+                          <th class="text-center">วันที่ตรวจสอบ</th>
+                          <th class="text-center"></th>
                         </tr>
                       </thead>
                       
                       <tbody>
-                        <tr>
-                          <td>fibre-pm-2017101000</td>
-                          <td>มหาวิทยาลัยเกษตรศาสตร์</td>
-                          <td>กรุงเทพฯ</td>
-                          <td>สื่อใยแก้วนำแสง</td>
-                          <td>PM</td>
-                          <td>วิชญ์พล แสงอร่าม</td>
-                          <td>2017-10-10</td>
-                          <td>
-                            <a href="<?=site_url('/eform/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
-                            <a href="<?=site_url('/eform/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>fibre-pm-2017100100</td>
-                          <td>จุฬาลงกรณ์มหาวิทยาลัย</td>
-                          <td>กรุงเทพฯ</td>
-                          <td>สื่อใยแก้วนำแสง</td>
-                          <td>PM</td>
-                          <td>วิชญ์พล แสงอร่าม</td>
-                          <td>2017-10-01</td>
-                          <td>
-                            <a href="<?=site_url('/eform/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
-                            <a href="<?=site_url('/eform/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>equip-pm-2017100100</td>
-                          <td>มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี</td>
-                          <td>กรุงเทพฯ</td>
-                          <td>อุปกรณ์</td>
-                          <td>PM</td>
-                          <td>วิชญ์พล แสงอร่าม</td>
-                          <td>2017-10-01</td>
-                          <td>
-                            <a href="<?=site_url('/eform/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
-                            <a href="<?=site_url('/eform/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>fibre-am-2017103100</td>
-                          <td>วิทยาลัยชุมชนตราด</td>
-                          <td>ตราด</td>
-                          <td>สื่อใยแก้วนำแสง</td>
-                          <td>AM</td>
-                          <td>หยาดรุ้ง สุทธิวารี</td>
-                          <td>2017-10-31</td>
-                          <td>
-                            <a href="<?=site_url('/eform/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
-                            <a href="<?=site_url('/eform/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>fibre-am-2017090100</td>
-                          <td>มหาวิทยาลัยขอนแก่น</td>
-                          <td>ขอนแก่น</td>
-                          <td>สื่อใยแก้วนำแสง</td>
-                          <td>AM</td>
-                          <td>มนัส บุญเลิศ</td>
-                          <td>2017-09-01</td>
-                          <td>
-                            <a href="<?=site_url('/eform/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
-                            <a href="<?=site_url('/eform/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>equip-cm-2017090100</td>
-                          <td>มหาวิทยาลัยมหิดล (ศาลายา)</td>
-                          <td>กรุงเทพฯ</td>
-                          <td>อุปกรณ์</td>
-                          <td>CM</td>
-                          <td>มณีรัตน อิ่มอยู่</td>
-                          <td>2017-09-01</td>
-                          <td>
-                            <a href="<?=site_url('/eform/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
-                            <a href="<?=site_url('/eform/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
-                          </td>
-                        </tr>   
-                        <tr>
-                          <td>fibre-cm-2017080100</td>
-                          <td>มหาวิทยาลัยราชภัฎชัยภูมิ</td>
-                          <td>ชัยภูมิ</td>
-                          <td>สื่อใยแก้วนำแสง</td>
-                          <td>CM</td>
-                          <td>คุณภัครพล อาจอาสา</td>
-                          <td>2017-08-01</td>
-                          <td>
-                            <a href="<?=site_url('/eform/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
-                            <a href="<?=site_url('/eform/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>equip-cm-2017080100</td>
-                          <td>มหาวิทยาลัยราชภัฎชัยภูมิ</td>
-                          <td>ชัยภูมิ</td>
-                          <td>อุปกรณ์</td>
-                          <td>CM</td>
-                          <td>คุณภัครพล อาจอาสา</td>
-                          <td>2017-08-01</td>
-                          <td>
-                            <a href="<?=site_url('/eform/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
-                            <a href="<?=site_url('/eform/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>fibre-cm-2017092200</td>
-                          <td>วิทยาลัยเทคนิคลำพูน</td>
-                          <td>ลำพูน</td>
-                          <td>สื่อใยแก้วนำแสง</td>
-                          <td>CM</td>
-                          <td>สุรศักดิ์ สุภาสุธากุล</td>
-                          <td>2017-09-22</td>
-                          <td>
-                            <a href="<?=site_url('/eform/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
-                            <a href="<?=site_url('/eform/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>fibre-cm-2017092200</td>
-                          <td>วิทยาลัยเทคนิคสมุทรปราการ</td>
-                          <td>สมุทรปราการ</td>
-                          <td>สื่อใยแก้วนำแสง</td>
-                          <td>CM</td>
-                          <td>คจิรวัฒน์ นนตระอุดร </td>
-                          <td>2017-09-22</td>
-                          <td>
-                            <a href="<?=site_url('/eform/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
-                            <a href="<?=site_url('/eform/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>equip-cm-2017092200</td>
-                          <td>วิทยาลัยเทคนิคสระบุรี</td>
-                          <td>สระบุรี</td>
-                          <td>อุปกรณ์</td>
-                          <td>CM</td>
-                          <td>มณีรัตน อิ่มอยู่</td>
-                          <td>2017-09-22</td>
-                          <td>
-                            <a href="<?=site_url('/eform/view');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
-                            <a href="<?=site_url('/eform/edit');?>"><button type="button" class="btn btn-defualt btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a>
-                          </td>
-                        </tr>                                                  
+                      <? 
+                          // echo "<pre>"; print_r($eform_list); echo "</pre>";
+                          if(!empty($eform_list)){ 
+                            foreach($eform_list as $eform_key => $eform_val):
+                        ?>
+                            <tr>
+                              <td class="text-left"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['site_name'];?></a></td>
+                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['province'];?></a></td>
+                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['case_category'];?> [PM]</a></td>
+                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['created_by'];?></a></td>
+                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['created_date'];?></a></td>
+                              <td class="text-center">
+                                <a href="<?=site_url('eform/view')?>/<?=$eform_val['eform_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-folder-open"></i> เรียกดู</a>
+                               <? if( $this->session->userdata('role') == 'Administrator'){?> 
+                                <a href="#" class="btn btn-round btn-danger btn-xs"><i class="fa fa-trash-o"> ยกเลิก</i>  </a>
+                              <? } ?>
+                            </td>
+                            </tr>  
+                        <?      
+                            endforeach;
+                          }
+                        ?>                                                   
                       </tbody>
                     
                     </table>
@@ -226,19 +92,24 @@
 
 <script>
 
-    $(document).ready(function(){
-        $('#datatable-responsive').DataTable({
-          // "pageLength": 50,
-          "paging":   true,
-          "ordering": false,
-          "dom": '<"toolbar">frtip'
-         });
-         $("div.toolbar").html('<span id="datatable-responsive_filter2" class="dataTables_filter"></span>');
-         $('#datatable-responsive_filter').css('float','left','form-inline');
-         $('#datatable-responsive_filter2').css('float','right');
-         $('#datatable-responsive_filter2').append($('#controlPanel'));
-         $("div.toolbar").append($('#datatable-responsive_filter'));
+  $(document).ready(function(){
+    $('#tbEform').DataTable({
+      // "pageLength": 50,
+      "paging":   true,
+      "ordering": true,
+      language: { search: "_INPUT_" , searchPlaceholder: "ค้นหา..." },
+      "dom": '<"toolbar">frtip'
+      });
+      $("div.toolbar").html('<span id="tbEform_filter2" class="dataTables_filter"></span>');
+      //Search box
+      $('#tbEform_filter').css('float','left');
+      $('#tbEform_filter').css('text-align','left');
 
-         $('#datatable-responsive').removeClass('hidden');
-    });
+      $('#tbEform_filter').css('float','left','form-inline');
+      $('#tbEform_filter2').css('float','right');
+      $('#tbEform_filter2').append($('#controlPanel'));
+      $("div.toolbar").append($('#tbEform_filter'));
+
+      $('#tbEform').removeClass('hidden');
+  });
 </script>

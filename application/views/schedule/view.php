@@ -182,7 +182,7 @@
                           }
                         ?>
                       </span>
-                      <table id="tbCommittee" name="tbCommittee" class="table table-hover">
+                      <table id="tbCommittee" name="tbCommittee" class="table table-striped dt-responsive nowrap dataTable no-footer dtr-inline">
                         <thead>
                             <tr>
                             <th class="text-left">ชือ - นามสกุล</th>
@@ -243,7 +243,7 @@
                       <span id="panelTask">
                         <a href="#" class="btn btn-round btn-info pull-right" name='addTaskbtn' data-toggle="modal" data-target="#addTaskModal" ><span class="fa fa-plus" aria-hidden="true"></span> เพิ่มสถานที่</a>
                       </span>
-                      <table id="tbTask" name="tbTask" class="table table-hover">
+                      <table id="tbTask" name="tbTask" class="table table-striped dt-responsive nowrap dataTable no-footer dtr-inline">
                           <thead>
                               <tr>
                               <th class="text-center">สถานที่</th>
@@ -327,7 +327,7 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <table id="tbEform" name="tbEform" class="table table-striped">
+                        <table id="tbEform" name="tbEform" class="table table-striped dt-responsive nowrap dataTable no-footer dtr-inline">
                         <thead>
                             <tr>
                             <th class="text-center">ชื่อหน่วยงาน</th>

@@ -346,6 +346,23 @@ class Eform_model extends CI_Model {
         }
     }
 
+    function get_eform(){
+        $sql ="
+            SELECT eform.eform_id,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date
+            FROM `tb_eform` eform
+            LEFT JOIN `tb_site` site ON site.site_id = eform.site_id
+            LEFT JOIN `tb_ticket` ticket ON ticket.case_id = eform.ticket_id
+        ";
+
+        $query = $this->db->query($sql);
+        
+        if($query->result()){   
+            return $query->result_array();
+        }else{
+            return FALSE;
+        }
+    }
+
     function view_eform($eform_id = null){
         $sql ="
             SELECT *
@@ -425,7 +442,8 @@ class Eform_model extends CI_Model {
             }else{
                 return FALSE;
             }
-    }    
+    } 
+
     function view_eform_checklist_answer($eform_id = null){
         $sql ="
         SELECT answer.panel_no,answer.question_no,answer.answer_no,answer.answer_name,answer.answer_text,answer.answer_value
