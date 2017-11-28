@@ -12,7 +12,7 @@ class Schedule extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->helper(array('form', 'url' , 'datetime_helper'));
-		$this->output->set_title('OHEC : Schedule');
+		$this->output->set_title('ตารางตรวจงาน');
 
 		//Fixed value
 		$customdata = array(
