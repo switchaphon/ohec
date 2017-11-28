@@ -19,8 +19,9 @@ class Ticket extends MY_Controller {
     function list_ticket_by_site()
 	{   
 		$this->load->model( array('Ticket_model'));
-		echo "<pre>"; print_r($this->Ticket_model->list_ticket_by_site($_POST['schedule_id'],$_POST['site'],$_POST['ticket_start_date'],$_POST['ticket_end_date'])); echo "</pre>";
-		// echo(json_encode($this->Ticket_model->list_ticket_by_site($_POST['schedule_id'],$_POST['site'],$_POST['ticket_start_date'],$_POST['ticket_end_date'])));
+		// echo "<pre>"; print_r($_POST); echo "</pre>";
+		// echo "<pre>"; print_r($this->Ticket_model->list_ticket_by_site($_POST['schedule_id'],$_POST['site'],$_POST['ticket_start_date'],$_POST['ticket_end_date'])); echo "</pre>";
+		echo(json_encode($this->Ticket_model->list_ticket_by_site($_POST['schedule_id'],$_POST['site'],$_POST['ticket_start_date'],$_POST['ticket_end_date'])));
 	}
 
 }

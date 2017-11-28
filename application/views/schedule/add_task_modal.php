@@ -2,7 +2,7 @@
 <form role="form" id="joinSchedule" name="joinSchedule" class="form-inline" data-toggle="validator" action="<?=site_url('schedule/add_task_ops');?>" method="POST">    
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title" id="myModalLabel">เพิ่มสถานที่/เพิ่มงานตรวจ <?=$schedule[0]['schedule_id'];?></h4>
+        <h4 class="modal-title" id="myModalLabel">เพิ่มสถานที่/เพิ่มงานตรวจ</h4>
     </div>
     <div class="modal-body">
 
@@ -14,7 +14,8 @@
                     <?  
                         $str = $opt = null;
 
-                        echo "<select id=\"site\" name=\"site[]\" class=\"form-control selectpicker show-tick\" title=\"select \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" required>";
+                        if( !empty($site_list) ){
+                        echo "<select id=\"site\" name=\"site[]\" class=\"form-control selectpicker show-tick\" title=\"เลือกสถานที่ \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" required>";
                         foreach($site_list as $provice => $site):
                             echo '<optgroup label="'.$provice.'">';
                             for($i = 0; $i < count($site); $i++){
@@ -23,11 +24,15 @@
                             echo '</optgroup>';
                         endforeach;
                         echo "</select>";
+                        }else{
+                            echo "<select id=\"site\" name=\"site[]\" class=\"form-control selectpicker show-tick\" title=\"ไม่มีข้อมูล \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" required>";
+                            echo "</select>";                            
+                        }
                     ?>
                 </div>
 
                 <div class="form-group col-lg-4 col-md-4 col-sm-5 col-xs-5">
-                    <select id="ticket" name="ticket[]" class="form-control selectpicker show-tick" title="select" data-live-search="true" data-size="10" data-width="css-width" required></select>
+                    <select id="ticket" name="ticket[]" class="form-control selectpicker show-tick" title="เลือกหมายเลข Ticket" data-live-search="true" data-size="10" data-width="css-width" required></select>
                 </div>
 
                 <!-- <div class="form-group col-md-2 col-md-2 col-md-12">
@@ -38,10 +43,9 @@
 
                 <div id="task_fields"></div>
 
-                <!-- <input type="hidden" id="schedule_id" name="schedule_id" value="<?=$schedule[0]['schedule_id'];?>" /> -->
                 <input type="hidden" id="ticket_start_date" name="ticket_start_date" value="<?=$ticket_start_date;?>" />
                 <input type="hidden" id="ticket_end_date" name="ticket_end_date" value="<?=$ticket_end_date;?>" />
-                <input type="hidden" id="schedule_id" name="schedule_id" value="<?=$schedule[0]['schedule_id'];?>" />
+                <input type="hidden" id="schedule" name="schedule" value="<?=$schedule[0]['schedule_id'];?>" />
             
                 <div class="clear"></div>
                 <BR>
@@ -84,17 +88,17 @@
     $(document).ready(function(){
         //Once site changed, re-query ticket
         $('#site').change(function(){
-            alert($('#schedule_id').val());
+            // alert($('#schedule').val());
             $("#ticket").html('');
         
             $.ajax({
                 type: "POST",
                 dataType: 'json',
                 url: "<?=site_url('/Ticket/list_ticket_by_site');?>",
-                data: "site="+ $('#site').val()+"&schedule_id="+$('#schedule_id').val()+"&ticket_start_date="+$('#ticket_start_date').val()+"&ticket_end_date="+$('#ticket_end_date').val(),
+                data: "site="+ $('#site').val()+"&schedule_id="+$('#schedule').val()+"&ticket_start_date="+$('#ticket_start_date').val()+"&ticket_end_date="+$('#ticket_end_date').val(),
                 success: function(result)
                 {
-                    console.log(result);
+                    // console.log(result);
                     $.each(result,function(index,val){
                         var str = '';
                         var opt = '';

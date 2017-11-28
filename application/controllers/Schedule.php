@@ -271,9 +271,14 @@ class Schedule extends MY_Controller {
 				$contact = $site[0]['name']." ".$site[0]['surname'];
 			}
 			
+			if(!empty($_POST['schedule_id'])){
+				$schedule_id = $_POST['schedule_id'];
+			}else{
+				$schedule_id = $_POST['schedule'];
+			}
 			//Prepare data
 			$destination = array(
-				'schedule_id' => $_POST['schedule_id']
+				'schedule_id' => $schedule_id
 				,'site_id' => $site[0]['site_id']
 				,'province' => $site[0]['province']
 				,'region' => $site[0]['region']
@@ -286,7 +291,7 @@ class Schedule extends MY_Controller {
 			);
 
 			$task = array(
-				'schedule_id' => $_POST['schedule_id']
+				'schedule_id' => $schedule_id
 				,'site_id' => $site[0]['site_id']
 				,'ma_project' => $ticket[0]['contract']
 				,'ticket_id' => $ticket[0]['case_id']
@@ -296,7 +301,7 @@ class Schedule extends MY_Controller {
 			);
 
 			//Check destination of this schedule
-			$destination_list = $this->Schedule_model->get_schedule_destination($_POST['schedule_id']);
+			$destination_list = $this->Schedule_model->get_schedule_destination($schedule_id);
 			
 			if(!empty($destination_list )){
 				if ( !in_array($site[0]['site_id'], $destination_list) ) {
@@ -316,7 +321,7 @@ class Schedule extends MY_Controller {
 		//Log
 
 		//Redirect
-		redirect( site_url('/schedule/view/'.$_POST['schedule_id']) );
+		redirect( site_url('/schedule/view/'.$schedule_id) );
 		
 	}
 

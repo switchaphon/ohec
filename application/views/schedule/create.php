@@ -59,7 +59,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Ticket <span class="required">*</span></label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">ระยะเวลาของ Ticket <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <fieldset>
                                         <div class="control-group">
@@ -78,7 +78,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">พื้นที่ <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <?
-                                        echo "<select name=\"region[]\" id=\"region\" class=\"form-control selectpicker show-tick\" title=\"select \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" multiple required>";
+                                        echo "<select name=\"region[]\" id=\"region\" class=\"form-control selectpicker show-tick\" title=\"เลือกได้มากกว่าหนึ่งพื้นที่ \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" multiple required>";
                                         foreach($region as $reg_key => $reg_val):
                                             echo "<option value=\"".$reg_key."\">".$reg_val."</option>\"";
                                         endforeach;
@@ -91,7 +91,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">จังหวัด <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <?
-                                        echo "<select name=\"province[]\" id=\"province\" class=\"form-control selectpicker show-tick\" title=\"select \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" multiple required></select>";
+                                        echo "<select name=\"province[]\" id=\"province\" class=\"form-control selectpicker show-tick\" title=\"เลือกได้มากกว่าหนึ่งจังหวัด \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" multiple required></select>";
                                     ?>        
                                 </div>
                             </div>        
