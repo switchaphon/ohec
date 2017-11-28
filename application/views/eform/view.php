@@ -48,7 +48,7 @@
                                         <address>
                                             <b>สัญญา :</b> <?=$eform[0]['contract']?>
                                             <br><b>เจ้าหน้าที่ประจำสถานที่ :</b> <?=$eform[0]['contact']?>
-                                            <br><b>หมายเลขเคส :</b> <a href="#" target="_blank"><?=$eform[0]['case_id']?></a>
+                                            <br><b>หมายเลขเคส :</b> <a href="#"><?=$eform[0]['case_id']?></a>
                                             <br><b>ทรัพย์สิน :</b> <?=$eform[0]['case_sub_category']?>
                                         </address>
                                     </div>
@@ -56,7 +56,7 @@
                                     <!-- /.col -->
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
                                         <b>หมายเลขการตรวจ : <?=$eform[0]['eform_id']?></b>
-                                        <br><b>ตารางงาน : <a href="#"><?=$eform[0]['schedule_name']?></a></b>
+                                        <br><b>ตารางงาน : <a href="<?=site_url('schedule/view/'.$eform[0]['schedule_id']);?>"><?=$eform[0]['schedule_name']?></a></b>
                                         <br><b>ผู้ตรวจสอบ</b> <?=$eform[0]['created_by']?></b>
                                         <br><b>วันที่ตรวจสอบ</b> <?=$eform[0]['created_date']?></b>
                                     </div>
@@ -162,7 +162,7 @@
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <span class="section">บันทึกข้อความ</span>
                                                     <span id="panelEformNote">
-                                                        <a href="#" class="btn btn-round btn-success pull-right" id='addEformNote' name='addEformNote' data-toggle="modal" data-target="#addEformNoteModal"  ><span class="fa fa-plus" aria-hidden="true"></span> ข้อความ</a>
+                                                        <a href="#" class="btn btn-round btn-success btn-xs pull-right" id='addEformNote' name='addEformNote' data-toggle="modal" data-target="#addEformNoteModal"  ><span class="fa fa-plus" aria-hidden="true"></span> ข้อความ</a>
                                                     </span>
                                                     <table id="tbEformNote" name="tbEformNote" class="table table-striped dt-responsive nowrap dataTable no-footer dtr-inline">
                                                         <thead>
