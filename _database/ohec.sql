@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.5
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2017 at 03:34 PM
+-- Generation Time: Nov 28, 2017 at 12:06 AM
 -- Server version: 5.7.20
 -- PHP Version: 5.5.38
 
@@ -66,7 +66,11 @@ INSERT INTO `tb_eform` (`row_id`, `eform_id`, `schedule_id`, `site_id`, `ticket_
 (3, '2017112503', '2017111906', '5802', 'NT-Equip-2017-10-0036', '00003', '2017-11-25 13:27:43', 'วิชญ์พล แสงอร่าม'),
 (4, '2017112504', '2017111903', '9603', 'NT-Equip-2017-10-0029', '00003', '2017-11-25 13:34:15', 'วิชญ์พล แสงอร่าม'),
 (5, '2017112601', '2017111906', '1450100400', 'NT-Equip-2017-10-0040', '00003', '2017-11-26 11:54:38', 'วิชญ์พล แสงอร่าม'),
-(6, '2017112602', '2017111906', '1450100400', 'NT-Equip-2017-10-0040', '00003', '2017-11-26 12:14:12', 'Wiriya Damrong');
+(6, '2017112602', '2017111906', '1450100400', 'NT-Equip-2017-10-0040', '00003', '2017-11-26 12:14:12', 'Wiriya Damrong'),
+(7, '2017112701', '2017111906', '5802', 'NT-Equip-2017-10-0036', '00003', '2017-11-27 14:33:00', 'Wiriya Damrong'),
+(8, '2017112702', '2017111905', '1450100400', 'NT-Equip-2017-10-0040', '00003', '2017-11-27 14:36:36', 'Wiriya Damrong'),
+(9, '2017112703', '2017112702', '1450100400', 'NT-Equip-2017-10-0040', '00003', '2017-11-27 16:17:36', 'วิชญ์พล แสงอร่าม'),
+(10, '2017112704', '2017112702', '1450100400', 'NT-Equip-2017-10-0041', '00003', '2017-11-27 16:26:22', 'วิชญ์พล แสงอร่าม');
 
 -- --------------------------------------------------------
 
@@ -85,6 +89,20 @@ CREATE TABLE `tb_eform_attachment` (
   `element_no` int(1) NOT NULL,
   `question_no` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_eform_attachment`
+--
+
+INSERT INTO `tb_eform_attachment` (`attachment_no`, `attachment_path`, `attachment_type`, `eform_id`, `form_id`, `page_no`, `panel_no`, `element_no`, `question_no`) VALUES
+(1, '67a356f70c4f2492c083d252f7aa87ab.png', 'png', '2017112701', '00003', 1, 5, 0, 6),
+(2, 'c7a424e71ef1513b550e731bdbb0a485.png', 'png', '2017112701', '00003', 1, 5, 0, 6),
+(3, '42af94585997fcffbb5bacd406a9c942.png', 'png', '2017112702', '00003', 1, 1, 0, 6),
+(4, 'd1025f0efbe56ad19d0027e9737c7deb.png', 'png', '2017112702', '00003', 1, 1, 0, 6),
+(5, '46b5ad69ef7f35065c94bd308d418757.png', 'png', '2017112702', '00003', 1, 1, 0, 6),
+(6, '30a1ece79e5fea954567b933accb287f.png', 'png', '2017112702', '00003', 1, 1, 0, 6),
+(7, 'c0da6dacf3236a8e8e68bc2a45e8eed8.png', 'png', '2017112703', '00003', 1, 1, 0, 6),
+(8, 'c1601334918fed9664f906024ec9e967.png', 'png', '2017112704', '00003', 1, 1, 0, 6);
 
 -- --------------------------------------------------------
 
@@ -140,7 +158,27 @@ INSERT INTO `tb_eform_checklist` (`eform_id`, `form_id`, `page_no`, `panel_no`, 
 ('2017112602', '00003', 1, 1, 2, 'ผ่าน'),
 ('2017112602', '00003', 1, 1, 3, 'ผ่าน'),
 ('2017112602', '00003', 1, 1, 4, 'ผ่าน'),
-('2017112602', '00003', 1, 1, 5, '');
+('2017112602', '00003', 1, 1, 5, ''),
+('2017112701', '00003', 1, 5, 1, 'ผ่าน'),
+('2017112701', '00003', 1, 5, 2, 'ผ่าน'),
+('2017112701', '00003', 1, 5, 3, 'ผ่าน'),
+('2017112701', '00003', 1, 5, 4, 'ผ่าน'),
+('2017112701', '00003', 1, 5, 5, ''),
+('2017112702', '00003', 1, 1, 1, 'ผ่าน'),
+('2017112702', '00003', 1, 1, 2, 'ผ่าน'),
+('2017112702', '00003', 1, 1, 3, 'ผ่าน'),
+('2017112702', '00003', 1, 1, 4, 'ผ่าน'),
+('2017112702', '00003', 1, 1, 5, ''),
+('2017112703', '00003', 1, 1, 1, 'ไม่ผ่าน'),
+('2017112703', '00003', 1, 1, 2, 'ผ่าน'),
+('2017112703', '00003', 1, 1, 3, 'ผ่าน'),
+('2017112703', '00003', 1, 1, 4, 'ผ่าน'),
+('2017112703', '00003', 1, 1, 5, 'ฝุ่นที่อุปกรณ์เยอะมาก'),
+('2017112704', '00003', 1, 1, 1, 'ผ่าน'),
+('2017112704', '00003', 1, 1, 2, 'ผ่าน'),
+('2017112704', '00003', 1, 1, 3, 'ผ่าน'),
+('2017112704', '00003', 1, 1, 4, 'ผ่าน'),
+('2017112704', '00003', 1, 1, 5, '');
 
 -- --------------------------------------------------------
 
@@ -149,13 +187,24 @@ INSERT INTO `tb_eform_checklist` (`eform_id`, `form_id`, `page_no`, `panel_no`, 
 --
 
 CREATE TABLE `tb_eform_note` (
+  `note_no` int(11) NOT NULL,
   `eform_id` varchar(10) NOT NULL,
-  `note_no` int(2) NOT NULL,
   `note_detail` varchar(255) NOT NULL,
-  `ref_ticket_id` varchar(255) DEFAULT NULL,
-  `created_date` datetime NOT NULL,
+  `ticket_id` varchar(255) DEFAULT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_by` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_eform_note`
+--
+
+INSERT INTO `tb_eform_note` (`note_no`, `eform_id`, `note_detail`, `ticket_id`, `created_date`, `created_by`) VALUES
+(1, '2017112702', 'เจ้าหน้าที่เข้าไปแก้ไขเมื่อวันที่ 20 พย. 2560 ตามหมายเลข Ticket FT-xxxxx', NULL, '2017-11-27 15:18:45', 'Wiriya Damrong'),
+(2, '2017112502', 'เจ้าหน้าที่เข้าไปแก้ไขแล้ว ตามหมายเลขเคส NT-Equip-2017-11-0001', NULL, '2017-11-27 15:31:19', 'Wiriya Damrong'),
+(3, '2017112602', 'เจ้าหน้าที่ดำเนิการแล้ว', NULL, '2017-11-27 15:45:35', 'Wiriya Damrong'),
+(4, '2017112602', 'กรรมการเข้าไปตรวจแล้ว', NULL, '2017-11-27 15:45:48', 'Wiriya Damrong'),
+(5, '2017112703', 'เจ้าหน้าที่เข้าไปทำความสะอาดอุปกรณ์เมื่อ 20 พย 2560 ตาม Ticket : FT-Equip-2017-11-0022', NULL, '2017-11-27 16:19:55', 'วิชญ์พล แสงอร่าม');
 
 -- --------------------------------------------------------
 
@@ -446,12 +495,14 @@ CREATE TABLE `tb_schedule` (
 --
 
 INSERT INTO `tb_schedule` (`row_id`, `schedule_id`, `schedule_name`, `schedule_description`, `region`, `province`, `start_date`, `end_date`, `ticket_start_date`, `ticket_end_date`, `created_date`, `created_by`, `updated_date`, `updated_by`, `status`) VALUES
-(8, '2017111901', 'การตรวจงานงวดที่ 4/2560', 'การตรวจงานงวดที่ 4/2560 - ภาคเหนือตอนบน', 'NN', 'น่าน,พะเยา,ลำปาง,ลำพูน', '2017-12-01 00:00:00', '2017-12-15 00:00:00', '2017-09-01 00:00:00', '2017-11-30 00:00:00', '2017-11-19 09:44:07', 'Witchaphon Saengaram', NULL, NULL, '1'),
+(8, '2017111901', 'การตรวจงานงวดที่ 4/2560', 'การตรวจงานงวดที่ 4/2560 - ภาคเหนือตอนบน', 'NN', 'น่าน,พะเยา,ลำปาง,ลำพูน,เชียงใหม่', '2017-12-01 00:00:00', '2017-12-15 00:00:00', '2017-09-01 00:00:00', '2017-11-30 00:00:00', '2017-11-19 09:44:07', 'Witchaphon Saengaram', '2017-11-27 16:34:43', 'วิชญ์พล แสงอร่าม', '1'),
 (9, '2017111902', 'การตรวจงานงวดที่ 4/2560', 'การตรวจงานงวดที่ 4/2560 - ภาคเหนือตอนล่าง', 'NS', 'กำแพงเพชร,นครสวรรค์,พิษณุโลก,อุตรดิตถ์', '2017-12-18 00:00:00', '2017-12-29 00:00:00', '2017-09-01 00:00:00', '2017-11-30 00:00:00', '2017-11-19 09:45:51', 'Witchaphon Saengaram', NULL, NULL, '1'),
 (10, '2017111903', 'การตรวจงานงวดที่ 4/2560', 'การตรวจงานงวดที่ 4/2560 - ภาคใต้ตอนล่าง', 'SS', 'นราธิวาส,ปัตตานี,พัทลุง,ยะลา', '2017-12-01 00:00:00', '2017-12-15 00:00:00', '2017-09-01 00:00:00', '2017-11-30 00:00:00', '2017-11-19 09:46:55', 'Witchaphon Saengaram', NULL, NULL, '1'),
 (11, '2017111904', 'การตรวจงานงวดที่ 4/2560', 'การตรวจงานงวดที่ 4/2560 - ภาคใต้ตอนบน', 'SN', 'กระบี่,พังงา,ภูเก็ต,สุราษฎร์ธานี', '2017-12-18 00:00:00', '2017-12-29 00:00:00', '2017-09-01 00:00:00', '2017-11-30 00:00:00', '2017-11-19 09:47:43', 'Witchaphon Saengaram', NULL, NULL, '1'),
 (12, '2017111905', 'งวดตรวจงานรอบที่ 2/2560', 'งวดตรวจงานรอบที่ 2/2560 - ภาคเหนือตอนบน', 'NN', 'เชียงราย,เชียงใหม่,แม่ฮ่องสอน', '2018-01-08 00:00:00', '2018-01-19 00:00:00', '2017-09-01 00:00:00', '2017-11-30 00:00:00', '2017-11-19 09:53:10', 'Witchaphon Saengaram', NULL, NULL, '1'),
-(13, '2017111906', 'การตรวจงานงวดที่ 1/2560', 'การตรวจงานงวดที่ 1/2561 ภาคเหนือตอนบน', 'NN', 'น่าน,ลำพูน,เชียงใหม่,แม่ฮ่องสอน', '2018-02-01 00:00:00', '2018-02-20 00:00:00', '2017-09-01 00:00:00', '2017-11-30 00:00:00', '2017-11-19 10:30:01', 'Witchaphon Saengaram', '2017-11-25 18:09:12', 'วิชญ์พล แสงอร่าม', '1');
+(13, '2017111906', 'การตรวจงานงวดที่ 1/2560', 'การตรวจงานงวดที่ 1/2561 ภาคเหนือตอนบน', 'NN', 'น่าน,ลำพูน,เชียงใหม่,แม่ฮ่องสอน', '2018-02-01 00:00:00', '2018-02-20 00:00:00', '2017-09-01 00:00:00', '2017-11-30 00:00:00', '2017-11-19 10:30:01', 'Witchaphon Saengaram', '2017-11-25 18:09:12', 'วิชญ์พล แสงอร่าม', '1'),
+(14, '2017112701', 'การตรวจงานงวดที่ 4/2560', 'การตรวจงานงวดที่ 4/2560 - เส้นทางภาคตะวันออก', 'W', 'ราชบุรี,สมุทรสงคราม,สมุทรสาคร,เพชรบุรี', '2017-10-29 00:00:00', '2017-11-27 00:00:00', '2017-10-29 00:00:00', '2017-11-27 00:00:00', '2017-11-27 16:06:00', 'วิชญ์พล แสงอร่าม', NULL, NULL, '1'),
+(15, '2017112702', 'การตรวจงานงวดที่ 4/2560', 'การตรวจงานงวดที่ 4/2560 - เส้นทางภาคเหนือตอนบน', 'NN', 'น่าน,เชียงราย,เชียงใหม่', '2017-12-10 00:00:00', '2017-12-20 00:00:00', '2017-10-01 00:00:00', '2017-11-30 00:00:00', '2017-11-27 16:12:18', 'วิชญ์พล แสงอร่าม', NULL, NULL, '1');
 
 -- --------------------------------------------------------
 
@@ -477,14 +528,17 @@ CREATE TABLE `tb_schedule_destination` (
 --
 
 INSERT INTO `tb_schedule_destination` (`schedule_id`, `site_id`, `province`, `region`, `contact_name`, `contact_tel`, `contact_mobile`, `contact_email`, `created_date`, `created_by`) VALUES
+('2017111901', '1450100400', 'เชียงใหม่', 'NN', NULL, NULL, NULL, NULL, '2017-11-27 16:34:53', 'วิชญ์พล แสงอร่าม'),
 ('2017111902', '65030005', 'พิษณุโลก', 'NS', NULL, NULL, NULL, NULL, '2017-11-21 16:48:18', 'Witchaphon Saengaram'),
+('2017111903', '94020019', 'ปัตตานี', 'SS', NULL, NULL, NULL, NULL, '2017-11-27 16:08:56', 'วิชญ์พล แสงอร่าม'),
 ('2017111903', '9603', 'นราธิวาส', 'SS', NULL, NULL, NULL, NULL, '2017-11-21 16:38:47', 'Witchaphon Saengaram'),
 ('2017111904', '84020171', 'สุราษฎร์ธานี', 'SN', NULL, NULL, NULL, NULL, '2017-11-25 13:22:32', 'วิชญ์พล แสงอร่าม'),
 ('2017111904', '84032007', 'สุราษฎร์ธานี', 'SN', NULL, NULL, NULL, NULL, '2017-11-19 10:28:53', 'Witchaphon Saengaram'),
 ('2017111905', '1450100400', 'เชียงใหม่', 'NN', NULL, NULL, NULL, NULL, '2017-11-19 10:14:16', 'Witchaphon Saengaram'),
 ('2017111905', '5802', 'แม่ฮ่องสอน', 'NN', NULL, NULL, NULL, NULL, '2017-11-19 10:15:13', 'Witchaphon Saengaram'),
 ('2017111906', '1450100400', 'เชียงใหม่', 'NN', NULL, NULL, NULL, NULL, '2017-11-22 03:53:10', 'Witchaphon Saengaram'),
-('2017111906', '5802', 'แม่ฮ่องสอน', 'NN', NULL, NULL, NULL, NULL, '2017-11-22 03:53:25', 'Witchaphon Saengaram');
+('2017111906', '5802', 'แม่ฮ่องสอน', 'NN', NULL, NULL, NULL, NULL, '2017-11-22 03:53:25', 'Witchaphon Saengaram'),
+('2017112702', '1450100400', 'เชียงใหม่', 'NN', NULL, NULL, NULL, NULL, '2017-11-27 16:13:07', 'วิชญ์พล แสงอร่าม');
 
 -- --------------------------------------------------------
 
@@ -505,8 +559,10 @@ CREATE TABLE `tb_schedule_member` (
 INSERT INTO `tb_schedule_member` (`schedule_id`, `name`, `joined_date`) VALUES
 ('2017111902', 'Witchaphon Saeng-aram', '2017-11-21 16:49:54'),
 ('2017111904', 'Witchaphon Saeng-aram', '2017-11-21 16:37:59'),
+('2017111905', 'Wiriya Damrong', '2017-11-27 14:35:07'),
 ('2017111906', 'Wiriya Damrong', '2017-11-22 09:28:48'),
-('2017111906', 'วิชญ์พล แสงอร่าม', '2017-11-25 09:54:19');
+('2017111906', 'วิชญ์พล แสงอร่าม', '2017-11-25 09:54:19'),
+('2017112702', 'วิชญ์พล แสงอร่าม', '2017-11-27 16:15:33');
 
 -- --------------------------------------------------------
 
@@ -529,7 +585,9 @@ CREATE TABLE `tb_schedule_task` (
 --
 
 INSERT INTO `tb_schedule_task` (`schedule_id`, `site_id`, `ticket_id`, `ma_project`, `ma_type`, `created_date`, `created_by`) VALUES
+('2017111901', '1450100400', 'NT-Equip-2017-10-0040', 'สอ./2561 - Equipment P1 (1)', 'Equipment System', '2017-11-27 16:34:53', 'วิชญ์พล แสงอร่าม'),
 ('2017111902', '65030005', 'NT-Equip-2017-10-0027', 'สอ./2561 - Equipment P3', 'Equipment System', '2017-11-21 16:48:18', 'Witchaphon Saengaram'),
+('2017111903', '94020019', 'NT-Equip-2017-10-0030', 'สอ./2561 - Equipment P3', 'Equipment System', '2017-11-27 16:08:56', 'วิชญ์พล แสงอร่าม'),
 ('2017111903', '9603', 'NT-Equip-2017-10-0029', 'สอ./2561 - Equipment P3', 'Equipment System', '2017-11-21 16:38:47', 'Witchaphon Saengaram'),
 ('2017111904', '84020171', 'NT-Equip-2017-10-0008', 'สอ./2561 - Equipment P2', 'Equipment System', '2017-11-25 13:22:32', 'วิชญ์พล แสงอร่าม'),
 ('2017111904', '84032007', 'NT-Equip-2017-10-0043', 'สอ./2561 - Equipment P3', 'Equipment System', '2017-11-19 10:28:53', 'Witchaphon Saengaram'),
@@ -538,7 +596,9 @@ INSERT INTO `tb_schedule_task` (`schedule_id`, `site_id`, `ticket_id`, `ma_proje
 ('2017111905', '5802', 'NT-Equip-2017-10-0036', 'สอ./2561 - Equipment P2', 'Equipment System', '2017-11-19 10:15:13', 'Witchaphon Saengaram'),
 ('2017111906', '1450100400', 'NT-Equip-2017-10-0040', 'สอ./2561 - Equipment P1 (1)', 'Equipment System', '2017-11-22 03:53:10', 'Witchaphon Saengaram'),
 ('2017111906', '1450100400', 'NT-Equip-2017-10-0041', 'สอ./2561 - Equipment P1 (3)', 'Equipment System', '2017-11-22 03:53:18', 'Witchaphon Saengaram'),
-('2017111906', '5802', 'NT-Equip-2017-10-0036', 'สอ./2561 - Equipment P2', 'Equipment System', '2017-11-22 03:53:25', 'Witchaphon Saengaram');
+('2017111906', '5802', 'NT-Equip-2017-10-0036', 'สอ./2561 - Equipment P2', 'Equipment System', '2017-11-22 03:53:25', 'Witchaphon Saengaram'),
+('2017112702', '1450100400', 'NT-Equip-2017-10-0040', 'สอ./2561 - Equipment P1 (1)', 'Equipment System', '2017-11-27 16:13:07', 'วิชญ์พล แสงอร่าม'),
+('2017112702', '1450100400', 'NT-Equip-2017-10-0041', 'สอ./2561 - Equipment P1 (3)', 'Equipment System', '2017-11-27 16:25:15', 'วิชญ์พล แสงอร่าม');
 
 -- --------------------------------------------------------
 
@@ -4959,7 +5019,7 @@ ALTER TABLE `tb_eform_checklist`
 -- Indexes for table `tb_eform_note`
 --
 ALTER TABLE `tb_eform_note`
-  ADD PRIMARY KEY (`eform_id`,`note_no`);
+  ADD PRIMARY KEY (`note_no`);
 
 --
 -- Indexes for table `tb_form`
@@ -5035,19 +5095,25 @@ ALTER TABLE `tb_schedule_task`
 -- AUTO_INCREMENT for table `tb_eform`
 --
 ALTER TABLE `tb_eform`
-  MODIFY `row_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `row_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tb_eform_attachment`
 --
 ALTER TABLE `tb_eform_attachment`
-  MODIFY `attachment_no` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `attachment_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `tb_eform_note`
+--
+ALTER TABLE `tb_eform_note`
+  MODIFY `note_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tb_schedule`
 --
 ALTER TABLE `tb_schedule`
-  MODIFY `row_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `row_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

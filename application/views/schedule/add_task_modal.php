@@ -2,7 +2,7 @@
 <form role="form" id="joinSchedule" name="joinSchedule" class="form-inline" data-toggle="validator" action="<?=site_url('schedule/add_task_ops');?>" method="POST">    
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title" id="myModalLabel">เพิ่มสถานที่/เพิ่มงานตรวจ</h4>
+        <h4 class="modal-title" id="myModalLabel">เพิ่มสถานที่/เพิ่มงานตรวจ <?=$schedule[0]['schedule_id'];?></h4>
     </div>
     <div class="modal-body">
 
@@ -38,9 +38,10 @@
 
                 <div id="task_fields"></div>
 
-                <input type="hidden" id="schedule_id" name="schedule_id" value="<?=$schedule[0]['schedule_id'];?>" />
+                <!-- <input type="hidden" id="schedule_id" name="schedule_id" value="<?=$schedule[0]['schedule_id'];?>" /> -->
                 <input type="hidden" id="ticket_start_date" name="ticket_start_date" value="<?=$ticket_start_date;?>" />
                 <input type="hidden" id="ticket_end_date" name="ticket_end_date" value="<?=$ticket_end_date;?>" />
+                <input type="hidden" id="schedule_id" name="schedule_id" value="<?=$schedule[0]['schedule_id'];?>" />
             
                 <div class="clear"></div>
                 <BR>
@@ -83,6 +84,7 @@
     $(document).ready(function(){
         //Once site changed, re-query ticket
         $('#site').change(function(){
+            alert($('#schedule_id').val());
             $("#ticket").html('');
         
             $.ajax({
