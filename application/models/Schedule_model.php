@@ -10,16 +10,36 @@ class Schedule_model extends CI_Model {
     }
     
 
-    function list_open_schedule($table = null, $data=null) {
+    function list_opened_schedule() {
         $sql ="
-            Select *
-            FROM ohec.tb_schedule
-            WHERE status = '1'
-            ORDER BY created_date DESC
+        SELECT schedule.`schedule_id`,`schedule_name`,`schedule_description`,`region`,`province`,`start_date`,`end_date`
+        FROM tb_schedule schedule
+        WHERE status = '1'
+        ORDER BY created_date DESC
             ";
         $query = $this->db->query($sql);
         
         return $query->result_array();
+    }
+
+    function list_joined_schedule($name = null) {
+        $sql ="
+        SELECT schedule_id
+        FROM tb_schedule_member member
+        WHERE name = '$name'
+            ";
+        $query = $this->db->query($sql);
+        
+        $joined_schedule = array();
+        
+        if($query->result()){
+            foreach ($query->result_array() as $key => $value) {
+                $joined_schedule[] = $value['schedule_id'];
+            }
+            return $joined_schedule;
+        }else{
+            return FALSE;
+        }
     }
 
     function view_schedule($id = null) {

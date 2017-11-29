@@ -365,7 +365,7 @@ class Eform_model extends CI_Model {
 
     function view_eform($eform_id = null){
         $sql ="
-            SELECT *
+        SELECT form.form_id,form.form_name,eform.eform_id,eform.schedule_id,eform.created_date,eform.created_by,ticket.case_id,ticket.contract,ticket.contact,site.site_id,site.site_name,ticket.case_category,ticket.case_sub_category,schedule.schedule_name
             FROM `tb_eform` eform
             LEFT JOIN `tb_form` form ON form.form_id = eform.form_id
             LEFT JOIN `tb_schedule` schedule ON schedule.schedule_id = eform.schedule_id

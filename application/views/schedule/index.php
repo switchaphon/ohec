@@ -51,31 +51,31 @@
                     <!-- <a class="btn btn-app pull-right" href="<?=site_url('ef/equip')?>" name='create'>
                       <i class="fa fa-edit"></i> สร้างใหม่
                     </a> -->
-                      <a class="btn btn-round btn-success pull-right" href="<?=site_url('schedule/create')?>" name='create'><span class="fa fa-edit" aria-hidden="true"></span> สร้างใหม่</a>
+                    <a class="btn btn-round btn-success pull-right" href="<?=site_url('schedule/create')?>" name='create'><span class="fa fa-edit" aria-hidden="true"></span> สร้างใหม่</a>
                     </span>
                     <table id="tbSchedule" name="tbSchedule" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline">
                       <thead>
                         <tr>
                           <th class="text-center">หมายเลข</th>
-                          <!-- <th class="text-center">ชื่อ</th> -->
                           <th class="text-center">รายละเอียด</th>
-                          <th class="text-center">วันเดินทาง</th>
-                          <!-- <th class="text-center">พื้นที่</th> -->
                           <th class="text-center">จังหวัด</th>
+                          <th class="text-center">วันเดินทาง</th>
                           <th class="text-center"></th>
                         </tr>
                       </thead>
                       
                       <tbody>
                       <?
-                        foreach($schedule as $row):
+                        //echo "<pre>"; print_r($joined_schedule); echo "</pre>";
+                        foreach($opened_schedule as $row):
+                          if($row['schedule_id'])
+                            if(in_array($row['schedule_id'], $joined_schedule) ){ $joined = "<i class=\"fa fa-user green\"></i>"; }else{ $joined = null;}
                       ?>
                         <tr>
-                            <!-- <td class="text-center"><a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>"><?=$row['schedule_name'];?></a></td> -->
-                            <td class="text-center"><?=$row['schedule_name'];?></td>
-                            <td class="text-center"><?=$row['schedule_description'];?></td>
-                            <td class="text-center"><?=convert_to_yyyymmdd($row['start_date']);?> ถึง <?=convert_to_yyyymmdd($row['end_date']);?></td>
-                            <td class="text-center"><?=$row['province'];?></td>
+                            <td class="text-left"><?=$row['schedule_name'];?> <?=$joined;?></td>
+                            <td class="text-left"><?=$row['schedule_description'];?></td>
+                            <td class="text-left"><?=$row['province'];?></td>
+                            <td class="text-center"><?=convert_to_yyyymmdd($row['start_date']);?> - <?=convert_to_yyyymmdd($row['end_date']);?></td>
                             <td class="text-center">
                               <a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-folder-open"></i> เรียกดู</a>
                               <a href="<?=site_url('schedule/edit')?>/<?=$row['schedule_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-pencil"></i> แก้ไข </a>
@@ -92,6 +92,7 @@
                     
                     </table>
                   </div>
+                  <i class="fa fa-user green"></i> = ตารางงานที่คุณเป็นกรรมการ
                 </div>
               </div>
       </div>

@@ -33,11 +33,11 @@
                         <section class="content invoice">
 
                             <!-- title row -->
-                            <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="150px"></center>
+                            <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="80px"></center>
                             
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                                    <!-- <h1><?=$site_name;?></h1> -->
+                                    <h2><?=$site_name;?></h2>
                                 </div>
                             </div>
 

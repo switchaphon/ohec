@@ -30,7 +30,8 @@ class Schedule extends MY_Controller {
 		$this->load->model( array('Schedule_model'));
 
 		//Get schedule
-		$this->data['schedule'] = $this->Schedule_model->list_open_schedule();
+		$this->data['opened_schedule'] = $this->Schedule_model->list_opened_schedule();
+		$this->data['joined_schedule'] = $this->Schedule_model->list_joined_schedule($this->session->userdata('cn'));
 
         $this->load->view('schedule/index',$this->data);
 	}
