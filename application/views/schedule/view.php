@@ -37,20 +37,9 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>รายละเอียดตารางตรวจงาน <i class="fa fa-info-circle"></i><small></small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
+                    <ul class="nav navbar-right panel_toolbox" style="padding-left: 50px;">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a></li>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -134,108 +123,86 @@
                     </form>
                   </div>
                 </div>
+
+              <!-- committee card -->  
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>กรรมการ <i class="fa fa-users"></i><small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox" style="padding-left: 50px;">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content"><?
+                          // echo $this->session->userdata('cn');
+                          // echo "<pre>"; print_r($committee_list); echo "</pre>";
+                          ?>
+                  <!-- start form for validation -->
+                    <span id="panelCommittee">
+                      <? 
+                        if(!empty($committee_list)){  
+
+                          if( !in_array($this->session->userdata('cn'), $committee_list, true) ) {
+                      ?>
+                        <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
+                      <?  
+                          }
+                        }else{ 
+                      ?>
+                        <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
+                      <?  
+                        }
+                      ?>
+                    </span>
+                    <table id="tbCommittee" name="tbCommittee" class="table table-striped dt-responsive nowrap dataTable no-footer dtr-inline">
+                      <thead>
+                          <tr>
+                          <th class="text-left">ชือ - นามสกุล</th>
+                          <th></th>
+                          </tr>
+                      </thead>
+                      <tbody>        
+                      <? 
+                        // echo "<pre>"; print_r($committee_list); echo "</pre>";
+                        if(!empty($committee_list)){ 
+                          foreach($committee_list as $key => $val): 
+                      ?>
+                        <tr>
+                            <td class="text-left"><a href="#"><?=$val;?></a></td>
+                            <? if($val == $this->session->userdata('cn')){ ?>
+                              <td class="text-left">
+                                <a href="#" class="btn btn-round btn-danger btn-xs" id='disjoinSchedulebtn' name='disjoinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#disjoinScheduleModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
+                                </td>
+                              
+                            <? }else{ ?>
+                              <td class="text-left"></td>
+                            <?}?>
+                        </tr>
+                      <? 
+                          endforeach; 
+                        }
+                      ?>       
+                      </tbody>
+                    </table>       
+                  <!-- end form for validations -->
+
+                  </div>
+                </div>
+              <!-- /committee card -->
               </div>
             <!-- /left card -->
 
             <!-- right card -->
               <div class="col-md-6 col-xs-12">
 
-                <!-- committee card -->  
-                  <div class="x_panel">
-                    <div class="x_title">
-                      <h2>กรรมการ <i class="fa fa-users"></i><small></small></h2>
-                      <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
-                        <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                          <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Settings 1</a>
-                            </li>
-                            <li><a href="#">Settings 2</a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                        </li>
-                      </ul>
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content"><?
-                            // echo $this->session->userdata('cn');
-                            // echo "<pre>"; print_r($committee_list); echo "</pre>";
-                            ?>
-                    <!-- start form for validation -->
-                      <span id="panelCommittee">
-                        <? 
-                          if(!empty($committee_list)){  
-
-                            if( !in_array($this->session->userdata('cn'), $committee_list, true) ) {
-                        ?>
-                          <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
-                        <?  
-                            }
-                          }else{ 
-                        ?>
-                          <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
-                        <?  
-                          }
-                        ?>
-                      </span>
-                      <table id="tbCommittee" name="tbCommittee" class="table table-striped dt-responsive nowrap dataTable no-footer dtr-inline">
-                        <thead>
-                            <tr>
-                            <th class="text-left">ชือ - นามสกุล</th>
-                            <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>        
-                        <? 
-                          // echo "<pre>"; print_r($committee_list); echo "</pre>";
-                          if(!empty($committee_list)){ 
-                            foreach($committee_list as $key => $val): 
-                        ?>
-                          <tr>
-                              <td class="text-left"><a href="#"><?=$val;?></a></td>
-                              <? if($val == $this->session->userdata('cn')){ ?>
-                                <td class="text-left">
-                                  <a href="#" class="btn btn-round btn-danger btn-xs" id='disjoinSchedulebtn' name='disjoinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#disjoinScheduleModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
-                                 </td>
-                                
-                              <? }else{ ?>
-                                <td class="text-left"></td>
-                              <?}?>
-                          </tr>
-                        <? 
-                            endforeach; 
-                          }
-                        ?>       
-                        </tbody>
-                      </table>       
-                    <!-- end form for validations -->
-
-                    </div>
-                  </div>
-                <!-- /committee card -->
-
                 <!-- destination card -->
                   <div class="x_panel">
                     <div class="x_title">
                       <h2>สถานที่ <i class="fa fa-university"></i><small></small></h2>
-                      <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
-                        <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                          <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Settings 1</a>
-                            </li>
-                            <li><a href="#">Settings 2</a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                        </li>
+                      <ul class="nav navbar-right panel_toolbox" style="padding-left: 50px;">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a></li>
                       </ul>
                       <div class="clearfix"></div>
                     </div>
@@ -247,32 +214,33 @@
                           <thead>
                               <tr>
                               <th class="text-center">สถานที่</th>
-                              <th class="text-center">หมายเลขเคส</th>
+                              <th class="text-center">งานตรวจ</th>
                               <th class="text-center"></th>
                               </tr>
                           </thead>
                           <tbody>        
                           <?
                             // echo "<pre>"; print_r($task_list); echo "</pre>";
+                            // echo "<pre>"; print_r($eform_list); echo "</pre>";
                             if(!empty($task_list)){ 
                               foreach($task_list as $key => $val):
                                 $flag = false;
                                 for($i = 0; $i < count($eform_list); $i++){
-                                  if( ($eform_list[$i]['site_id'] == $val['site_id']) && ($eform_list[$i]['case_id'] == $val['ticket_id']) && ($eform_list[$i]['created_by'] == $this->session->userdata('cn')) ){
+                                  if( ($eform_list[$i]['site_id'] == $val['site_id']) && ($eform_list[$i]['asset_type'] == $val['asset_type']) && ($eform_list[$i]['created_by'] == $this->session->userdata('cn')) ){
                                     $flag = true;
                                   }
                                 }
                           ?>
                             <tr>
                                 <td class="text-left"><?=$val['site_name'];?></td>
-                                <td class="text-left"><?=$val['ticket_id'];?></td>
+                                <td class="text-left"><?=$val['asset_type'];?> [<?=$val['ma_type'];?>]</td>
                                 <td class="text-left">
                                 <? 
                                   if( !empty($committee_list) ){
                                     if(in_array($this->session->userdata('cn'), $committee_list) ){
                                       if( !$flag ) {
                                 ?>
-                                  <a href="<?=site_url('eform/create/'.$schedule[0]['schedule_id']).'/'.$val['ticket_id'];?>" class="btn btn-round btn-success btn-xs"><i class="fa fa-file-text"></i> ตรวจ </a>
+                                  <a href="<?=site_url('eform/create/'.$schedule[0]['schedule_id']).'/'.$val['site_id'].'/'.$val['form_id'];?>" class="btn btn-round btn-success btn-xs"><i class="fa fa-file-text"></i> ตรวจ </a>
                                 <?  } 
                                     if( $this->session->userdata('role') == 'Administrator'){?>  
                                   <a href="#" class="btn btn-round btn-danger btn-xs" id='cancelTaskbtn' name='cancelTaskbtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-site_id="<?=$val['site_id'];?>" data-site_name="<?=$val['site_name'];?>" data-ticket_id="<?=$val['ticket_id'];?>" data-toggle="modal" data-target="#cancelTaskModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
@@ -309,20 +277,9 @@
                 <div class="x_panel">
                     <div class="x_title">
                         <h2>รายการแบบตรวจสอบออนไลน์ <i class="fa fa-file-text"></i><small></small></h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                            <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Settings 1</a>
-                                </li>
-                                <li><a href="#">Settings 2</a>
-                                </li>
-                            </ul>
-                            </li>
-                            <li><a class="close-link"><i class="fa fa-close"></i></a>
-                            </li>
+                        <ul class="nav navbar-right panel_toolbox" style="padding-left: 50px;">
+                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                          <li><a class="close-link"><i class="fa fa-close"></i></a></li>
                         </ul>
                         <div class="clearfix"></div>
                     </div>
@@ -349,7 +306,7 @@
                               <!-- <td class="text-left"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['site_name'];?></a></td> -->
                               <td class="text-left"><?=$eform_val['site_name'];?></td>
                               <td class="text-center"><?=$eform_val['province'];?></td>
-                              <td class="text-center"><?=$eform_val['case_category'];?> [PM]</td>
+                              <td class="text-center"><?=$eform_val['asset_type'];?> [<?=$eform_val['ma_type']?>]</td>
                               <td class="text-center"><?=$eform_val['created_by'];?></td>
                               <td class="text-center"><?=$eform_val['created_date'];?></td>
                               <td class="text-center">

@@ -56,10 +56,11 @@ class Schedule_model extends CI_Model {
 
     function get_schedule_task($schedule_id = null) {
         $sql ="
-            SELECT destination.site_id AS site_id,site_name,ma_project,ma_type,ticket_id
+            SELECT destination.site_id AS site_id,site_name,task.ma_project,task.ma_type,ticket_id,form.*
             FROM ohec.tb_schedule_destination destination
                 LEFT JOIN ohec.tb_site site ON destination.site_id = site.site_id
                 LEFT JOIN ohec.tb_schedule_task task ON destination.schedule_id = task.schedule_id AND destination.site_id = task.site_id
+                LEFT JOIN ohec.tb_form form ON form.form_id = task.ticket_id
             WHERE destination.schedule_id = '$schedule_id'
             ORDER BY site_name ASC
             ";
@@ -68,12 +69,6 @@ class Schedule_model extends CI_Model {
         return $query->result_array();
     }
 
-    // function _insert_array($table = null, $data=null) {
-        
-    //     $this->db->insert($table, $data);
-
-    //     return $this->db->affected_rows();
-    // }
     //_update_array
     function _update_array($table = null, $data=null) {
         
@@ -83,30 +78,6 @@ class Schedule_model extends CI_Model {
 
         return $this->db->affected_rows();
     }    
-/*
-
-*/
-    // function _count_row($table = null, $data=null) {
-    
-    //         foreach($data as $key => $val):
-    //             $this->db->where($key, $val);
-    //         endforeach;
-
-    //         $this->db->from($table);
-
-    //         return $this->db->count_all_results();;
-    // }
-
-    // function _delete($table = null, $data=null) {
-
-    //     foreach($data as $key => $val):
-    //         $this->db->where($key, $val);
-    //     endforeach;
-
-    //     $this->db->delete($table); 
-
-    //     return $this->db->affected_rows();
-    // }
 
     function get_schedule_id($keyword) {
         $sql ="
@@ -170,7 +141,7 @@ class Schedule_model extends CI_Model {
             }else{
                 return FALSE;
             }
-        }
+    }
 
 }
 ?>

@@ -9,6 +9,58 @@ class Eform_model extends CI_Model {
         parent::__construct();
     }
 
+    function list_form(){
+        $sql = "
+        SELECT form.form_id, form.form_name, form.asset_type,form.ma_type
+        FROM tb_form form
+        WHERE form.form_status = '1'
+        ORDER BY asset_type,ma_type ASC
+        ";
+
+        $query = $this->db->query($sql);
+        
+        if($query->result()){
+            
+            $form = array();
+            
+            foreach($query->result_array() as $key => $val):
+                if( empty( $form[$val['asset_type']] ) ){
+                    $form[$val['asset_type']][] = array(
+                        'form_id' => $val['form_id']
+                        ,'form_name' => $val['form_name']
+                        ,'ma_type' => $val['ma_type']
+                    );
+                }else{
+                    $form[$val['asset_type']][] = array(
+                        'form_id' => $val['form_id']
+                        ,'form_name' => $val['form_name']
+                        ,'ma_type' => $val['ma_type']
+                    );                   
+                }
+            endforeach;
+
+            return $form;            
+        }else{
+            return FALSE;
+        } 
+    }
+
+    function view_form($form_id = null){
+        $sql = "
+        SELECT form.form_id, form.form_name, form.asset_type,form.ma_type,form.ma_name
+        FROM tb_form form
+        WHERE form.form_id = '$form_id'
+        ";
+
+        $query = $this->db->query($sql);
+        
+        if($query->result()){   
+            return $query->result_array();
+        }else{
+            return FALSE;
+        }
+    }
+
     function load_form($asset_category = null, $ma_type = null) {
         $sql ="
             SELECT form_id,form_name
@@ -181,7 +233,7 @@ class Eform_model extends CI_Model {
     
     function load_form_question() {
         $sql ="
-            SELECT form_id,page_no,panel_no,element_no,question_no,question_name,question_text,question_value,question_type
+            SELECT form_id,page_no,panel_no,question_no,question_name,question_text,question_value,question_type
             FROM tb_form_question
             WHERE question_status = '1'
             ORDER BY panel_no,question_order ASC
@@ -199,7 +251,7 @@ class Eform_model extends CI_Model {
                         'question_name' => $value['question_name']
                         ,'question_text' => $value['question_text']
                         ,'question_value' => $value['question_value']
-                        ,'element_no' => $value['element_no']
+                        // ,'element_no' => $value['element_no']
                         ,'question_type' => $value['question_type']
                     );
                 }else{
@@ -207,7 +259,7 @@ class Eform_model extends CI_Model {
                         'question_name' => $value['question_name']
                         ,'question_text' => $value['question_text']
                         ,'question_value' => $value['question_value']
-                        ,'element_no' => $value['element_no']
+                        // ,'element_no' => $value['element_no']
                         ,'question_type' => $value['question_type']
                     );
                 }
@@ -242,7 +294,7 @@ class Eform_model extends CI_Model {
 
     function load_form_answer() {
         $sql ="
-            SELECT form_id,page_no,panel_no,element_no,question_no,answer_no,answer_name,answer_text,answer_value
+            SELECT form_id,page_no,panel_no,question_no,answer_no,answer_name,answer_text,answer_value
             FROM tb_form_answer answer
             WHERE answer_status = '1'
             ORDER BY panel_no,question_no,answer_no ASC
@@ -310,12 +362,19 @@ class Eform_model extends CI_Model {
         }
     }
 
-    function load_question($form_id = null, $panel_name = null) {
+    function load_question($form_id = null) {
+        // $sql ="
+        //     SELECT panel.form_id,panel.page_no,panel.panel_no,question_no,question_name,question_text,question_value,question_type
+        //     FROM tb_form_panel panel
+        //     LEFT JOIN tb_form_question question ON question.form_id = panel.form_id AND panel.panel_no = question.panel_no
+        //     WHERE panel.form_id = '$form_id' AND panel.panel_name = '$panel_name' AND question_status = '1'
+        //     ORDER BY panel.panel_no,question_order ASC
+        //     ";
         $sql ="
             SELECT panel.form_id,panel.page_no,panel.panel_no,question_no,question_name,question_text,question_value,question_type
             FROM tb_form_panel panel
             LEFT JOIN tb_form_question question ON question.form_id = panel.form_id AND panel.panel_no = question.panel_no
-            WHERE panel.form_id = '$form_id' AND panel.panel_name = '$panel_name' AND question_status = '1'
+            WHERE panel.form_id = '$form_id' AND question_status = '1'
             ORDER BY panel.panel_no,question_order ASC
             ";
 
@@ -329,14 +388,20 @@ class Eform_model extends CI_Model {
     }  
     
     function get_schedule_eform($schedule_id = null){
+        // $sql ="
+        //     SELECT eform.eform_id,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date
+        //     FROM `tb_eform` eform
+        //     LEFT JOIN `tb_site` site ON site.site_id = eform.site_id
+        //     LEFT JOIN `tb_ticket` ticket ON ticket.case_id = eform.ticket_id
+        //     WHERE `schedule_id` = '$schedule_id'
+        // ";
         $sql ="
-            SELECT eform.eform_id,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date
+            SELECT eform.eform_id,site.site_id,site.site_name,site.province,eform.form_id,eform.created_by,eform.created_date,form.asset_type,form.ma_type
             FROM `tb_eform` eform
             LEFT JOIN `tb_site` site ON site.site_id = eform.site_id
-            LEFT JOIN `tb_ticket` ticket ON ticket.case_id = eform.ticket_id
+            LEFT JOIN `tb_form` form ON form.form_id = eform.form_id
             WHERE `schedule_id` = '$schedule_id'
         ";
-
         $query = $this->db->query($sql);
         
         if($query->result()){   
@@ -365,12 +430,12 @@ class Eform_model extends CI_Model {
 
     function view_eform($eform_id = null){
         $sql ="
-        SELECT form.form_id,form.form_name,eform.eform_id,eform.schedule_id,eform.created_date,eform.created_by,ticket.case_id,ticket.contract,ticket.contact,site.site_id,site.site_name,ticket.case_category,ticket.case_sub_category,schedule.schedule_name
+        SELECT form.form_id,form.form_name,form.asset_type,form.ma_type,form.ma_name,eform.eform_id,eform.schedule_id,eform.created_date,eform.created_by,site.site_id,site.site_name,site.province,region.region_name,schedule.schedule_name
             FROM `tb_eform` eform
             LEFT JOIN `tb_form` form ON form.form_id = eform.form_id
             LEFT JOIN `tb_schedule` schedule ON schedule.schedule_id = eform.schedule_id
             LEFT JOIN `tb_site` site ON site.site_id = eform.site_id
-            LEFT JOIN `tb_ticket` ticket ON ticket.case_id = eform.ticket_id
+            LEFT JOIN `tb_region` region ON region.region_id = site.region
             WHERE `eform_id` = '$eform_id'
         ";
 
@@ -384,16 +449,25 @@ class Eform_model extends CI_Model {
     }
 
     function view_eform_checklist($eform_id = null){
+        // $sql ="
+        //     SELECT checklist.panel_no,checklist.question_no,panel.panel_name,panel.panel_title,question.question_no,question.question_name,question.question_text,question.question_value,question.question_type,answer_value
+        //     FROM `tb_eform_checklist` checklist
+        //     LEFT JOIN `tb_form_panel` panel ON panel.panel_no = checklist.panel_no
+        //     LEFT JOIN `tb_form_question` question ON checklist.question_no = question.question_no AND checklist.panel_no = question.panel_no
+        //     WHERE checklist.eform_id = '$eform_id'
+        //     AND question.panel_no IN (SELECT panel_no FROM `tb_eform_checklist` checklist WHERE checklist.eform_id = '$eform_id' GROUP BY panel_no ORDER BY checklist.panel_no ASC) 
+        //     AND question.form_id = (SELECT form_id FROM tb_eform eform WHERE eform.eform_id = '$eform_id' )
+        //     ORDER BY panel.panel_no ASC
+        // ";
         $sql ="
-            SELECT checklist.panel_no,checklist.question_no,panel.panel_name,panel.panel_title,question.question_no,question.question_name,question.question_text,question.question_value,question.question_type,answer_value
+            SELECT panel.panel_no,checklist.question_no,panel.panel_name,panel.panel_title,question.question_no,question.question_name,question.question_text,question.question_value,question.question_type,answer_value
             FROM `tb_eform_checklist` checklist
-            LEFT JOIN `tb_form_panel` panel ON panel.panel_no = checklist.panel_no
-            LEFT JOIN `tb_form_question` question ON checklist.question_no = question.question_no AND checklist.panel_no = question.panel_no
+            LEFT JOIN `tb_form_question` question ON checklist.question_no = question.question_no
+            LEFT JOIN `tb_form_panel` panel ON panel.panel_no = question.panel_no
             WHERE checklist.eform_id = '$eform_id'
-            AND question.panel_no IN (SELECT panel_no FROM `tb_eform_checklist` checklist WHERE checklist.eform_id = '$eform_id' GROUP BY panel_no ORDER BY checklist.panel_no ASC) 
             AND question.form_id = (SELECT form_id FROM tb_eform eform WHERE eform.eform_id = '$eform_id' )
-            ORDER BY panel.panel_no ASC
-        ";
+            ORDER BY panel.panel_no,question.question_order ASC
+        ";        
 
         $query = $this->db->query($sql);
 
@@ -445,13 +519,20 @@ class Eform_model extends CI_Model {
     } 
 
     function view_eform_checklist_answer($eform_id = null){
-        $sql ="
-        SELECT answer.panel_no,answer.question_no,answer.answer_no,answer.answer_name,answer.answer_text,answer.answer_value
-        FROM `tb_form_answer` answer
-        WHERE answer.answer_status = '1' 
-        AND answer.form_id = (SELECT form_id FROM `tb_eform` eform WHERE eform.eform_id = '$eform_id')
-        AND answer.panel_no IN (SELECT panel_no FROM `tb_eform_checklist` checklist WHERE checklist.eform_id = '$eform_id' GROUP BY panel_no ORDER BY checklist.panel_no ASC)
-        ORDER BY answer.panel_no,answer.question_no,answer.answer_no,answer.answer_order
+        // $sql ="
+        // SELECT answer.panel_no,answer.question_no,answer.answer_no,answer.answer_name,answer.answer_text,answer.answer_value
+        // FROM `tb_form_answer` answer
+        // WHERE answer.answer_status = '1' 
+        // AND answer.form_id = (SELECT form_id FROM `tb_eform` eform WHERE eform.eform_id = '$eform_id')
+        // AND answer.panel_no IN (SELECT panel_no FROM `tb_eform_checklist` checklist WHERE checklist.eform_id = '$eform_id' GROUP BY panel_no ORDER BY checklist.panel_no ASC)
+        // ORDER BY answer.panel_no,answer.question_no,answer.answer_no,answer.answer_order
+        // ";
+        $sql = "
+            SELECT answer.panel_no,answer.question_no,answer.answer_no,answer.answer_name,answer.answer_text,answer.answer_value
+            FROM `tb_form_answer` answer
+            WHERE answer.answer_status = '1' 
+            AND answer.form_id = (SELECT form_id FROM `tb_eform` eform WHERE eform.eform_id = '$eform_id')
+            ORDER BY answer.panel_no,answer.question_no,answer.answer_no,answer.answer_order        
         ";
 
         $query = $this->db->query($sql);
@@ -484,18 +565,38 @@ class Eform_model extends CI_Model {
 
     function view_eform_attachment($eform_id = null){
         $sql = "
-            SELECT * 
-            FROM `tb_eform_attachment` 
+            SELECT question.panel_no,question.question_no,attachment_no,attachment_path,attachment_type,question.form_id
+            FROM `tb_eform_attachment` attachment
+            LEFT JOIN `tb_form_question` question ON question.question_no = attachment.question_no
             WHERE `eform_id` = '$eform_id'
         ";
         
         $query = $this->db->query($sql);
+
+        $eform_attachment = array();
         
-        if($query->result()){   
-            return $query->result_array();
-        }else{
-            return FALSE;
-        }
+        if($query->result()){
+            foreach ($query->result_array() as $key => $val) {
+                if( empty( $eform_attachment[$val['panel_no']] ) ){
+                    $eform_attachment[$val['panel_no']][] = array(
+                        'question_no' => $val['question_no']
+                        ,'attachment_no' => $val['attachment_no']
+                        ,'attachment_path' => $val['attachment_path']
+                        ,'attachment_type' => $val['attachment_type']
+                    );
+                }else{
+                    $eform_attachment[$val['panel_no']][] = array(
+                        'question_no' => $val['question_no']
+                        ,'attachment_no' => $val['attachment_no']
+                        ,'attachment_path' => $val['attachment_path']
+                        ,'attachment_type' => $val['attachment_type']
+                    );
+                }
+            }        
+                return $eform_attachment;
+            }else{
+                return FALSE;
+            }
     }
     
     function view_eform_note($eform_id = null){

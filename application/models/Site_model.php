@@ -82,27 +82,24 @@ class Site_model extends CI_Model {
 
     function list_site_by_province($province = null, $ticket_start_date = null , $ticket_end_date = null, $schedule_id = null) {
 
-        // //-- Select all site in the province list
-        // $sql ="
-        // Select province,site_id,site_name
-        // FROM ohec.tb_site
-        // WHERE province IN ('$province') AND site_status = '1'
-        // GROUP BY province,site_id,site_name
-        // ORDER BY province,site_name ASC
-        //     ";
-    
-        // //-- Select all site in the province list where the ticket created during ticket_period
+        // //-- Select all site in the province list where the ticket created during ticket_period and that ticket not be added to tb_schedule_task
         // $sql = "
         // SELECT province,site_id,site_name
         // FROM ohec.tb_site
         // WHERE province IN ('$province') AND site_status = '1'AND site_id IN (
-        //         SELECT site_id
-        //         FROM tb_ticket
-        //         WHERE created_date BETWEEN '$ticket_start_date' AND '$ticket_end_date'
-        //         AND (case_id LIKE 'NT-Fibre%' OR case_id LIKE 'NT-Equip%' ) AND case_status = 'Closed'
+        //     SELECT site_id
+        //     FROM tb_ticket
+        //     WHERE created_date BETWEEN '$ticket_start_date' AND '$ticket_end_date'
+        //     AND (case_id LIKE 'NT-Fibre%' OR case_id LIKE 'NT-Equip%' ) AND case_status = 'Closed'
+        //     AND case_id NOT IN (
+        //         SELECT ticket_id
+        //         FROM ohec.tb_schedule_task
+        //         WHERE schedule_id = '$schedule_id'
+        //     )
         // )
         // GROUP BY province,site_id,site_name
-        // ORDER BY province,site_name ASC";
+        // ORDER BY province,site_name ASC        
+        // ";       
 
         //-- Select all site in the province list where the ticket created during ticket_period and that ticket not be added to tb_schedule_task
         $sql = "
@@ -112,17 +109,11 @@ class Site_model extends CI_Model {
             SELECT site_id
             FROM tb_ticket
             WHERE created_date BETWEEN '$ticket_start_date' AND '$ticket_end_date'
-            AND (case_id LIKE 'NT-Fibre%' OR case_id LIKE 'NT-Equip%' ) AND case_status = 'Closed'
-            AND case_id NOT IN (
-                SELECT ticket_id
-                FROM ohec.tb_schedule_task
-                WHERE schedule_id = '$schedule_id'
-            )
+            AND (case_id LIKE 'NT-Fiber%' OR case_id LIKE 'NT-Equip%' ) AND case_status = 'Closed'
         )
         GROUP BY province,site_id,site_name
         ORDER BY province,site_name ASC        
         ";       
-
         $query = $this->db->query($sql);
 
         $site = array();

@@ -1,3 +1,9 @@
+<style>
+.mask.no-caption .tools {
+    margin: 0px 0 0;
+}
+</style>
+
 <!-- page content -->
 <article>
     <div class="right_col" role="main">
@@ -12,7 +18,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2><?=$eform[0]['form_name']?></h2>
+                            <h2>แบบตรวจออนไลน์</h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -31,203 +37,219 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
+
                             <section class="content invoice">
-                                <!-- title row -->
+                                
                                 <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="80px"></center>
-                                <? //echo "<pre>"; print_r($eform); echo "</pre>";?>
+                                <!-- title row -->
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                                         <h2><?=$eform[0]['site_name']?></h2>
+                                        <h6>จังหวัด<?=$eform[0]['province']?></h6>
                                     </div>
-                                <!-- /.col -->
                                 </div>
+                                <!-- /title row -->
 
-                                <!-- info row -->
+                                <!-- row invoice-info -->
                                 <div class="row invoice-info">
+                                    <!-- left col -->
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
                                         <address>
-                                            <b>สัญญา :</b> <?=$eform[0]['contract']?>
-                                            <br><b>เจ้าหน้าที่ประจำสถานที่ :</b> <?=$eform[0]['contact']?>
-                                            <br><b>หมายเลขเคส :</b> <a href="#"><?=$eform[0]['case_id']?></a>
-                                            <br><b>ทรัพย์สิน :</b> <?=$eform[0]['case_sub_category']?>
+                                            หมายเลขการตรวจ : <b><?=$eform[0]['eform_id']?></b>
+                                            <br>ทรัพย์สิน : <b><?=$eform[0]['asset_type']?></b>
+                                            <br>ประเภทการตรวจ : <b><?=$eform[0]['ma_name']?> (<?=$eform[0]['ma_type']?>)</b>
                                         </address>
                                     </div>
-                                    <!-- /.col -->
-                                    <!-- /.col -->
+                                    <!-- /left col -->
+                                    <!-- right col -->
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
-                                        <b>หมายเลขการตรวจ : <?=$eform[0]['eform_id']?></b>
-                                        <br><b>ตารางงาน : <a href="<?=site_url('schedule/view/'.$eform[0]['schedule_id']);?>"><?=$eform[0]['schedule_name']?></a></b>
-                                        <br><b>ผู้ตรวจสอบ</b> <?=$eform[0]['created_by']?></b>
-                                        <br><b>วันที่ตรวจสอบ</b> <?=$eform[0]['created_date']?></b>
+                                        ตารางงาน : <b><a href="<?=site_url('schedule/view/'.$eform[0]['schedule_id']);?>"><?=$eform[0]['schedule_name']?></a></b>
+                                        <br>ผู้ตรวจสอบ : <b><?=$eform[0]['created_by']?></b>
+                                        <br>วันที่ตรวจสอบ : <b><?=$eform[0]['created_date']?></b>
                                     </div>
-                                    <!-- /.col -->
+                                    <!-- /right col -->
                                 </div>
-                                
-                                <!-- .row -->
+                                <!-- /row invoice-info -->
+
+                                <!-- Ticket table -->
+                                <? if(!empty($ticket)){?>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><center>
+                                    <table id="tbEformTicket" name="tbEformTicket" width="90%" class="table table-striped dt-responsive nowrap dataTable no-footer dtr-inline">
+                                        <thead>
+                                            <tr>
+                                            <th class="text-center">หมายเลขเคส</th>
+                                            <th class="text-center">ประเภทอุปกรณ์</th>
+                                            <th class="text-center">สัญญา</th>
+                                            </tr>
+                                        </thead>
+                                        
+                                        <tbody>
+                                        <? 
+                                        if(!empty($ticket)){ 
+                                            foreach($ticket as $ticket_key => $ticket_val):
+                                        ?>
+                                            <tr>
+                                                <td class="text-left"><?=$ticket_val['case_id'];?></td>
+                                                <td class="text-center"><?=$ticket_val['case_sub_category'];?></td>
+                                                <td class="text-center"><?=$ticket_val['contract'];?></td>
+                                            </tr>  
+                                        <?      
+                                            endforeach;
+                                        }
+                                        ?>                            
+                                        </tbody>                   
+                                    </table></center>
+                                </div>
+                                <?}?>
+                                <!-- /Ticket table-->
+
+                                <!-- .row no-print-->
                                 <div class="row no-print">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                                         <button class="btn btn-round btn-default" onclick="window.print();"><i class="fa fa-print"></i> พิมพ์</button> 
                                         <button class="btn btn-round btn-success" style="margin-right: 5px;"><i class="fa fa-download"></i> PDF</button>
                                     </div>
                                 </div>                    
-                                <!-- /.row -->
+                                <!-- /.row no-print -->
 
                                 <div class="ln_solid"></div>
+                                <? //echo "<pre>"; print_r($eform_checklist); echo "</pre>"; ?>
+                                <? foreach($eform_checklist as $key => $val): ?>
 
                                 <div class="row">
+                                    <? 
+                                        //--Checklist section--/
+                                        echo "<div class=\"col-lg-7 col-md-12 col-sm-12 col-xs-12\"><span class=\"section\">".$val['panel_title']."</span>"; //Header
+                                        for($question = 0; $question < count($val['question']); $question++){
 
-                                    <!-- Checklist -->
-                                    <? if(!empty($eform_attachment)){ ?>
-                                    <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
-                                    <?}else{?>
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <?}?>
-                                        <div class="row">
-                                        
-                                            <? 
-                                                // echo "<pre>"; print_r($eform_checklist); echo "</pre>";
-                                                // echo "<pre>"; print_r($eform_checklist_answer); echo "</pre>";
-                                                foreach($eform_checklist as $key => $val):
-                                                    echo "<div class=\"col-lg-12 col-md-12 col-sm-12 col-xs-12\"><span class=\"section\">".$val['panel_name']."</span></div>";  
+                                            $question_no = $val['question'][$question]['question_no'];
+                                            $question_name = $val['question'][$question]['question_name'];
+                                            $question_text = $val['question'][$question]['question_text'];
+                                            $question_value = $val['question'][$question]['question_value'];
+                                            $question_type = $val['question'][$question]['question_type'];
+                                            $answer_value = $val['question'][$question]['answer_value'];
+
+                                            switch( $question_type ){
+                                                case "textbox":
+                                                    $answer = null;
+                                                    $answer = "
+                                                        <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\" style=\"padding-left: 30px;\">".$answer_value."</div>";
+                                                    break;
+                                                case "textarea":
+                                                    $answer = null;
+                                                    $answer = "
+                                                        <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\" style=\"padding-left: 30px;\">".$answer_value."</div>";
+                                                    break;
+                                                case "radiobox":
+                                                    $answer = null;
+                                                    // echo "<pre>"; print_r($eform_checklist_answer[$key][$question_no]); echo "</pre>";
+                                                    foreach($eform_checklist_answer[$key][$question_no] as $ans_key => $ans_val):
+                                                        $ans_no = $ans_val['answer_no'];
+                                                        $ans_name = $ans_val['answer_name'];
+                                                        $ans_text = $ans_val['answer_text'];
+                                                        $ans_value = $ans_val['answer_value'];
+
+                                                        // if($ans_value  == $answer_value){$checked = "<i class=\"fa fa-check-square-o\"></i>"; }else{$checked = "<i class=\"fa fa-square-o\"></i>";}
+                                                        if($ans_value  == $answer_value){$checked = "<i class=\"fa fa-check-circle-o\"></i>"; }else{$checked = "<i class=\"fa fa-circle-o\"></i>";}
+
+                                                        $answer = $answer."
+                                                            <div class=\"col-lg-3 col-md-3 col-sm-3 col-xs-5\">
+                                                                <div class=\"radio-inline\">
+                                                                    <label>".$checked." ".$ans_text."</label>
+                                                                </div>
+                                                            </div>";  
+                                                    endforeach;
+                                                    break;
+                                                case "checkbox":
+                                                    $answer = null;
                                                     
-                                                    // echo "<pre>"; print_r($val['question']); echo "</pre>";
-                                                    // echo count($val['question']);
-                                                    for($question = 0; $question < count($val['question']); $question++){
-                                                        // echo $question;
-                                                        $question_no = $val['question'][$question]['question_no'];
-                                                        $question_name = $val['question'][$question]['question_name'];
-                                                        $question_text = $val['question'][$question]['question_text'];
-                                                        $question_value = $val['question'][$question]['question_value'];
-                                                        $question_type = $val['question'][$question]['question_type'];
-                                                        $answer_value = $val['question'][$question]['answer_value'];
-                                                        
-                                                        // echo "<pre>"; print_r($val['question'][$question]); echo "</pre>";
-                                                        switch( $question_type ){
-                                                            case "textbox":
-                                                                $answer = null;
-                                                                $answer = "
-                                                                    <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">".$answer_value."</div>";
-                                                                break;
-                                                            case "textarea":
-                                                                $answer = null;
-                                                                $answer = "
-                                                                    <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">".$answer_value."</div>";
-                                                                break;
-                                                            case "radiobox":
-                                                                $answer = null;
-                                                                // echo "<pre>"; print_r($eform_checklist_answer[$key][$question_no]); echo "</pre>";
-                                                                foreach($eform_checklist_answer[$key][$question_no] as $ans_key => $ans_val):
-                                                                    $ans_no = $ans_val['answer_no'];
-                                                                    $ans_name = $ans_val['answer_name'];
-                                                                    $ans_text = $ans_val['answer_text'];
-                                                                    $ans_value = $ans_val['answer_value'];
-        
-                                                                    // if($ans_value  == $answer_value){$checked = "<i class=\"fa fa-check-square-o\"></i>"; }else{$checked = "<i class=\"fa fa-square-o\"></i>";}
-                                                                    if($ans_value  == $answer_value){$checked = "<i class=\"fa fa-check-circle-o\"></i>"; }else{$checked = "<i class=\"fa fa-circle-o\"></i>";}
-        
-                                                                    $answer = $answer."
-                                                                        <div class=\"col-lg-3 col-md-3 col-sm-3 col-xs-5\">
-                                                                            <div class=\"radio-inline\">
-                                                                                <label>".$checked." ".$ans_text."</label>
-                                                                            </div>
-                                                                        </div>";  
-                                                                endforeach;
-                                                                break;
-                                                            case "checkbox":
-                                                                $answer = null;
-                                                                
-                                                                break;
-                                                            case "selectbox":
-                                                                $answer = null;
-                                                                break;
-                                                            case "dropbox":
-                                                                $answer = null;
-                                                                $answer = "
-                                                                    <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">
-                                                                        <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple data-show-upload=\"false\" data-show-caption=\"false\" data-msg-placeholder=\"เลือกภาพที่ต้องการแนบ...\">
-                                                                    </div>";
-                                                                break;    
-                                                        }
-                                                        
-                                                        //--Renfer question--//
-                                                        echo "
-                                                        <div class=\"col-lg-12 col-md-12 col-sm-12 col-xs-12\">
-                                                            <label class=\"control-label col-lg-5 col-md-6 col-sm-6 col-xs-12 \" for=\"".$question_name."\">".$question_text."</label>".$answer."
+                                                    break;
+                                                case "selectbox":
+                                                    $answer = null;
+                                                    break;
+                                                case "dropbox":
+                                                    $answer = null;
+                                                    $answer = "
+                                                        <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">
+                                                            <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple data-show-upload=\"false\" data-show-caption=\"false\" data-msg-placeholder=\"เลือกภาพที่ต้องการแนบ...\">
                                                         </div>";
-                                                    }
-                                                endforeach;
-                                                // echo "<br>";
-                                            ?>
-                                                <!-- /Eform note -->
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <span class="section">บันทึกข้อความ</span>
-                                                    <span id="panelEformNote">
-                                                        <a href="#" class="btn btn-round btn-success btn-xs pull-right" id='addEformNote' name='addEformNote' data-toggle="modal" data-target="#addEformNoteModal"  ><span class="fa fa-plus" aria-hidden="true"></span> ข้อความ</a>
-                                                    </span>
-                                                    <table id="tbEformNote" name="tbEformNote" class="table table-striped dt-responsive nowrap dataTable no-footer dtr-inline">
-                                                        <thead>
-                                                            <tr>
-                                                            <th class="text-center">วันที่</th>
-                                                            <th class="text-center">บันทึกข้อความ</th>
-                                                            <th class="text-center">ผู้บันทึก</th>
-                                                            </tr>
-                                                        </thead>
-                                                        
-                                                        <tbody>
-                                                        <? 
-                                                        // echo "<pre>"; print_r($eform_note); echo "</pre>";
-                                                        if(!empty($eform_note)){ 
-                                                            foreach($eform_note as $note_key => $note_val):
-                                                        ?>
-                                                            <tr>
-                                                                <td class="text-left"><?=$note_val['created_date'];?></td>
-                                                                <td class="text-center"><?=$note_val['note_detail'];?></td>
-                                                                <td class="text-center"><?=$note_val['created_by'];?></td>
-                                                            </tr>  
-                                                        <?      
-                                                            endforeach;
-                                                        }
-                                                        ?>                            
-                                                        </tbody>
-                                                        
-                                                    </table>
-                                                </div>
-                                                <!--/Eform note-->
-                                        </div>
-                                                                      
-                                    </div>
-                                    <!-- /Checklist --> 
+                                                    break;    
+                                            }
 
-                                    <? if(!empty($eform_attachment)){ ?>       
-                                    <!-- /Attachment-->
-                                    <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
-                                    <!-- echo "<div class=\"col-md-12 col-sm-12 col-xs-12\"><span class=\"section\">".$val['panel_name']."</span></div>";   -->
-                                        <span class="section">ภาพประกอบ</span>
-                                        <div class="row">
-                                        <?  
-                                            foreach($eform_attachment as $attach_key => $attach_val):
-                                                echo "
-                                                <div class=\"col-xs-6 col-xs-6 col-xs-12\">
-                                                    <div class=\"image view view-first\">
-                                                        <img style=\"width: 100%; display: block;\" src=\"".base_url('files/eform/'.$attach_val['attachment_path'])."\" alt=\"image\" />
-                                                        <div class=\"mask no-caption\">
-                                                            <div class=\"tools tools-bottom\">
-                                                            <a href=\"".base_url('files/eform/'.$attach_val['attachment_path'])."\"><i class=\"fa fa-arrows-alt\"></i> ขยาย</a> 
+                                            //--Render question and its answer--//
+                                            if( ($question_type != 'textbox') && ($question_type != 'textarea') ){ 
+                                                echo "<label class=\"control-label col-lg-5 col-md-6 col-sm-6 col-xs-12 \" for=\"".$question_name."\">".$question_text."</label>".$answer;
+                                            }else{
+                                                if( !empty($answer_value) ){
+                                                    echo "<label class=\"control-label col-lg-5 col-md-6 col-sm-6 col-xs-12 \" for=\"".$question_name."\">".$question_text."</label>".$answer;
+                                                }
+                                            }
+                                        }
+                                        echo "</div>";
+                                        //--/Checklist section--/
+
+                                        //--Attachment section--/
+                                        if(!empty($eform_attachment[$key])){
+                                            echo "<div class=\"col-lg-5 col-xs-12\"><span class=\"section\">ภาพประกอบ</span>"; //Header
+                                            for($attachment = 0; $attachment < count($eform_attachment[$key]); $attachment++){
+                                            echo "  <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-6\">
+                                                        <div class=\"image view view-first\">
+                                                            <center><img style=\"width: 50%; display: block;\" src=\"".base_url('files/eform/'.$eform_attachment[$key][$attachment]['attachment_path'])."\" alt=\"ภาพประกอบ\" /></center>
+                                                            <div class=\"mask no-caption\">
+                                                                <div class=\"tools tools-bottom\">
+                                                                <a href=\"".base_url('files/eform/'.$eform_attachment[$key][$attachment]['attachment_path'])."\"><i class=\"fa fa-arrows-alt\"></i> ขยาย</a> 
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class=\"caption\">
-                                                    </div>
-                                                </div>                                                
-                                                ";
-                                            endforeach;
-                                        ?>
-                                        </div>
+                                                    </div>";
+                                            }
+                                            echo "</div>";
+                                        }
+                                        //--/Attachment section--/
+                                    ?>
+
+                                </div> <!--/end row-->
+
+                                <? endforeach; ?>
+                                <!-- /Eform note -->
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <span class="section">บันทึกข้อความ</span>
+                                        <span id="panelEformNote">
+                                            <a href="#" class="btn btn-round btn-success btn-xs pull-right" id='addEformNote' name='addEformNote' data-toggle="modal" data-target="#addEformNoteModal"  ><span class="fa fa-plus" aria-hidden="true"></span> บันทึก</a>
+                                        </span>
+                                        <table id="tbEformNote" name="tbEformNote" class="table table-striped dt-responsive nowrap dataTable no-footer dtr-inline">
+                                            <thead>
+                                                <tr>
+                                                <th class="text-center">วันที่</th>
+                                                <th class="text-center">ข้อความ</th>
+                                                <th class="text-center">ผู้บันทึก</th>
+                                                </tr>
+                                            </thead>
+                                            
+                                            <tbody>
+                                            <? 
+                                            // echo "<pre>"; print_r($eform_note); echo "</pre>";
+                                            if(!empty($eform_note)){ 
+                                                foreach($eform_note as $note_key => $note_val):
+                                            ?>
+                                                <tr>
+                                                    <td class="text-left"><?=$note_val['created_date'];?></td>
+                                                    <td class="text-center"><?=$note_val['note_detail'];?></td>
+                                                    <td class="text-center"><?=$note_val['created_by'];?></td>
+                                                </tr>  
+                                            <?      
+                                                endforeach;
+                                            }
+                                            ?>                            
+                                            </tbody>
+                                            
+                                        </table>
                                     </div>
-                                    <!-- /Attachment--> 
-                                    <? } ?>
                                 </div>
+                                <!--/Eform note-->
                             </section>
+                        
                         </div>
                     </div>
                 </div>
@@ -252,6 +274,16 @@
 <!-- page script -->
 <script type="text/javascript">
 $(document).ready(function(){
+
+    $('#tbEformTicket').DataTable({
+        "pageLength": 5,
+        "paging":   false,
+        "ordering": false,
+        "info":     false,
+        searching: false, 
+        "dom": '<"toolbartbEformTicket">frtip'
+        });
+
     $('#tbEformNote').DataTable({
         "pageLength": 10,
         "paging":   false,
