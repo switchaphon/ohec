@@ -57,10 +57,13 @@
                       
                       <tbody>
                       <?
-                        //echo "<pre>"; print_r($joined_schedule); echo "</pre>";
+                        // echo "<pre>"; print_r($joined_schedule); echo "</pre>";
                         foreach($opened_schedule as $row):
                           if($row['schedule_id'])
-                            if(in_array($row['schedule_id'], $joined_schedule) ){ $joined = "<i class=\"fa fa-user green\"></i>"; }else{ $joined = null;}
+                            $joined = null;
+                            if( !empty($joined_schedule) ){
+                              if(in_array($row['schedule_id'], $joined_schedule) ){ $joined = "<i class=\"fa fa-user green\"></i>"; }
+                            }
                       ?>
                         <tr>
                             <td class="text-left"><?=$row['schedule_name'];?> <?=$joined;?></td>
