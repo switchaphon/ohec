@@ -55,7 +55,7 @@
                                     <!-- left col -->
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
                                         <address>
-                                            หมายเลขการตรวจ : <b><?=$eform[0]['eform_id']?></b>
+                                            หมายเลขการตรวจ : <b><?=$eform[0]['eform_id']?><?=$eform[0]['form_id']?></b>
                                             <br>ทรัพย์สิน : <b><?=$eform[0]['asset_type']?></b>
                                             <br>ประเภทการตรวจ : <b><?=$eform[0]['ma_name']?> (<?=$eform[0]['ma_type']?>)</b>
                                         </address>
@@ -132,8 +132,23 @@
                                             switch( $question_type ){
                                                 case "textbox":
                                                     $answer = null;
-                                                    $answer = "
-                                                        <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\" style=\"padding-left: 30px;\">".$answer_value."</div>";
+                                                    switch( $eform[0]['form_id'] ) {
+                                                        case "00001":
+                                                            break;
+                                                        case "00002":
+                                                            break;
+                                                        case "00003":
+                                                            $answer = "
+                                                            <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\" style=\"padding-left: 30px;\">".$answer_value."</div>";
+                                                        
+                                                            break;
+                                                        case "00004":
+                                                            break;
+                                                        case "00005":
+                                                            break;
+                                                        case "00006":
+                                                            break;
+                                                    }
                                                     break;
                                                 case "textarea":
                                                     $answer = null;

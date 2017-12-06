@@ -466,6 +466,7 @@ class Eform_model extends CI_Model {
             LEFT JOIN `tb_form_panel` panel ON panel.panel_no = question.panel_no
             WHERE checklist.eform_id = '$eform_id'
             AND question.form_id = (SELECT form_id FROM tb_eform eform WHERE eform.eform_id = '$eform_id' )
+            AND panel.form_id = (SELECT form_id FROM tb_eform eform WHERE eform.eform_id = '$eform_id' )
             ORDER BY panel.panel_no,question.question_order ASC
         ";        
 

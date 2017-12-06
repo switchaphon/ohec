@@ -226,7 +226,7 @@
                               foreach($task_list as $key => $val):
                                 $flag = false;
                                 for($i = 0; $i < count($eform_list); $i++){
-                                  if( ($eform_list[$i]['site_id'] == $val['site_id']) && ($eform_list[$i]['asset_type'] == $val['asset_type']) && ($eform_list[$i]['created_by'] == $this->session->userdata('cn')) ){
+                                  if( ($eform_list[$i]['site_id'] == $val['site_id']) && ($eform_list[$i]['asset_type'] == $val['asset_type']) && ($eform_list[$i]['ma_type'] == $val['ma_type']) && ($eform_list[$i]['created_by'] == $this->session->userdata('cn')) ){
                                     $flag = true;
                                   }
                                 }

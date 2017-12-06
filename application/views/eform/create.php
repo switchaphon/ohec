@@ -123,14 +123,14 @@
                                     $answer = null;
                                     $answer = "
                                         <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
-                                            <input type=\"text\" class=\"form-control\" name=\"".$question_name."\" id=\"".$question_name."\">
+                                            <input type=\"text\" class=\"form-control\" name=\"".$question_name."\" id=\"".$question_name."\" placeholder=\"".$question_text."\">
                                         </div>";
                                     break;
                                 case "textarea":
                                     $answer = null;
                                     $answer = "
                                         <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
-                                            <textarea name=\"".$question_name."\" id=\"".$question_name."\" class=\"form-control\" rows=\"3\"></textarea>
+                                            <textarea name=\"".$question_name."\" id=\"".$question_name."\" class=\"form-control\" rows=\"3\" placeholder=\"".$question_text."\"></textarea>
                                         </div>";
                                     break;
                                 case "radiobox":
