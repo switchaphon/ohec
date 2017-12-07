@@ -63,7 +63,7 @@
                                                 <tr>
                                                     <td class="text-center"><?=$ticket_val['case_sub_category'];?></td>
                                                     <td class="text-center"><?=$ticket_val['contract'];?></td>
-                                                    <td class="text-left"><?=$ticket_val['case_id'];?></td>                                                
+                                                    <td class="text-center"><?=$ticket_val['case_id'];?></td>                                                
                                                 </tr>  
                                             <?      
                                                 endforeach;
@@ -123,7 +123,7 @@
                                     $answer = null;
                                     $answer = "
                                         <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
-                                            <input type=\"text\" class=\"form-control\" name=\"".$question_name."\" id=\"".$question_name."\" placeholder=\"".$question_text."\">
+                                            <input type=\"text\" class=\"form-control\" name=\"".$question_name."\" id=\"".$question_name."\" placeholder=\"".$question_text."\" required>
                                         </div>";
                                     break;
                                 case "textarea":

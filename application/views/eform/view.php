@@ -107,7 +107,7 @@
                                 <div class="row no-print">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                                         <button class="btn btn-round btn-default" onclick="window.print();"><i class="fa fa-print"></i> พิมพ์</button> 
-                                        <button class="btn btn-round btn-success" style="margin-right: 5px;"><i class="fa fa-download"></i> PDF</button>
+                                        <!-- <button class="btn btn-round btn-success" style="margin-right: 5px;"><i class="fa fa-download"></i> PDF</button> -->
                                     </div>
                                 </div>                    
                                 <!-- /.row no-print -->
@@ -119,7 +119,7 @@
                                 <div class="row">
                                     <? 
                                         //--Checklist section--/
-                                        echo "<div class=\"col-lg-7 col-md-12 col-sm-12 col-xs-12\"><span class=\"section\">".$val['panel_title']."</span>"; //Header
+                                        echo "<div class=\"col-lg-7 col-md-7 col-sm-8 col-xs-12\"><span class=\"section\">".$val['panel_title']."</span>"; //Header
                                         for($question = 0; $question < count($val['question']); $question++){
 
                                             $question_no = $val['question'][$question]['question_no'];
@@ -129,83 +129,126 @@
                                             $question_type = $val['question'][$question]['question_type'];
                                             $answer_value = $val['question'][$question]['answer_value'];
 
-                                            switch( $question_type ){
-                                                case "textbox":
-                                                    $answer = null;
-                                                    switch( $eform[0]['form_id'] ) {
-                                                        case "00001":
+                                            //--Prepare an answer for each form type--//
+                                            $answer = null;
+                                            switch( $eform[0]['form_id'] ) {
+                                                //--Equipment-AM--//
+                                                case "00001":       
+                                                    //--/Question type--//
+                                                    switch( $question_type ){
+                                                        case "textbox":
                                                             break;
-                                                        case "00002":
+                                                        case "textarea":  
                                                             break;
-                                                        case "00003":
-                                                            $answer = "
-                                                            <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\" style=\"padding-left: 30px;\">".$answer_value."</div>";
-                                                        
+                                                        case "radiobox":  
                                                             break;
-                                                        case "00004":
+                                                        case "checkbox":
                                                             break;
-                                                        case "00005":
+                                                        case "selectbox":
                                                             break;
-                                                        case "00006":
+                                                        case "dropbox":
                                                             break;
                                                     }
                                                     break;
-                                                case "textarea":
-                                                    $answer = null;
-                                                    $answer = "
-                                                        <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\" style=\"padding-left: 30px;\">".$answer_value."</div>";
-                                                    break;
-                                                case "radiobox":
-                                                    $answer = null;
-                                                    // echo "<pre>"; print_r($eform_checklist_answer[$key][$question_no]); echo "</pre>";
-                                                    foreach($eform_checklist_answer[$key][$question_no] as $ans_key => $ans_val):
-                                                        $ans_no = $ans_val['answer_no'];
-                                                        $ans_name = $ans_val['answer_name'];
-                                                        $ans_text = $ans_val['answer_text'];
-                                                        $ans_value = $ans_val['answer_value'];
 
-                                                        // if($ans_value  == $answer_value){$checked = "<i class=\"fa fa-check-square-o\"></i>"; }else{$checked = "<i class=\"fa fa-square-o\"></i>";}
-                                                        if($ans_value  == $answer_value){$checked = "<i class=\"fa fa-check-circle-o\"></i>"; }else{$checked = "<i class=\"fa fa-circle-o\"></i>";}
+                                                //--Equipment-CM--//    
+                                                case "00002":       
+                                                    //--/Question type--//
+                                                    switch( $question_type ){
+                                                        case "textbox":
+                                                            $answer = "
+                                                            <div class=\"col-lg-9 col-md-9 col-sm-9 col-xs-12\" style=\"padding-left: 30px;\">".$answer_value."</div>";
+                                                            break;
+                                                        case "textarea":  
+                                                            $answer = "
+                                                            <div class=\"col-lg-9 col-md-9 col-sm-9 col-xs-12\" style=\"padding-left: 30px;\">".$answer_value."</div>";
+                                                            break;
+                                                        case "radiobox":  
+                                                            break;
+                                                        case "checkbox":
+                                                            break;
+                                                        case "selectbox":
+                                                            break;
+                                                        case "dropbox":
+                                                            break;
+                                                    }
 
-                                                        $answer = $answer."
-                                                            <div class=\"col-lg-3 col-md-3 col-sm-3 col-xs-5\">
-                                                                <div class=\"radio-inline\">
-                                                                    <label>".$checked." ".$ans_text."</label>
-                                                                </div>
-                                                            </div>";  
-                                                    endforeach;
+                                                    //--Render question and its answer--//
+                                                    if( ($question_type != 'textbox') && ($question_type != 'textarea') ){ 
+                                                        echo "<div class=\"row\">";
+                                                        echo "<label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>".$answer;
+                                                        echo "</div>";
+                                                    }else{
+                                                        // if( !empty($answer_value) ){
+                                                            echo "<div class=\"row\">";
+                                                            echo "<label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>".$answer;
+                                                            echo "</div>";                                                   
+                                                        // }
+                                                    }
                                                     break;
-                                                case "checkbox":
-                                                    $answer = null;
-                                                    
+
+                                                //--Equipment-PM--//    
+                                                case "00003":       
+                                                    //--/Question type--//
+                                                    switch( $question_type ){
+                                                        case "textbox":
+                                                            $answer = "
+                                                            <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\" style=\"padding-left: 30px;\">".$answer_value."</div>";
+                                                            break;
+                                                        case "textarea":  
+                                                            $answer = "
+                                                            <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\" style=\"padding-left: 30px;\">".$answer_value."</div>";
+                                                            break;
+                                                        case "radiobox":  
+                                                            foreach($eform_checklist_answer[$key][$question_no] as $ans_key => $ans_val):
+                                                                $ans_no = $ans_val['answer_no'];
+                                                                $ans_name = $ans_val['answer_name'];
+                                                                $ans_text = $ans_val['answer_text'];
+                                                                $ans_value = $ans_val['answer_value'];
+        
+                                                                if($ans_value  == $answer_value){$checked = "<i class=\"fa fa-check-circle-o\"></i>"; }else{$checked = "<i class=\"fa fa-circle-o\"></i>";}
+        
+                                                                $answer = $answer."
+                                                                    <div class=\"col-lg-3 col-md-3 col-sm-3 col-xs-5\">
+                                                                        <div class=\"radio-inline\">
+                                                                            <label>".$checked." ".$ans_text."</label>
+                                                                        </div>
+                                                                    </div>";  
+                                                            endforeach;
+                                                            break;
+                                                        case "checkbox":
+                                                            break;
+                                                        case "selectbox":
+                                                            break;
+                                                        case "dropbox":
+                                                            break;
+                                                    }
+
+                                                    //--Render question and its answer--//
+                                                    if( ($question_type != 'textbox') && ($question_type != 'textarea') ){ 
+                                                        echo "<div class=\"row\">";
+                                                        echo "<label class=\"control-label col-lg-5 col-md-6 col-sm-4 col-xs-12 \" for=\"".$question_name."\">".$question_text."</label>".$answer;
+                                                        echo "</div>";
+                                                    }else{
+                                                        if( !empty($answer_value) ){
+                                                            echo "<div class=\"row\">";
+                                                            echo "<label class=\"control-label col-lg-5 col-md-6 col-sm-4 col-xs-12 \" for=\"".$question_name."\">".$question_text."</label>".$answer;
+                                                            echo "</div>";
+                                                        }
+                                                    }
                                                     break;
-                                                case "selectbox":
-                                                    $answer = null;
-                                                    break;
-                                                case "dropbox":
-                                                    $answer = null;
-                                                    $answer = "
-                                                        <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">
-                                                            <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple data-show-upload=\"false\" data-show-caption=\"false\" data-msg-placeholder=\"เลือกภาพที่ต้องการแนบ...\">
-                                                        </div>";
-                                                    break;    
+
                                             }
 
-                                            //--Render question and its answer--//
-                                            if( ($question_type != 'textbox') && ($question_type != 'textarea') ){ 
-                                                echo "<label class=\"control-label col-lg-5 col-md-6 col-sm-6 col-xs-12 \" for=\"".$question_name."\">".$question_text."</label>".$answer;
-                                            }else{
-                                                if( !empty($answer_value) ){
-                                                    echo "<label class=\"control-label col-lg-5 col-md-6 col-sm-6 col-xs-12 \" for=\"".$question_name."\">".$question_text."</label>".$answer;
-                                                }
-                                            }
+
+
                                         }
                                         echo "</div>";
                                         //--/Checklist section--/
 
                                         //--Attachment section--/
                                         if(!empty($eform_attachment[$key])){
-                                            echo "<div class=\"col-lg-5 col-xs-12\"><span class=\"section\">ภาพประกอบ</span>"; //Header
+                                            echo "<div class=\"col-lg-5 col-md-5 col-sm-4 col-xs-12\"><span class=\"section\">ภาพประกอบ</span>"; //Header
                                             for($attachment = 0; $attachment < count($eform_attachment[$key]); $attachment++){
                                             echo "  <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-6\">
                                                         <div class=\"image view view-first\">
