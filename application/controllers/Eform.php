@@ -171,6 +171,7 @@ class Eform extends MY_Controller {
 			// ,'ticket_id' => $_POST['ticket_id']
 			,'form_id' => $_POST['form_id']
 			,'created_by' => $this->session->userdata('cn')
+			,'status' => '1'
 		);
 
 		// echo "<pre>"; print_r($eform); echo "</pre>";
