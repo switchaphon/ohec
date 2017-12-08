@@ -164,77 +164,79 @@
                     </form>
                   </div>
                 </div>
+
+                <!-- committee card -->  
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>กรรมการ <i class="fa fa-users"></i><small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox" style="padding-left: 50px;">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content"><?
+                          // echo $this->session->userdata('cn');
+                          // echo "<pre>"; print_r($committee_list); echo "</pre>";
+                          ?>
+                  <!-- start form for validation -->
+                    <span id="panelCommittee">
+                      <? 
+                        if(!empty($committee_list)){  
+
+                          if( !in_array($this->session->userdata('cn'), $committee_list, true) ) {
+                      ?>
+                        <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
+                      <?  
+                          }
+                        }else{ 
+                      ?>
+                        <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
+                      <?  
+                        }
+                      ?>
+                    </span>
+                    <table id="tbCommittee" name="tbCommittee" class="table table-striped dt-responsive nowrap dataTable no-footer dtr-inline">
+                      <thead>
+                          <tr>
+                          <th class="text-left">ชือ - นามสกุล</th>
+                          <th></th>
+                          </tr>
+                      </thead>
+                      <tbody>        
+                      <? 
+                        // echo "<pre>"; print_r($committee_list); echo "</pre>";
+                        if(!empty($committee_list)){ 
+                          foreach($committee_list as $key => $val): 
+                      ?>
+                        <tr>
+                            <td class="text-left"><a href="#"><?=$val;?></a></td>
+                            <? if($val == $this->session->userdata('cn')){ ?>
+                              <td class="text-left">
+                                <a href="#" class="btn btn-round btn-danger btn-xs" id='disjoinSchedulebtn' name='disjoinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#disjoinScheduleModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
+                                </td>
+                              
+                            <? }else{ ?>
+                              <td class="text-left"></td>
+                            <?}?>
+                        </tr>
+                      <? 
+                          endforeach; 
+                        }
+                      ?>       
+                      </tbody>
+                    </table>       
+                  <!-- end form for validations -->
+
+                  </div>
+                </div>
+                <!-- /committee card -->
+
               </div>
             <!-- /left card -->
 
             <!-- right card -->
               <div class="col-md-6 col-xs-12">
-
-                <!-- committee card -->  
-                  <div class="x_panel">
-                    <div class="x_title">
-                      <h2>กรรมการ <i class="fa fa-users"></i><small></small></h2>
-                      <ul class="nav navbar-right panel_toolbox" style="padding-left: 50px;">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                        <li><a class="close-link"><i class="fa fa-close"></i></a></li>
-                      </ul>
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-
-                    <!-- start form for validation -->
-                      <span id="panelCommittee">
-                        <? 
-                          if(!empty($committee_list)){  
-                            if( !in_array($this->session->userdata('cn'), $committee_list) ) {
-                        ?>
-                          <!-- <a href="<?=site_url('schedule/join_schedule_ops?schedule_id='.$schedule[0]['schedule_id'])."&name=".$this->session->userdata('cn');?>" class="btn btn-round btn-info pull-right" id='joinSchedulebtn' name='joinSchedulebtn' ><span class="fa fa-plus-circle" aria-hidden="true"></span> เข้าร่วม</a> -->
-                          <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
-                        <?  
-                            }
-                          }else{ 
-                        ?>
-                          <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
-                        <?  
-                          }
-                        ?>
-                      </span>
-                      <table id="tbCommittee" name="tbCommittee" class="table table-hover">
-                        <thead>
-                            <tr>
-                            <th class="text-left">ชือ - นามสกุล</th>
-                            <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>        
-                        <? 
-                          if(!empty($committee_list)){ 
-                            foreach($committee_list as $key => $val): 
-                        ?>
-                          <tr>
-                              <td class="text-left"><a href="#"><?=$val;?></a></td>
-                              <? if($val == $this->session->userdata('cn')){ ?>
-                                <td class="text-left">
-                                  <!-- <a href="<?=site_url('schedule/disjoin_schedule_ops')."?schedule_id=".$schedule[0]['schedule_id']."&name=".$this->session->userdata('cn') ?>" class="btn btn-round btn-warning btn-xs pull-right" id="cancelSchedulebtn" name="cancelSchedulebtn"><span class="fa fa-minus-circle" aria-hidden="true"></span> ยกเลิก</a> -->
-                                  <a href="#" class="btn btn-round btn-danger btn-xs" id='disjoinSchedulebtn' name='disjoinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#disjoinScheduleModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
-                                  <!-- <a href="#" class="btn btn-round btn-danger btn-xs"><i class="fa fa-trash-o"></i>  </a> -->
-                                </td>
-                                
-                              <? }else{ ?>
-                                <td class="text-left"></td>
-                              <?}?>
-                          </tr>
-                        <? 
-                            endforeach; 
-                          }
-                        ?>       
-                        </tbody>
-                      </table>       
-                    <!-- end form for validations -->
-
-                    </div>
-                  </div>
-                <!-- /committee card -->
 
                 <!-- destination card -->
                   <div class="x_panel">
