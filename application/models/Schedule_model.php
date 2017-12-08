@@ -143,5 +143,12 @@ class Schedule_model extends CI_Model {
             }
     }
 
+    function disable_schedule($schedule_id = null){
+        $data = array(
+            'status' => '0'
+         );
+        $this->db->where('schedule_id', $schedule_id);
+        $this->db->update('tb_schedule', $data); 
+    }
 }
 ?>

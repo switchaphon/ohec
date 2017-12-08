@@ -18,7 +18,7 @@ class Eform extends MY_Controller {
 		$customdata = array(
 			'username' => 'witchaphon.sa'
 			,'cn' => 'อารีย์พรรณ จันทรทิณ'
-			,'role' => 'User'
+			,'role' => 'Administrator'
 			,'logged_in' => TRUE
 		);                            
 		$this->session->set_userdata($customdata);	
@@ -263,6 +263,22 @@ class Eform extends MY_Controller {
 		$res = $this->Utilities_model->_insert_array('tb_eform_note',$eform_note);
 
 		redirect( site_url('/eform/view/'.$_POST['eform_id']));
+	}
+
+	public function disable_eform_ops(){
+		
+		// print_r($_POST);
+
+		$this->load->model( array('Eform_model'));
+
+		$res = $this->Eform_model->disable_eform($_POST['eform_id']);
+
+		if($_POST['called_page'] == "schedule"){
+			redirect( site_url('/schedule/view/'.$_POST['schedule_id']));
+			
+		}elseif($_POST['called_page'] == "eform"){
+			redirect( site_url('/eform/index/'));
+		}
 	}
 
 }

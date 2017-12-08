@@ -18,7 +18,7 @@ class Schedule extends MY_Controller {
 		$customdata = array(
 			'username' => 'witchaphon.sa'
 			,'cn' => 'อารีย์พรรณ จันทรทิณ'
-			,'role' => 'User'
+			,'role' => 'Administrator'
 			,'logged_in' => TRUE
 		);                            
 		$this->session->set_userdata($customdata);		
@@ -402,5 +402,18 @@ class Schedule extends MY_Controller {
 		//Redirect
 		redirect( site_url('/schedule/view/'.$_POST['schedule_id']) );
 	}
+
+	public function disable_schedule_ops(){
+		
+		// print_r($_POST);
+
+		$this->load->model( array('Schedule_model'));
+
+		$res = $this->Schedule_model->disable_schedule($_POST['schedule_id']);
+
+		redirect( site_url('/schedule/index/'));
+			
+	}
+
 }
 ?>

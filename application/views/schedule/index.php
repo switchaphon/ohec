@@ -74,7 +74,8 @@
                               <a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-folder-open"></i> เรียกดู</a>
                               <a href="<?=site_url('schedule/edit')?>/<?=$row['schedule_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-pencil"></i> แก้ไข </a>
                               <? if( $this->session->userdata('role') == 'Administrator'){?> 
-                                <a href="#" class="btn btn-round btn-danger btn-xs"><i class="fa fa-trash-o"> ยกเลิก</i>  </a>
+                                <!-- <a href="#" class="btn btn-round btn-danger btn-xs"><i class="fa fa-trash-o"> ยกเลิก</i>  </a> -->
+                                <a href="#" class="btn btn-round btn-danger btn-xs" id='disableScheduleBtn' name='disableScheduleBtn' data-schedule_id="<?=$row['schedule_id'];?>"  data-schedule_name="<?=$row['schedule_name'];?>" data-schedule_desc="<?=$row['schedule_description'];?>" data-toggle="modal" data-target="#disableScheduleModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
                               <? } ?>
                             </td>
                         </tr>
@@ -96,6 +97,20 @@
 </article>
 <!-- /page content -->
 
+<!-- modal content -->  
+
+  <!-- disableScheduleModal -->
+  <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="disableScheduleModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <? $this->load->view('schedule/disable_schedule_modal'); ?>
+      </div>
+    </div>
+  </div>
+  <!-- /disableScheduleModal -->
+
+<!-- /modal content -->  
+
 <script>
     $(document).ready(function(){
         $('#tbSchedule').DataTable({
@@ -116,5 +131,21 @@
           $("div.toolbar").append($('#tbSchedule_filter'));
 
           $('#tbSchedule').removeClass('hidden');
+
+        $('#disableScheduleModal').on('show.bs.modal', function(e) {
+          // var eform_id = $(e.relatedTarget).data('eform_id')
+          var schedule_id = $(e.relatedTarget).data('schedule_id')
+          var schedule_name = $(e.relatedTarget).data('schedule_name')
+          var schedule_desc = $(e.relatedTarget).data('schedule_desc')
+
+          var called_page = "schedule";
+
+          $("#disableScheduleModal .modal-header .modal-title").html('ยกเลิกแบบตารางการตรวจงาน');
+          $("#disableScheduleModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกตารางตรวจงานรตรวจงาน<BR><BR>หมายเลข: <b>'+schedule_id+'</b><BR>ชื่อ: <b>'+schedule_name+'</b><BR>รายละเอียด: <b>'+schedule_desc+'</b><BR><BR>ใช่หรือไม่ ?</div>');
+
+          // $(e.currentTarget).find('input[name="eform_id"]').val(eform_id);
+          $(e.currentTarget).find('input[name="schedule_id"]').val(schedule_id);
+          $(e.currentTarget).find('input[name="called_page"]').val(called_page);
+        });  
     });
 </script>

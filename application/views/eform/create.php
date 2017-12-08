@@ -117,86 +117,196 @@
                             $question_text = $question_val['question_text'];
                             $question_value = $question_val['question_value'];
                             $question_type = $question_val['question_type'];
+                            
+                            $answer = null;
+                            switch( $checklist['form_id'] ) {
+                                //--Equipment-AM--//
+                                case "00001":       
+                                    //--/Question type--//
+                                    switch( $question_type ){
+                                        case "textbox":
+                                            $answer = "
+                                                <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+                                                    <input type=\"text\" class=\"form-control\" name=\"".$question_name."\" id=\"".$question_name."\" placeholder=\"".$question_text."\" required>
+                                                </div>";
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                </div>";                                           
+                                            break;
+                                        case "textarea":  
+                                            $answer = "
+                                                <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+                                                    <textarea name=\"".$question_name."\" id=\"".$question_name."\" class=\"form-control\" rows=\"3\" placeholder=\"".$question_text."\"></textarea>
+                                                </div>";    
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                </div>";  
+                                            break;
+                                        case "radiobox":
+                                        foreach($panel_val['question'][$question_no]['answer'] as $ans_key => $ans_val):
+                                            $answer_no = $ans_val['answer_no'];
+                                            $answer_name = $ans_val['answer_name'];
+                                            $answer_text = $ans_val['answer_text'];
+                                            $answer_value = $ans_val['answer_value'];
+    
+                                            if($answer_name  == 'passed'){$checked = 'checked'; }else{$checked = null;}
+    
+                                            $answer = $answer."
+                                                <div class=\"col-lg-2 col-lg-offset-0 col-md-2 col-md-offset-0 col-sm-2 col-sm-offset-0 col-xs-5 col-xs-offset-1\">
+                                                    <div class=\"radio-inline\">
+                                                        <label><input type=\"radio\" class=\"flat\" name=\"".$question_name."\" id=\"".$question_name."\" value=\"".$answer_value."\" ".$checked."> ".$answer_text."</label>
+                                                    </div>
+                                                </div>";  
+                                        endforeach;  
+                                        echo "
+                                            <div class=\"form-group \">
+                                                <label class=\"control-label col-lg-5 col-md-5 col-sm-5 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>".$answer."
+                                            </div>";                                                                              
+                                            break;
+                                        case "checkbox":
+                                            break;
+                                        case "selectbox":
+                                            break;
+                                        case "dropbox":
+                                            $answer = "
+                                                <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+                                                    <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple data-show-upload=\"false\" data-show-caption=\"true\" multiple>
+                                                </div>";  
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                </div>";
+                                            break;
+                                    }
+                                break;
 
-                            switch( $question_type ){
-                                case "textbox":
-                                    $answer = null;
-                                    $answer = "
-                                        <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
-                                            <input type=\"text\" class=\"form-control\" name=\"".$question_name."\" id=\"".$question_name."\" placeholder=\"".$question_text."\" required>
-                                        </div>";
-                                    break;
-                                case "textarea":
-                                    $answer = null;
-                                    $answer = "
-                                        <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
-                                            <textarea name=\"".$question_name."\" id=\"".$question_name."\" class=\"form-control\" rows=\"3\" placeholder=\"".$question_text."\"></textarea>
-                                        </div>";
-                                    break;
-                                case "radiobox":
-                                    $answer = null;
-                                    foreach($panel_val['question'][$question_no]['answer'] as $ans_key => $ans_val):
-                                        $answer_no = $ans_val['answer_no'];
-                                        $answer_name = $ans_val['answer_name'];
-                                        $answer_text = $ans_val['answer_text'];
-                                        $answer_value = $ans_val['answer_value'];
+                                //--Equipment-CM--//
+                                case "00002":       
+                                //--/Question type--//
+                                    switch( $question_type ){
+                                        case "textbox":
+                                            $answer = "
+                                                <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+                                                    <input type=\"text\" class=\"form-control\" name=\"".$question_name."\" id=\"".$question_name."\" placeholder=\"".$question_text."\" required>
+                                                </div>";
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                </div>";     
+                                            break;
+                                        case "textarea":  
+                                            $answer = "
+                                                <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+                                                    <textarea name=\"".$question_name."\" id=\"".$question_name."\" class=\"form-control\" rows=\"3\" placeholder=\"".$question_text."\"></textarea>
+                                                </div>";    
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                </div>";     
+                                            break;
+                                        case "radiobox":  
+                                            foreach($panel_val['question'][$question_no]['answer'] as $ans_key => $ans_val):
+                                                $answer_no = $ans_val['answer_no'];
+                                                $answer_name = $ans_val['answer_name'];
+                                                $answer_text = $ans_val['answer_text'];
+                                                $answer_value = $ans_val['answer_value'];
+        
+                                                if($answer_name  == 'passed'){$checked = 'checked'; }else{$checked = null;}
+        
+                                                $answer = $answer."
+                                                    <div class=\"col-lg-2 col-lg-offset-0 col-md-2 col-md-offset-0 col-sm-2 col-sm-offset-0 col-xs-5 col-xs-offset-1\">
+                                                        <div class=\"radio-inline\">
+                                                            <label><input type=\"radio\" class=\"flat\" name=\"".$question_name."\" id=\"".$question_name."\" value=\"".$answer_value."\" ".$checked."> ".$answer_text."</label>
+                                                        </div>
+                                                    </div>";  
+                                            endforeach;  
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-5 col-md-5 col-sm-5 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>".$answer."
+                                                </div>";                                                                             
+                                            break;
+                                        case "checkbox":
+                                            break;
+                                        case "selectbox":
+                                            break;
+                                        case "dropbox":
+                                            $answer = "
+                                                <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+                                                    <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple data-show-upload=\"false\" data-show-caption=\"true\" multiple>
+                                                </div>";  
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                </div>";
+                                            break;
+                                    }
+                                break;
 
-                                        if($answer_name  == 'passed'){$checked = 'checked'; }else{$checked = null;}
-
-                                        $answer = $answer."
-                                            <div class=\"col-lg-2 col-lg-offset-0 col-md-2 col-md-offset-0 col-sm-2 col-sm-offset-0 col-xs-5 col-xs-offset-1\">
-                                                <div class=\"radio-inline\">
-                                                    <label><input type=\"radio\" class=\"flat\" name=\"".$question_name."\" id=\"".$question_name."\" value=\"".$answer_value."\" ".$checked."> ".$answer_text."</label>
-                                                </div>
-                                            </div>";  
-                                    endforeach;
-                                    break;
-                                case "checkbox":
-                                    $answer = null;
-                                    
-                                    break;
-                                case "selectbox":
-                                    $answer = null;
-                                    break;
-                                case "dropbox":
-                                    $answer = null;
-                                    $answer = "
-                                        <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
-                                            <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple data-show-upload=\"false\" data-show-caption=\"true\" multiple>
-                                        </div>";                                                       
-                                    break;    
+                                //--Equipment-CM--//
+                                case "00003":       
+                                //--/Question type--//
+                                    switch( $question_type ){
+                                        case "textbox":
+                                            $answer = "
+                                                <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+                                                    <input type=\"text\" class=\"form-control\" name=\"".$question_name."\" id=\"".$question_name."\" placeholder=\"".$question_text."\" required>
+                                                </div>";
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                </div>";     
+                                            break;
+                                        case "textarea":  
+                                            $answer = "
+                                                <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+                                                    <textarea name=\"".$question_name."\" id=\"".$question_name."\" class=\"form-control\" rows=\"3\" placeholder=\"".$question_text."\"></textarea>
+                                                </div>";    
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                </div>";                                     
+                                            break;
+                                        case "radiobox":  
+                                            foreach($panel_val['question'][$question_no]['answer'] as $ans_key => $ans_val):
+                                                $answer_no = $ans_val['answer_no'];
+                                                $answer_name = $ans_val['answer_name'];
+                                                $answer_text = $ans_val['answer_text'];
+                                                $answer_value = $ans_val['answer_value'];
+        
+                                                if($answer_name  == 'passed'){$checked = 'checked'; }else{$checked = null;}
+        
+                                                $answer = $answer."
+                                                    <div class=\"col-lg-2 col-lg-offset-0 col-md-2 col-md-offset-0 col-sm-2 col-sm-offset-0 col-xs-5 col-xs-offset-1\">
+                                                        <div class=\"radio-inline\">
+                                                            <label><input type=\"radio\" class=\"flat\" name=\"".$question_name."\" id=\"".$question_name."\" value=\"".$answer_value."\" ".$checked."> ".$answer_text."</label>
+                                                        </div>
+                                                    </div>";  
+                                            endforeach;  
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-5 col-md-5 col-sm-5 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>".$answer."
+                                                </div>";                                      
+                                            break;
+                                        case "checkbox":
+                                            break;
+                                        case "selectbox":
+                                            break;
+                                        case "dropbox":
+                                            $answer = "
+                                                <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+                                                    <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple data-show-upload=\"false\" data-show-caption=\"true\" multiple>
+                                                </div>";  
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                </div>";
+                                            break;
+                                    }
+                                break;                                
                             }
-                            //--Renfer question--//
-                            switch( $question_type ){
-                                case "textbox":
-                                    echo "
-                                    <div class=\"form-group \">
-                                        <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
-                                    </div>";                                                    
-                                    break;
-                                case "textarea":
-                                    echo "
-                                    <div class=\"form-group \">
-                                        <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
-                                    </div>";                                                    
-                                    break;
-                                case "radiobox":
-                                    echo "
-                                    <div class=\"form-group \">
-                                        <label class=\"control-label col-lg-5 col-md-5 col-sm-5 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>".$answer."
-                                    </div>";
-                                    break;
-                                case "checkbox":
-                                    break;
-                                case "selectbox":
-                                    break;       
-                                case "dropbox":
-                                    echo "
-                                    <div class=\"form-group \">
-                                        <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
-                                    </div>";
-                                    break;                                                                                                             
-                            }                                                
+                                               
                         endforeach;
 
                         echo "            

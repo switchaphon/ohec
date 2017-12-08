@@ -61,7 +61,8 @@
                               <td class="text-center">
                                 <a href="<?=site_url('eform/view')?>/<?=$eform_val['eform_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-folder-open"></i> เรียกดู</a>
                                <? if( $this->session->userdata('role') == 'Administrator'){?> 
-                                <a href="#" class="btn btn-round btn-danger btn-xs"><i class="fa fa-trash-o"> ยกเลิก</i>  </a>
+                                <!-- <a href="#" class="btn btn-round btn-danger btn-xs"><i class="fa fa-trash-o"> ยกเลิก</i>  </a> -->
+                                <a href="#" class="btn btn-round btn-danger btn-xs" id='disableEformbtn' name='disableEformbtn' data-eform_id="<?=$eform_val['eform_id'];?>" data-schedule_id="<?=$eform_val['schedule_id'];?>" data-site_name="<?=$eform_val['site_name'];?>" data-committee="<?=$eform_val['created_by'];?>" data-toggle="modal" data-target="#disableEformModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
                               <? } ?>
                             </td>
                             </tr>  
@@ -81,6 +82,20 @@
 </div>
 </article>
 <!-- /page content -->
+
+<!-- modal content -->  
+
+  <!-- disableEformModal -->
+  <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="disableEformModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <? $this->load->view('eform/disable_eform_modal'); ?>
+      </div>
+    </div>
+  </div>
+  <!-- /disableEformModal -->
+
+<!-- /modal content -->  
 
 <script>
 
@@ -103,5 +118,20 @@
       $("div.toolbar").append($('#tbEform_filter'));
 
       $('#tbEform').removeClass('hidden');
+
+      $('#disableEformModal').on('show.bs.modal', function(e) {
+      var eform_id = $(e.relatedTarget).data('eform_id')
+      var schedule_id = $(e.relatedTarget).data('schedule_id')
+      var site_name = $(e.relatedTarget).data('site_name')
+      var committee = $(e.relatedTarget).data('committee')
+      var called_page = "eform";
+
+      $("#disableEformModal .modal-header .modal-title").html('ยกเลิกแบบตรวจออนไลน์');
+      $("#disableEformModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกแบบตรวจออนไลน์<BR><BR>หมายเลข: <b>'+eform_id+'</b><BR>สถานที่: <b>'+site_name+'</b><BR>สร้างโดย: <b>'+committee+'</b><BR><BR>ใช่หรือไม่ ?</div>');
+
+      $(e.currentTarget).find('input[name="eform_id"]').val(eform_id);
+      $(e.currentTarget).find('input[name="schedule_id"]').val(schedule_id);
+      $(e.currentTarget).find('input[name="called_page"]').val(called_page);
+    });
   });
 </script>

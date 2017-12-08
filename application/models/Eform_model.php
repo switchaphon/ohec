@@ -396,11 +396,11 @@ class Eform_model extends CI_Model {
         //     WHERE `schedule_id` = '$schedule_id'
         // ";
         $sql ="
-            SELECT eform.eform_id,site.site_id,site.site_name,site.province,eform.form_id,eform.created_by,eform.created_date,form.asset_type,form.ma_type
+            SELECT eform.eform_id,schedule_id,site.site_id,site.site_name,site.province,eform.form_id,eform.created_by,eform.created_date,form.asset_type,form.ma_type
             FROM `tb_eform` eform
             LEFT JOIN `tb_site` site ON site.site_id = eform.site_id
             LEFT JOIN `tb_form` form ON form.form_id = eform.form_id
-            WHERE `schedule_id` = '$schedule_id'
+            WHERE `schedule_id` = '$schedule_id' AND status != '0'
         ";
         $query = $this->db->query($sql);
         
@@ -413,10 +413,11 @@ class Eform_model extends CI_Model {
 
     function get_eform(){
         $sql ="
-            SELECT eform.eform_id,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date
+            SELECT eform.eform_id,schedule_id,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date
             FROM `tb_eform` eform
             LEFT JOIN `tb_site` site ON site.site_id = eform.site_id
             LEFT JOIN `tb_ticket` ticket ON ticket.case_id = eform.ticket_id
+            WHERE status != '0'
         ";
 
         $query = $this->db->query($sql);
@@ -615,6 +616,14 @@ class Eform_model extends CI_Model {
         }else{
             return FALSE;
         }
+    }
+
+    function disable_eform($eform_id = null){
+        $data = array(
+            'status' => '0'
+         );
+        $this->db->where('eform_id', $eform_id);
+        $this->db->update('tb_eform', $data); 
     }
 
 }
