@@ -13,9 +13,9 @@ class MY_Controller extends CI_Controller {
     case 'modal':
       $this->output->set_template('modal');
       break;
-    // case 'bap':
-    //   $this->output->set_template('default');
-    //   break;
+    case 'login':
+      $this->output->set_template('login');
+      break;
     // case 'nttyg':
     //   $this->output->set_template('default');
     //   break;

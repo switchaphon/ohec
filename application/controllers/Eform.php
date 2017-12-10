@@ -14,14 +14,14 @@ class Eform extends MY_Controller {
 		$this->load->helper(array('form','url','file'));
 		$this->output->set_title('แบบตรวจสอบออนไลน์');
 
-		//Fixed value
-		$customdata = array(
-			'username' => 'witchaphon.sa'
-			,'cn' => 'อารีย์พรรณ จันทรทิณ'
-			,'role' => 'Administrator'
-			,'logged_in' => TRUE
-		);                            
-		$this->session->set_userdata($customdata);	
+		// //Fixed value
+		// $customdata = array(
+		// 	'username' => 'witchaphon.sa'
+		// 	,'cn' => 'อารีย์พรรณ จันทรทิณ'
+		// 	,'role' => 'Administrator'
+		// 	,'logged_in' => TRUE
+		// );                            
+		// $this->session->set_userdata($customdata);	
 	}
 
 	public function index(){
