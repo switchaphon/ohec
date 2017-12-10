@@ -45,8 +45,8 @@ class Schedule_model extends CI_Model {
     function view_schedule($id = null) {
         $sql ="
             Select *
-            FROM ohec.tb_schedule schedule
-            LEFT JOIN ohec.tb_region region ON region.region_id = schedule.region
+            FROM { schedule
+            LEFT JOIN { region ON region.region_id = schedule.region
             WHERE schedule_id = '$id'
             ";
         $query = $this->db->query($sql);
@@ -57,10 +57,10 @@ class Schedule_model extends CI_Model {
     function get_schedule_task($schedule_id = null) {
         $sql ="
             SELECT destination.site_id AS site_id,site_name,task.ma_project,task.ma_type,ticket_id,form.*
-            FROM ohec.tb_schedule_destination destination
-                LEFT JOIN ohec.tb_site site ON destination.site_id = site.site_id
-                LEFT JOIN ohec.tb_schedule_task task ON destination.schedule_id = task.schedule_id AND destination.site_id = task.site_id
-                LEFT JOIN ohec.tb_form form ON form.form_id = task.ticket_id
+            FROM { destination
+                LEFT JOIN { site ON destination.site_id = site.site_id
+                LEFT JOIN { task ON destination.schedule_id = task.schedule_id AND destination.site_id = task.site_id
+                LEFT JOIN { form ON form.form_id = task.ticket_id
             WHERE destination.schedule_id = '$schedule_id'
             ORDER BY site_name ASC
             ";
@@ -82,7 +82,7 @@ class Schedule_model extends CI_Model {
     function get_schedule_id($keyword) {
         $sql ="
             Select MAX(schedule_id) AS schedule_id
-            FROM ohec.tb_schedule
+            FROM {
             WHERE schedule_id LIKE '$keyword%'
             ";
 

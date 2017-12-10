@@ -6,6 +6,7 @@ class MY_Controller extends CI_Controller {
   public function __construct()
   {
     parent::__construct();
+    $this->load->helper(array('url'));
   }
 
   protected function _init($themes  = null){
@@ -33,14 +34,16 @@ class MY_Controller extends CI_Controller {
 
   }
 
-  protected function _init_assets($name = array())
-  {
+  protected function _init_assets($name = array()){
     if(is_array($name)){
       foreach ($name as $value) :
         $this->_init_assets($value);
       endforeach;
     }else{
       switch ($name) {
+        case 'animate':
+          $this->load->css('assets/bower_components/animate.css/animate.min.css');
+          break;
 
         case 'custom':
           $this->load->css('assets/css/custom.min.css');
@@ -187,7 +190,14 @@ class MY_Controller extends CI_Controller {
           break;
       }
     }
-  }            
+  }  
+  
+  protected function _only_authen_success(){
+    if(!$this->session->userdata('logged_in')){
+        $this->session->set_flashdata('tried_to',  $_SERVER['REDIRECT_URL'] );
+        redirect('/');
+    }	
+  }
 
 }
 ?>

@@ -1,4 +1,16 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+<style>
+	body {
+		color: #73879C;
+		background: #FFF;
+		font-family: "Helvetica Neue",Roboto,Arial,"Droid Sans",sans-serif;
+		font-size: 13px;
+		font-weight: 400;
+		line-height: 1.471;
+	}
+</style>
+
 <div class="container">
 	<div class="row">
 		<?php if (validation_errors()) : ?>

@@ -17,7 +17,7 @@ class Ticket_model extends CI_Model {
         WHERE site_id = '$site_id' AND created_date BETWEEN '$ticket_start_date' AND '$ticket_end_date' AND (case_id LIKE 'NT-Fiber%' OR case_id LIKE 'NT-Equip%' ) AND case_status = 'Closed' 
         AND case_id NOT IN (
         	SELECT ticket_id
-            FROM ohec.tb_schedule_task
+            FROM tb_schedule_task
             WHERE schedule_id = '$schedule_id' AND site_id = '$site_id'
         )
         GROUP BY case_sub_category,contract,case_id

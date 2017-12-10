@@ -14,11 +14,12 @@ class User extends MY_Controller {
 	 */
 	public function __construct() {
 		
-		parent::__construct();
+        parent::__construct();
+        $this->_only_authen_success();
 		$this->load->library(array('session'));
 		$this->load->helper(array('url'));
-		$this->load->model('user_model');
-		
+        $this->load->model('user_model');
+        $this->output->set_title('ระบบตรวจงานออนไลน์');
 	}
 	
 	
@@ -101,7 +102,9 @@ class User extends MY_Controller {
 	 */
 	public function login() {
 
-		$this->_init('login');
+        $this->_init('login');
+        $this->_init_assets( array('animate') );
+
 		// create the data object
 		$data = new stdClass();
 		
@@ -116,9 +119,7 @@ class User extends MY_Controller {
 		if ($this->form_validation->run() == false) {
 			
 			// validation not ok, send validation errors to the view
-			// $this->load->view('header');
 			$this->load->view('user/login/login');
-			// $this->load->view('footer');
 			
 		} else {
 			
@@ -177,15 +178,14 @@ class User extends MY_Controller {
 		$data = new stdClass();
 		
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-			
+
 			// remove session datas
 			foreach ($_SESSION as $key => $value) {
 				unset($_SESSION[$key]);
-			}
-			
+            }
+
 			// user logout ok
 			$this->load->view('user/logout/logout_success', $data);
-			
 		} else {
 			
 			// there user was not logged in, we cannot logged him out,

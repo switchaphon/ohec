@@ -346,7 +346,7 @@ class Eform_model extends CI_Model {
     function get_eform_id($keyword) {
         $sql ="
             Select MAX(eform_id) AS eform_id
-            FROM ohec.tb_eform
+            FROM tb_eform
             WHERE eform_id LIKE '$keyword%'
             ";
 

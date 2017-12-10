@@ -12,8 +12,8 @@ class Site_model extends CI_Model {
     function list_region() {
         $sql = "
             SELECT region,region_name
-            FROM ohec.tb_site site
-            LEFT JOIN ohec.tb_region region ON region.region_id = site.region
+            FROM tb_site site
+            LEFT JOIN tb_region region ON region.region_id = site.region
             WHERE site_status = '1'
             GROUP BY region,region_name
             ORDER BY region_name ASC        
@@ -36,7 +36,7 @@ class Site_model extends CI_Model {
     function list_province() {
         $sql ="
             SELECT region,province
-            FROM ohec.tb_site
+            FROM tb_site
             WHERE site_status = '1'
             GROUP BY region,province
             ORDER BY region,province ASC
@@ -59,8 +59,8 @@ class Site_model extends CI_Model {
     function list_province_by_region($region = null) {
         $sql ="
             SELECT region,region_name,province
-            FROM ohec.tb_site site
-            LEFT JOIN ohec.tb_region region ON region.region_id = site.region
+            FROM tb_site site
+            LEFT JOIN tb_region region ON region.region_id = site.region
             WHERE region IN ('$region') AND site_status = '1'
             GROUP BY region,province
             ORDER BY region,province ASC
@@ -85,7 +85,7 @@ class Site_model extends CI_Model {
         // //-- Select all site in the province list where the ticket created during ticket_period and that ticket not be added to tb_schedule_task
         // $sql = "
         // SELECT province,site_id,site_name
-        // FROM ohec.tb_site
+        // FROM tb_site
         // WHERE province IN ('$province') AND site_status = '1'AND site_id IN (
         //     SELECT site_id
         //     FROM tb_ticket
@@ -93,7 +93,7 @@ class Site_model extends CI_Model {
         //     AND (case_id LIKE 'NT-Fibre%' OR case_id LIKE 'NT-Equip%' ) AND case_status = 'Closed'
         //     AND case_id NOT IN (
         //         SELECT ticket_id
-        //         FROM ohec.tb_schedule_task
+        //         FROM tb_schedule_task
         //         WHERE schedule_id = '$schedule_id'
         //     )
         // )
@@ -104,7 +104,7 @@ class Site_model extends CI_Model {
         //-- Select all site in the province list where the ticket created during ticket_period and that ticket not be added to tb_schedule_task
         $sql = "
         SELECT province,site_id,site_name
-        FROM ohec.tb_site
+        FROM tb_site
         WHERE province IN ('$province') AND site_status = '1'AND site_id IN (
             SELECT site_id
             FROM tb_ticket

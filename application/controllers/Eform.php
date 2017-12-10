@@ -11,17 +11,9 @@ class Eform extends MY_Controller {
     
 	public function __construct() {
 		parent::__construct();
+		$this->_only_authen_success();
 		$this->load->helper(array('form','url','file'));
 		$this->output->set_title('แบบตรวจสอบออนไลน์');
-
-		// //Fixed value
-		// $customdata = array(
-		// 	'username' => 'witchaphon.sa'
-		// 	,'cn' => 'อารีย์พรรณ จันทรทิณ'
-		// 	,'role' => 'Administrator'
-		// 	,'logged_in' => TRUE
-		// );                            
-		// $this->session->set_userdata($customdata);	
 	}
 
 	public function index(){
