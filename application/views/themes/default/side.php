@@ -20,19 +20,6 @@
 
   <div class="clearfix"></div>
 
-  <!-- menu profile quick info -->
-  <!-- <div class="profile clearfix">
-    <div class="profile_pic">
-      <img src="<?=base_url('assets/img/img.jpg');?>" alt="..." class="img-circle profile_img">
-    </div>
-    <div class="profile_info">
-      <span></span>
-      <h2><?=$this->session->userdata('cn');?></h2>
-    </div>
-    <div class="clearfix"></div>
-  </div> -->
-  <!-- /menu profile quick info -->
-
   <br />
 
   <!-- sidebar menu -->

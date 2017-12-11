@@ -19,7 +19,8 @@ class User extends MY_Controller {
 		$this->load->library(array('session'));
 		$this->load->helper(array('url'));
         $this->load->model('user_model');
-        $this->output->set_title('ระบบตรวจงานออนไลน์');
+		$this->output->set_title('ระบบตรวจงานออนไลน์');
+		$this->data['permission'] = $this->get_permission();
 	}
 	
 	

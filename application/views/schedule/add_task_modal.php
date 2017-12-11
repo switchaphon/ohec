@@ -1,5 +1,5 @@
 <!-- modal content -->
-<form role="form" id="joinSchedule" name="joinSchedule" class="form-horizontal form-label-left" data-toggle="validator" action="<?=site_url('schedule/add_task_ops');?>" method="POST">    
+<form role="form" id="addTask" name="addTask" class="form-horizontal form-label-left" data-toggle="validator" action="<?=site_url('schedule/add_task_ops');?>" method="POST">    
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
         <h4 class="modal-title" id="myModalLabel">เพิ่มสถานที่/เพิ่มงานตรวจ</h4>
@@ -93,7 +93,7 @@
     //     var rdiv = 'removeclass'+row;
 
     //     var site = document.getElementById( 'site' ).cloneNode( true );
-    //     document.getElementById( 'joinSchedule' ).appendChild( site );
+    //     document.getElementById( 'addTask' ).appendChild( site );
     //         divtest.innerHTML = ' <div class="form-group col-md-1 col-md-1 col-md-12"></div><div class="form-group col-md-5 col-md-5 col-md-12"></div><div class="form-group col-md-4 col-md-4 col-md-12"> <input type="text" class="form-control" id="Schoolname" name="Schoolname[]" value="" placeholder="School name"></div><div class="form-group col-md-2 col-md-2 col-md-12"><button class="btn btn-danger" type="button" onclick="remove_task_fields('+ row +');"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></div></div><div class="clear"></div>';
     //     objTo.appendChild(divtest)
 

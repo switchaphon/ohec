@@ -14,6 +14,7 @@ class Eform extends MY_Controller {
 		$this->_only_authen_success();
 		$this->load->helper(array('form','url','file'));
 		$this->output->set_title('แบบตรวจสอบออนไลน์');
+		$this->data['permission'] = $this->get_permission();
 	}
 
 	public function index(){
@@ -162,7 +163,7 @@ class Eform extends MY_Controller {
 			,'site_id' => $_POST['site_id']
 			// ,'ticket_id' => $_POST['ticket_id']
 			,'form_id' => $_POST['form_id']
-			,'created_by' => $this->session->userdata('cn')
+			,'created_by' => $this->session->userdata('name')." ".$this->session->userdata('surname')
 			,'status' => '1'
 		);
 
@@ -249,7 +250,7 @@ class Eform extends MY_Controller {
 		$eform_note = array(
 			'eform_id' => $_POST['eform_id']
 			,'note_detail' => $_POST['note']
-			,'created_by' => $this->session->userdata('cn')
+			,'created_by' => $this->session->userdata('name')." ".$this->session->userdata('surname')
 		);
 
 		// echo "<pre>"; print_r($eform); echo "</pre>";

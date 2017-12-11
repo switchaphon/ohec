@@ -62,19 +62,6 @@ class Ticket_model extends CI_Model {
         $ticket = array();
         
         if($query->result()){
-            // foreach ($query->result_array() as $key => $value) {
-            //     if(!isset($ticket[$value['case_sub_category']])){
-            //         $ticket[$value['case_sub_category']][] = array(
-            //             'case_id' => $value['case_id']
-            //             ,'contract' => $value['contract']
-            //         );
-            //     }else{
-            //         $ticket[$value['case_sub_category']][] = array(
-            //             'case_id' => $value['case_id']
-            //             ,'contract' => $value['contract']
-            //         );
-            //     }
-            // }
                 return $query->result_array() ;
             }else{
                 return FALSE;

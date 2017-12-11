@@ -1,5 +1,5 @@
 <!-- modal content -->
-<form role="form" id="joinSchedule" name="joinSchedule" class="form" data-toggle="validator" action="<?=site_url('eform/add_note_ops');?>" method="POST">    
+<form role="form" id="addEformNote" name="addEformNote" class="form" data-toggle="validator" action="<?=site_url('eform/add_note_ops');?>" method="POST">    
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
         <h4 class="modal-title" id="myModalLabel">เพิ่มบันทึกข้อความ</h4>

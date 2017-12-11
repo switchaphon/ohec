@@ -1,5 +1,5 @@
 <!-- modal content -->
-<form role="form" id="joinSchedule" name="joinSchedule" class="form-inline" data-toggle="validator" action="<?=site_url('schedule/disable_schedule_ops');?>" method="POST">    
+<form role="form" id="disableSchedule" name="disableSchedule" class="form-inline" data-toggle="validator" action="<?=site_url('schedule/disable_schedule_ops');?>" method="POST">    
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
         <h4 class="modal-title" id="myModalLabel">Modal title</h4>

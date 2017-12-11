@@ -24,15 +24,7 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <!-- <p class="text-muted font-13 m-b-30">
-                      The Buttons extension for DataTables provides a common set of options, API methods and styling to display buttons on a page that will interact with a DataTable. The core library provides the based framework upon which plug-ins can built.
-                    </p> -->
-                    <span id="controlPanel">
-                    <!-- <a class="btn btn-app pull-right" href="<?=site_url('ef/equip')?>" name='create'>
-                      <i class="fa fa-edit"></i> สร้างใหม่
-                    </a> -->
-                      <!-- <a class="btn btn-round btn-success pull-right" href="<?=site_url('ef/equip')?>" name='create'><span class="fa fa-edit" aria-hidden="true"></span> สร้างใหม่</a> -->
-                    </span>
+                    <span id="controlPanel"></span>
                     <table id="tbEform" name="tbEform" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline">
                       <thead>
                         <tr>
@@ -59,9 +51,10 @@
                               <td class="text-center"><?=$eform_val['created_by'];?></td>
                               <td class="text-center"><?=$eform_val['created_date'];?></td>
                               <td class="text-center">
+                              <? if($permission->eform_view){ ?>
                                 <a href="<?=site_url('eform/view')?>/<?=$eform_val['eform_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-folder-open"></i> เรียกดู</a>
-                               <? if( $this->session->userdata('role') == 'Administrator'){?> 
-                                <!-- <a href="#" class="btn btn-round btn-danger btn-xs"><i class="fa fa-trash-o"> ยกเลิก</i>  </a> -->
+                              <? } ?> 
+                               <? if($permission->eform_delete) {?> 
                                 <a href="#" class="btn btn-round btn-danger btn-xs" id='disableEformbtn' name='disableEformbtn' data-eform_id="<?=$eform_val['eform_id'];?>" data-schedule_id="<?=$eform_val['schedule_id'];?>" data-site_name="<?=$eform_val['site_name'];?>" data-committee="<?=$eform_val['created_by'];?>" data-toggle="modal" data-target="#disableEformModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
                               <? } ?>
                             </td>

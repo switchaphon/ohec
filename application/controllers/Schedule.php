@@ -13,18 +13,20 @@ class Schedule extends MY_Controller {
 		parent::__construct();
 		$this->_only_authen_success();
 		$this->load->helper(array('form', 'url' , 'datetime_helper'));
-		$this->output->set_title('ตารางตรวจงาน');	
+		$this->output->set_title('ตารางตรวจงาน');
+		$this->data['permission'] = $this->get_permission();	
 	}
 
 	public function index(){
 		$this->_init();
 		$this->_init_assets( array('datatables') );
 		$this->load->model( array('Schedule_model'));
-		echo "<pre>"; print_r($this->get_permission()); echo "</pre>";
+		// echo "<pre>"; print_r($this->get_permission()); echo "</pre>";
+		
 		// echo $this->get_permission('user_add');
 		//Get schedule
 		$this->data['opened_schedule'] = $this->Schedule_model->list_opened_schedule();
-		$this->data['joined_schedule'] = $this->Schedule_model->list_joined_schedule($this->session->userdata('cn'));
+		$this->data['joined_schedule'] = $this->Schedule_model->list_joined_schedule($this->session->userdata('name')." ".$this->session->userdata('surname'));
 
         $this->load->view('schedule/index',$this->data);
 	}
@@ -93,7 +95,7 @@ class Schedule extends MY_Controller {
 			,'ticket_start_date' => $ticket_start_date
 			,'ticket_end_date' => $ticket_end_date
 			// ,'created_date' => date("Y-m-d H:i:s",time())
-			,'created_by' => $this->session->userdata('cn')
+			,'created_by' => $this->session->userdata('name')." ".$this->session->userdata('surname')
 			,'status' => '1'
 		);
 		
@@ -208,7 +210,7 @@ class Schedule extends MY_Controller {
 			,'ticket_end_date' => $ticket_end_date
 			,'updated_date' => date("Y-m-d H:i:s",time())
 			// ,'updated_date' => date("Y-m-d H:i:s",time())
-			,'updated_by' => $this->session->userdata('cn')
+			,'updated_by' => $this->session->userdata('name')." ".$this->session->userdata('surname')
 			// ,'status' => '1'
 		);
 
@@ -256,7 +258,7 @@ class Schedule extends MY_Controller {
 				,'contact_mobile' => $site[0]['mobile_no']
 				,'contact_email' => $site[0]['email'] 
 				// ,'created_date' => date(time())
-				,'created_by' => $this->session->userdata('cn')
+				,'created_by' => $this->session->userdata('name')." ".$this->session->userdata('surnamea')
 			);
 			// echo "<pre>"; print_r($destination); echo "</pre>";
 
@@ -282,7 +284,7 @@ class Schedule extends MY_Controller {
 						,'ticket_id' => $task[0]['form_id']
 						// ,'ma_type' => $task[0]['ma_type']
 						// ,'created_date' => date(time())
-						,'created_by' => $this->session->userdata('cn')
+						,'created_by' => $this->session->userdata('name')." ".$this->session->userdata('surname')
 					);
 
 					//Insert DB

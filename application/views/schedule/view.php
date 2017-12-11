@@ -13,18 +13,6 @@
             <div class="title_left">
                 <h3></h3>
             </div>
-
-            <!-- <div class="title_right">
-            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Go!</button>
-                </span>
-                </div>
-            </div>
-            </div> -->
-
         </div>
 
         <div class="clearfix"></div>
@@ -113,10 +101,12 @@
 
                       <div class="form-group">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                          <!-- <button type="reset" class="btn btn-round btn-primary">ย้อนกลับ</button> -->
-                          <!-- <button type="submit" class="btn btn-round btn btn-success">แก้ไข</button> -->
-                          <a href="<?=site_url('schedule')?>" class="btn btn-round btn-default" id='backSchedulebtn' name='backSchedulebtn' ><span class="fa fa-edit" aria-hidden="true"></span> ย้อนกลับ</a>
-                          <a href="<?=site_url('schedule/edit')?>/<?=$val['schedule_id'];?>" class="btn btn-round btn-success" id='editSchedulebtn' name='editSchedulebtn' ><span class="fa fa-edit" aria-hidden="true"></span> แก้ไข</a>
+                          <? if($permission->schedule_view){ ?>
+                            <a href="<?=site_url('schedule')?>" class="btn btn-round btn-default" id='backSchedulebtn' name='backSchedulebtn' ><span class="fa fa-edit" aria-hidden="true"></span> ย้อนกลับ</a>
+                          <? } ?>
+                          <? if($permission->schedule_edit){ ?>
+                            <a href="<?=site_url('schedule/edit')?>/<?=$val['schedule_id'];?>" class="btn btn-round btn-success" id='editSchedulebtn' name='editSchedulebtn' ><span class="fa fa-edit" aria-hidden="true"></span> แก้ไข</a>
+                          <? } ?>
                         </div>
                       </div>
 
@@ -135,7 +125,7 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content"><?
-                          // echo $this->session->userdata('cn');
+                          // echo $this->session->userdata('name')." ".$this->session->userdata('surname');
                           // echo "<pre>"; print_r($committee_list); echo "</pre>";
                           ?>
                   <!-- start form for validation -->
@@ -143,14 +133,18 @@
                       <? 
                         if(!empty($committee_list)){  
 
-                          if( !in_array($this->session->userdata('cn'), $committee_list, true) ) {
+                          if( !in_array($this->session->userdata('name')." ".$this->session->userdata('surname'), $committee_list, true) ) {
                       ?>
-                        <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
+                        <? if( $permission->schedule_view){ ?>
+                          <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('name')." ".$this->session->userdata('surname');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
+                        <? } ?>
                       <?  
                           }
                         }else{ 
                       ?>
-                        <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
+                        <? if( $permission->schedule_view){ ?>
+                          <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('name')." ".$this->session->userdata('surname');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
+                        <? } ?>
                       <?  
                         }
                       ?>
@@ -169,12 +163,13 @@
                           foreach($committee_list as $key => $val): 
                       ?>
                         <tr>
-                            <td class="text-left"><a href="#"><?=$val;?></a></td>
-                            <? if($val == $this->session->userdata('cn')){ ?>
+                            <td class="text-left"><?=$val;?></td>
+                            <? if($val == $this->session->userdata('name')." ".$this->session->userdata('surname')) { ?>
                               <td class="text-left">
-                                <a href="#" class="btn btn-round btn-danger btn-xs" id='disjoinSchedulebtn' name='disjoinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('cn');?>"  data-toggle="modal" data-target="#disjoinScheduleModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
+                                <? if( $permission->schedule_view){ ?>
+                                  <a href="#" class="btn btn-round btn-danger btn-xs" id='disjoinSchedulebtn' name='disjoinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('name')." ".$this->session->userdata('surname');?>"  data-toggle="modal" data-target="#disjoinScheduleModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
+                                <? } ?>
                                 </td>
-                              
                             <? }else{ ?>
                               <td class="text-left"></td>
                             <?}?>
@@ -208,7 +203,9 @@
                     </div>
                     <div class="x_content">
                       <span id="panelTask">
-                        <a href="#" class="btn btn-round btn-info pull-right" name='addTaskbtn' data-toggle="modal" data-target="#addTaskModal" ><span class="fa fa-plus" aria-hidden="true"></span> เพิ่มสถานที่</a>
+                        <? if($permission->schedule_edit) { ?>
+                          <a href="#" class="btn btn-round btn-info pull-right" name='addTaskbtn' data-toggle="modal" data-target="#addTaskModal" ><span class="fa fa-plus" aria-hidden="true"></span> เพิ่มสถานที่</a>
+                        <? } ?>
                       </span>
                       <table id="tbTask" name="tbTask" class="table table-striped dt-responsive nowrap dataTable no-footer dtr-inline">
                           <thead>
@@ -220,13 +217,11 @@
                           </thead>
                           <tbody>        
                           <?
-                            // echo "<pre>"; print_r($task_list); echo "</pre>";
-                            // echo "<pre>"; print_r($eform_list); echo "</pre>";
                             if(!empty($task_list)){ 
                               foreach($task_list as $key => $val):
                                 $flag = false;
                                 for($i = 0; $i < count($eform_list); $i++){
-                                  if( ($eform_list[$i]['site_id'] == $val['site_id']) && ($eform_list[$i]['asset_type'] == $val['asset_type']) && ($eform_list[$i]['ma_type'] == $val['ma_type']) && ($eform_list[$i]['created_by'] == $this->session->userdata('cn')) ){
+                                  if( ($eform_list[$i]['site_id'] == $val['site_id']) && ($eform_list[$i]['asset_type'] == $val['asset_type']) && ($eform_list[$i]['ma_type'] == $val['ma_type']) && ($eform_list[$i]['created_by'] == $this->session->userdata('name')." ".$this->session->userdata('surname')) ){
                                     $flag = true;
                                   }
                                 }
@@ -237,12 +232,14 @@
                                 <td class="text-left">
                                 <? 
                                   if( !empty($committee_list) ){
-                                    if(in_array($this->session->userdata('cn'), $committee_list) ){
+                                    if(in_array($this->session->userdata('name')." ".$this->session->userdata('surname'), $committee_list) ){
                                       if( !$flag ) {
                                 ?>
+                                  <? if( $permission->eform_add){?>
                                   <a href="<?=site_url('eform/create/'.$schedule[0]['schedule_id']).'/'.$val['site_id'].'/'.$val['form_id'];?>" class="btn btn-round btn-success btn-xs"><i class="fa fa-file-text"></i> ตรวจ </a>
+                                  <? } ?>
                                 <?  } 
-                                    if( $this->session->userdata('role') == 'Administrator'){?>  
+                                    if( $permission->schedule_delete){?>  
                                   <a href="#" class="btn btn-round btn-danger btn-xs" id='cancelTaskbtn' name='cancelTaskbtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-site_id="<?=$val['site_id'];?>" data-site_name="<?=$val['site_name'];?>" data-ticket_id="<?=$val['ticket_id'];?>" data-toggle="modal" data-target="#cancelTaskModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ลบ</a>                                
                                 <? 
                                       } 
@@ -310,12 +307,12 @@
                               <td class="text-center"><?=$eform_val['created_by'];?></td>
                               <td class="text-center"><?=$eform_val['created_date'];?></td>
                               <td class="text-center">
-                                <a href="<?=site_url('eform/view')?>/<?=$eform_val['eform_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-folder-open"></i> เรียกดู</a>
-                               <? if( $this->session->userdata('role') == 'Administrator'){?> 
-                                <!-- <a href="#" class="btn btn-round btn-danger btn-xs"><i class="fa fa-trash-o"> ลบ</i>  </a> -->
-                                <a href="#" class="btn btn-round btn-danger btn-xs" id='disableEformbtn' name='disableEformbtn' data-eform_id="<?=$eform_val['eform_id'];?>" data-site_name="<?=$eform_val['site_name'];?>" data-schedule_id="<?=$eform_val['schedule_id'];?>" data-committee="<?=$eform_val['created_by'];?>" data-toggle="modal" data-target="#disableEformModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
-                                
-                              <? } ?>
+                                <? if( $permission->eform_view){?>
+                                  <a href="<?=site_url('eform/view')?>/<?=$eform_val['eform_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-folder-open"></i> เรียกดู</a>
+                                <? } ?>
+                                <? if( $permission->eform_delete){?>
+                                  <a href="#" class="btn btn-round btn-danger btn-xs" id='disableEformbtn' name='disableEformbtn' data-eform_id="<?=$eform_val['eform_id'];?>" data-site_name="<?=$eform_val['site_name'];?>" data-schedule_id="<?=$eform_val['schedule_id'];?>" data-committee="<?=$eform_val['created_by'];?>" data-toggle="modal" data-target="#disableEformModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
+                                <? } ?>
                             </td>
                             </tr>  
                         <?      

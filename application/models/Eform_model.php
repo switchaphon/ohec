@@ -363,13 +363,6 @@ class Eform_model extends CI_Model {
     }
 
     function load_question($form_id = null) {
-        // $sql ="
-        //     SELECT panel.form_id,panel.page_no,panel.panel_no,question_no,question_name,question_text,question_value,question_type
-        //     FROM tb_form_panel panel
-        //     LEFT JOIN tb_form_question question ON question.form_id = panel.form_id AND panel.panel_no = question.panel_no
-        //     WHERE panel.form_id = '$form_id' AND panel.panel_name = '$panel_name' AND question_status = '1'
-        //     ORDER BY panel.panel_no,question_order ASC
-        //     ";
         $sql ="
             SELECT panel.form_id,panel.page_no,panel.panel_no,question_no,question_name,question_text,question_value,question_type
             FROM tb_form_panel panel
@@ -388,13 +381,6 @@ class Eform_model extends CI_Model {
     }  
     
     function get_schedule_eform($schedule_id = null){
-        // $sql ="
-        //     SELECT eform.eform_id,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date
-        //     FROM `tb_eform` eform
-        //     LEFT JOIN `tb_site` site ON site.site_id = eform.site_id
-        //     LEFT JOIN `tb_ticket` ticket ON ticket.case_id = eform.ticket_id
-        //     WHERE `schedule_id` = '$schedule_id'
-        // ";
         $sql ="
             SELECT eform.eform_id,schedule_id,site.site_id,site.site_name,site.province,eform.form_id,eform.created_by,eform.created_date,form.asset_type,form.ma_type
             FROM `tb_eform` eform
@@ -450,16 +436,6 @@ class Eform_model extends CI_Model {
     }
 
     function view_eform_checklist($eform_id = null){
-        // $sql ="
-        //     SELECT checklist.panel_no,checklist.question_no,panel.panel_name,panel.panel_title,question.question_no,question.question_name,question.question_text,question.question_value,question.question_type,answer_value
-        //     FROM `tb_eform_checklist` checklist
-        //     LEFT JOIN `tb_form_panel` panel ON panel.panel_no = checklist.panel_no
-        //     LEFT JOIN `tb_form_question` question ON checklist.question_no = question.question_no AND checklist.panel_no = question.panel_no
-        //     WHERE checklist.eform_id = '$eform_id'
-        //     AND question.panel_no IN (SELECT panel_no FROM `tb_eform_checklist` checklist WHERE checklist.eform_id = '$eform_id' GROUP BY panel_no ORDER BY checklist.panel_no ASC) 
-        //     AND question.form_id = (SELECT form_id FROM tb_eform eform WHERE eform.eform_id = '$eform_id' )
-        //     ORDER BY panel.panel_no ASC
-        // ";
         $sql ="
             SELECT panel.panel_no,checklist.question_no,panel.panel_name,panel.panel_title,question.question_no,question.question_name,question.question_text,question.question_value,question.question_type,answer_value
             FROM `tb_eform_checklist` checklist
@@ -521,14 +497,6 @@ class Eform_model extends CI_Model {
     } 
 
     function view_eform_checklist_answer($eform_id = null){
-        // $sql ="
-        // SELECT answer.panel_no,answer.question_no,answer.answer_no,answer.answer_name,answer.answer_text,answer.answer_value
-        // FROM `tb_form_answer` answer
-        // WHERE answer.answer_status = '1' 
-        // AND answer.form_id = (SELECT form_id FROM `tb_eform` eform WHERE eform.eform_id = '$eform_id')
-        // AND answer.panel_no IN (SELECT panel_no FROM `tb_eform_checklist` checklist WHERE checklist.eform_id = '$eform_id' GROUP BY panel_no ORDER BY checklist.panel_no ASC)
-        // ORDER BY answer.panel_no,answer.question_no,answer.answer_no,answer.answer_order
-        // ";
         $sql = "
             SELECT answer.panel_no,answer.question_no,answer.answer_no,answer.answer_name,answer.answer_text,answer.answer_value
             FROM `tb_form_answer` answer

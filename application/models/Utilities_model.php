@@ -2,7 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Utilities_model extends CI_Model {
 
-    //private $name_table = 'Service_Action';
     public function __construct() {
         $this->db = $this->load->database('default', TRUE);
         $this->db->trans_strict(FALSE);
@@ -15,9 +14,7 @@ class Utilities_model extends CI_Model {
 
         return $this->db->affected_rows();
     }
-/*
-    Update function
-*/
+
     function _delete($table = null, $data=null) {
         
         foreach($data as $key => $val):

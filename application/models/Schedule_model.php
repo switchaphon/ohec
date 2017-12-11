@@ -45,8 +45,8 @@ class Schedule_model extends CI_Model {
     function view_schedule($id = null) {
         $sql ="
             Select *
-            FROM { schedule
-            LEFT JOIN { region ON region.region_id = schedule.region
+            FROM tb_schedule schedule
+            LEFT JOIN tb_region region ON region.region_id = schedule.region
             WHERE schedule_id = '$id'
             ";
         $query = $this->db->query($sql);
@@ -57,10 +57,10 @@ class Schedule_model extends CI_Model {
     function get_schedule_task($schedule_id = null) {
         $sql ="
             SELECT destination.site_id AS site_id,site_name,task.ma_project,task.ma_type,ticket_id,form.*
-            FROM { destination
-                LEFT JOIN { site ON destination.site_id = site.site_id
-                LEFT JOIN { task ON destination.schedule_id = task.schedule_id AND destination.site_id = task.site_id
-                LEFT JOIN { form ON form.form_id = task.ticket_id
+            FROM tb_schedule_destination destination
+                LEFT JOIN tb_site site ON destination.site_id = site.site_id
+                LEFT JOIN tb_schedule_task task ON destination.schedule_id = task.schedule_id AND destination.site_id = task.site_id
+                LEFT JOIN tb_form form ON form.form_id = task.ticket_id
             WHERE destination.schedule_id = '$schedule_id'
             ORDER BY site_name ASC
             ";
@@ -82,7 +82,7 @@ class Schedule_model extends CI_Model {
     function get_schedule_id($keyword) {
         $sql ="
             Select MAX(schedule_id) AS schedule_id
-            FROM {
+            FROM tb_schedule
             WHERE schedule_id LIKE '$keyword%'
             ";
 
@@ -101,7 +101,7 @@ class Schedule_model extends CI_Model {
     function get_schedule_destination($schedule_id = null) {
         $sql ="
             Select site_id
-            FROM ohec.tb_schedule_destination
+            FROM tb_schedule_destination
             WHERE schedule_id = '$schedule_id'
             ORDER BY site_id ASC
             ";
@@ -123,7 +123,7 @@ class Schedule_model extends CI_Model {
     function get_schedule_committee($schedule_id = null) {
         $sql ="
             Select name
-            FROM ohec.tb_schedule_member
+            FROM tb_schedule_member
             WHERE schedule_id = '$schedule_id'
             ORDER BY name ASC
             ";
