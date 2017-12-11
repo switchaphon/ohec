@@ -20,7 +20,8 @@ class Schedule extends MY_Controller {
 		$this->_init();
 		$this->_init_assets( array('datatables') );
 		$this->load->model( array('Schedule_model'));
-
+		echo "<pre>"; print_r($this->get_permission()); echo "</pre>";
+		// echo $this->get_permission('user_add');
 		//Get schedule
 		$this->data['opened_schedule'] = $this->Schedule_model->list_opened_schedule();
 		$this->data['joined_schedule'] = $this->Schedule_model->list_joined_schedule($this->session->userdata('cn'));

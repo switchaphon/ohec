@@ -199,5 +199,78 @@ class MY_Controller extends CI_Controller {
     }	
   }
 
+  protected function get_permission(){
+    $this->permission = new \stdClass();
+  
+    //--/Eform module --/
+    $this->permission->eform_view = true;
+    $this->permission->eform_add = false;
+    $this->permission->eform_edit = false;
+    $this->permission->eform_delete = false;
+    //--/Schedule module--/
+    $this->permission->schedule_view = true;
+    $this->permission->schedule_add = false;
+    $this->permission->schedule_edit = false;
+    $this->permission->schedule_delete = false;
+    //--/User module --/
+    $this->permission->user_add = false;
+    $this->permission->user_edit = false;
+    $this->permission->user_delete = false;
+
+    $_role = $this->session->userdata('role');
+   
+    if(!$this->session->userdata('logged_in'))
+    {
+      return $this->permission;
+    }
+
+    switch ($_role)
+    {
+      case 'NOC':
+          //Eform
+          $this->permission->eform_add = true;
+          $this->permission->eform_edit = false;
+          $this->permission->eform_delete = false;
+          //Schedule
+          $this->permission->schedule_add = true;
+          $this->permission->schedule_edit = true;
+          $this->permission->schedule_delete = false;
+          //User
+          $this->permission->user_add = false;
+          $this->permission->user_edit = false;
+          $this->permission->user_delete = false;
+          break;
+      case 'Committee':
+          //Eform
+          $this->permission->eform_add = true;
+          $this->permission->eform_edit = false;
+          $this->permission->eform_delete = false;
+          //Schedule
+          $this->permission->schedule_add = false;
+          $this->permission->schedule_edit = false;
+          $this->permission->schedule_delete = false;
+          //User
+          $this->permission->user_add = false;
+          $this->permission->user_edit = false;
+          $this->permission->user_delete = false;
+          break;
+      case 'Administrator':
+          //Eform
+          $this->permission->eform_add = true;
+          $this->permission->eform_edit = true;
+          $this->permission->eform_delete = true;
+          //Schedule
+          $this->permission->schedule_add = true;
+          $this->permission->schedule_edit = true;
+          $this->permission->schedule_delete = true;
+          //User
+          $this->permission->user_add = true;
+          $this->permission->user_edit = true;
+          $this->permission->user_delete = true;
+          break;
+    }
+    return $this->permission;
+  }
+
 }
 ?>

@@ -15,7 +15,7 @@ class User extends MY_Controller {
 	public function __construct() {
 		
         parent::__construct();
-        $this->_only_authen_success();
+        // $this->_only_authen_success();
 		$this->load->library(array('session'));
 		$this->load->helper(array('url'));
         $this->load->model('user_model');
@@ -35,6 +35,7 @@ class User extends MY_Controller {
 	 * @return void
 	 */
 	public function register() {
+		$this->_only_authen_success();
         $this->_init('login');
         $this->_init_assets( array('icheck','bootstrap_validator') );
         
@@ -110,7 +111,7 @@ class User extends MY_Controller {
 		
 		// load form helper and validation library
 		$this->load->helper('form');
-		$this->load->library('form_validation');
+		$this->load->library( array('form_validation') );
 		
 		// set validation rules
 		$this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric');
@@ -148,8 +149,7 @@ class User extends MY_Controller {
                     ,'logged_in' => (bool)true
                 );                            
                 $this->session->set_userdata($customdata);
-        
-                // user login ok
+				// user login ok
                 redirect( site_url('/schedule/index/'));
 				
 			} else {
@@ -173,7 +173,7 @@ class User extends MY_Controller {
 	 * @return void
 	 */
 	public function logout() {
-		
+		$this->_only_authen_success();
 		// create the data object
 		$data = new stdClass();
 		
