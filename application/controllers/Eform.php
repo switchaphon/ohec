@@ -19,7 +19,7 @@ class Eform extends MY_Controller {
 
 	public function index(){
 		$this->_init();
-		$this->_init_assets( array('datatables') );
+		$this->_init_assets( array('datatables','bootstrap-daterangepicker') );
 		$this->load->model( array('Eform_model'));
 
 		$this->data['eform_list'] = $this->Eform_model->get_eform();	

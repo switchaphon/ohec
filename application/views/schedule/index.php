@@ -33,7 +33,7 @@
                       <table id="tbSchedule" name="tbSchedule" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline">
                         <thead>
                           <tr>
-                            <th class="text-center">หมายเลข</th>
+                            <th class="text-center">ชื่อตารางตรวจงาน</th>
                             <th class="text-center">รายละเอียด</th>
                             <th class="text-center">จังหวัด</th>
                             <th class="text-center">วันเดินทาง</th>

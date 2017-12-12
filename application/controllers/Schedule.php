@@ -86,7 +86,7 @@ class Schedule extends MY_Controller {
 
 		$data = array(
 			'schedule_id' => $schedule_id
-			,'schedule_name' => $_POST['name']
+			,'schedule_name' => $_POST['project']." ".$_POST['period']." (".$region.")"
 			,'schedule_description' => $_POST['description']
 			,'region' => $region
 			,'province' => $province

@@ -24,6 +24,40 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+                  <!-- /Dashboard -->
+                    <!-- <div class="row tile_count text-center">
+                      <div class="col-lg-5 col-md-5 col-sm-4 col-xs-4 tile_stats_count">
+                        <form class="form-inline">
+                        <fieldset>
+                            <div class="control-group">
+                            <div class="controls">
+                                <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                <input type="text" name="eform-time" id="eform-time" class="form-control" value="01/01/2016 - 01/25/2016" required/>
+                                </div>
+                            </div>
+                            </div>
+                        </fieldset>
+                        <button id="submit" type="submit" class="btn btn-round btn-primary">ค้นหา</button>
+
+                        </form>
+                      </div>
+                      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                        <span class="count_top"><i class="fa fa-file-text"></i> Total eForm</span>
+                        <div class="count">150</div>
+                      </div>
+                      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                        <span class="count_top"><i class="fa fa-check-circle-o"></i> Passed eForm</span>
+                        <div class="count green">147</div>
+                      </div>
+                      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                        <span class="count_top"><i class="fa fa-times-circle-o"></i> Not Passed eFrom</span>
+                        <div class="count red">3</div>
+                      </div>
+
+                    </div> -->
+                  <!-- /Dashboard -->
+
                     <span id="controlPanel"></span>
                     <table id="tbEform" name="tbEform" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline">
                       <thead>
@@ -93,6 +127,15 @@
 <script>
 
   $(document).ready(function(){
+    $('input[name="eform-time"]').daterangepicker({
+        timePicker: false,
+        locale: {
+            format: 'YYYY-MM-DD'
+        },
+        startDate: moment().subtract(29, 'days'),
+        endDate: moment()
+    });
+
     $('#tbEform').DataTable({
       // "pageLength": 50,
       "paging":   true,
