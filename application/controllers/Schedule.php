@@ -148,7 +148,7 @@ class Schedule extends MY_Controller {
 		$this->data['ticket_start_date'] = $ticket_start_date = $this->data['schedule'] [0]['ticket_start_date'];
 		$this->data['ticket_end_date'] = $ticket_end_date = $this->data['schedule'] [0]['ticket_end_date'];
 
-		// $this->data['site_list'] = $this->Site_model->list_site_by_province($province_list);
+		$this->data['form_list'] = $this->Eform_model->list_form();	
 		$this->data['site_list'] = $this->Site_model->list_site_by_province($province_list,$ticket_start_date,$ticket_end_date,$schedule_id);
 		$this->data['task_list'] = $this->Schedule_model->get_schedule_task($schedule_id);
 		$this->data['committee_list'] = $this->Schedule_model->get_schedule_committee($schedule_id);

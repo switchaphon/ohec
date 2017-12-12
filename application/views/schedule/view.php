@@ -204,7 +204,7 @@
                     <div class="x_content">
                       <span id="panelTask">
                         <? if($permission->schedule_edit) { ?>
-                          <a href="#" class="btn btn-round btn-info pull-right" name='addTaskbtn' data-toggle="modal" data-target="#addTaskModal" ><span class="fa fa-plus" aria-hidden="true"></span> เพิ่มสถานที่</a>
+                          <a href="#" class="btn btn-round btn-success pull-right" name='addTaskbtn' data-toggle="modal" data-target="#addTaskModal" ><span class="fa fa-plus" aria-hidden="true"></span> เพิ่มสถานที่</a>
                         <? } ?>
                       </span>
                       <table id="tbTask" name="tbTask" class="table table-striped dt-responsive nowrap dataTable no-footer dtr-inline">
