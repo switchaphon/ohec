@@ -15,15 +15,15 @@
 	<div class="container">
 		<div class="row">
 			<?php if (validation_errors()) : ?>
-				<div class="col-md-12">
-					<div class="alert alert-danger" role="alert">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="alert alert-danger text-center" role="alert">
 						<?= validation_errors() ?>
 					</div>
 				</div>
 			<?php endif; ?>
 			<?php if (isset($error)) : ?>
-				<div class="col-md-12">
-					<div class="alert alert-danger" role="alert">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="alert alert-danger text-center" role="alert">
 						<?= $error ?>
 					</div>
 				</div>
