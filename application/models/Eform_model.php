@@ -11,7 +11,7 @@ class Eform_model extends CI_Model {
 
     function list_form(){
         $sql = "
-        SELECT form.form_id, form.form_name, form.asset_type,form.ma_type
+        SELECT form.form_id, form.form_name, form.asset_type,form.ma_type,form.ma_name,form.ma_name_en
         FROM tb_form form
         WHERE form.form_status = '1'
         ORDER BY asset_type,ma_type ASC
@@ -29,12 +29,16 @@ class Eform_model extends CI_Model {
                         'form_id' => $val['form_id']
                         ,'form_name' => $val['form_name']
                         ,'ma_type' => $val['ma_type']
+                        ,'ma_name' => $val['ma_name']
+                        ,'ma_name_en' => $val['ma_name_en']
                     );
                 }else{
                     $form[$val['asset_type']][] = array(
                         'form_id' => $val['form_id']
                         ,'form_name' => $val['form_name']
                         ,'ma_type' => $val['ma_type']
+                        ,'ma_name' => $val['ma_name']
+                        ,'ma_name_en' => $val['ma_name_en']
                     );                   
                 }
             endforeach;

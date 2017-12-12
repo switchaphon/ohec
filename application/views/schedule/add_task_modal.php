@@ -36,6 +36,7 @@
                 </div>
        
                 <div class="form-group">
+                    
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">ประเภทงานตรวจ<span class="required">*</span></label>
                 
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
@@ -48,7 +49,7 @@
                         foreach($form_list as $asset_type => $ma_type):
                             echo '<optgroup label="'.$asset_type.'">';
                             for($i = 0; $i < count($ma_type); $i++){
-                                echo '<option value="'.$ma_type[$i]['form_id'].'">'.$asset_type."-".$ma_type[$i]['ma_type'].'</option>';
+                                echo '<option value="'.$ma_type[$i]['form_id'].'">'.$asset_type." - ".$ma_type[$i]['ma_name_en'].'</option>';
                             }
                             echo '</optgroup>';
                         endforeach;
