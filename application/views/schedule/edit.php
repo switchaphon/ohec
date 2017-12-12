@@ -252,29 +252,28 @@
                         <? } ?>
                       </span>
                       <table id="tbTask" name="tbTask" class="table table-hover">
-                          <thead>
-                              <tr>
-                              <th class="text-center">สถานที่</th>
-                              <th class="text-center">หมายเลขเคส</th>
-                              <th class="text-center"></th>
-                              </tr>
-                          </thead>
+                        <thead>
+                          <tr>
+                            <th class="text-center">สถานที่</th>
+                            <th class="text-center">งานตรวจ</th>
+                            <th class="text-center"></th>
+                          </tr>
+                        </thead>
                           <tbody>        
                           <?
-                            // echo "<pre>"; print_r($task_list); echo "</pre>";
                             if(!empty($task_list)){ 
                               foreach($task_list as $key => $val):
                                 $flag = false;
                                 for($i = 0; $i < count($eform_list); $i++){
-                                  if( ($eform_list[$i]['site_id'] == $val['site_id']) && ($eform_list[$i]['case_id'] == $val['ticket_id']) && ($eform_list[$i]['created_by'] == $this->session->userdata('name')." ".$this->session->userdata('surname')) ){
+                                  if( ($eform_list[$i]['site_id'] == $val['site_id']) && ($eform_list[$i]['asset_type'] == $val['asset_type']) && ($eform_list[$i]['ma_type'] == $val['ma_type']) && ($eform_list[$i]['created_by'] == $this->session->userdata('name')." ".$this->session->userdata('surname')) ){
                                     $flag = true;
                                   }
                                 }
                           ?>
                             <tr>
-                                <td class="text-left"><a href="#"><?=$val['site_name'];?></a></td>
-                                <td class="text-left"><a href="#"><?=$val['ticket_id'];?></a></td>
-                                <td class="text-left">
+                              <td class="text-left"><?=$val['site_name'];?></td>
+                              <td class="text-left"><?=$val['asset_type'];?> [<?=$val['ma_type'];?>]</td>
+                              <td class="text-left">
                                 <? 
                                   if( !empty($committee_list) ){
                                     if(in_array($this->session->userdata('name')." ".$this->session->userdata('surname'), $committee_list) ){
@@ -325,18 +324,16 @@
                     </div>
                     <div class="x_content">
                         <table id="tbEform" name="tbEform" class="table table-striped">
-                        <thead>
+                          <thead>
                             <tr>
-                            <!-- <th class="text-center">หมายเลข</th> -->
-                            <th class="text-center">ชื่อหน่วยงาน</th>
-                            <th class="text-center">จังหวัด</th>
-                            <th class="text-center">ประเภทการตรวจสอบ</th>
-                            <!-- <th class="text-center">ประเภทการตรวจสอบ</th> -->
-                            <th class="text-center">ผู้ตรวจสอบ</th>
-                            <th class="text-center">วันที่ตรวจสอบ</th>
-                            <th class="text-center"></th>
+                              <th class="text-center">ชื่อหน่วยงาน</th>
+                              <th class="text-center">จังหวัด</th>
+                              <th class="text-center">ประเภทการตรวจสอบ</th>
+                              <th class="text-center">ผู้ตรวจสอบ</th>
+                              <th class="text-center">วันที่ตรวจสอบ</th>
+                              <th class="text-center"></th>
                             </tr>
-                        </thead>
+                          </thead>
                         
                         <tbody>
                         <? 
@@ -345,14 +342,19 @@
                             foreach($eform_list as $eform_key => $eform_val):
                         ?>
                             <tr>
-                              <!-- <td class="text-left"><a href="#"><?=$eform_val['eform_id'];?></a></td> -->
-                              <td class="text-left"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['site_name'];?></a></td>
-                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['province'];?></a></td>
-                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['case_category'];?> [PM]</a></td>
-                              <!-- <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>">PM</a></td> -->
-                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['created_by'];?></a></td>
-                              <td class="text-center"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['created_date'];?></a></td>
-                              <td class="text-center"></td>
+                              <td class="text-left"><?=$eform_val['site_name'];?></td>
+                              <td class="text-center"><?=$eform_val['province'];?></td>
+                              <td class="text-center"><?=$eform_val['asset_type'];?> [<?=$eform_val['ma_type']?>]</td>
+                              <td class="text-center"><?=$eform_val['created_by'];?></td>
+                              <td class="text-center"><?=$eform_val['created_date'];?></td>
+                              <td class="text-center">
+                                <? if( $permission->eform_view){?>
+                                  <a href="<?=site_url('eform/view')?>/<?=$eform_val['eform_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-folder-open"></i> เรียกดู</a>
+                                <? } ?>
+                                <? if( $permission->eform_delete){?>
+                                  <a href="#" class="btn btn-round btn-danger btn-xs" id='disableEformbtn' name='disableEformbtn' data-eform_id="<?=$eform_val['eform_id'];?>" data-site_name="<?=$eform_val['site_name'];?>" data-schedule_id="<?=$eform_val['schedule_id'];?>" data-committee="<?=$eform_val['created_by'];?>" data-toggle="modal" data-target="#disableEformModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
+                                <? } ?>
+                              </td>
                             </tr>  
                         <?      
                             endforeach;
