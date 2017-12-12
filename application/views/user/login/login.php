@@ -28,40 +28,43 @@
 					</div>
 				</div>
 			<?php endif; ?>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="login_wrapper">
+						<div class="animate form login_form">
+						<section class="login_content">
+							<?php echo form_open('user/login'); ?>
+							<h1>ระบบตรวจออนไลน์</h1>
+							<div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<input id="username" name="username" type="text" class="form-control" placeholder="Username" required="" />
+							</div>
+							<div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<input id="password" name="password"  type="password" class="form-control" placeholder="Password" required="" />
+							</div>
+							<div>
+								<!-- <a class="btn btn-default submit" >Log in</a> -->
+								<button class="btn btn-primary" type="submit" id="login">Log in</button>
+								<!-- <a class="reset_pass" href="#">Lost your password?</a> -->
+							</div>
 
-			<div class="login_wrapper">
-				<div class="animate form login_form">
-				<section class="login_content">
-					<?php echo form_open('user/login'); ?>
-					<h1>ระบบตรวจออนไลน์</h1>
-					<div>
-						<input id="username" name="username" type="text" class="form-control" placeholder="Username" required="" />
-					</div>
-					<div>
-						<input id="password" name="password"  type="password" class="form-control" placeholder="Password" required="" />
-					</div>
-					<div>
-						<!-- <a class="btn btn-default submit" >Log in</a> -->
-						<button class="btn btn-primary" type="submit" id="login">Log in</button>
-						<!-- <a class="reset_pass" href="#">Lost your password?</a> -->
-					</div>
+							<div class="clearfix"></div>
 
-					<div class="clearfix"></div>
+							<div class="separator">
 
-					<div class="separator">
+								<!-- <a href="#signup" class="to_register"> Create Account </a> -->
 
-						<!-- <a href="#signup" class="to_register"> Create Account </a> -->
+								<div class="clearfix"></div>
+								<br />
 
-						<div class="clearfix"></div>
-						<br />
-
-						<div>
-						<!-- <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1> -->
-						<p>© Office of Higher Education Commission</p>
+								<div>
+								<!-- <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1> -->
+								<p>© Office of Higher Education Commission</p>
+								</div>
+							</div>
+							<?php echo form_close(); ?>
+						</section>
 						</div>
 					</div>
-					<?php echo form_close(); ?>
-				</section>
 				</div>
 			</div>
 		</div><!-- .row -->
