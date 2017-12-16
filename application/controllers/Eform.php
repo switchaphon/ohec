@@ -21,9 +21,31 @@ class Eform extends MY_Controller {
 		$this->_init();
 		$this->_init_assets( array('datatables','bootstrap-daterangepicker') );
 		$this->load->model( array('Eform_model'));
+		
+		$this->data['total_eform'] = $this->data['passed_eform'] = $this->data['not_passed_eform'] = 0;
+		
+		if( !empty($_POST) ){
+			$this->data['all_eform_list'] = $this->Eform_model->get_all_eform_by_period($_POST['eform-time']);	
+			$this->data['passed_eform_list'] = $this->Eform_model->get_passed_eform_by_period($_POST['eform-time']);	
+			$this->data['not_passed_eform_list'] = $this->Eform_model->get_not_passed_eform_by_period($_POST['eform-time']);	
+		}else{
+			$this->data['all_eform_list'] = $this->Eform_model->get_all_eform();
+			$this->data['passed_eform_list'] = $this->Eform_model->get_passed_eform();
+			$this->data['not_passed_eform_list'] = $this->Eform_model->get_not_passed_eform();
+		}
+		// print_r($this->data['all_eform_list']);
+		// print_r($this->data['passed_eform_list']);
+		// print_r($this->data['not_passed_eform_list']);
 
-		$this->data['eform_list'] = $this->Eform_model->get_eform();	
-        $this->load->view('eform/index',$this->data);
+		// echo $this->data['total_eform']." ".$this->data['passed_eform']." ".$this->data['not_passed_eform']."<BR>"; 
+		
+		$this->data['total_eform'] = count($this->data['all_eform_list']);
+		$this->data['passed_eform'] = count($this->data['passed_eform_list']);
+		$this->data['not_passed_eform'] = count($this->data['not_passed_eform_list']);
+
+		// echo $this->data['total_eform']." ".$this->data['passed_eform']." ".$this->data['not_passed_eform']."<BR>"; 
+
+		$this->load->view('eform/index',$this->data);
 	}
 	
 	public function view($eform_id = null){

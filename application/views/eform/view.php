@@ -195,7 +195,7 @@
                                                                 $ans_text = $ans_val['answer_text'];
                                                                 $ans_value = $ans_val['answer_value'];
         
-                                                                if($ans_value  == $answer_value){$checked = "<i class=\"fa fa-check-circle-o\"></i>"; }else{$checked = "<i class=\"fa fa-circle-o\"></i>";}
+                                                                if($ans_value  == $answer_value){$checked = "<i class=\"fa fa-check-circle-o green\" style=\"font-size:20px;\"></i>"; }else{$checked = "<i class=\"fa fa-circle-o\" style=\"font-size:20px;\"></i>";}
         
                                                                 $answer = $answer."
                                                                     <div class=\"col-lg-3 col-md-3 col-sm-3 col-xs-5\">
