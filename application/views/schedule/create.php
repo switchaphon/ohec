@@ -20,24 +20,17 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="project">โครงการ <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="project"  name="project" class="form-control col-md-7 col-xs-12" required>
+                                    <input type="text" id="project"  name="project" class="form-control col-md-7 col-xs-12" placeholder="ตัวอย่างเช่น ไฟเบอร์ หรือ อุปกรณ์" required>
                                 </div>
-                                <p class="help-block col-md-3 col-sm-3 col-xs-12">ตัวอย่าง<i><b>'ไฟเบอร์'</b> หรือ <b>'อุปกรณ์'</b></i></p>
+                                <!-- <p class="help-block col-md-3 col-sm-3 col-xs-12">ตัวอย่าง<i><b>'ไฟเบอร์'</b> หรือ <b>'อุปกรณ์'</b></i></p> -->
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="period">งวดงาน <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="period"  name="period" class="form-control col-md-7 col-xs-12" required>
+                                    <input type="text" id="period"  name="period" class="form-control col-md-7 col-xs-12" placeholder="ตัวอย่างเช่น 1/2561" required>
                                 </div>
-                                <p class="help-block col-md-3 col-sm-3 col-xs-12">ตัวอย่าง <i><b>'1/2561'</b></i></p>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">รายละเอียด <span class="required">*</span></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <textarea id="description"  name="description" class="form-control col-md-7 col-xs-12" required></textarea>
-                                </div>
+                                <!-- <p class="help-block col-md-3 col-sm-3 col-xs-12">ตัวอย่าง <i><b>'1/2561'</b></i></p> -->
                             </div>
 
                             <div class="form-group">
@@ -93,6 +86,13 @@
                                     ?>        
                                 </div>
                             </div>        
+                            
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">รายละเอียด </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <textarea id="description"  name="description" class="form-control col-md-7 col-xs-12" ></textarea>
+                                </div>
+                            </div>
 
                             <div class="ln_solid"></div>
 

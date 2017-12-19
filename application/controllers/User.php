@@ -185,8 +185,9 @@ class User extends MY_Controller {
 				unset($_SESSION[$key]);
             }
 
-			// user logout ok
-			$this->load->view('user/logout/logout_success', $data);
+			// user logout ok then redirect him to site root
+			// $this->load->view('user/logout/logout_success', $data);
+			redirect('/');
 		} else {
 			
 			// there user was not logged in, we cannot logged him out,

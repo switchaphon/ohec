@@ -24,6 +24,7 @@
               <div class="col-md-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
+                    <!-- <h2>ตารางตรวจงาน <? echo $schedule[0]['schedule_project']." ".$schedule[0]['schedule_period']." (".$schedule[0]['region'].")"; ?> <i class="fa fa-info-circle"></i><small></small></h2> -->
                     <h2>รายละเอียดตารางตรวจงาน <i class="fa fa-info-circle"></i><small></small></h2>
                     <ul class="nav navbar-right panel_toolbox" style="padding-left: 50px;">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
@@ -41,14 +42,19 @@
                     </div> -->
 
                     <div class="row">
-                      <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">ชื่อ</label>
-                      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$val['schedule_name'];?></div>
+                      <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">โครงการ</label>
+                      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$val['schedule_project'];?></div>
                     </div>
 
                     <div class="row">
-                      <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">รายละเอียด</label>
-                      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$val['schedule_description'];?></div>
+                      <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">งวดงาน</label>
+                      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$val['schedule_period'];?></div>
                     </div>
+
+                    <!-- <div class="row">
+                      <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">ชื่อ</label>
+                      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$val['schedule_name'];?></div>
+                    </div> -->
           
                     <div class="row">
                       <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">กำหนดการ</label>
@@ -69,7 +75,16 @@
                       <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">จังหวัด</label>
                       <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$val['province'];?></div>
                     </div>
+                    
+                    <? if(!empty($val['schedule_description'])) { ?>
+                    <div class="row">
+                      <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">รายละเอียด</label>
+                      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$val['schedule_description'];?></div>
+                    </div>
+                    <? } ?>
+
                     <div class="ln_solid"></div>    
+                    
                     <div class="row">
                       <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">สร้างเมื่อ</label>
                       <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$val['created_date'];?></div>
@@ -136,14 +151,14 @@
                           if( !in_array($this->session->userdata('name')." ".$this->session->userdata('surname'), $committee_list, true) ) {
                       ?>
                         <? if( $permission->schedule_view){ ?>
-                          <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('name')." ".$this->session->userdata('surname');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
+                          <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_project="<?=$schedule[0]['schedule_project'];?>" data-schedule_period="<?=$schedule[0]['schedule_period'];?>" data-region="<?=$schedule[0]['region_name'];?>" data-name="<?=$this->session->userdata('name')." ".$this->session->userdata('surname');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
                         <? } ?>
                       <?  
                           }
                         }else{ 
                       ?>
                         <? if( $permission->schedule_view){ ?>
-                          <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('name')." ".$this->session->userdata('surname');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
+                          <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_project="<?=$schedule[0]['schedule_project'];?>" data-schedule_period="<?=$schedule[0]['schedule_period'];?>" data-region="<?=$schedule[0]['region_name'];?>" data-name="<?=$this->session->userdata('name')." ".$this->session->userdata('surname');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
                         <? } ?>
                       <?  
                         }
@@ -167,7 +182,7 @@
                             <? if($val == $this->session->userdata('name')." ".$this->session->userdata('surname')) { ?>
                               <td class="text-left">
                                 <? if( $permission->schedule_view){ ?>
-                                  <a href="#" class="btn btn-round btn-danger btn-xs" id='disjoinSchedulebtn' name='disjoinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_description="<?=$schedule[0]['schedule_description'];?>" data-schedule_name="<?=$schedule[0]['schedule_name'];?>" data-name="<?=$this->session->userdata('name')." ".$this->session->userdata('surname');?>"  data-toggle="modal" data-target="#disjoinScheduleModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
+                                  <a href="#" class="btn btn-round btn-danger btn-xs" id='disjoinSchedulebtn' name='disjoinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_project="<?=$schedule[0]['schedule_project'];?>" data-schedule_period="<?=$schedule[0]['schedule_period'];?>" data-region="<?=$schedule[0]['region_name'];?>" data-name="<?=$this->session->userdata('name')." ".$this->session->userdata('surname');?>"  data-toggle="modal" data-target="#disjoinScheduleModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
                                 <? } ?>
                                 </td>
                             <? }else{ ?>
@@ -448,12 +463,13 @@
 
     $('#joinScheduleModal').on('show.bs.modal', function(e) {
       var schedule_id = $(e.relatedTarget).data('schedule_id')
-      var schedule_name = $(e.relatedTarget).data('schedule_name')
-      var schedule_description = $(e.relatedTarget).data('schedule_description')
+      var schedule_project = $(e.relatedTarget).data('schedule_project')
+      var schedule_period = $(e.relatedTarget).data('schedule_period')
+      var region = $(e.relatedTarget).data('region')      
       var name = $(e.relatedTarget).data('name')
 
       $("#joinScheduleModal .modal-header .modal-title").html('เข้าร่วมการตรวจงานนี้');
-      $("#joinScheduleModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการเข้าร่วมเป็นกรรมการการตรวจงาน<BR><BR><b>'+schedule_description+'</b><BR><BR>ใช่หรือไม่ ?</div>');
+      $("#joinScheduleModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการเข้าร่วมเป็นกรรมการการตรวจงาน<BR><BR><b>'+schedule_project+' '+schedule_period+'<BR>'+region+'</b><BR><BR>ใช่หรือไม่ ?</div>');
 
       $(e.currentTarget).find('input[name="schedule_id"]').val(schedule_id);
       $(e.currentTarget).find('input[name="name"]').val(name);
@@ -461,12 +477,13 @@
 
     $('#disjoinScheduleModal').on('show.bs.modal', function(e) {
       var schedule_id = $(e.relatedTarget).data('schedule_id')
-      var schedule_name = $(e.relatedTarget).data('schedule_name')
-      var schedule_description = $(e.relatedTarget).data('schedule_description')
+      var schedule_project = $(e.relatedTarget).data('schedule_project')
+      var schedule_period = $(e.relatedTarget).data('schedule_period')
+      var region = $(e.relatedTarget).data('region')
       var name = $(e.relatedTarget).data('name')
 
       $("#disjoinScheduleModal .modal-header .modal-title").html('ยกเลิกเข้าร่วมการตรวจงานนี้');
-      $("#disjoinScheduleModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกเป็นกรรมการการตรวจงาน<BR><BR><b>'+schedule_description+'</b><BR><BR>ใช่หรือไม่ ?</div>');
+      $("#disjoinScheduleModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกเป็นกรรมการการตรวจงาน<BR><BR><b>'+schedule_project+' '+schedule_period+'<BR>'+region+'</b><BR><BR>ใช่หรือไม่ ?</div>');
 
       $(e.currentTarget).find('input[name="schedule_id"]').val(schedule_id);
       $(e.currentTarget).find('input[name="name"]').val(name);

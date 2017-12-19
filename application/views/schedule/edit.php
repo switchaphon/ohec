@@ -24,7 +24,7 @@
               <div class="col-md-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>รายละเอียดตารางตรวจงาน <i class="fa fa-info-circle"></i><small></small></h2>
+                    <h2>แก้ไขตารางตรวจงาน <i class="fa fa-info-circle"></i><small></small></h2>
                     <ul class="nav navbar-right panel_toolbox" style="padding-left: 50px;">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                       <li><a class="close-link"><i class="fa fa-close"></i></a></li>
@@ -43,18 +43,18 @@
                     </div> -->
 
                     <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" >ชื่อ <span class="required">*</span></label>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" >โครงการ <span class="required">*</span></label>
                         <div class="col-md-8 col-sm-9 col-xs-12 text-left">
-                            <input type="text" id="name"  name="name" class="form-control" value="<?=$val['schedule_name'];?>" required>
+                            <input type="text" id="project"  name="project" class="form-control" placeholder="ตัวอย่างเช่น ไฟเบอร์ หรือ อุปกรณ์" value="<?=$val['schedule_project'];?>" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="textarea">รายละเอียด <span class="required">*</span></label>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" >งวดงาน <span class="required">*</span></label>
                         <div class="col-md-8 col-sm-9 col-xs-12 text-left">
-                            <textarea id="description"  name="description" class="form-control" required><?=$val['schedule_description'];?></textarea>
+                            <input type="text" id="period"  name="period" class="form-control" placeholder="ตัวอย่างเช่น 1/2561" value="<?=$val['schedule_period'];?>" required>
                         </div>
-                    </div>
+                    </div>                    
 
                     <div class="form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="name">กำหนดการ <span class="required">*</span></label>
@@ -134,6 +134,13 @@
                             ?>                                  
                         </div>
                     </div>   
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="textarea">รายละเอียด </label>
+                        <div class="col-md-8 col-sm-9 col-xs-12 text-left">
+                            <textarea id="description"  name="description" class="form-control"><?=$val['schedule_description'];?></textarea>
+                        </div>
+                    </div>
 
                     <? endforeach; ?>
 

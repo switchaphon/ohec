@@ -86,7 +86,9 @@ class Schedule extends MY_Controller {
 
 		$data = array(
 			'schedule_id' => $schedule_id
-			,'schedule_name' => $_POST['project']." ".$_POST['period']." (".$region.")"
+			,'schedule_name' => $_POST['project']." ".$_POST['period']
+			,'schedule_project' => $_POST['project']
+			,'schedule_period' => $_POST['period']
 			,'schedule_description' => $_POST['description']
 			,'region' => $region
 			,'province' => $province
@@ -200,7 +202,9 @@ class Schedule extends MY_Controller {
 
 		$data = array(
 			'schedule_id' => $_POST['schedule_id']
-			,'schedule_name' => $_POST['name']
+			,'schedule_name' => $_POST['project']." ".$_POST['period']
+			,'schedule_project' => $_POST['project']
+			,'schedule_period' => $_POST['period']
 			,'schedule_description' => $_POST['description']
 			,'region' => $region
 			,'province' => $province

@@ -12,8 +12,9 @@ class Schedule_model extends CI_Model {
 
     function list_opened_schedule() {
         $sql ="
-        SELECT schedule.`schedule_id`,`schedule_name`,`schedule_description`,`region`,`province`,`start_date`,`end_date`
+        SELECT schedule.`schedule_id`,`schedule_name`,`schedule_project`,`schedule_period`,`schedule_description`,`region`,`region_name`,`province`,`start_date`,`end_date`
         FROM tb_schedule schedule
+            LEFT JOIN tb_region region ON schedule.region = region.region_id
         WHERE status = '1'
         ORDER BY created_date DESC
             ";

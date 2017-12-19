@@ -52,7 +52,7 @@
                                     <!-- /left col -->
                                     <!-- right col -->
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
-                                        ตารางงาน : <b><a href="<?=site_url('schedule/view/'.$eform[0]['schedule_id']);?>"><?=$eform[0]['schedule_name']?></a></b>
+                                        ตารางงาน : <b><a href="<?=site_url('schedule/view/'.$eform[0]['schedule_id']);?>"><?=$eform[0]['schedule_project']." ".$eform[0]['schedule_period']." (".$eform[0]['region'].")"?></a></b>
                                         <br>ผู้ตรวจสอบ : <b><?=$eform[0]['created_by']?></b>
                                         <br>วันที่ตรวจสอบ : <b><?=$eform[0]['created_date']?></b>
                                     </div>
