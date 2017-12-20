@@ -45,11 +45,18 @@
                         <?
                           // echo "<pre>"; print_r($opened_schedule); echo "</pre>";
                           foreach($opened_schedule as $row):
-                            if($row['schedule_id'])
+                            // if($row['schedule_id'])
                               $joined = null;
                               if( !empty($joined_schedule) ){
                                 if(in_array($row['schedule_id'], $joined_schedule) ){ $joined = "<i class=\"fa fa-user green\"></i>"; }
                               }
+                              
+                              $region = null; 
+                              $region_array = explode("," , $row['region']); 
+                              foreach($region_array as $region_key => $region_val):
+                                $region = $region.$region_list[$region_val]."<BR>";
+                              endforeach;
+                            
                         ?>
                           <tr>
                               <td class="text-left"><?=$row['schedule_project'];?> <?=$row['schedule_period'];?> (<?=$row['region'];?>) <?=$joined;?></td>
@@ -64,7 +71,7 @@
                                   <a href="<?=site_url('schedule/edit')?>/<?=$row['schedule_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-pencil"></i> แก้ไข </a>
                                 <? } ?>
                                 <? if( $permission->schedule_delete){?> 
-                                  <a href="#" class="btn btn-round btn-danger btn-xs" id='disableScheduleBtn' name='disableScheduleBtn' data-schedule_id="<?=$row['schedule_id'];?>"  data-schedule_project="<?=$row['schedule_project'];?>" data-schedule_period="<?=$row['schedule_period'];?>" data-region="<?=$row['region_name'];?>" data-toggle="modal" data-target="#disableScheduleModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
+                                  <a href="#" class="btn btn-round btn-danger btn-xs" id='disableScheduleBtn' name='disableScheduleBtn' data-schedule_id="<?=$row['schedule_id'];?>"  data-schedule_project="<?=$row['schedule_project'];?>" data-schedule_period="<?=$row['schedule_period'];?>" data-region="<?=$region;?>" data-toggle="modal" data-target="#disableScheduleModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
                                 <? } ?>
                               </td>
                           </tr>
@@ -131,7 +138,7 @@
           var called_page = "schedule";
 
           $("#disableScheduleModal .modal-header .modal-title").html('ยกเลิกตารางตรวจงาน');
-          $("#disableScheduleModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกตารางตรวจงาน<BR><BR><b>'+schedule_project+' '+schedule_period+'<BR>'+region+'</b><BR><BR>ใช่หรือไม่ ?</div>');
+          $("#disableScheduleModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกตารางตรวจงาน<BR><BR><b>'+schedule_project+' '+schedule_period+'<BR>'+region+'</b><BR>ใช่หรือไม่ ?</div>');
 
           // $(e.currentTarget).find('input[name="eform_id"]').val(eform_id);
           $(e.currentTarget).find('input[name="schedule_id"]').val(schedule_id);

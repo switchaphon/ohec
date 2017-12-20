@@ -96,9 +96,11 @@
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="name">พื้นที่ <span class="required">*</span></label>
                         <div class="col-md-8 col-sm-9 col-xs-12 text-left">
                             <?
+                               $region_array = explode("," , $val['region']);
                                 echo "<select name=\"region[]\" id=\"region\" class=\"form-control selectpicker show-tick\" title=\"select \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" multiple required>";
                                 foreach($region_list as $reg_key => $reg_val):
-                                    if($reg_key == $val['region']){
+                                    // if($reg_key == $val['region']){
+                                      if( in_array( $reg_key , $region_array) ) {  
                                         echo "<option value=\"".$reg_key."\" selected>".$reg_val."</option>\"";
                                     }else{
                                         echo "<option value=\"".$reg_key."\">".$reg_val."</option>\"";

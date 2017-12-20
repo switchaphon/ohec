@@ -67,8 +67,15 @@
                     </div>
 
                     <div class="row">
+                      <?
+                        $region = null; 
+                        $region_array = explode("," , $val['region']); 
+                        foreach($region_array as $region_key => $region_val):
+                          $region = $region.$region_list[$region_val]."<BR>";
+                        endforeach;
+                      ?>
                       <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">พื้นที่</label>
-                      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$val['region_name'];?></div>
+                      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$region;?></div>
                     </div>
 
                     <div class="row">
@@ -151,14 +158,14 @@
                           if( !in_array($this->session->userdata('name')." ".$this->session->userdata('surname'), $committee_list, true) ) {
                       ?>
                         <? if( $permission->schedule_view){ ?>
-                          <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_project="<?=$schedule[0]['schedule_project'];?>" data-schedule_period="<?=$schedule[0]['schedule_period'];?>" data-region="<?=$schedule[0]['region_name'];?>" data-name="<?=$this->session->userdata('name')." ".$this->session->userdata('surname');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
+                          <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_project="<?=$schedule[0]['schedule_project'];?>" data-schedule_period="<?=$schedule[0]['schedule_period'];?>" data-region="<?=$region;?>" data-name="<?=$this->session->userdata('name')." ".$this->session->userdata('surname');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
                         <? } ?>
                       <?  
                           }
                         }else{ 
                       ?>
                         <? if( $permission->schedule_view){ ?>
-                          <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_project="<?=$schedule[0]['schedule_project'];?>" data-schedule_period="<?=$schedule[0]['schedule_period'];?>" data-region="<?=$schedule[0]['region_name'];?>" data-name="<?=$this->session->userdata('name')." ".$this->session->userdata('surname');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
+                          <a href="#" class="btn btn-round btn-success pull-right" id='joinSchedulebtn' name='joinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_project="<?=$schedule[0]['schedule_project'];?>" data-schedule_period="<?=$schedule[0]['schedule_period'];?>" data-region="<?=$region;?>" data-name="<?=$this->session->userdata('name')." ".$this->session->userdata('surname');?>"  data-toggle="modal" data-target="#joinScheduleModal"  ><span class="fa fa-plus" aria-hidden="true"></span> เข้าร่วม</a>
                         <? } ?>
                       <?  
                         }
@@ -182,7 +189,7 @@
                             <? if($val == $this->session->userdata('name')." ".$this->session->userdata('surname')) { ?>
                               <td class="text-left">
                                 <? if( $permission->schedule_view){ ?>
-                                  <a href="#" class="btn btn-round btn-danger btn-xs" id='disjoinSchedulebtn' name='disjoinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_project="<?=$schedule[0]['schedule_project'];?>" data-schedule_period="<?=$schedule[0]['schedule_period'];?>" data-region="<?=$schedule[0]['region_name'];?>" data-name="<?=$this->session->userdata('name')." ".$this->session->userdata('surname');?>"  data-toggle="modal" data-target="#disjoinScheduleModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
+                                  <a href="#" class="btn btn-round btn-danger btn-xs" id='disjoinSchedulebtn' name='disjoinSchedulebtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-schedule_project="<?=$schedule[0]['schedule_project'];?>" data-schedule_period="<?=$schedule[0]['schedule_period'];?>" data-region="<?=$region;?>" data-name="<?=$this->session->userdata('name')." ".$this->session->userdata('surname');?>"  data-toggle="modal" data-target="#disjoinScheduleModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
                                 <? } ?>
                                 </td>
                             <? }else{ ?>
@@ -255,7 +262,7 @@
                                   <? } ?>
                                 <?  } 
                                     if( $permission->schedule_delete){?>  
-                                  <a href="#" class="btn btn-round btn-danger btn-xs" id='cancelTaskbtn' name='cancelTaskbtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-site_id="<?=$val['site_id'];?>" data-site_name="<?=$val['site_name'];?>" data-ticket_id="<?=$val['ticket_id'];?>" data-toggle="modal" data-target="#cancelTaskModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ลบ</a>                                
+                                  <a href="#" class="btn btn-round btn-danger btn-xs" id='cancelTaskbtn' name='cancelTaskbtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-site_id="<?=$val['site_id'];?>" data-site_name="<?=$val['site_name'];?>" data-schedule_project="<?=$schedule[0]['schedule_project'];?>" data-schedule_period="<?=$schedule[0]['schedule_period'];?>"data-toggle="modal" data-target="#cancelTaskModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ลบ</a>                                
                                 <? 
                                       } 
                                     }
@@ -469,7 +476,7 @@
       var name = $(e.relatedTarget).data('name')
 
       $("#joinScheduleModal .modal-header .modal-title").html('เข้าร่วมการตรวจงานนี้');
-      $("#joinScheduleModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการเข้าร่วมเป็นกรรมการการตรวจงาน<BR><BR><b>'+schedule_project+' '+schedule_period+'<BR>'+region+'</b><BR><BR>ใช่หรือไม่ ?</div>');
+      $("#joinScheduleModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการเข้าร่วมเป็นกรรมการการตรวจงาน<BR><BR><b>'+schedule_project+' '+schedule_period+'<BR>'+region+'</b><BR>ใช่หรือไม่ ?</div>');
 
       $(e.currentTarget).find('input[name="schedule_id"]').val(schedule_id);
       $(e.currentTarget).find('input[name="name"]').val(name);
@@ -483,7 +490,7 @@
       var name = $(e.relatedTarget).data('name')
 
       $("#disjoinScheduleModal .modal-header .modal-title").html('ยกเลิกเข้าร่วมการตรวจงานนี้');
-      $("#disjoinScheduleModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกเป็นกรรมการการตรวจงาน<BR><BR><b>'+schedule_project+' '+schedule_period+'<BR>'+region+'</b><BR><BR>ใช่หรือไม่ ?</div>');
+      $("#disjoinScheduleModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกเป็นกรรมการการตรวจงาน<BR><BR><b>'+schedule_project+' '+schedule_period+'<BR>'+region+'</b><BR>ใช่หรือไม่ ?</div>');
 
       $(e.currentTarget).find('input[name="schedule_id"]').val(schedule_id);
       $(e.currentTarget).find('input[name="name"]').val(name);
@@ -493,10 +500,12 @@
       var schedule_id = $(e.relatedTarget).data('schedule_id')
       var site_id = $(e.relatedTarget).data('site_id')
       var site_name = $(e.relatedTarget).data('site_name')
-      var ticket_id = $(e.relatedTarget).data('ticket_id')
+      // var ticket_id = $(e.relatedTarget).data('ticket_id')
+      var schedule_project = $(e.relatedTarget).data('schedule_project')
+      var schedule_period = $(e.relatedTarget).data('schedule_period')
 
-      $("#cancelTaskModal .modal-header .modal-title").html('ยกเลิกรายการตรวจงาน');
-      $("#cancelTaskModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกรายการการตรวจงาน<BR><BR><b>'+ticket_id+'</b><BR>ของ<BR><b>'+site_name+'</b><BR><BR>ใช่หรือไม่ ?</div>');
+      $("#cancelTaskModal .modal-header .modal-title").html('ยกเลิกการตรวจ');
+      $("#cancelTaskModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกการตรวจ<BR><BR><b>'+schedule_project+' '+schedule_period+'<BR>'+site_name+'</b><BR><BR>ใช่หรือไม่ ?</div>');
 
       $(e.currentTarget).find('input[name="schedule_id"]').val(schedule_id);
       $(e.currentTarget).find('input[name="site_id"]').val(site_id);

@@ -20,10 +20,12 @@ class Schedule extends MY_Controller {
 	public function index(){
 		$this->_init();
 		$this->_init_assets( array('datatables') );
-		$this->load->model( array('Schedule_model'));
+		$this->load->model( array('Schedule_model','Site_model'));
 		// echo "<pre>"; print_r($this->get_permission()); echo "</pre>";
 		
 		// echo $this->get_permission('user_add');
+		//Get reqion list
+		$this->data['region_list'] = $this->Site_model->list_region();		
 		//Get schedule
 		$this->data['opened_schedule'] = $this->Schedule_model->list_opened_schedule();
 		$this->data['joined_schedule'] = $this->Schedule_model->list_joined_schedule($this->session->userdata('name')." ".$this->session->userdata('surname'));
@@ -120,7 +122,10 @@ class Schedule extends MY_Controller {
 		$province_list = str_replace("," , "','" , $this->data['schedule'][0]['province']);
 		$this->data['ticket_start_date'] = $ticket_start_date = $this->data['schedule'] [0]['ticket_start_date'];
 		$this->data['ticket_end_date'] = $ticket_end_date = $this->data['schedule'] [0]['ticket_end_date'];
-
+		
+		//Get reqion list		
+		$this->data['region_list'] = $this->Site_model->list_region();
+		
 		$this->data['form_list'] = $this->Eform_model->list_form();		
 		$this->data['site_list'] = $this->Site_model->list_site_by_province($province_list,$ticket_start_date,$ticket_end_date,$schedule_id);
 		$this->data['task_list'] = $this->Schedule_model->get_schedule_task($schedule_id);
