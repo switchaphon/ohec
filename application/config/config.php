@@ -26,8 +26,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 date_default_timezone_set("Asia/Bangkok");
 
-// $config['base_url'] = '';
-$config['base_url'] = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}";
+$config['base_url'] = '';
+// $config['base_url'] = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}";
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +40,7 @@ $config['base_url'] = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}";
 |
 */
 // $config['index_page'] = 'index.php';
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
