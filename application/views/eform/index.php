@@ -47,6 +47,20 @@
                                   </div>
                                 </div>
                             </fieldset>
+                            <?  
+
+                                if( !empty($schedule_list) ){
+                                    echo "<select id=\"period\" name=\"period\" class=\"form-control selectpicker show-tick\" title=\" เลือกตารางตรวจงาน \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" >";
+                                    foreach($schedule_list as $index => $value):
+                                        echo '<optgroup label="'.$index.'">';
+                                        foreach($value as $key=>$val): 
+                                           echo '<option value="'.$key.'">'.$index." - ".$key.'</option>'; 
+                                        endforeach;
+                                        echo '</optgroup>';
+                                    endforeach;
+                                    echo "</select>";
+                                }
+                            ?>             
                           </div>
                           <div class="form-group col-lg-3 col-md-6 col-sm-4 col-xs-4">
                             <button id="submit" type="submit" class="btn btn-round btn-primary">ค้นหา</button>
@@ -92,6 +106,7 @@
               <!-- <div class="ln_solid"></div> -->
 
               <span id="controlPanel"></span>
+              <!-- <? echo "<pre>"; print_r($schedule_list); echo "</pre>"; ?>                -->
               <table id="tbEform" name="tbEform" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline">
                 <thead>
                   <tr>
@@ -184,13 +199,46 @@
 <script>
   var table;
   $(document).ready(function(){
-    $('input[name="eform-time"]').daterangepicker({
-        timePicker: false,
-        locale: {
-            format: 'YYYY-MM-DD'
-        },
-        startDate: moment().subtract(29, 'days'),
-        endDate: moment()
+    // $('input[name="eform-time"]').daterangepicker({
+    //     timePicker: false,
+    //     locale: {
+    //         format: 'YYYY-MM-DD'
+    //     },
+    //     startDate: moment().subtract(29, 'days'),
+    //     endDate: moment()
+    // });
+
+    //Once region changed, re-query province
+    $('#period').change(function(){
+      // alert($('#period').val());
+
+    $.ajax({
+        type: "POST",
+        dataType: 'json',
+        url: "<?=site_url('/Eform/index');?>",
+        data: "period="+ $('#period').val(),
+    //     success: function(result)
+    //     {
+    //         $.each(result,function(region,province){
+    //             var str = '';
+    //             var opt = '';
+    //             for(i = 0; i<province.length; i++) {
+    //                 opt += '<option value="'+province[i]+'">'+province[i]+'</option>';                       
+    //             }
+
+    //             str += '<optgroup label="'+region+'">'+opt+'</optgroup>';
+
+    //             $("#province").append(str);
+    //         });//end each
+
+    //         $('#province').selectpicker('refresh');
+    //     },
+    //     error: function (xhr, ajaxOptions, thrownError) {
+    //         console.log(xhr.status);
+    //         console.log(thrownError);
+    //     }
+    });
+
     });
 
     table = $('#tbEform').DataTable({
