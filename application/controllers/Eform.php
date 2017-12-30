@@ -17,7 +17,7 @@ class Eform extends MY_Controller {
 		$this->data['permission'] = $this->get_permission();
 	}
 
-	public function index(){
+	public function index($schedule = null){
 		$this->_init();
 		$this->_init_assets( array('datatables','bootstrap-daterangepicker','bootstrap_select') );
 		$this->load->model( array('Eform_model','Schedule_model'));
@@ -25,50 +25,47 @@ class Eform extends MY_Controller {
 		$this->data['total_eform'] = $this->data['passed_eform'] = $this->data['not_passed_eform'] = 0;
 		
 		// echo "<pre>"; print_r($_POST); echo "</pre>";
-		if( !empty($_POST) ){
-			$this->data['all_eform_list'] = $this->Eform_model->get_all_eform_by_period($_POST['eform-time']);	
-			$this->data['passed_eform_list'] = $this->Eform_model->get_passed_eform_by_period($_POST['eform-time']);	
-			$this->data['not_passed_eform_list'] = $this->Eform_model->get_not_passed_eform_by_period($_POST['eform-time']);	
+		
+		if( !empty($schedule) ){
+			// $this->data['all_eform_list'] = $this->Eform_model->get_all_eform_by_period($_POST['eform-time']);	
+			// $this->data['passed_eform_list'] = $this->Eform_model->get_passed_eform_by_period($_POST['eform-time']);	
+			// $this->data['not_passed_eform_list'] = $this->Eform_model->get_not_passed_eform_by_period($_POST['eform-time']);	
+			$this->data['all_eform_list'] = $this->Eform_model->get_all_eform_by_schedule(urldecode($schedule));	
+			$this->data['passed_eform_list'] = $this->Eform_model->get_passed_eform_by_schedule(urldecode($schedule));	
+			$this->data['not_passed_eform_list'] = $this->Eform_model->get_not_passed_eform_by_schedule(urldecode($schedule));
+			$this->data['schedule_title'] = str_replace('.','/',$schedule);	
 		}else{
 			$this->data['all_eform_list'] = $this->Eform_model->get_all_eform();
 			$this->data['passed_eform_list'] = $this->Eform_model->get_passed_eform();
 			$this->data['not_passed_eform_list'] = $this->Eform_model->get_not_passed_eform();
+			$this->data['schedule_title'] = "ทั้งหมด";
 		}
-		// print_r($this->data['all_eform_list']);
-		// print_r($this->data['passed_eform_list']);
-		// print_r($this->data['not_passed_eform_list']);
 
-		// echo $this->data['total_eform']." ".$this->data['passed_eform']." ".$this->data['not_passed_eform']."<BR>"; 
-		
 		$this->data['total_eform'] = count($this->data['all_eform_list']);
 		$this->data['passed_eform'] = count($this->data['passed_eform_list']);
 		$this->data['not_passed_eform'] = count($this->data['not_passed_eform_list']);
 
-		// echo $this->data['total_eform']." ".$this->data['passed_eform']." ".$this->data['not_passed_eform']."<BR>"; 
 		$schedule_list = $this->Schedule_model->list_opened_schedule();
-		// echo "<pre>"; print_r($schedule_list ); echo "</pre>";
 		$this->data['schedule_list'] = array();
-		foreach( $schedule_list as $key => $val):
-			$start_date = date("Y-m-d",strtotime($val['start_date']));
-			$end_date = date("Y-m-d",strtotime($val['end_date']));
 
-			if( empty( $this->data['schedule_list'][ $val['schedule_project']." - ".$val['schedule_period'] ]  ) ){
-				// if( empty( $this->data['schedule_list'][ $val['schedule_project']." - ".$val['schedule_period'] ][$start_date." ".$end_date]  ) ){
-					// $this->data['schedule_list'][ $val['schedule_project']." - ".$val['schedule_period'] ][$start_date." ".$end_date] = $start_date." ".$end_date;
-				// }else{
-					$this->data['schedule_list'][ $val['schedule_project']." - ".$val['schedule_period'] ][$start_date." ".$end_date] = array($start_date." ".$end_date);
-					// $this->data['schedule_list'][ $val['schedule_project']." - ".$val['schedule_period'] ][$start_date." ".$end_date];
-					// );				
-				// }
+		//---//Select e-form list by schedule's start_date and end_date//--//
+		// foreach( $schedule_list as $key => $val):
+		// 	$start_date = date("Y-m-d",strtotime($val['start_date']));
+		// 	$end_date = date("Y-m-d",strtotime($val['end_date']));
+		// 	if( empty( $this->data['schedule_list'][ $val['schedule_project']." - ".$val['schedule_period'] ]  ) ){
+		// 		$this->data['schedule_list'][ $val['schedule_project']." - ".$val['schedule_period'] ][$start_date." ".$end_date] = array($start_date." ".$end_date);
+		// 	}else{
+		// 		$this->data['schedule_list'][ $val['schedule_project']." - ".$val['schedule_period'] ][$start_date." ".$end_date] = array($start_date." ".$end_date);			
+		// 	}
+		// endforeach;
+		
+		//---//Select e-form list by schedule_project and schedule_period//--//		//str_replace("world","Peter","Hello world!");
+		foreach( $schedule_list as $key => $val):
+
+			if( empty( $this->data['schedule_list'][ $val['schedule_project']]  ) ){
+				$this->data['schedule_list'][ $val['schedule_project']][$val['schedule_project']." - ".$val['schedule_period']] = array($val['schedule_project']." - ".$val['schedule_period']);
 			}else{
-				// if( empty( $this->data['schedule_list'][ $val['schedule_project']." - ".$val['schedule_period'] ][$start_date." ".$end_date]  ) ){
-					// $this->data['schedule_list'][ $val['schedule_project']." - ".$val['schedule_period'] ][$start_date." ".$end_date] = array( 
-					// 	'xxx' => $start_date." ".$end_date
-					// );
-				// }else{
-					$this->data['schedule_list'][ $val['schedule_project']." - ".$val['schedule_period'] ][$start_date." ".$end_date] = array($start_date." ".$end_date);			
-					// $this->data['schedule_list'][ $val['schedule_project']." - ".$val['schedule_period'] ][$start_date." ".$end_date];			
-				// }
+				$this->data['schedule_list'][ $val['schedule_project']][$val['schedule_project']." - ".$val['schedule_period']] = array($val['schedule_project']." - ".$val['schedule_period']);			
 			}
 
 		endforeach;

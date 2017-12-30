@@ -30,14 +30,14 @@
               <!-- /Dashboard --> 
               <div class="row text-center col-lg-12 col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
-                  <h2>รายงานสรุป <span id="Host_amount" class="badge"></span></h2>
+                  <h2>รายงานสรุปงานตรวจ<?=urldecode($schedule_title);?> <span id="Host_amount" class="badge"></span></h2>
                   <div class="x_content" style="padding-bottom: 0px; margin-top:0px">
                     <div class="row tile_count">
                       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                       <BR>
-                        <form role="form" id="searchEform" name="searchEform" class="form-inline form-label-left" data-toggle="validator" action="<?=site_url('eform');?>" method="post">
+                        <!-- <form role="form" id="searchEform" name="searchEform" class="form-inline form-label-left" data-toggle="validator" action="<?=site_url('eform');?>" method="post"> -->
                           <div class="form-group col-lg-9 col-md-6 col-sm-8 col-xs-8">
-                            <fieldset>
+                            <!-- <fieldset>
                                 <div class="control-group">
                                   <div class="controls">
                                       <div class="input-prepend input-group col-lg-10 col-md-10 col-sm-10 col-xs-10">
@@ -46,15 +46,19 @@
                                       </div>
                                   </div>
                                 </div>
-                            </fieldset>
+                            </fieldset> -->
                             <?  
 
                                 if( !empty($schedule_list) ){
-                                    echo "<select id=\"period\" name=\"period\" class=\"form-control selectpicker show-tick\" title=\" เลือกตารางตรวจงาน \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" >";
+                                    echo "<select id=\"schedule\" name=\"schedule\" class=\"form-control selectpicker show-tick\" title=\" เลือกตารางตรวจงาน \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" >";
                                     foreach($schedule_list as $index => $value):
-                                        echo '<optgroup label="'.$index.'">';
+                                        echo '<optgroup label="งานตรวจ'.$index.'">';
                                         foreach($value as $key=>$val): 
-                                           echo '<option value="'.$key.'">'.$index." - ".$key.'</option>'; 
+                                          if($key == urldecode($schedule_title) ){
+                                           echo '<option value="'.str_replace('/','.',$key).'" selected>'.$key.'</option>'; 
+                                          }else{
+                                           echo '<option value="'.str_replace('/','.',$key).'">'.$key.'</option>';                                             
+                                          }
                                         endforeach;
                                         echo '</optgroup>';
                                     endforeach;
@@ -62,10 +66,10 @@
                                 }
                             ?>             
                           </div>
-                          <div class="form-group col-lg-3 col-md-6 col-sm-4 col-xs-4">
+                          <!-- <div class="form-group col-lg-3 col-md-6 col-sm-4 col-xs-4">
                             <button id="submit" type="submit" class="btn btn-round btn-primary">ค้นหา</button>
-                          </div>
-                        </form>
+                          </div> -->
+                        <!-- </form> -->
                       </div>
                       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 tile_stats_count">
                         <a href="#" onclick="select_EformStatus('All')">
@@ -106,10 +110,10 @@
               <!-- <div class="ln_solid"></div> -->
 
               <span id="controlPanel"></span>
-              <!-- <? echo "<pre>"; print_r($schedule_list); echo "</pre>"; ?>                -->
               <table id="tbEform" name="tbEform" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline">
                 <thead>
                   <tr>
+                    <th class="text-center">งวดตรวจงาน</th>
                     <th class="text-center">ชื่อหน่วยงาน</th>
                     <th class="text-center">จังหวัด</th>
                     <th class="text-center">ประเภทการตรวจสอบ</th>
@@ -142,6 +146,7 @@
                   ?>
                       <tr>
                         <!-- <td class="text-left"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['site_name'];?></a></td> -->
+                        <td class="text-left"><?=$eform_val['schedule_project']." - ".$eform_val['schedule_period'];?></td>
                         <td class="text-left"><?=$eform_val['site_name'];?></td>
                         <td class="text-center"><?=$eform_val['province'];?></td>
                         <td class="text-center"><?=$eform_val['asset_type'];?> [<?=$eform_val['ma_type'];?>]</td>
@@ -209,35 +214,35 @@
     // });
 
     //Once region changed, re-query province
-    $('#period').change(function(){
-      // alert($('#period').val());
+    $('#schedule').change(function(){
+      // alert($('#schedule').val());
+      window.location = '<?=site_url('/Eform/index/');?>' + this.value;
+    // $.ajax({
+    //     type: "POST",
+    //     dataType: 'json',
+    //     url: "<?=site_url('/Eform/index');?>",
+    //     data: "schedule="+ $('#schedule').val(),
+    // //     success: function(result)
+    // //     {
+    // //         $.each(result,function(region,province){
+    // //             var str = '';
+    // //             var opt = '';
+    // //             for(i = 0; i<province.length; i++) {
+    // //                 opt += '<option value="'+province[i]+'">'+province[i]+'</option>';                       
+    // //             }
 
-    $.ajax({
-        type: "POST",
-        dataType: 'json',
-        url: "<?=site_url('/Eform/index');?>",
-        data: "period="+ $('#period').val(),
-    //     success: function(result)
-    //     {
-    //         $.each(result,function(region,province){
-    //             var str = '';
-    //             var opt = '';
-    //             for(i = 0; i<province.length; i++) {
-    //                 opt += '<option value="'+province[i]+'">'+province[i]+'</option>';                       
-    //             }
+    // //             str += '<optgroup label="'+region+'">'+opt+'</optgroup>';
 
-    //             str += '<optgroup label="'+region+'">'+opt+'</optgroup>';
+    // //             $("#province").append(str);
+    // //         });//end each
 
-    //             $("#province").append(str);
-    //         });//end each
-
-    //         $('#province').selectpicker('refresh');
-    //     },
-    //     error: function (xhr, ajaxOptions, thrownError) {
-    //         console.log(xhr.status);
-    //         console.log(thrownError);
-    //     }
-    });
+    // //         $('#province').selectpicker('refresh');
+    // //     },
+    // //     error: function (xhr, ajaxOptions, thrownError) {
+    // //         console.log(xhr.status);
+    // //         console.log(thrownError);
+    // //     }
+    // });
 
     });
 

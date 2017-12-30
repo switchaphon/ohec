@@ -403,12 +403,13 @@ class Eform_model extends CI_Model {
 
     function get_all_eform(){
         $sql ="
-            SELECT eform.eform_id,schedule_id,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date,form.asset_type,form.ma_type
+            SELECT eform.eform_id,eform.schedule_id,schedule_project,schedule_period,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date,form.asset_type,form.ma_type
             FROM `tb_eform` eform
+                LEFT JOIN `tb_schedule` schedule ON schedule.schedule_id = eform.schedule_id                
                 LEFT JOIN `tb_site` site ON site.site_id = eform.site_id
                 LEFT JOIN `tb_ticket` ticket ON ticket.case_id = eform.ticket_id
                 LEFT JOIN `tb_form` form ON form.form_id = eform.form_id
-            WHERE status != '0'
+            WHERE eform.status != '0'
             ORDER BY eform.created_date DESC
         
         ";
@@ -424,12 +425,13 @@ class Eform_model extends CI_Model {
 
     function get_passed_eform(){
         $sql ="
-        SELECT eform.eform_id,schedule_id,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date,form.asset_type,form.ma_type
+        SELECT eform.eform_id,eform.schedule_id,schedule_project,schedule_period,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date,form.asset_type,form.ma_type
         FROM `tb_eform` eform
+            LEFT JOIN `tb_schedule` schedule ON schedule.schedule_id = eform.schedule_id            
             LEFT JOIN `tb_site` site ON site.site_id = eform.site_id
             LEFT JOIN `tb_ticket` ticket ON ticket.case_id = eform.ticket_id
             LEFT JOIN `tb_form` form ON form.form_id = eform.form_id
-        WHERE status != '0' AND eform.eform_id IN (
+        WHERE eform.status != '0' AND eform.eform_id IN (
             SELECT checklist.eform_id
             FROM `tb_eform_checklist` checklist
             LEFT JOIN `tb_eform` eform ON eform.eform_id = checklist.eform_id
@@ -455,12 +457,13 @@ class Eform_model extends CI_Model {
 
     function get_not_passed_eform(){
         $sql ="
-        SELECT eform.eform_id,schedule_id,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date,form.asset_type,form.ma_type
+        SELECT eform.eform_id,eform.schedule_id,schedule_project,schedule_period,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date,form.asset_type,form.ma_type
         FROM `tb_eform` eform
+            LEFT JOIN `tb_schedule` schedule ON schedule.schedule_id = eform.schedule_id
             LEFT JOIN `tb_site` site ON site.site_id = eform.site_id
             LEFT JOIN `tb_ticket` ticket ON ticket.case_id = eform.ticket_id
             LEFT JOIN `tb_form` form ON form.form_id = eform.form_id
-        WHERE status != '0' AND eform.eform_id IN (
+        WHERE eform.status != '0' AND eform.eform_id IN (
             SELECT checklist.eform_id
             FROM `tb_eform_checklist` checklist
             LEFT JOIN `tb_eform` eform ON eform.eform_id = checklist.eform_id
@@ -485,8 +488,9 @@ class Eform_model extends CI_Model {
         $end_date = explode(' - ',$period)[1]." 23:59:00"; 
 
         $sql ="
-            SELECT eform.eform_id,schedule_id,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date,form.asset_type,form.ma_type
+            SELECT eform.eform_id,eform.schedule_id,schedule_project,schedule_period,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date,form.asset_type,form.ma_type
             FROM `tb_eform` eform
+                LEFT JOIN `tb_schedule` schedule ON schedule.schedule_id = eform.schedule_id                
                 LEFT JOIN `tb_site` site ON site.site_id = eform.site_id
                 LEFT JOIN `tb_ticket` ticket ON ticket.case_id = eform.ticket_id
                 LEFT JOIN `tb_form` form ON form.form_id = eform.form_id
@@ -509,8 +513,9 @@ class Eform_model extends CI_Model {
         $end_date = explode(' - ',$period)[1]." 23:59:00"; 
 
         $sql ="
-            SELECT eform.eform_id,schedule_id,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date,form.asset_type,form.ma_type
+            SELECT eform.eform_id,eform.schedule_id,schedule_project,schedule_period,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date,form.asset_type,form.ma_type
             FROM `tb_eform` eform
+                LEFT JOIN `tb_schedule` schedule ON schedule.schedule_id = eform.schedule_id                
                 LEFT JOIN `tb_site` site ON site.site_id = eform.site_id
                 LEFT JOIN `tb_ticket` ticket ON ticket.case_id = eform.ticket_id
                 LEFT JOIN `tb_form` form ON form.form_id = eform.form_id
@@ -544,8 +549,9 @@ class Eform_model extends CI_Model {
         $end_date = explode(' - ',$period)[1]." 23:59:00"; 
 
         $sql ="
-            SELECT eform.eform_id,schedule_id,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date,form.asset_type,form.ma_type
+            SELECT eform.eform_id,eform.schedule_id,schedule_project,schedule_period,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date,form.asset_type,form.ma_type
             FROM `tb_eform` eform
+                LEFT JOIN `tb_schedule` schedule ON schedule.schedule_id = eform.schedule_id            
                 LEFT JOIN `tb_site` site ON site.site_id = eform.site_id
                 LEFT JOIN `tb_ticket` ticket ON ticket.case_id = eform.ticket_id
                 LEFT JOIN `tb_form` form ON form.form_id = eform.form_id
@@ -566,6 +572,99 @@ class Eform_model extends CI_Model {
             return NULL;
         }
     }   
+
+
+    function get_all_eform_by_schedule($schedule = null){
+
+        $project = explode(' - ', str_replace('.','/',$schedule) )[0]; 
+        $period = explode(' - ', str_replace('.','/',$schedule) )[1]; 
+
+        $sql ="
+            SELECT eform.eform_id,eform.schedule_id,schedule_project,schedule_period,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date,form.asset_type,form.ma_type
+            FROM `tb_eform` eform
+                LEFT JOIN `tb_schedule` schedule ON schedule.schedule_id = eform.schedule_id
+                LEFT JOIN `tb_site` site ON site.site_id = eform.site_id
+                LEFT JOIN `tb_ticket` ticket ON ticket.case_id = eform.ticket_id
+                LEFT JOIN `tb_form` form ON form.form_id = eform.form_id
+            WHERE schedule.schedule_project = '$project'  AND schedule.schedule_period = '$period' AND eform.status != '0'
+            ORDER BY eform.created_date DESC
+        ";
+
+        $query = $this->db->query($sql);
+        
+        if($query->result()){   
+            return $query->result_array();
+        }else{
+            return NULL;
+        }
+    }
+
+    function get_passed_eform_by_schedule($schedule = null){
+        
+        $project = explode(' - ', str_replace('.','/',$schedule) )[0]; 
+        $period = explode(' - ', str_replace('.','/',$schedule) )[1]; 
+
+        $sql ="
+        SELECT eform.eform_id,eform.schedule_id,schedule_project,schedule_period,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date,form.asset_type,form.ma_type
+            FROM `tb_eform` eform
+                LEFT JOIN `tb_schedule` schedule ON schedule.schedule_id = eform.schedule_id
+                LEFT JOIN `tb_site` site ON site.site_id = eform.site_id
+                LEFT JOIN `tb_ticket` ticket ON ticket.case_id = eform.ticket_id
+                LEFT JOIN `tb_form` form ON form.form_id = eform.form_id
+            WHERE schedule.schedule_project = '$project'  AND schedule.schedule_period = '$period' AND eform.status != '0' AND eform.eform_id IN (
+                SELECT checklist.eform_id
+                FROM `tb_eform_checklist` checklist
+                LEFT JOIN `tb_eform` eform ON eform.eform_id = checklist.eform_id
+                WHERE checklist.answer_value = 'ผ่าน' AND eform.status != '0'
+                AND checklist.eform_id NOT IN ( 
+                    SELECT checklist.eform_id
+                    FROM `tb_eform_checklist` checklist
+                    LEFT JOIN `tb_eform` eform ON eform.eform_id = checklist.eform_id
+                    WHERE checklist.answer_value = 'ไม่ผ่าน' AND eform.status != '0'
+                    GROUP BY checklist.eform_id) 
+                GROUP BY checklist.eform_id)
+            ORDER BY eform.created_date DESC
+        ";
+
+        $query = $this->db->query($sql);
+        
+        if($query->result()){   
+            return $query->result_array();
+        }else{
+            return NULL;
+        }
+    }    
+
+    function get_not_passed_eform_by_schedule($schedule = null){
+        
+        $project = explode(' - ', str_replace('.','/',$schedule) )[0]; 
+        $period = explode(' - ', str_replace('.','/',$schedule) )[1]; 
+
+        $sql ="
+            SELECT eform.eform_id,eform.schedule_id,schedule_project,schedule_period,site.site_id,site.site_name,site.province,ticket.case_id,ticket.case_category,eform.created_by,eform.created_date,form.asset_type,form.ma_type
+            FROM `tb_eform` eform
+                LEFT JOIN `tb_schedule` schedule ON schedule.schedule_id = eform.schedule_id
+                LEFT JOIN `tb_site` site ON site.site_id = eform.site_id
+                LEFT JOIN `tb_ticket` ticket ON ticket.case_id = eform.ticket_id
+                LEFT JOIN `tb_form` form ON form.form_id = eform.form_id
+            WHERE schedule.schedule_project = '$project'  AND schedule.schedule_period = '$period' AND eform.status != '0' AND eform.eform_id IN (
+                SELECT checklist.eform_id
+                FROM `tb_eform_checklist` checklist
+                LEFT JOIN `tb_eform` eform ON eform.eform_id = checklist.eform_id
+                WHERE checklist.answer_value = 'ไม่ผ่าน' AND eform.status != '0'
+                GROUP BY checklist.eform_id)
+            ORDER BY eform.created_date DESC        
+        ";
+
+        $query = $this->db->query($sql);
+        
+        if($query->result()){   
+            return $query->result_array();
+        }else{
+            return NULL;
+        }
+    }  
+
 
     function view_eform($eform_id = null){
         $sql ="
