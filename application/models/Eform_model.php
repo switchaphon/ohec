@@ -391,6 +391,7 @@ class Eform_model extends CI_Model {
                 LEFT JOIN `tb_site` site ON site.site_id = eform.site_id
                 LEFT JOIN `tb_form` form ON form.form_id = eform.form_id
             WHERE `schedule_id` = '$schedule_id' AND status != '0'
+            ORDER BY eform.created_date DESC
         ";
         $query = $this->db->query($sql);
         

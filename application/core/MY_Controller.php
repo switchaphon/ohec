@@ -159,9 +159,12 @@ class MY_Controller extends CI_Controller {
 
         case 'bootstrap-fileinput':
           $this->load->js('assets/bower_components/bootstrap-fileinput/js/fileinput.js');
+          // $this->load->js('assets/bower_components/bootstrap-fileinput/js/fileinput.min.js');
           $this->load->css('assets/bower_components/bootstrap-fileinput/css/fileinput.css');
           break;    
-
+        case 'piexifjs':
+          $this->load->js('assets/bower_components/piexifjs/piexif.js');
+          break;           
         // case 'jquery_ui':
         //   $this->load->css('assets/bower_components/jquery-ui/themes/base/jquery-ui.min.css');
         //   $this->load->js('assets/bower_components/jquery-ui/jquery-ui.min.js');

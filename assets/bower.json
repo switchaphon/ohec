@@ -77,7 +77,8 @@
     "jqvmap": "https://github.com/christianesperar/jqvmap.git#master",
     "DateJS": "^1.0.0-rc3",
     "bootstrap-validator": "^0.11.5",
-    "bootstrap-fileinput": "https://github.com/kartik-v/bootstrap-fileinput.git"
+    "bootstrap-fileinput": "https://github.com/kartik-v/bootstrap-fileinput.git",
+    "piexifjs": "https://github.com/hMatoba/piexifjs.git"
 
   },
   "resolutions": {

@@ -11,6 +11,7 @@ class Utilities {
         $CI =& get_instance();
         
         $CI->load->library('upload', $config);
+        $CI->load->library('image_lib');
         $CI->upload->initialize($config);
 
         $massage = array();

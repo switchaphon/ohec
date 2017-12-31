@@ -296,8 +296,8 @@
                                         case "dropbox":
                                             $answer = "
                                                 <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
-                                                    <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple data-show-upload=\"false\" data-show-caption=\"true\" multiple>
-                                                </div>";  
+                                                    <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control\" multiple>
+                                                </div>";      
                                             echo "
                                                 <div class=\"form-group \">
                                                     <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
@@ -344,6 +344,18 @@
 </artical>
 <!-- /page content -->
 
+<!-- Modal -->
+  <!-- loadingModal -->
+  <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="waiting_modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <? $this->load->view('loading_modal'); ?>
+      </div>
+    </div>
+  </div>
+  <!-- /loadingModal -->
+<!-- /Modal -->
+
 <!-- page script -->
 <script type="text/javascript">
 
@@ -361,6 +373,76 @@
         $('.collapsed').find('.x_content').css('display', 'none');
         $('.collapsed').find('a .collapse-link').toggleClass('fa-chevron-up fa-chevron-down');
 
+        $("input[type=file]").fileinput({
+            showUpload: false
+            ,msgPlaceholder: '\'jpg\',\'jpeg\', \'gif\', \'png\' มากสุด 6 ภาพ'
+            ,browseLabel: 'แนบภาพ'
+            ,removeLabel: 'ลบ'
+            ,removeTitle: 'ล้างช่องแนบภาพ'
+            ,allowedFileExtensions: ['jpg','jpeg', 'gif', 'png']
+            ,maxFileCount: 6
+            ,autoOrientImage: false
+            // ,previewSettings: {
+            //     image: {width: "50%", height: "auto", 'max-width': "100%", 'max-height': "100%"},
+            //     other: {width: "213px", height: "160px"}
+            // }
+            // ,previewSettingsSmall: {
+            //     image: {width: "auto", height: "auto", 'max-width': "100%", 'max-height': "100%"},
+            //     other: {width: "100%", height: "160px"}
+            // }
+            // ,resizeImage: true
+            // ,maxImageWidth: 200
+            // ,maxImageHeight: 200
+            // ,resizePreference: 'width'
+        })
+
+        $("form").on('submit', function(){
+        $('#waiting_modal').modal({
+            backdrop: 'static',
+            keyboard: false
+        })
+      })
+
     });
+
+    $(function(){
+//   Dropzone.options.myAwesomeDropzone = {
+//     maxFilesize: 5,
+//     addRemoveLinks: true,
+//     dictResponseError: 'Server not Configured',
+//     acceptedFiles: ".png,.jpg,.gif,.bmp,.jpeg",
+//     init:function(){
+//       var self = this;
+//       // config
+//       self.options.addRemoveLinks = true;
+//       self.options.dictRemoveFile = "Delete";
+//       //New file added
+//       self.on("addedfile", function (file) {
+//         console.log('new file added ', file);
+//       });
+//       // Send file starts
+//       self.on("sending", function (file) {
+//         console.log('upload started', file);
+//         $('.meter').show();
+//       });
+      
+//       // File upload Progress
+//       self.on("totaluploadprogress", function (progress) {
+//         console.log("progress ", progress);
+//         $('.roller').width(progress + '%');
+//       });
+
+//       self.on("queuecomplete", function (progress) {
+//         $('.meter').delay(999).slideUp(999);
+//       });
+      
+//       // On removing file
+//       self.on("removedfile", function (file) {
+//         console.log(file);
+//       });
+//     }
+//   };
+
+})
     
 </script>        

@@ -99,7 +99,8 @@ class Eform extends MY_Controller {
 
 	public function create($schedule_id = null, $site_id = null, $form_id = null){
 		$this->_init();
-		$this->_init_assets( array('icheck','bootstrap-fileinput','datatables') );
+		// $this->_init_assets( array('icheck','piexifjs','bootstrap-fileinput','datatables') );
+		$this->_init_assets( array('icheck','piexifjs','bootstrap-fileinput','datatables') );
 		$this->load->library( array('Eform_action') );
 		$this->load->model( array('Eform_model','Site_model','Schedule_model','Ticket_model'));
 		
@@ -188,9 +189,6 @@ class Eform extends MY_Controller {
 	public function create_ops(){
 		
 		$this->load->library('upload');
-
-		// echo "<pre>"; print_r($_POST); echo "</pre>";
-		// echo "<pre>"; print_r($_FILES); echo "</pre>";
 
 		$this->load->library( array('Utilities') );
 		$this->load->model( array('Utilities_model','Eform_model'));
