@@ -11,7 +11,6 @@ class Utilities {
         $CI =& get_instance();
         
         $CI->load->library('upload', $config);
-        $CI->load->library('image_lib');
         $CI->upload->initialize($config);
 
         $massage = array();
@@ -19,14 +18,112 @@ class Utilities {
         if ( ! $CI->upload->do_upload($uploadedFile))
         {   
             // log_error("Upload file to ".$config['upload_path']." failed");
-            $massage[] = array('cmd'=>'Import', 'state'=>'danger', 'result'=> $CI->upload->display_errors() );
+            $massage[] = array('cmd'=>'Upload', 'state'=>'danger', 'result'=> $CI->upload->display_errors() );
         } else {
             // log_info("Upload file to ".$config['upload_path']." success");
-            $massage[] = array('cmd'=>'Import', 'state'=>'success', 'result'=> $CI->upload->data() );
+
+            //store the file info
+            // $image_data = $CI->upload->data();
+
+            // $config['image_library'] = 'gd2';
+            // $config['source_image'] = $image_data['full_path']; //get original image
+            // $config['maintain_ratio'] = TRUE;
+            // $config['width'] = 1024;
+            // $config['height'] = 1024;
+
+            // // -- Load library to resize the photo
+            // $CI->load->library('image_lib', $config);
+            // $CI->image_lib->initialize($config);
+            
+            // if (!$CI->image_lib->resize()) {
+            //     $CI->handle_error($CI->image_lib->display_errors());
+            // }else{
+            //     // log_info("Resized file ".$image_data['full_path']." success");                
+            //     $massage[] = array('cmd'=>'Import', 'state'=>'success', 'result'=> $CI->upload->data() );
+            // }
+            // echo "<pre>"; print_r($CI->upload->data()); echo "</pre>";
+            $res = $this->_image_resize($CI->upload->data());
+            
+            // echo "<pre>"; print_r($res); echo "</pre>";
+
+            if($res[0]['state'] == "success"){
+                $massage[] = array('cmd'=>'Upload', 'state'=>'success', 'result'=> $CI->upload->data() );
+            }else{
+                $massage[] = array('cmd'=>'Upload', 'state'=>'danger', 'result'=> $CI->image_lib->display_errors() );                
+            }
         }
+
         return $massage;
      
     }
+    private function _image_resize($image = null) {
+        
+        //Assign the CodeIgniter object to a variable for using instead "$this"
+        $CI =& get_instance();
+
+        $config['image_library'] = 'gd2';
+        $config['source_image'] = $image['full_path']; //get original image
+        $config['maintain_ratio'] = TRUE;
+        // $config['width'] = 800;
+        // $config['height'] = 600;
+
+        if($image['image_width'] > $image['image_height']){
+            $config['width'] = 800;
+            $config['height'] = 600;
+                
+        }else{
+            $config['height'] = 800;
+            $config['width'] = 600;
+        }
+
+        // -- Load library to resize the photo
+        $CI->load->library('image_lib', $config);
+        $CI->image_lib->initialize($config);
+        
+        if (!$CI->image_lib->resize()) {
+            // $CI->handle_error($CI->image_lib->display_errors());
+            $massage[] = array('cmd'=>'Resize', 'state'=>'danger', 'result'=> $CI->image_lib->display_errors() );
+            
+        }else{
+            // log_info("Resized file ".$image_data['full_path']." success");                
+            $massage[] = array('cmd'=>'Resize', 'state'=>'success', 'result'=> $CI->upload->data() );
+        }
+
+        return $massage;
+
+    }
+
+/*
+    public function _image_creation($image){
+    // we make sure we receive an array. if no array is given or the array is empty, return false
+        if(!is_array($image) || empty($image))
+        {   
+            echo "x";
+            return FALSE;
+        }
+        // also let's make sure IT IS an image
+        if($image['is_image']!=1)
+        {
+            echo "o";
+            return FALSE;
+        }
+        
+        echo "z";
+        //let's have an array to return
+        $new_images = array();
+        
+        $image_width = 620;
+        $image_height = 200;
+        $thumb_width = 100;
+        $thumb_height = 100;
+        $thumb_name = '-thumb';
+        // let's put the gallery images and thumbnails in a different directory (which will be public, of course... and writable) - make sure the directory exists
+        $gallery_path = FCPATH.'media/gallery/';
+        
+        //we return the array with the new images
+        return $new_images;
+    }
+*/
 }
 
 ?>

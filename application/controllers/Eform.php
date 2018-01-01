@@ -8,7 +8,8 @@ class Eform extends MY_Controller {
      * e-Form 
 	 *
 	 */
-    
+	private $_uploaded;
+	
 	public function __construct() {
 		parent::__construct();
 		$this->_only_authen_success();
@@ -97,10 +98,16 @@ class Eform extends MY_Controller {
 		$this->load->view('eform/view',$this->data);
 	}
 
+	public function dropzone(){
+		$this->_init();
+		$this->_init_assets( array('icheck','dropzone','datatables') );
+
+		$this->load->view('eform/dropzone',$this->data);
+	}
 	public function create($schedule_id = null, $site_id = null, $form_id = null){
 		$this->_init();
-		// $this->_init_assets( array('icheck','piexifjs','bootstrap-fileinput','datatables') );
 		$this->_init_assets( array('icheck','piexifjs','bootstrap-fileinput','datatables') );
+		// $this->_init_assets( array('icheck','dropzone','datatables') );
 		$this->load->library( array('Eform_action') );
 		$this->load->model( array('Eform_model','Site_model','Schedule_model','Ticket_model'));
 		
@@ -255,13 +262,30 @@ class Eform extends MY_Controller {
 						$config['file_name'] = $eform_id;
 						$config['overwrite'] = FALSE;
 						$config['encrypt_name'] = TRUE;
-						// $config['max_size'] = '5120';
-						$config['width'] = 75;
-						$config['height'] = 50;
 
 						//Upload file
 						$alert_msg = $this->utilities->upload($uploadedFile,$config);
-						// echo "<pre>"; print_r($alert_msg); echo "</pre>";
+						// $this->_uploaded[$i] = $this->utilities->upload($uploadedFile,$config);
+						// echo "<pre>"; print_r($this->_uploaded[$i]); echo "</pre>";
+
+						// // let's store the new created images' data inside an array for later use
+						// $created_images = array();
+						// foreach($this->_uploaded as $key => $source_image)
+						// {
+						// 	// echo $key;
+						// 	echo "<pre>"; print_r($source_image); echo "</pre>";
+							
+						// //from each source image we will create two images, the two images' data will be stored as an array for the source image's key
+						// $new_images = $this->utilities->_image_creation($source_image);
+						// $created_images[$key] = $new_images;
+						// }
+
+						// now let's verify the new images have been created
+						// echo '<pre>';
+						// print_r($created_images);
+						// echo '</pre>';
+						// exit;
+
 						$eform_attachment = array(
 							'eform_id' => $eform_id
 							,'form_id' => $_POST['form_id']
@@ -276,6 +300,9 @@ class Eform extends MY_Controller {
 						$res = $this->Utilities_model->_insert_array('tb_eform_attachment',$eform_attachment);
 
 					}
+					// echo '<pre>';
+					// print_r($created_images);
+					// echo '</pre>';
 				}
 			}
 		endforeach;

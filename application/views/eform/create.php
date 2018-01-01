@@ -298,6 +298,15 @@
                                                 <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
                                                     <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control\" multiple>
                                                 </div>";      
+                                            // $answer = "
+                                            // <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\"> 
+                                            //     <div class=\"dropzone\" id=\"my-awesome-dropzone\">	
+                                            //         <div class=\"fallback\">
+                                            //             <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple/>
+                                            //         </div>
+                                            //     </div>
+                                            // </div>
+                                            // ";
                                             echo "
                                                 <div class=\"form-group \">
                                                     <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
@@ -372,6 +381,26 @@
         $('.collapsed').css('height', 'auto');
         $('.collapsed').find('.x_content').css('display', 'none');
         $('.collapsed').find('a .collapse-link').toggleClass('fa-chevron-up fa-chevron-down');
+        
+        // var myDropzone = {};
+        // Dropzone.options.myAwesomeDropzone = {
+        //     // autoDiscover:false,
+        //     url : 'xxxxxx',
+        //     paramName : "fileOther", // ชื่อไฟล์ปลายทางเมื่อ upload แบบ mutiple จะเป็น array
+        //     autoProcessQueue : false,// ใส่เพื่อไม่ให้อัพโหลดทันที หลังจากเลือกไฟล์
+        //     uploadMultiple : true, // อัพโหลดไฟล์หลายไฟล์
+        //     parallelUploads : 1, // ให้ทำงานพร้อมกัน 10 ไฟล์
+        //     maxFiles : 2, // ไฟล์สูงสุด 5 ไฟล์
+        //     addRemoveLinks : true, // อนุญาตให้ลบไฟล์ก่อนการอัพโหลด
+        //     // maxFilesize: 2, // MB
+        //     previewsContainer : ".dropzone", // ระบุ element เป้าหลาย
+        //     dictRemoveFile : "ลบ", // ชื่อ ปุ่ม remove
+        //     dictCancelUpload : "Cancel", // ชื่อ ปุ่ม ยกเลิก
+        //     dictDefaultMessage : "เลือกรูปภาพ", // ข้อความบนพื้นที่แสดงรูปจะแสดงหลังจากโหลดเพจเสร็จ
+        //     dictFileTooBig : "ไม่อนุญาตให้อัพโหลดไฟล์เกิน 2 MB", //ข้อความแสดงเมื่อเลือกไฟล์ขนาดเกินที่กำหนด		
+        //     acceptedFiles : "image/*", // อนุญาตให้เลือกไฟล์ประเภทรูปภาพได้
+        //     resizeWidth : "500px"
+        // }
 
         $("input[type=file]").fileinput({
             showUpload: false
@@ -390,10 +419,10 @@
             //     image: {width: "auto", height: "auto", 'max-width': "100%", 'max-height': "100%"},
             //     other: {width: "100%", height: "160px"}
             // }
-            // ,resizeImage: true
-            // ,maxImageWidth: 200
-            // ,maxImageHeight: 200
-            // ,resizePreference: 'width'
+            ,resizeImage: true
+            ,maxImageWidth: 1024
+            ,maxImageHeight: 1024
+            ,resizePreference: 'width'
         })
 
         $("form").on('submit', function(){

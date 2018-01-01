@@ -139,8 +139,10 @@ class MY_Controller extends CI_Controller {
           break;
 
         case 'dropzone':
-          $this->load->css('assets/bower_components/dropzone/dist/min/dropzone.min.css');
-          $this->load->js('assets/bower_components/dropzone/dist/min/dropzone.min.js');
+          // $this->load->css('assets/bower_components/dropzone/dist/min/dropzone.min.css');
+          // $this->load->js('assets/bower_components/dropzone/dist/min/dropzone.min.js');
+          $this->load->css('assets/bower_components/dropzone/dist/dropzone.css');
+          $this->load->js('assets/bower_components/dropzone/dist/dropzone.js');
           break;          
 
         case 'validator':
