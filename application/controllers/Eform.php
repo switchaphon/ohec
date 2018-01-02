@@ -98,15 +98,15 @@ class Eform extends MY_Controller {
 		$this->load->view('eform/view',$this->data);
 	}
 
-	public function dropzone(){
-		$this->_init();
-		$this->_init_assets( array('icheck','dropzone','datatables') );
+	// public function dropzone(){
+	// 	$this->_init();
+	// 	$this->_init_assets( array('icheck','dropzone','datatables') );
 
-		$this->load->view('eform/dropzone',$this->data);
-	}
+	// 	$this->load->view('eform/dropzone',$this->data);
+	// }
 	public function create($schedule_id = null, $site_id = null, $form_id = null){
 		$this->_init();
-		$this->_init_assets( array('icheck','piexifjs','bootstrap-fileinput','datatables') );
+		$this->_init_assets( array('icheck','piexifjs','bootstrap-fileinput','datatables','bootstrap_select') );
 		// $this->_init_assets( array('icheck','dropzone','datatables') );
 		$this->load->library( array('Eform_action') );
 		$this->load->model( array('Eform_model','Site_model','Schedule_model','Ticket_model'));

@@ -28,15 +28,16 @@
             <div class="x_content">
 
               <!-- /Dashboard --> 
-              <div class="row text-center col-lg-12 col-md-6 col-sm-6 col-xs-12">
+              <div class="row text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <h2>รายงานสรุปงานตรวจ<?=urldecode($schedule_title);?> <span id="Host_amount" class="badge"></span></h2>
                   <div class="x_content" style="padding-bottom: 0px; margin-top:0px">
                     <div class="row tile_count">
                       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                      <BR>
+                     
                         <!-- <form role="form" id="searchEform" name="searchEform" class="form-inline form-label-left" data-toggle="validator" action="<?=site_url('eform');?>" method="post"> -->
-                          <div class="form-group col-lg-9 col-md-6 col-sm-8 col-xs-8">
+                          <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <BR>
                             <!-- <fieldset>
                                 <div class="control-group">
                                   <div class="controls">
@@ -74,7 +75,7 @@
                       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 tile_stats_count">
                         <a href="#" onclick="select_EformStatus('All')">
                         <div class="pull-left" style="padding-top: 8px;">
-                        <i class="fa fa-file-text" style="font-size:25px;"></i>
+                        <i class="fa fa-file-text" style="font-size:20px;"></i>
                         </div>
                         <span class="pull-right count " style="margin-top: 0px;" id="Amount_UP"><?=$total_eform;?></span>
                         <div class="clearfix"></div>
@@ -84,7 +85,7 @@
                       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 tile_stats_count">
                         <a href="#" onclick="select_EformStatus('Passed')">
                         <div class="pull-left" style="padding-top: 8px;">
-                        <i class="fa fa-check-circle green" style="font-size:30px;"></i>
+                        <i class="fa fa-check-circle green" style="font-size:20px;"></i>
                         </div>
                         <span class="pull-right count green " style="margin-top: 0px;" id="Amount_DOWN"><?=$passed_eform;?></span>
                         <div class="clearfix"></div>
@@ -94,7 +95,7 @@
                       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 tile_stats_count">
                         <a href="#" onclick="select_EformStatus('notPassed')">
                         <div class="pull-left" style="padding-top: 8px;">
-                        <i class="fa fa-times-circle red" style="font-size:30px;"></i>
+                        <i class="fa fa-times-circle red" style="font-size:20px;"></i>
                         </div>
                         <span class="pull-right count red" style="margin-top: 0px;" id="Amount_UNREACHABLE"><?=$not_passed_eform;?></span>
                         <div class="clearfix"></div>

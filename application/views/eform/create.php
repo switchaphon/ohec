@@ -145,38 +145,55 @@
                                                 </div>";  
                                             break;
                                         case "radiobox":
-                                        foreach($panel_val['question'][$question_no]['answer'] as $ans_key => $ans_val):
-                                            $answer_no = $ans_val['answer_no'];
-                                            $answer_name = $ans_val['answer_name'];
-                                            $answer_text = $ans_val['answer_text'];
-                                            $answer_value = $ans_val['answer_value'];
-    
-                                            if($answer_name  == 'passed'){$checked = 'checked'; }else{$checked = null;}
-    
-                                            $answer = $answer."
-                                                <div class=\"col-lg-2 col-lg-offset-0 col-md-2 col-md-offset-0 col-sm-2 col-sm-offset-0 col-xs-5 col-xs-offset-1\">
-                                                    <div class=\"radio-inline\">
-                                                        <label><input type=\"radio\" class=\"flat\" name=\"".$question_name."\" id=\"".$question_name."\" value=\"".$answer_value."\" ".$checked."> ".$answer_text."</label>
-                                                    </div>
-                                                </div>";  
-                                        endforeach;  
-                                        echo "
-                                            <div class=\"form-group \">
-                                                <label class=\"control-label col-lg-5 col-md-5 col-sm-5 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>".$answer."
-                                            </div>";                                                                              
+                                            foreach($panel_val['question'][$question_no]['answer'] as $ans_key => $ans_val):
+                                                $answer_no = $ans_val['answer_no'];
+                                                $answer_name = $ans_val['answer_name'];
+                                                $answer_text = $ans_val['answer_text'];
+                                                $answer_value = $ans_val['answer_value'];
+        
+                                                if($answer_name  == 'passed'){$checked = 'checked'; }else{$checked = null;}
+        
+                                                $answer = $answer."
+                                                    <div class=\"col-lg-2 col-lg-offset-0 col-md-2 col-md-offset-0 col-sm-2 col-sm-offset-0 col-xs-5 col-xs-offset-1\">
+                                                        <div class=\"radio-inline\">
+                                                            <label><input type=\"radio\" class=\"flat\" name=\"".$question_name."\" id=\"".$question_name."\" value=\"".$answer_value."\" ".$checked."> ".$answer_text."</label>
+                                                        </div>
+                                                    </div>";  
+                                            endforeach;  
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-5 col-md-5 col-sm-5 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>".$answer."
+                                                </div>";                                                                              
                                             break;
                                         case "checkbox":
                                             break;
                                         case "selectbox":
+                                            foreach($panel_val['question'][$question_no]['answer'] as $ans_key => $ans_val):
+                                                $answer_no = $ans_val['answer_no'];
+                                                $answer_name = $ans_val['answer_name'];
+                                                $answer_text = $ans_val['answer_text'];
+                                                $answer_value = $ans_val['answer_value'];
+        
+                                                if($answer_no  == '1'){ $selected = 'selected'; }else{ $selected = null; }
+                                                $answer = $answer."<option value=\"".$answer_value."\"".$selected.">".$answer_text."</option>";
+
+                                            endforeach;  
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-5 col-md-5 col-sm-5 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>
+                                                    <div class=\"col-lg-4 col-lg-offset-0 col-md-4 col-md-offset-0 col-sm-4 col-sm-offset-0 col-xs-12\">
+                                                        <select name=\"".$question_name."\" id=\"".$question_name."\" class=\"form-control selectpicker show-tick\" title=\" \"data-live-search=\"false\" data-size=\"5\" data-width=\"css-width\" required>.$answer.</select>
+                                                    </div>
+                                                </div>";                                                                              
                                             break;
                                         case "dropbox":
                                             $answer = "
-                                                <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
-                                                    <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple data-show-upload=\"false\" data-show-caption=\"true\" multiple>
-                                                </div>";  
+                                                <div class=\"col-lg-6 col-md-9 col-sm-9 col-xs-12\">
+                                                    <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control\" multiple>
+                                                </div>";      
                                             echo "
                                                 <div class=\"form-group \">
-                                                    <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                    <label class=\"control-label col-lg-3 col-md-1 col-sm-1 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
                                                 </div>";
                                             break;
                                     }
@@ -230,42 +247,59 @@
                                         case "checkbox":
                                             break;
                                         case "selectbox":
+                                            foreach($panel_val['question'][$question_no]['answer'] as $ans_key => $ans_val):
+                                                $answer_no = $ans_val['answer_no'];
+                                                $answer_name = $ans_val['answer_name'];
+                                                $answer_text = $ans_val['answer_text'];
+                                                $answer_value = $ans_val['answer_value'];
+        
+                                                if($answer_no  == '1'){ $selected = 'selected'; }else{ $selected = null; }
+                                                $answer = $answer."<option value=\"".$answer_value."\"".$selected.">".$answer_text."</option>";
+
+                                            endforeach;  
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-5 col-md-5 col-sm-5 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>
+                                                    <div class=\"col-lg-4 col-lg-offset-0 col-md-4 col-md-offset-0 col-sm-4 col-sm-offset-0 col-xs-12\">
+                                                        <select name=\"".$question_name."\" id=\"".$question_name."\" class=\"form-control selectpicker show-tick\" title=\" \"data-live-search=\"false\" data-size=\"5\" data-width=\"css-width\" required>.$answer.</select>
+                                                    </div>
+                                                </div>";                                                                              
                                             break;
                                         case "dropbox":
                                             $answer = "
-                                                <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
-                                                    <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple data-show-upload=\"false\" data-show-caption=\"true\" multiple>
-                                                </div>";  
+                                                <div class=\"col-lg-6 col-md-9 col-sm-9 col-xs-12\">
+                                                    <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control\" multiple>
+                                                </div>";      
                                             echo "
                                                 <div class=\"form-group \">
-                                                    <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                    <label class=\"control-label col-lg-3 col-md-1 col-sm-1 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
                                                 </div>";
                                             break;
                                     }
                                 break;
 
-                                //--Equipment-CM--//
+                                //--Equipment-PM--//
                                 case "00003":       
                                 //--/Question type--//
                                     switch( $question_type ){
                                         case "textbox":
                                             $answer = "
-                                                <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+                                                <div class=\"col-lg-6 col-md-9 col-sm-9 col-xs-12\">
                                                     <input type=\"text\" class=\"form-control\" name=\"".$question_name."\" id=\"".$question_name."\" placeholder=\"".$question_text."\" required>
                                                 </div>";
                                             echo "
                                                 <div class=\"form-group \">
-                                                    <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                    <label class=\"control-label col-lg-3 col-md-1 col-sm-1 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
                                                 </div>";     
                                             break;
                                         case "textarea":  
                                             $answer = "
-                                                <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+                                                <div class=\"col-lg-6 col-md-9 col-sm-9 col-xs-12\">
                                                     <textarea name=\"".$question_name."\" id=\"".$question_name."\" class=\"form-control\" rows=\"3\" placeholder=\"".$question_text."\"></textarea>
                                                 </div>";    
                                             echo "
                                                 <div class=\"form-group \">
-                                                    <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                    <label class=\"control-label col-lg-3 col-md-1 col-sm-1 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
                                                 </div>";                                     
                                             break;
                                         case "radiobox":  
@@ -292,28 +326,274 @@
                                         case "checkbox":
                                             break;
                                         case "selectbox":
+                                            foreach($panel_val['question'][$question_no]['answer'] as $ans_key => $ans_val):
+                                                $answer_no = $ans_val['answer_no'];
+                                                $answer_name = $ans_val['answer_name'];
+                                                $answer_text = $ans_val['answer_text'];
+                                                $answer_value = $ans_val['answer_value'];
+        
+                                                if($answer_no  == '1'){ $selected = 'selected'; }else{ $selected = null; }
+                                                $answer = $answer."<option value=\"".$answer_value."\"".$selected.">".$answer_text."</option>";
+
+                                            endforeach;  
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-5 col-md-5 col-sm-5 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>
+                                                    <div class=\"col-lg-4 col-lg-offset-0 col-md-4 col-md-offset-0 col-sm-4 col-sm-offset-0 col-xs-12\">
+                                                        <select name=\"".$question_name."\" id=\"".$question_name."\" class=\"form-control selectpicker show-tick\" title=\" \"data-live-search=\"false\" data-size=\"5\" data-width=\"css-width\" required>.$answer.</select>
+                                                    </div>
+                                                </div>";                                                                              
                                             break;
                                         case "dropbox":
                                             $answer = "
-                                                <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+                                                <div class=\"col-lg-6 col-md-9 col-sm-9 col-xs-12\">
                                                     <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control\" multiple>
                                                 </div>";      
-                                            // $answer = "
-                                            // <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\"> 
-                                            //     <div class=\"dropzone\" id=\"my-awesome-dropzone\">	
-                                            //         <div class=\"fallback\">
-                                            //             <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control file\" multiple/>
-                                            //         </div>
-                                            //     </div>
-                                            // </div>
-                                            // ";
                                             echo "
                                                 <div class=\"form-group \">
-                                                    <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                    <label class=\"control-label col-lg-3 col-md-1 col-sm-1 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
                                                 </div>";
                                             break;
                                     }
-                                break;                                
+                                break;  
+
+                                //--Fibre-AM--//
+                                case "00004":       
+                                    //--/Question type--//
+                                    switch( $question_type ){
+                                        case "textbox":
+                                            $answer = "
+                                                <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+                                                    <input type=\"text\" class=\"form-control\" name=\"".$question_name."\" id=\"".$question_name."\" placeholder=\"".$question_text."\" required>
+                                                </div>";
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                </div>";                                           
+                                            break;
+                                        case "textarea":  
+                                            $answer = "
+                                                <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+                                                    <textarea name=\"".$question_name."\" id=\"".$question_name."\" class=\"form-control\" rows=\"3\" placeholder=\"".$question_text."\"></textarea>
+                                                </div>";    
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                </div>";  
+                                            break;
+                                        case "radiobox":
+                                            foreach($panel_val['question'][$question_no]['answer'] as $ans_key => $ans_val):
+                                                $answer_no = $ans_val['answer_no'];
+                                                $answer_name = $ans_val['answer_name'];
+                                                $answer_text = $ans_val['answer_text'];
+                                                $answer_value = $ans_val['answer_value'];
+        
+                                                if($answer_name  == 'passed'){$checked = 'checked'; }else{$checked = null;}
+        
+                                                $answer = $answer."
+                                                    <div class=\"col-lg-2 col-lg-offset-0 col-md-2 col-md-offset-0 col-sm-2 col-sm-offset-0 col-xs-5 col-xs-offset-1\">
+                                                        <div class=\"radio-inline\">
+                                                            <label><input type=\"radio\" class=\"flat\" name=\"".$question_name."\" id=\"".$question_name."\" value=\"".$answer_value."\" ".$checked."> ".$answer_text."</label>
+                                                        </div>
+                                                    </div>";  
+                                            endforeach;  
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-5 col-md-5 col-sm-5 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>".$answer."
+                                                </div>";                                                                              
+                                            break;
+                                        case "checkbox":
+                                            break;
+                                        case "selectbox":
+                                            foreach($panel_val['question'][$question_no]['answer'] as $ans_key => $ans_val):
+                                                $answer_no = $ans_val['answer_no'];
+                                                $answer_name = $ans_val['answer_name'];
+                                                $answer_text = $ans_val['answer_text'];
+                                                $answer_value = $ans_val['answer_value'];
+        
+                                                if($answer_no  == '1'){ $selected = 'selected'; }else{ $selected = null; }
+                                                $answer = $answer."<option value=\"".$answer_value."\"".$selected.">".$answer_text."</option>";
+
+                                            endforeach;  
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-5 col-md-5 col-sm-5 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>
+                                                    <div class=\"col-lg-4 col-lg-offset-0 col-md-4 col-md-offset-0 col-sm-4 col-sm-offset-0 col-xs-12\">
+                                                        <select name=\"".$question_name."\" id=\"".$question_name."\" class=\"form-control selectpicker show-tick\" title=\" \"data-live-search=\"false\" data-size=\"5\" data-width=\"css-width\" required>.$answer.</select>
+                                                    </div>
+                                                </div>";                                                                              
+                                            break;
+                                        case "dropbox":
+                                            $answer = "
+                                                <div class=\"col-lg-6 col-md-9 col-sm-9 col-xs-12\">
+                                                    <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control\" multiple>
+                                                </div>";      
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-3 col-md-1 col-sm-1 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                </div>";
+                                            break;
+                                    }
+                                break;  
+
+                                //--Fibre-CM--//
+                                case "00005":       
+                                    //--/Question type--//
+                                    switch( $question_type ){
+                                        case "textbox":
+                                            $answer = "
+                                                <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+                                                    <input type=\"text\" class=\"form-control\" name=\"".$question_name."\" id=\"".$question_name."\" placeholder=\"".$question_text."\" required>
+                                                </div>";
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                </div>";                                           
+                                            break;
+                                        case "textarea":  
+                                            $answer = "
+                                                <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+                                                    <textarea name=\"".$question_name."\" id=\"".$question_name."\" class=\"form-control\" rows=\"3\" placeholder=\"".$question_text."\"></textarea>
+                                                </div>";    
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                </div>";  
+                                            break;
+                                        case "radiobox":
+                                            foreach($panel_val['question'][$question_no]['answer'] as $ans_key => $ans_val):
+                                                $answer_no = $ans_val['answer_no'];
+                                                $answer_name = $ans_val['answer_name'];
+                                                $answer_text = $ans_val['answer_text'];
+                                                $answer_value = $ans_val['answer_value'];
+        
+                                                if($answer_name  == 'passed'){$checked = 'checked'; }else{$checked = null;}
+        
+                                                $answer = $answer."
+                                                    <div class=\"col-lg-2 col-lg-offset-0 col-md-2 col-md-offset-0 col-sm-2 col-sm-offset-0 col-xs-5 col-xs-offset-1\">
+                                                        <div class=\"radio-inline\">
+                                                            <label><input type=\"radio\" class=\"flat\" name=\"".$question_name."\" id=\"".$question_name."\" value=\"".$answer_value."\" ".$checked."> ".$answer_text."</label>
+                                                        </div>
+                                                    </div>";  
+                                            endforeach;  
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-5 col-md-5 col-sm-5 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>".$answer."
+                                                </div>";                                                                              
+                                            break;
+                                        case "checkbox":
+                                            break;
+                                        case "selectbox":
+                                        // echo "<pre>"; print_r($panel_val['question'][$question_no]['answer']); echo "</pre>";
+                                            foreach($panel_val['question'][$question_no]['answer'] as $ans_key => $ans_val):
+                                                $answer_no = $ans_val['answer_no'];
+                                                $answer_name = $ans_val['answer_name'];
+                                                $answer_text = $ans_val['answer_text'];
+                                                $answer_value = $ans_val['answer_value'];
+        
+                                                if($answer_no  == '1'){ $selected = 'selected'; }else{ $selected = null; }
+                                                $answer = $answer."<option value=\"".$answer_value."\"".$selected.">".$answer_text."</option>";
+
+                                            endforeach;  
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-5 col-md-5 col-sm-5 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>
+                                                    <div class=\"col-lg-4 col-lg-offset-0 col-md-4 col-md-offset-0 col-sm-4 col-sm-offset-0 col-xs-12\">
+                                                        <select name=\"".$question_name."\" id=\"".$question_name."\" class=\"form-control selectpicker show-tick\" title=\" \"data-live-search=\"false\" data-size=\"5\" data-width=\"css-width\" required>.$answer.</select>
+                                                    </div>
+                                                </div>";                                                                              
+                                            break;
+                                        case "dropbox":
+                                            $answer = "
+                                                <div class=\"col-lg-6 col-md-9 col-sm-9 col-xs-12\">
+                                                    <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control\" multiple>
+                                                </div>";      
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-3 col-md-1 col-sm-1 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                </div>";
+                                            break;
+                                    }
+                                break;  
+                                
+                                //--Fibre-PM--//
+                                case "00006":       
+                                    //--/Question type--//
+                                    switch( $question_type ){
+                                        case "textbox":
+                                            $answer = "
+                                                <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+                                                    <input type=\"text\" class=\"form-control\" name=\"".$question_name."\" id=\"".$question_name."\" placeholder=\"".$question_text."\" required>
+                                                </div>";
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                </div>";                                           
+                                            break;
+                                        case "textarea":  
+                                            $answer = "
+                                                <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+                                                    <textarea name=\"".$question_name."\" id=\"".$question_name."\" class=\"form-control\" rows=\"3\" placeholder=\"".$question_text."\"></textarea>
+                                                </div>";    
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                </div>";  
+                                            break;
+                                        case "radiobox":
+                                            foreach($panel_val['question'][$question_no]['answer'] as $ans_key => $ans_val):
+                                                $answer_no = $ans_val['answer_no'];
+                                                $answer_name = $ans_val['answer_name'];
+                                                $answer_text = $ans_val['answer_text'];
+                                                $answer_value = $ans_val['answer_value'];
+        
+                                                if($answer_name  == 'passed'){$checked = 'checked'; }else{$checked = null;}
+        
+                                                $answer = $answer."
+                                                    <div class=\"col-lg-2 col-lg-offset-0 col-md-2 col-md-offset-0 col-sm-2 col-sm-offset-0 col-xs-5 col-xs-offset-1\">
+                                                        <div class=\"radio-inline\">
+                                                            <label><input type=\"radio\" class=\"flat\" name=\"".$question_name."\" id=\"".$question_name."\" value=\"".$answer_value."\" ".$checked."> ".$answer_text."</label>
+                                                        </div>
+                                                    </div>";  
+                                            endforeach;  
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-5 col-md-5 col-sm-5 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>".$answer."
+                                                </div>";                                                                              
+                                            break;
+                                        case "checkbox":
+                                            break;
+                                        case "selectbox":
+                                            foreach($panel_val['question'][$question_no]['answer'] as $ans_key => $ans_val):
+                                                $answer_no = $ans_val['answer_no'];
+                                                $answer_name = $ans_val['answer_name'];
+                                                $answer_text = $ans_val['answer_text'];
+                                                $answer_value = $ans_val['answer_value'];
+        
+                                                if($answer_no  == '1'){ $selected = 'selected'; }else{ $selected = null; }
+                                                $answer = $answer."<option value=\"".$answer_value."\"".$selected.">".$answer_text."</option>";
+
+                                            endforeach;  
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-5 col-md-5 col-sm-5 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>
+                                                    <div class=\"col-lg-4 col-lg-offset-0 col-md-4 col-md-offset-0 col-sm-4 col-sm-offset-0 col-xs-12\">
+                                                        <select name=\"".$question_name."\" id=\"".$question_name."\" class=\"form-control selectpicker show-tick\" title=\" \"data-live-search=\"false\" data-size=\"5\" data-width=\"css-width\" required>.$answer.</select>
+                                                    </div>
+                                                </div>";                                                                              
+                                            break;
+                                        case "dropbox":
+                                            $answer = "
+                                                <div class=\"col-lg-6 col-md-9 col-sm-9 col-xs-12\">
+                                                    <input name=\"".$question_name."[]\" id=\"".$question_name."\" type=\"file\" class=\"form-control\" multiple>
+                                                </div>";      
+                                            echo "
+                                                <div class=\"form-group \">
+                                                    <label class=\"control-label col-lg-3 col-md-1 col-sm-1 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                </div>";
+                                            break;
+                                    }
+                                break;                                 
                             }
                                                
                         endforeach;
@@ -369,6 +649,15 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
+
+        $('.collapsed').css('height', 'auto');
+
+        // if( ($('#form_id').val() == '00001') || ($('#form_id').val() == '00002') || ($('#form_id').val() == '00003') ){
+            $('.collapsed').find('.x_content').css('display', 'none');
+        // }
+
+        $('.collapsed').find('a .collapse-link').toggleClass('fa-chevron-up fa-chevron-down');
+
         $('#tbEformTicket').DataTable({
             "pageLength": 5,
             "paging":   false,
@@ -378,10 +667,6 @@
             "dom": '<"toolbartbEformTicket">frtip'
         });
     
-        $('.collapsed').css('height', 'auto');
-        $('.collapsed').find('.x_content').css('display', 'none');
-        $('.collapsed').find('a .collapse-link').toggleClass('fa-chevron-up fa-chevron-down');
-        
         // var myDropzone = {};
         // Dropzone.options.myAwesomeDropzone = {
         //     // autoDiscover:false,
