@@ -86,21 +86,21 @@ class Authen_ldap {
         $this->_audit("Successful login: ".$user_info['cn']."(".$username.") from ".$this->ci->input->ip_address());
         // Set the session data
 
-        // //From LDAP
-        // $customdata = array(
-        //     'username' => $username
-        //     ,'cn' => $user_info['cn']
-        //     ,'role' => $user_info['role']
-        //     ,'logged_in' => TRUE
-        // );      
-
-        //Fixed value
+        //From LDAP
         $customdata = array(
-            'username' => 'witchaphon.sa'
-            ,'cn' => 'Witchaphon Saeng-aram'
-            ,'role' => 'Administrator'
+            'username' => $username
+            ,'cn' => $user_info['cn']
+            ,'role' => $user_info['role']
             ,'logged_in' => TRUE
-        );                            
+        );      
+
+        // //Fixed value
+        // $customdata = array(
+        //     'username' => 'witchaphon.sa'
+        //     ,'cn' => 'Witchaphon Saeng-aram'
+        //     ,'role' => 'Administrator'
+        //     ,'logged_in' => TRUE
+        // );                            
 
 
         $this->ci->session->set_userdata($customdata);

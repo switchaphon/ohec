@@ -20,7 +20,7 @@
  * @subpackage  auth demo
  * @license     GNU Lesser General Public License
  */
-class Authen extends CI_Controller {
+class Authen extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->load->helper('form');
@@ -34,7 +34,11 @@ class Authen extends CI_Controller {
         $this->login();
     }
     function login($errorMsg = NULL){
+        $this->_init('login');
+        $this->_init_assets( array('animate') );
+
         $this->session->keep_flashdata('tried_to');
+
         if(!$this->authen_ldap->is_authenticated()) {
             // Set up rules for form validation
             $rules = $this->form_validation;
@@ -52,8 +56,11 @@ class Authen extends CI_Controller {
                 }
             }else {
                 // Login FAIL
-                $this->load->view('auth/login_form', array('login_fail_msg'
-                                        => 'Error with LDAP authentication.'));
+                // $this->load->view('auth/login_form', array('login_fail_msg'
+                //                         => 'Error with LDAP authen_ldap.'));
+
+                $this->load->view('auth/login', array('login_fail_msg'
+                                        => 'Error with LDAP authen_ldap.'));
             }
         }else {
                 // Already logged in...
@@ -69,7 +76,7 @@ class Authen extends CI_Controller {
         } else {
             $data['logged_in'] = FALSE;
         }
-            $this->load->view('auth/logout_view', $data);
+            $this->load->view('auth/login', $data);
     }
 }
 ?>

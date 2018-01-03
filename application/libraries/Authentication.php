@@ -87,20 +87,20 @@ class Authentication {
         // Set the session data
 
         // //From LDAP
-        // $customdata = array(
-        //     'username' => $username
-        //     ,'cn' => $user_info['cn']
-        //     ,'role' => $user_info['role']
-        //     ,'logged_in' => TRUE
-        // );      
+        $customdata = array(
+            'username' => $username
+            ,'cn' => $user_info['cn']
+            ,'role' => $user_info['role']
+            ,'logged_in' => TRUE
+        );      
 
         //Fixed value
-        $customdata = array(
-            'username' => 'witchaphon.sa'
-            ,'cn' => 'Witchaphon Saeng-aram'
-            ,'role' => 'Administrator'
-            ,'logged_in' => TRUE
-        );                            
+        // $customdata = array(
+        //     'username' => 'witchaphon.sa'
+        //     ,'cn' => 'Witchaphon Saeng-aram'
+        //     ,'role' => 'Administrator'
+        //     ,'logged_in' => TRUE
+        // );                            
 
 
         $this->ci->session->set_userdata($customdata);
@@ -253,83 +253,5 @@ class Authentication {
         }
         return false;
     }
-
-
-    // protected function get_permission($rols = null)
-    // {
-    //   $this->permission = new \stdClass();
-    
-    //   //--/Eform module --/
-    //   $this->permission->eform_view = true;
-    //   $this->permission->eform_add = false;
-    //   $this->permission->eform_edit = false;
-    //   $this->permission->eform_delete = false;
-    //   //--/Schedule module--/
-    //   $this->permission->schedule_view = true;
-    //   $this->permission->schedule_add = false;
-    //   $this->permission->schedule_edit = false;
-    //   $this->permission->schedule_delete = false;
-    //   //--/User module --/
-    //   $this->permission->user_add = false;
-    //   $this->permission->user_edit = false;
-    //   $this->permission->user_delete = false;
-  
-    //   $_role = $role;
-    //   echo $_role;
-    //   if(!$this->session->userdata('logged_in'))
-    //   {
-    //     return $this->permission;
-    //   }
-  
-    //   switch ($_role)
-    //   {
-    //     case 'NOC':
-    //         //Eform
-    //         $this->permission->eform_add = true;
-    //         $this->permission->eform_edit = false;
-    //         $this->permission->eform_delete = false;
-    //         //Schedule
-    //         $this->permission->schedule_add = true;
-    //         $this->permission->schedule_edit = true;
-    //         $this->permission->schedule_delete = false;
-    //         //User
-    //         $this->permission->user_add = false;
-    //         $this->permission->user_edit = false;
-    //         $this->permission->user_delete = false;
-    //         break;
-    //     case 'Committee':
-    //         //Eform
-    //         $this->permission->eform_add = true;
-    //         $this->permission->eform_edit = false;
-    //         $this->permission->eform_delete = false;
-    //         //Schedule
-    //         $this->permission->schedule_add = false;
-    //         $this->permission->schedule_edit = false;
-    //         $this->permission->schedule_delete = false;
-    //         //User
-    //         $this->permission->user_add = false;
-    //         $this->permission->user_edit = false;
-    //         $this->permission->user_delete = false;
-    //         break;
-    //     case 'Administrator':
-    //         //Eform
-    //         $this->permission->eform_add = true;
-    //         $this->permission->eform_edit = true;
-    //         $this->permission->eform_delete = true;
-    //         //Schedule
-    //         $this->permission->schedule_add = true;
-    //         $this->permission->schedule_edit = true;
-    //         $this->permission->schedule_delete = true;
-    //         //User
-    //         $this->permission->user_add = true;
-    //         $this->permission->user_edit = true;
-    //         $this->permission->user_delete = true;
-    //       break;
-  
-    //     default:
-    //       break;
-    //   }
-    //   return $this->permission;
-    // }
 }
 ?>

@@ -167,6 +167,73 @@ class User extends MY_Controller {
 		
 	}
 	
+	//--Authen with AD--//
+	// public function login_ad() {
+
+    //     $this->_init('login');
+    //     $this->_init_assets( array('animate') );
+
+	// 	// create the data object
+	// 	$data = new stdClass();
+		
+	// 	// load form helper and validation library
+	// 	$this->load->helper('form');
+	// 	$this->load->library( array('form_validation') );
+		
+	// 	// set validation rules
+	// 	$this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric');
+	// 	$this->form_validation->set_rules('password', 'Password', 'required');
+		
+	// 	if ($this->form_validation->run() == false) {
+			
+	// 		// validation not ok, send validation errors to the view
+	// 		$this->load->view('user/login/login');
+			
+	// 	} else {
+			
+	// 		// set variables from the form
+	// 		$username = $this->input->post('username');
+	// 		$password = $this->input->post('password');
+			
+	// 		if ($this->user_model->resolve_user_login($username, $password)) {
+				
+	// 			$user_id = $this->user_model->get_user_id_from_username($username);
+	// 			$user    = $this->user_model->get_user($user_id);
+				
+	// 			// // set session user datas
+	// 			// $_SESSION['user_id']      = (int)$user->id;
+	// 			// $_SESSION['username']     = (string)$user->username;
+	// 			// $_SESSION['logged_in']    = (bool)true;
+	// 			// $_SESSION['is_confirmed'] = (bool)$user->is_confirmed;
+	// 			// $_SESSION['is_admin']     = (bool)$user->is_admin;
+                
+    //             // set session user datas
+    //             $customdata = array(
+    //                 'username' => (string)$user->username
+    //                 ,'name' => (string)$user->name
+    //                 ,'surname' => (string)$user->surname
+    //                 ,'role' => (string)$user->role
+    //                 ,'logged_in' => (bool)true
+    //             );                            
+    //             $this->session->set_userdata($customdata);
+	// 			// user login ok
+    //             redirect( site_url('/schedule/index/'));
+				
+	// 		} else {
+				
+	// 			// login failed
+	// 			$data->error = 'Wrong username or password.';
+				
+	// 			// send error to the view
+	// 			$this->load->view('user/login/login', $data);
+				
+	// 		}
+			
+	// 	}
+		
+	// }
+	//--/Authen with AD--//	
+
 	/**
 	 * logout function.
 	 * 
