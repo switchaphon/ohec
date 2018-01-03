@@ -14,7 +14,7 @@ class Eform extends MY_Controller {
 		parent::__construct();
 		$this->_only_authen_success();
 		$this->load->helper(array('form','url','file'));
-		$this->output->set_title('แบบตรวจสอบออนไลน์');
+		$this->output->set_title('ใบตรวจงาน');
 		$this->data['permission'] = $this->get_permission();
 	}
 

@@ -29,7 +29,7 @@
       <ul class="nav side-menu">
         <!-- <li><a><i class="fa fa-home"></i> หน้าหลัก </a></li>  -->
         <li><a href="<?=site_url('/schedule');?>"><i class="fa fa-calendar"></i> ตารางตรวจงาน </a></li> 
-        <li><a href="<?=site_url('/eform');?>"><i class="fa fa-file-text"></i> แบบตรวจออนไลน์ </a></li> 
+        <li><a href="<?=site_url('/eform');?>"><i class="fa fa-file-text"></i> ใบตรวจงาน </a></li> 
         <!-- <li><a><i class="fa fa-desktop"></i> Assets <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="<?=site_url('/asset/equip');?>">Fibre</a></li>

@@ -653,7 +653,7 @@
         $('.collapsed').css('height', 'auto');
 
         // if( ($('#form_id').val() == '00001') || ($('#form_id').val() == '00002') || ($('#form_id').val() == '00003') ){
-            // $('.collapsed').find('.x_content').css('display', 'none');
+            $('.collapsed').find('.x_content').css('display', 'none');
         // }
 
         $('.collapsed').find('a .collapse-link').toggleClass('fa-chevron-up fa-chevron-down');
@@ -689,7 +689,8 @@
 
         $("input[type=file]").fileinput({
             showUpload: false
-            ,msgPlaceholder: '\'jpg\',\'jpeg\', \'gif\', \'png\' มากสุด 6 ภาพ'
+            ,msgPlaceholder: 'เฉพาะ jpg , jpeg , gif , png ไม่เกิน 6 ภาพ'
+            // ,msgPlaceholder: '\'jpg\',\'jpeg\', \'gif\', \'png\' มากสุด 6 ภาพ'
             ,browseLabel: 'แนบภาพ'
             ,removeLabel: 'ลบ'
             ,removeTitle: 'ล้างช่องแนบภาพ'

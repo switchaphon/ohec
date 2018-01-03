@@ -27,7 +27,7 @@
                     <h2>แก้ไขตารางตรวจงาน <i class="fa fa-info-circle"></i><small></small></h2>
                     <ul class="nav navbar-right panel_toolbox" style="padding-left: 50px;">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a></li>
+                      <!-- <li><a class="close-link"><i class="fa fa-close"></i></a></li> -->
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -171,7 +171,7 @@
                     <h2>กรรมการ <i class="fa fa-users"></i><small></small></h2>
                     <ul class="nav navbar-right panel_toolbox" style="padding-left: 50px;">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a></li>
+                      <!-- <li><a class="close-link"><i class="fa fa-close"></i></a></li> -->
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -250,7 +250,7 @@
                       <h2>รายการงานตรวจ <i class="fa fa-university"></i><small></small></h2>
                       <ul class="nav navbar-right panel_toolbox" style="padding-left: 50px;">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                        <li><a class="close-link"><i class="fa fa-close"></i></a></li>
+                        <!-- <li><a class="close-link"><i class="fa fa-close"></i></a></li> -->
                       </ul>
                       <div class="clearfix"></div>
                     </div>
@@ -260,7 +260,7 @@
                           <a href="#" class="btn btn-round btn-success pull-right" name='addTaskbtn' data-toggle="modal" data-target="#addTaskModal" ><span class="fa fa-plus" aria-hidden="true"></span> เพิ่มงานตรวจ</a>
                         <? } ?>
                       </span>
-                      <table id="tbTask" name="tbTask" class="table table-hover">
+                      <table id="tbTask" name="tbTask" class="table table-striped dt-responsive nowrap dataTable no-footer dtr-inline">
                         <thead>
                           <tr>
                             <th class="text-center">ชื่อหน่วยงาน</th>
@@ -324,10 +324,10 @@
             <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>รายการแบบตรวจสอบ <i class="fa fa-file-text"></i><small></small></h2>
+                        <h2>รายการใบตรวจงาน <i class="fa fa-file-text"></i><small></small></h2>
                         <ul class="nav navbar-right panel_toolbox" style="padding-left: 50px;">
                           <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                          <li><a class="close-link"><i class="fa fa-close"></i></a></li>
+                          <!-- <li><a class="close-link"><i class="fa fa-close"></i></a></li> -->
                         </ul>
                         <div class="clearfix"></div>
                     </div>

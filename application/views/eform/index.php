@@ -18,11 +18,11 @@
 
           <div class="x_panel">
             <div class="x_title">
-              <h2>รายการแบบตรวจสอบ</h2>
-              <ul class="nav navbar-right panel_toolbox" style="padding-left: 50px;">
+              <h2>รายการใบตรวจงาน</h2>
+              <!-- <ul class="nav navbar-right panel_toolbox" style="padding-left: 50px;">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                 <li><a class="close-link"><i class="fa fa-close"></i></a></li>
-              </ul>
+              </ul> -->
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -273,8 +273,8 @@
       var committee = $(e.relatedTarget).data('committee')
       var called_page = "eform";
 
-      $("#disableEformModal .modal-header .modal-title").html('ยกเลิกแบบตรวจออนไลน์');
-      $("#disableEformModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกแบบตรวจออนไลน์<BR><BR>หมายเลข: <b>'+eform_id+'</b><BR>ชื่อหน่วยงาน: <b>'+site_name+'</b><BR>สร้างโดย: <b>'+committee+'</b><BR><BR>ใช่หรือไม่ ?</div>');
+      $("#disableEformModal .modal-header .modal-title").html('ยกเลิกใบตรวจงาน');
+      $("#disableEformModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกใบตรวจงาน<BR><BR>หมายเลข: <b>'+eform_id+'</b><BR>ชื่อหน่วยงาน: <b>'+site_name+'</b><BR>สร้างโดย: <b>'+committee+'</b><BR><BR>ใช่หรือไม่ ?</div>');
 
       $(e.currentTarget).find('input[name="eform_id"]').val(eform_id);
       $(e.currentTarget).find('input[name="schedule_id"]').val(schedule_id);
