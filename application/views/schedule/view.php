@@ -47,7 +47,7 @@
                     </div>
 
                     <div class="row">
-                      <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">งวดงาน</label>
+                      <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">งวดงาน/ปีสัญญา</label>
                       <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$val['schedule_period'];?></div>
                     </div>
 
@@ -250,8 +250,8 @@
                           ?>
                             <tr>
                                 <td class="text-left"><?=$val['site_name'];?></td>
-                                <td class="text-left"><?=$val['asset_type'];?> [<?=$val['ma_type'];?>]</td>
-                                <td class="text-left">
+                                <td class="text-center"><?=$val['asset_type'];?> [<?=$val['ma_type'];?>]</td>
+                                <td class="text-center">
                                 <? 
                                   if( !empty($committee_list) ){
                                     if(in_array($this->session->userdata('name')." ".$this->session->userdata('surname'), $committee_list) ){

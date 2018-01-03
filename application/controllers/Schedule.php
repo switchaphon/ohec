@@ -38,9 +38,20 @@ class Schedule extends MY_Controller {
 		$this->_init_assets( array('icheck','bootstrap-daterangepicker','bootstrap_validator','bootstrap_select') );
 		
 		// $this->load->library( array('Eform_action') );
-		$this->load->model( array('Site_model'));
+		$this->load->model( array('Site_model','Schedule_model'));
 		
-		//Get region
+		$this->data['last_year'] = date('Y',strtotime('last year'))+543; 
+		$this->data['this_year'] = date('Y',strtotime('this year'))+543; 
+		$this->data['next_year'] = date('Y',strtotime('next year'))+543; 
+
+		$this->data['year'] = array(
+			$this->data['last_year'] => $this->data['last_year']
+			,$this->data['this_year'] => $this->data['this_year']
+			,$this->data['next_year'] => $this->data['next_year']
+
+		);
+
+		$this->data['project'] = $this->Schedule_model->list_project();
 		$this->data['region'] = $this->Site_model->list_region();
 
 		$this->load->view('schedule/create',$this->data);
@@ -88,9 +99,9 @@ class Schedule extends MY_Controller {
 
 		$data = array(
 			'schedule_id' => $schedule_id
-			,'schedule_name' => $_POST['project']." ".$_POST['period']
+			,'schedule_name' => $_POST['project']." ".$_POST['period']."/".$_POST['year']
 			,'schedule_project' => $_POST['project']
-			,'schedule_period' => $_POST['period']
+			,'schedule_period' => $_POST['period']."/".$_POST['year']
 			,'schedule_description' => $_POST['description']
 			,'region' => $region
 			,'province' => $province
@@ -102,7 +113,7 @@ class Schedule extends MY_Controller {
 			,'created_by' => $this->session->userdata('name')." ".$this->session->userdata('surname')
 			,'status' => '1'
 		);
-		
+		// echo "<pre>"; print_r($data); echo "</pre>";
 		$res = $this->Utilities_model->_insert_array('tb_schedule',$data);
 		
 		//Log
@@ -140,9 +151,30 @@ class Schedule extends MY_Controller {
 		$this->_init();
 		$this->_init_assets( array('datatables','bootstrap_validator','bootstrap_select','bootstrap-daterangepicker') );
 		$this->load->model( array('Schedule_model','Site_model','Eform_model'));
+		
 
 		//Get schedule
 		$this->data['schedule'] = $this->Schedule_model->view_schedule($schedule_id);
+
+		//Get period/year
+		$this->data['last_year'] = explode('/',$this->data['schedule'][0]['schedule_period'])[1]-1; 
+		$this->data['this_year'] = explode('/',$this->data['schedule'][0]['schedule_period'])[1]; 
+		$this->data['next_year'] = explode('/',$this->data['schedule'][0]['schedule_period'])[1]+1; 
+
+		$this->data['year'] = array(
+			$this->data['last_year'] => $this->data['last_year']
+			,$this->data['this_year'] => $this->data['this_year']
+			,$this->data['next_year'] => $this->data['next_year']
+
+		);
+
+		$this->data['project'] = $this->Schedule_model->list_project();
+		$period = $this->Schedule_model->list_period_by_project($this->data['schedule'][0]['schedule_project']);
+
+		for($i = 1; $i <= $period; $i++){
+			$this->data['period'][$i] = $i;
+		}
+		// $this->data['period'] = $this->Schedule_model->list_period_by_project($this->data['schedule'][0]['schedule_project']);
 
 		//Get region
 		$this->data['region_list'] = $this->Site_model->list_region();
@@ -207,9 +239,9 @@ class Schedule extends MY_Controller {
 
 		$data = array(
 			'schedule_id' => $_POST['schedule_id']
-			,'schedule_name' => $_POST['project']." ".$_POST['period']
+			,'schedule_name' => $_POST['project']." ".$_POST['period']."/".$_POST['year']
 			,'schedule_project' => $_POST['project']
-			,'schedule_period' => $_POST['period']
+			,'schedule_period' => $_POST['period']."/".$_POST['year']
 			,'schedule_description' => $_POST['description']
 			,'region' => $region
 			,'province' => $province
@@ -417,6 +449,15 @@ class Schedule extends MY_Controller {
 
 		redirect( site_url('/schedule/index/'));
 			
+	}
+
+	//JSON
+	function list_period_by_project()
+	{
+		// $region = str_replace("," , "','" , $_POST['region']);
+
+		$this->load->model( array('Schedule_model'));
+		echo(json_encode($this->Schedule_model->list_period_by_project($_POST['project'])));
 	}
 
 }

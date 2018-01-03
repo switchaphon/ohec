@@ -43,6 +43,35 @@ class Schedule_model extends CI_Model {
         }
     }
 
+    function list_project() {
+        $sql ="
+            Select project
+            FROM tb_period period
+            WHERE status = '1'
+            ";
+        $query = $this->db->query($sql);
+        
+        return $query->result_array();
+    }
+    
+    function list_period_by_project($project = null){
+        $sql ="
+            Select period
+            FROM tb_period period
+            WHERE status = '1' AND project = '$project'
+            ";
+        $query = $this->db->query($sql);
+        
+        $row = $query->row();
+
+        // print_r($row->schedule_id);
+        if(!empty($row->period)){
+            return $row->period;
+        }else{
+            return FALSE;
+        }
+    }
+
     function view_schedule($id = null) {
         $sql ="
             Select *

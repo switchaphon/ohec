@@ -17,21 +17,49 @@
                     <div class="x_content">
                         <form role="form" id="createSchedule" name="createSchedule" class="form-horizontal form-label-left" data-toggle="validator" action="<?=site_url('schedule/create_ops');?>" method="POST">
                             <!-- <span class="section"><small>ข้อมูลตารางตรวจงาน</small></span> -->
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="project">โครงการ <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="project"  name="project" class="form-control col-md-7 col-xs-12" placeholder="ตัวอย่างเช่น ไฟเบอร์ หรือ อุปกรณ์" required>
                                 </div>
+                            </div> -->
+                            <div class="form-group">
+                                <label class="control-label col-lg-3 col-md-3 col-sm-3 col-xs-12" for="project">ตารางตรวจงาน <span class="required">*</span></label>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                                    <?
+                                        echo "<select name=\"project\" id=\"project\" class=\"form-control selectpicker show-tick\" title=\"โครงการ\" \"data-live-search=\"false\" data-size=\"10\" data-width=\"css-width\" required>";
+                                        foreach($project as $pro_key => $pro_val):
+                                            echo "<option value=\"".$pro_val['project']."\">".$pro_val['project']."</option>\"";
+                                        endforeach;
+                                        echo "</select>";
+                                    ?>    
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                                    <?
+                                        echo "<select name=\"period\" id=\"period\" class=\"form-control selectpicker show-tick\" title=\"งวดงาน\" \"data-live-search=\"false\" data-size=\"10\" data-width=\"css-width\" required></select>";
+                                    ?>    
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                                    <?
+                                        echo "<select name=\"year\" id=\"year\" class=\"form-control selectpicker show-tick\" title=\"ปีสัญญา\" \"data-live-search=\"false\" data-size=\"10\" data-width=\"css-width\" required>";
+                                        foreach($year as $year_key => $year_val):
+                                            if($year_key == $this_year){ $selected = 'selected'; }else{ $selected = NULL; }
+                                            echo "<option value=\"".$year_key."\"".$selected.">".$year_key."</option>\"";
+                                        endforeach;
+                                        echo "</select>";
+                                    ?>    
+                                </div>                                
                                 <!-- <p class="help-block col-md-3 col-sm-3 col-xs-12">ตัวอย่าง<i><b>'ไฟเบอร์'</b> หรือ <b>'อุปกรณ์'</b></i></p> -->
                             </div>
-
-                            <div class="form-group">
+                            <?
+                                // echo "<pre>"; print_r($period); echo "</pre>";
+                            ?>
+                            <!-- <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="period">งวดงาน <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="period"  name="period" class="form-control col-md-7 col-xs-12" placeholder="ตัวอย่างเช่น 1/2561" required>
                                 </div>
-                                <!-- <p class="help-block col-md-3 col-sm-3 col-xs-12">ตัวอย่าง <i><b>'1/2561'</b></i></p> -->
-                            </div>
+                            </div> -->
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="schedule-time">วันที่ออกตรวจ <span class="required">*</span></label>
@@ -133,7 +161,32 @@
     });
 
     $(document).ready(function(){
+        //Once project changed, re-query period
+        $('#project').change(function(){
+            $("#period").html('');
+        
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: "<?=site_url('/Schedule/list_period_by_project');?>",
+                data: "project="+ $('#project').val(),
+                success: function(result)
+                {   
+                    var opt = '';
+                    for(i = 1; i <= result; i++) {
+                        opt += '<option value="'+i+'">'+i+'</option>';                       
+                    }
+                    $("#period").append(opt);
+                    $('#period').selectpicker('refresh');
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
 
+        });
+        
         //Once region changed, re-query province
         $('#region').change(function(){
         

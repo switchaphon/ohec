@@ -42,19 +42,57 @@
                       <label class="col-md-3 control-label text-left"><span class='label label-default'>Far Side Info.</span></label>
                     </div> -->
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" >โครงการ <span class="required">*</span></label>
                         <div class="col-md-8 col-sm-9 col-xs-12 text-left">
                             <input type="text" id="project"  name="project" class="form-control" placeholder="ตัวอย่างเช่น ไฟเบอร์ หรือ อุปกรณ์" value="<?=$val['schedule_project'];?>" required>
                         </div>
-                    </div>
+                    </div> -->
                     
                     <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" >โครงการ <span class="required">*</span></label>
+                        <div class="col-md-8 col-sm-9 col-xs-12 text-left">
+                        <?
+                              echo "<select name=\"project\" id=\"project\" class=\"form-control selectpicker show-tick\" title=\"ปีสัญญา\" \"data-live-search=\"false\" data-size=\"10\" data-width=\"css-width\" required>";
+                              foreach($project as $pro_key => $pro_val):
+                                  if($pro_val['project'] == $val['schedule_project']){ $selected = 'selected'; }else{ $selected = NULL; }
+                                  echo "<option value=\"".$pro_val['project']."\"".$selected.">".$pro_val['project']."</option>\"";
+                              endforeach;
+                              echo "</select>";
+                          ?>                            
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" >งวดงาน <span class="required">*</span></label>
                         <div class="col-md-8 col-sm-9 col-xs-12 text-left">
                             <input type="text" id="period"  name="period" class="form-control" placeholder="ตัวอย่างเช่น 1/2561" value="<?=$val['schedule_period'];?>" required>
                         </div>
-                    </div>                    
+                    </div>     -->
+                      
+                    <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" >งวดงาน/ปีสัญญา <span class="required">*</span></label>
+                        <div class="col-md-4 col-sm-4 col-xs-6 text-left">
+                          <?
+                              echo "<select name=\"period\" id=\"period\" class=\"form-control selectpicker show-tick\" title=\"งวดงาน\" \"data-live-search=\"false\" data-size=\"10\" data-width=\"css-width\" required>";
+                              foreach($period as $per_key => $per_val):
+                                  if($per_key == explode('/',$val['schedule_period'])[0] ){ $selected = 'selected'; }else{ $selected = NULL; }
+                                  echo "<option value=\"".$per_key."\"".$selected.">".$per_key."</option>\"";
+                              endforeach;
+                              echo "</select>";
+                          ?>                           
+                        </div>
+                        <div class="col-md-4 col-sm-5 col-xs-6 text-left">
+                          <?
+                              echo "<select name=\"year\" id=\"year\" class=\"form-control selectpicker show-tick\" title=\"ปีสัญญา\" \"data-live-search=\"false\" data-size=\"10\" data-width=\"css-width\" required>";
+                              foreach($year as $year_key => $year_val):
+                                  if($year_key == explode('/',$val['schedule_period'])[1] ){ $selected = 'selected'; }else{ $selected = NULL; }
+                                  echo "<option value=\"".$year_key."\"".$selected.">".$year_key."</option>\"";
+                              endforeach;
+                              echo "</select>";
+                          ?>                           
+                        </div>
+                    </div>                                    
 
                     <div class="form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="name">วันที่ออกตรวจ <span class="required">*</span></label>
@@ -290,8 +328,8 @@
                           ?>
                             <tr>
                               <td class="text-left"><?=$val['site_name'];?></td>
-                              <td class="text-left"><?=$val['asset_type'];?> [<?=$val['ma_type'];?>]</td>
-                              <td class="text-left">
+                              <td class="text-center"><?=$val['asset_type'];?> [<?=$val['ma_type'];?>]</td>
+                              <td class="text-center">
                                 <? 
                                   if( !empty($committee_list) ){
                                     if(in_array($this->session->userdata('name')." ".$this->session->userdata('surname'), $committee_list) ){
@@ -459,6 +497,32 @@
         },
         startDate: $('#ticket_start_date').val(),
         endDate: $('#ticket_end_date').val()
+    });
+
+    //Once project changed, re-query period
+    $('#project').change(function(){
+        $("#period").html('');
+    
+        $.ajax({
+            type: "POST",
+            dataType: 'json',
+            url: "<?=site_url('/Schedule/list_period_by_project');?>",
+            data: "project="+ $('#project').val(),
+            success: function(result)
+            {   
+                var opt = '';
+                for(i = 1; i <= result; i++) {
+                    opt += '<option value="'+i+'">'+i+'</option>';                       
+                }
+                $("#period").append(opt);
+                $('#period').selectpicker('refresh');
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+
     });
 
     //Once region changed, re-query province
