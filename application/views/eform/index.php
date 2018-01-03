@@ -28,7 +28,7 @@
             <div class="x_content">
 
               <!-- /Dashboard --> 
-              <div class="row text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <h2>รายงานสรุปงานตรวจ<?=urldecode($schedule_title);?> <span id="Host_amount" class="badge"></span></h2>
                   <div class="x_content" style="padding-bottom: 0px; margin-top:0px">
