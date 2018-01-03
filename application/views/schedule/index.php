@@ -36,7 +36,7 @@
                             <th class="text-center">ชื่อตารางตรวจงาน</th>
                             <!-- <th class="text-center">รายละเอียด</th> -->
                             <th class="text-center">จังหวัด</th>
-                            <th class="text-center">วันเดินทาง</th>
+                            <th class="text-center">วันที่ออกตรวจ</th>
                             <th class="text-center"></th>
                           </tr>
                         </thead>

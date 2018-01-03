@@ -18,7 +18,7 @@
 
           <div class="x_panel">
             <div class="x_title">
-              <h2>รายการแบบตรวจสอบออนไลน์</h2>
+              <h2>รายการแบบตรวจสอบ</h2>
               <ul class="nav navbar-right panel_toolbox" style="padding-left: 50px;">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                 <li><a class="close-link"><i class="fa fa-close"></i></a></li>
@@ -117,7 +117,7 @@
                     <th class="text-center">งวดตรวจงาน</th>
                     <th class="text-center">ชื่อหน่วยงาน</th>
                     <th class="text-center">จังหวัด</th>
-                    <th class="text-center">ประเภทการตรวจสอบ</th>
+                    <th class="text-center">ประเภทงานตรวจ</th>
                     <th class="text-center">ผู้ตรวจสอบ</th>
                     <th class="text-center">วันที่ตรวจสอบ</th>
                     <th class="text-center"></th>
@@ -274,7 +274,7 @@
       var called_page = "eform";
 
       $("#disableEformModal .modal-header .modal-title").html('ยกเลิกแบบตรวจออนไลน์');
-      $("#disableEformModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกแบบตรวจออนไลน์<BR><BR>หมายเลข: <b>'+eform_id+'</b><BR>สถานที่: <b>'+site_name+'</b><BR>สร้างโดย: <b>'+committee+'</b><BR><BR>ใช่หรือไม่ ?</div>');
+      $("#disableEformModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกแบบตรวจออนไลน์<BR><BR>หมายเลข: <b>'+eform_id+'</b><BR>ชื่อหน่วยงาน: <b>'+site_name+'</b><BR>สร้างโดย: <b>'+committee+'</b><BR><BR>ใช่หรือไม่ ?</div>');
 
       $(e.currentTarget).find('input[name="eform_id"]').val(eform_id);
       $(e.currentTarget).find('input[name="schedule_id"]').val(schedule_id);

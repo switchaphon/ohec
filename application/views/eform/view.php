@@ -46,13 +46,13 @@
                                         <address>
                                             หมายเลขการตรวจ : <b><?=$eform[0]['eform_id']?><?=$eform[0]['form_id']?></b>
                                             <br>ทรัพย์สิน : <b><?=$eform[0]['asset_type']?></b>
-                                            <br>ประเภทการตรวจ : <b><?=$eform[0]['ma_name']?> (<?=$eform[0]['ma_type']?>)</b>
+                                            <br>ประเภทงานตรวจ : <b><?=$eform[0]['ma_name']?> (<?=$eform[0]['ma_type']?>)</b>
                                         </address>
                                     </div>
                                     <!-- /left col -->
                                     <!-- right col -->
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
-                                        ตารางงาน : <b><a href="<?=site_url('schedule/view/'.$eform[0]['schedule_id']);?>"><?=$eform[0]['schedule_project']." ".$eform[0]['schedule_period']." (".$eform[0]['region'].")"?></a></b>
+                                        ตารางตรวจงาน : <b><a href="<?=site_url('schedule/view/'.$eform[0]['schedule_id']);?>"><?=$eform[0]['schedule_project']." ".$eform[0]['schedule_period']." (".$eform[0]['region'].")"?></a></b>
                                         <br>ผู้ตรวจสอบ : <b><?=$eform[0]['created_by']?></b>
                                         <br>วันที่ตรวจสอบ : <b><?=$eform[0]['created_date']?></b>
                                     </div>
@@ -66,7 +66,7 @@
                                     <table id="tbEformTicket" name="tbEformTicket" width="90%" class="table table-striped dt-responsive nowrap dataTable no-footer dtr-inline">
                                         <thead>
                                             <tr>
-                                            <th class="text-center">หมายเลขเคส</th>
+                                            <th class="text-center">หมายเลข Ticket</th>
                                             <th class="text-center">ประเภทอุปกรณ์</th>
                                             <th class="text-center">สัญญา</th>
                                             </tr>
@@ -78,7 +78,7 @@
                                             foreach($ticket as $ticket_key => $ticket_val):
                                         ?>
                                             <tr>
-                                                <td class="text-left"><?=$ticket_val['case_id'];?></td>
+                                                <td class="text-center"><?=$ticket_val['case_id'];?></td>
                                                 <td class="text-center"><?=$ticket_val['case_sub_category'];?></td>
                                                 <td class="text-center"><?=$ticket_val['contract'];?></td>
                                             </tr>  

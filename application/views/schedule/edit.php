@@ -57,7 +57,7 @@
                     </div>                    
 
                     <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="name">กำหนดการ <span class="required">*</span></label>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="name">วันที่ออกตรวจ <span class="required">*</span></label>
                         <div class="col-md-8 col-sm-9 col-xs-12 text-left">
                             <input type="hidden" name="start_date" id="start_date" value="<?=convert_to_yyyymmdd( $val['start_date'] );?>" />  
                             <input type="hidden" name="end_date" id="end_date" value="<?=convert_to_yyyymmdd( $val['end_date'] );?>" />                          
@@ -75,7 +75,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="name">Ticket <span class="required">*</span></label>
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="name">ระยะเวลาของ Ticket <span class="required">*</span></label>
                         <div class="col-md-8 col-sm-9 col-xs-12 text-left">
                             <input type="hidden" name="ticket_start_date" id="ticket_start_date" value="<?=convert_to_yyyymmdd( $val['ticket_start_date'] );?>" />  
                             <input type="hidden" name="ticket_end_date" id="ticket_end_date" value="<?=convert_to_yyyymmdd( $val['ticket_end_date'] );?>" />  
@@ -247,7 +247,7 @@
                 <!-- destination card -->
                   <div class="x_panel">
                     <div class="x_title">
-                      <h2>สถานที่ <i class="fa fa-university"></i><small></small></h2>
+                      <h2>รายการงานตรวจ <i class="fa fa-university"></i><small></small></h2>
                       <ul class="nav navbar-right panel_toolbox" style="padding-left: 50px;">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                         <li><a class="close-link"><i class="fa fa-close"></i></a></li>
@@ -257,14 +257,14 @@
                     <div class="x_content">
                       <span id="panelTask">
                         <? if($permission->schedule_edit) {?>
-                          <a href="#" class="btn btn-round btn-success pull-right" name='addTaskbtn' data-toggle="modal" data-target="#addTaskModal" ><span class="fa fa-plus" aria-hidden="true"></span> เพิ่มสถานที่</a>
+                          <a href="#" class="btn btn-round btn-success pull-right" name='addTaskbtn' data-toggle="modal" data-target="#addTaskModal" ><span class="fa fa-plus" aria-hidden="true"></span> เพิ่มงานตรวจ</a>
                         <? } ?>
                       </span>
                       <table id="tbTask" name="tbTask" class="table table-hover">
                         <thead>
                           <tr>
-                            <th class="text-center">สถานที่</th>
-                            <th class="text-center">งานตรวจ</th>
+                            <th class="text-center">ชื่อหน่วยงาน</th>
+                            <th class="text-center">ประเภทงานตรวจ</th>
                             <th class="text-center"></th>
                           </tr>
                         </thead>
@@ -324,7 +324,7 @@
             <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>รายการแบบตรวจสอบออนไลน์ <i class="fa fa-file-text"></i><small></small></h2>
+                        <h2>รายการแบบตรวจสอบ <i class="fa fa-file-text"></i><small></small></h2>
                         <ul class="nav navbar-right panel_toolbox" style="padding-left: 50px;">
                           <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                           <li><a class="close-link"><i class="fa fa-close"></i></a></li>
@@ -337,7 +337,7 @@
                             <tr>
                               <th class="text-center">ชื่อหน่วยงาน</th>
                               <th class="text-center">จังหวัด</th>
-                              <th class="text-center">ประเภทการตรวจสอบ</th>
+                              <th class="text-center">ประเภทงานตรวจ</th>
                               <th class="text-center">ผู้ตรวจสอบ</th>
                               <th class="text-center">วันที่ตรวจสอบ</th>
                               <th class="text-center"></th>

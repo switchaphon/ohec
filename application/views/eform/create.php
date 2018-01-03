@@ -36,7 +36,7 @@
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                                         <address>
                                             <!-- <b>ตารางตรวจงาน :</b> <a href="<?=site_url('schedule/view/'.$schedule_id)?>"><?=$schedule_name;?></a> -->
-                                            <b>ประเภทการตรวจ :</b> <?=$ma_name;?> (<?=$ma_type;?>)
+                                            <b>ประเภทงานตรวจ :</b> <?=$ma_name;?> (<?=$ma_type;?>)
                                             <br><b>ทรัพย์สิน :</b> <?=$asset_type;?>
                                             <!--<br><b>สัญญา :</b> <?=$ma_contract;?>
                                             <br><b>หมายเลขเคส :</b> <a href="#" target="_blank"><?=$ticket_id;?></a>-->
@@ -49,9 +49,9 @@
                                         <table id="tbEformTicket" name="tbEformTicket" width="90%" class="table table-striped dt-responsive nowrap dataTable no-footer dtr-inline">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center">ประเภทอุปกรณ์</th>
-                                                    <th class="text-center">สัญญา</th>
-                                                    <th class="text-center">หมายเลขเคส</th>
+                                                <th class="text-center">หมายเลข Ticket</th>
+                                                <th class="text-center">ประเภทอุปกรณ์</th>
+                                                <th class="text-center">สัญญา</th>
                                                 </tr>
                                             </thead>
                                             
@@ -61,9 +61,9 @@
                                                 foreach($ticket as $ticket_key => $ticket_val):
                                             ?>
                                                 <tr>
+                                                    <td class="text-center"><?=$ticket_val['case_id'];?></td>                                                                                                
                                                     <td class="text-center"><?=$ticket_val['case_sub_category'];?></td>
                                                     <td class="text-center"><?=$ticket_val['contract'];?></td>
-                                                    <td class="text-center"><?=$ticket_val['case_id'];?></td>                                                
                                                 </tr>  
                                             <?      
                                                 endforeach;
@@ -653,7 +653,7 @@
         $('.collapsed').css('height', 'auto');
 
         // if( ($('#form_id').val() == '00001') || ($('#form_id').val() == '00002') || ($('#form_id').val() == '00003') ){
-            $('.collapsed').find('.x_content').css('display', 'none');
+            // $('.collapsed').find('.x_content').css('display', 'none');
         // }
 
         $('.collapsed').find('a .collapse-link').toggleClass('fa-chevron-up fa-chevron-down');

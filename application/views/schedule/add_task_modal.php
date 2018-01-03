@@ -2,7 +2,7 @@
 <form role="form" id="addTask" name="addTask" class="form-horizontal form-label-left" data-toggle="validator" action="<?=site_url('schedule/add_task_ops');?>" method="POST">    
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title" id="myModalLabel">เพิ่มสถานที่/เพิ่มงานตรวจ</h4>
+        <h4 class="modal-title" id="myModalLabel">เพิ่มงานตรวจ</h4>
     </div>
     <div class="modal-body">
 
@@ -11,14 +11,14 @@
             <div class="panel-body">
                 <!-- <div class="form-group col-lg-2 col-md-2 col-sm-1 col-xs-1"></div> -->
                 <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">สถานที่<span class="required">*</span></label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">ชื่อหน่วยงาน<span class="required">*</span></label>
                                 
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                     <?  
                         $str = $opt = null;
 
                         if( !empty($site_list) ){
-                        echo "<select id=\"site\" name=\"site[]\" class=\"form-control selectpicker show-tick\" title=\"เลือกได้มากกว่าหนึ่งสถานที่ \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" multiple required>";
+                        echo "<select id=\"site\" name=\"site[]\" class=\"form-control selectpicker show-tick\" title=\"เลือกได้มากกว่าหนึ่งหน่วยงาน \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" multiple required>";
                         foreach($site_list as $provice => $site):
                             echo '<optgroup label="'.$provice.'">';
                             for($i = 0; $i < count($site); $i++){
@@ -47,7 +47,7 @@
                         
                         echo "<select id=\"task\" name=\"task[]\" class=\"form-control selectpicker show-tick\" title=\"เลือกได้มากกว่าหนึ่งประเภท \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" multiple required>";
                         foreach($form_list as $asset_type => $ma_type):
-                            echo '<optgroup label="'.$asset_type.'">';
+                            echo '<optgroup label="งานตรวจ '.$asset_type.'">';
                             for($i = 0; $i < count($ma_type); $i++){
                                 echo '<option value="'.$ma_type[$i]['form_id'].'">'.$asset_type." - ".$ma_type[$i]['ma_name_en'].'</option>';
                             }
