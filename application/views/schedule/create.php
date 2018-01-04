@@ -16,13 +16,7 @@
                     </div>
                     <div class="x_content">
                         <form role="form" id="createSchedule" name="createSchedule" class="form-horizontal form-label-left" data-toggle="validator" action="<?=site_url('schedule/create_ops');?>" method="POST">
-                            <!-- <span class="section"><small>ข้อมูลตารางตรวจงาน</small></span> -->
-                            <!-- <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="project">โครงการ <span class="required">*</span></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="project"  name="project" class="form-control col-md-7 col-xs-12" placeholder="ตัวอย่างเช่น ไฟเบอร์ หรือ อุปกรณ์" required>
-                                </div>
-                            </div> -->
+
                             <div class="form-group">
                                 <label class="control-label col-lg-3 col-md-3 col-sm-3 col-xs-12" for="project">ตารางตรวจงาน <span class="required">*</span></label>
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
@@ -39,6 +33,7 @@
                                         echo "<select name=\"period\" id=\"period\" class=\"form-control selectpicker show-tick\" title=\"งวดงาน\" \"data-live-search=\"false\" data-size=\"10\" data-width=\"css-width\" required></select>";
                                     ?>    
                                 </div>
+                                
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
                                     <?
                                         echo "<select name=\"year\" id=\"year\" class=\"form-control selectpicker show-tick\" title=\"ปีสัญญา\" \"data-live-search=\"false\" data-size=\"10\" data-width=\"css-width\" required>";
@@ -49,20 +44,10 @@
                                         echo "</select>";
                                     ?>    
                                 </div>                                
-                                <!-- <p class="help-block col-md-3 col-sm-3 col-xs-12">ตัวอย่าง<i><b>'ไฟเบอร์'</b> หรือ <b>'อุปกรณ์'</b></i></p> -->
                             </div>
-                            <?
-                                // echo "<pre>"; print_r($period); echo "</pre>";
-                            ?>
-                            <!-- <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="period">งวดงาน <span class="required">*</span></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="period"  name="period" class="form-control col-md-7 col-xs-12" placeholder="ตัวอย่างเช่น 1/2561" required>
-                                </div>
-                            </div> -->
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="schedule-time">วันที่ออกตรวจ <span class="required">*</span></label>
+                                <label class="control-label col-lg-3 col-md-3 col-sm-3 col-xs-12" for="schedule-time">วันที่ออกตรวจ <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <fieldset>
                                         <div class="control-group">
@@ -78,7 +63,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ticket-time">ระยะเวลาของ Ticket <span class="required">*</span></label>
+                                <label class="control-label col-lg-3 col-md-3 col-sm-3 col-xs-12" for="ticket-time">ระยะเวลาของ Ticket <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <fieldset>
                                         <div class="control-group">
@@ -94,7 +79,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="region">พื้นที่ <span class="required">*</span></label>
+                                <label class="control-label col-lg-3 col-md-3 col-sm-3 col-xs-12" for="region">พื้นที่ <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <?
                                         echo "<select name=\"region[]\" id=\"region\" class=\"form-control selectpicker show-tick\" title=\"เลือกได้มากกว่าหนึ่งพื้นที่ \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" multiple required>";
@@ -107,7 +92,7 @@
                             </div>                        
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="province">จังหวัด <span class="required">*</span></label>
+                                <label class="control-label col-lg-3 col-md-3 col-sm-3 col-xs-12" for="province">จังหวัด <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <?
                                         echo "<select name=\"province[]\" id=\"province\" class=\"form-control selectpicker show-tick\" title=\"เลือกได้มากกว่าหนึ่งจังหวัด \"data-live-search=\"true\" data-size=\"10\" data-width=\"css-width\" multiple required></select>";
@@ -116,7 +101,7 @@
                             </div>        
                             
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">รายละเอียด </label>
+                                <label class="control-label col-lg-3 col-md-3 col-sm-3 col-xs-12" for="description">รายละเอียด </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <textarea id="description"  name="description" class="form-control col-md-7 col-xs-12" ></textarea>
                                 </div>
@@ -125,9 +110,9 @@
                             <div class="ln_solid"></div>
 
                             <div class="form-group">
-                                <div class="col-md-5 pull-right">
-                                <button type="submit" class="btn btn-round btn-default">ยกเลิก</button>
-                                <button id="submit" type="submit" class="btn btn-round btn-primary">บันทึก</button>
+                                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 text-center">
+                                    <button type="submit" class="btn btn-round btn-default">ยกเลิก</button>
+                                    <button id="submit" type="submit" class="btn btn-round btn-primary">บันทึก</button>
                                 </div>
                             </div>
                         </form>

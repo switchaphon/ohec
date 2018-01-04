@@ -33,7 +33,7 @@
                   <h2>รายงานสรุปงานตรวจ<?=urldecode($schedule_title);?> <span id="Host_amount" class="badge"></span></h2>
                   <div class="x_content" style="padding-bottom: 0px; margin-top:0px">
                     <div class="row tile_count">
-                      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                      
                         <!-- <form role="form" id="searchEform" name="searchEform" class="form-inline form-label-left" data-toggle="validator" action="<?=site_url('eform');?>" method="post"> -->
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -72,7 +72,7 @@
                           </div> -->
                         <!-- </form> -->
                       </div>
-                      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                      <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 tile_stats_count">
                         <a href="#" onclick="select_EformStatus('All')">
                         <div class="pull-left" style="padding-top: 8px;">
                         <i class="fa fa-file-text" style="font-size:20px;"></i>
@@ -82,7 +82,7 @@
                         <p class="pull-right">ทั้งหมด</p></a>
                       </div>
 
-                      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                      <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 tile_stats_count">
                         <a href="#" onclick="select_EformStatus('Passed')">
                         <div class="pull-left" style="padding-top: 8px;">
                         <i class="fa fa-check-circle green" style="font-size:20px;"></i>
@@ -92,7 +92,7 @@
                         <p class="pull-right">ผ่าน</p></a>
                       </div>
 
-                      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                      <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 tile_stats_count">
                         <a href="#" onclick="select_EformStatus('notPassed')">
                         <div class="pull-left" style="padding-top: 8px;">
                         <i class="fa fa-times-circle red" style="font-size:20px;"></i>
@@ -100,6 +100,16 @@
                         <span class="pull-right count red" style="margin-top: 0px;" id="Amount_UNREACHABLE"><?=$not_passed_eform;?></span>
                         <div class="clearfix"></div>
                         <p class="pull-right">ไม่ผ่าน</p></a>
+                      </div>
+                      
+                      <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 tile_stats_count">
+                        <a href="#" onclick="select_EformStatus('notPassed')">
+                        <div class="pull-left" style="padding-top: 8px;">
+                        <i class="fa fa-dot-circle-o blue" style="font-size:20px;"></i>
+                        </div>
+                        <span class="pull-right count blue" style="margin-top: 0px;" id="Amount_UNREACHABLE"><?=$not_passed_eform;?></span>
+                        <div class="clearfix"></div>
+                        <p class="pull-right">แก้ไข</p></a>
                       </div>
 
                     </div>

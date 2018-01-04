@@ -98,12 +98,6 @@ class Eform extends MY_Controller {
 		$this->load->view('eform/view',$this->data);
 	}
 
-	// public function dropzone(){
-	// 	$this->_init();
-	// 	$this->_init_assets( array('icheck','dropzone','datatables') );
-
-	// 	$this->load->view('eform/dropzone',$this->data);
-	// }
 	public function create($schedule_id = null, $site_id = null, $form_id = null){
 		$this->_init();
 		$this->_init_assets( array('icheck','piexifjs','bootstrap-fileinput','datatables','bootstrap_select') );
@@ -300,9 +294,6 @@ class Eform extends MY_Controller {
 						$res = $this->Utilities_model->_insert_array('tb_eform_attachment',$eform_attachment);
 
 					}
-					// echo '<pre>';
-					// print_r($created_images);
-					// echo '</pre>';
 				}
 			}
 		endforeach;
@@ -322,6 +313,7 @@ class Eform extends MY_Controller {
 		//Prepate date for insert to tb_eform
 		$eform_note = array(
 			'eform_id' => $_POST['eform_id']
+			,'action' => $_POST['action']
 			,'note_detail' => $_POST['note']
 			,'created_by' => $this->session->userdata('name')." ".$this->session->userdata('surname')
 		);
