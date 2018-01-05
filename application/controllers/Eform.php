@@ -28,23 +28,23 @@ class Eform extends MY_Controller {
 		// echo "<pre>"; print_r($_POST); echo "</pre>";
 		
 		if( !empty($schedule) ){
-			// $this->data['all_eform_list'] = $this->Eform_model->get_all_eform_by_period($_POST['eform-time']);	
-			// $this->data['passed_eform_list'] = $this->Eform_model->get_passed_eform_by_period($_POST['eform-time']);	
-			// $this->data['not_passed_eform_list'] = $this->Eform_model->get_not_passed_eform_by_period($_POST['eform-time']);	
 			$this->data['all_eform_list'] = $this->Eform_model->get_all_eform_by_schedule(urldecode($schedule));	
 			$this->data['passed_eform_list'] = $this->Eform_model->get_passed_eform_by_schedule(urldecode($schedule));	
 			$this->data['not_passed_eform_list'] = $this->Eform_model->get_not_passed_eform_by_schedule(urldecode($schedule));
+			$this->data['fixed_eform_list'] = $this->Eform_model->get_fixed_eform_by_schedule(urldecode($schedule));
 			$this->data['schedule_title'] = str_replace('.','/',$schedule);	
 		}else{
 			$this->data['all_eform_list'] = $this->Eform_model->get_all_eform();
 			$this->data['passed_eform_list'] = $this->Eform_model->get_passed_eform();
 			$this->data['not_passed_eform_list'] = $this->Eform_model->get_not_passed_eform();
+			$this->data['fixed_eform_list'] = $this->Eform_model->get_fixed_eform();
 			$this->data['schedule_title'] = "ทั้งหมด";
 		}
 
 		$this->data['total_eform'] = count($this->data['all_eform_list']);
 		$this->data['passed_eform'] = count($this->data['passed_eform_list']);
 		$this->data['not_passed_eform'] = count($this->data['not_passed_eform_list']);
+		$this->data['fixed_eform'] = count($this->data['fixed_eform_list']);
 
 		$schedule_list = $this->Schedule_model->list_opened_schedule();
 		$this->data['schedule_list'] = array();

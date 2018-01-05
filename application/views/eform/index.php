@@ -103,11 +103,11 @@
                       </div>
                       
                       <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 tile_stats_count">
-                        <a href="#" onclick="select_EformStatus('notPassed')">
+                        <a href="#" onclick="select_EformStatus('notFixed')">
                         <div class="pull-left" style="padding-top: 8px;">
                         <i class="fa fa-dot-circle-o blue" style="font-size:20px;"></i>
                         </div>
-                        <span class="pull-right count blue" style="margin-top: 0px;" id="Amount_UNREACHABLE"><?=$not_passed_eform;?></span>
+                        <span class="pull-right count blue" style="margin-top: 0px;" id="Amount_UNREACHABLE"><?=$fixed_eform;?></span>
                         <div class="clearfix"></div>
                         <p class="pull-right">แก้ไข</p></a>
                       </div>
@@ -151,11 +151,26 @@
                       endforeach;                        
                     } 
                     
+                    if(!empty($fixed_eform_list)){ 
+                      foreach($fixed_eform_list as $fix_val):
+                        $fix_eform[]=$fix_val['eform_id'];
+                      endforeach;                        
+                    } 
+
                     if(!empty($all_eform_list)){ 
 
                       foreach($all_eform_list as $eform_key => $eform_val):
                   ?>
-                      <tr>
+                  <? 
+                      if( in_array($eform_val['eform_id'], $pass_eform) ){
+                        $tr_class = NULL; 
+                      }elseif( (in_array($eform_val['eform_id'], $notpass_eform) ) && !(in_array($eform_val['eform_id'], $fix_eform)) ){
+                        $tr_class = 'danger';                          
+                      }elseif( ( in_array($eform_val['eform_id'], $notpass_eform)) && (in_array($eform_val['eform_id'], $fix_eform)) ){      
+                        $tr_class = NULL;                   
+                      }
+                  ?>
+                      <tr class="<?=$tr_class;?>">
                         <!-- <td class="text-left"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['site_name'];?></a></td> -->
                         <td class="text-left"><?=$eform_val['schedule_project']." - ".$eform_val['schedule_period'];?></td>
                         <td class="text-left"><?=$eform_val['site_name'];?></td>
@@ -167,11 +182,12 @@
                         <? 
                           if( in_array($eform_val['eform_id'], $pass_eform) ){
                             echo "<span class=\"hidden\">Passed</span>";
-                          }elseif( in_array($eform_val['eform_id'], $notpass_eform) ){
-                            echo "<span class=\"hidden\">Not</span>";                            
+                          }elseif( (in_array($eform_val['eform_id'], $notpass_eform) ) && !(in_array($eform_val['eform_id'], $fix_eform)) ){
+                            echo "<span class=\"hidden\">Not</span>";                          
+                          }elseif( ( in_array($eform_val['eform_id'], $notpass_eform)) && (in_array($eform_val['eform_id'], $fix_eform)) ){
+                            echo "<span class=\"hidden\">NotFixed</span>";                           
                           }
-                        ?>
-                          
+                        ?>                         
                         <? if($permission->eform_view){ ?>
                           <a href="<?=site_url('eform/view')?>/<?=$eform_val['eform_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-folder-open"></i> เรียกดู</a>
                         <? } ?> 
@@ -308,6 +324,10 @@
     else if (state=='notPassed')
     {
       result_state = 'Not';
+    }
+    else if (state=='notFixed')
+    {
+      result_state = 'notFixed';
     }
     table
         .search( result_state )
