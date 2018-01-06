@@ -127,13 +127,26 @@ class Schedule extends MY_Controller {
 		$this->_init_assets( array('datatables','bootstrap_validator','bootstrap_select') );
 		$this->load->model( array('Schedule_model','Site_model','Eform_model'));
 
+
 		//Get schedule
 		$this->data['schedule'] = $this->Schedule_model->view_schedule($schedule_id);
 		
 		$province_list = str_replace("," , "','" , $this->data['schedule'][0]['province']);
 		$this->data['ticket_start_date'] = $ticket_start_date = $this->data['schedule'] [0]['ticket_start_date'];
 		$this->data['ticket_end_date'] = $ticket_end_date = $this->data['schedule'] [0]['ticket_end_date'];
-		
+
+		//Count eform of this schedule
+		$this->data['all_eform_list'] = $this->Eform_model->get_all_eform_by_schedule_id( $schedule_id );	
+		$this->data['passed_eform_list'] = $this->Eform_model->get_passed_eform_by_schedule_id( $schedule_id );	
+		$this->data['not_passed_eform_list'] = $this->Eform_model->get_not_passed_eform_by_schedule_id( $schedule_id );
+		$this->data['fixed_eform_list'] = $this->Eform_model->get_fixed_eform_by_schedule_id( $schedule_id );
+		$this->data['not_passed_cause_list'] = $this->Eform_model->get_not_passed_cause();
+
+		$this->data['total_eform'] = count($this->data['all_eform_list']);
+		$this->data['passed_eform'] = count($this->data['passed_eform_list']);
+		$this->data['not_passed_eform'] = count($this->data['not_passed_eform_list']);
+		$this->data['fixed_eform'] = count($this->data['fixed_eform_list']);
+
 		//Get reqion list		
 		$this->data['region_list'] = $this->Site_model->list_region();
 		
@@ -182,6 +195,18 @@ class Schedule extends MY_Controller {
 		//Get province
 		$region = str_replace("," , "','" , $this->data['schedule'][0]['region']);
 		$this->data['province_list'] = $this->Site_model->list_province_by_region($region);
+
+		//Count eform of this schedule
+		$this->data['all_eform_list'] = $this->Eform_model->get_all_eform_by_schedule_id( $schedule_id );	
+		$this->data['passed_eform_list'] = $this->Eform_model->get_passed_eform_by_schedule_id( $schedule_id );	
+		$this->data['not_passed_eform_list'] = $this->Eform_model->get_not_passed_eform_by_schedule_id( $schedule_id );
+		$this->data['fixed_eform_list'] = $this->Eform_model->get_fixed_eform_by_schedule_id( $schedule_id );
+		$this->data['not_passed_cause_list'] = $this->Eform_model->get_not_passed_cause();
+
+		$this->data['total_eform'] = count($this->data['all_eform_list']);
+		$this->data['passed_eform'] = count($this->data['passed_eform_list']);
+		$this->data['not_passed_eform'] = count($this->data['not_passed_eform_list']);
+		$this->data['fixed_eform'] = count($this->data['fixed_eform_list']);
 
 		$province_list = str_replace("," , "','" , $this->data['schedule'][0]['province']);
 		$this->data['ticket_start_date'] = $ticket_start_date = $this->data['schedule'] [0]['ticket_start_date'];

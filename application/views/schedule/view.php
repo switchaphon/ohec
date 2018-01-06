@@ -303,32 +303,134 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
+
+                        <!-- /Dashboard --> 
+                        <div class="text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="x_panel">
+                            <h2></h2>
+                            <div class="x_content" style="padding-bottom: 0px; margin-top:0px">
+                              <div class="row tile_count">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 tile_stats_count">
+                                  <a href="#" onclick="select_EformStatus('All')">
+                                  <div class="pull-left" style="padding-top: 8px;">
+                                  <i class="fa fa-file-text" style="font-size:20px;"></i>
+                                  </div>
+                                  <span class="pull-right count " style="margin-top: 0px;" id="Amount_UP"><?=$total_eform;?></span>
+                                  <div class="clearfix"></div>
+                                  <p class="pull-right">ทั้งหมด</p></a>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 tile_stats_count">
+                                  <a href="#" onclick="select_EformStatus('Passed')">
+                                  <div class="pull-left" style="padding-top: 8px;">
+                                  <i class="fa fa-check-circle green" style="font-size:20px;"></i>
+                                  </div>
+                                  <span class="pull-right count green " style="margin-top: 0px;" id="Amount_DOWN"><?=$passed_eform;?></span>
+                                  <div class="clearfix"></div>
+                                  <p class="pull-right">ผ่าน</p></a>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 tile_stats_count">
+                                  <a href="#" onclick="select_EformStatus('notPassed')">
+                                  <div class="pull-left" style="padding-top: 8px;">
+                                  <i class="fa fa-times-circle red" style="font-size:20px;"></i>
+                                  </div>
+                                  <span class="pull-right count red" style="margin-top: 0px;" id="Amount_UNREACHABLE"><?=$not_passed_eform;?></span>
+                                  <div class="clearfix"></div>
+                                  <p class="pull-right">ไม่ผ่าน</p></a>
+                                </div>
+                                
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 tile_stats_count">
+                                  <a href="#" onclick="select_EformStatus('notFixed')">
+                                  <div class="pull-left" style="padding-top: 8px;">
+                                  <i class="fa fa-dot-circle-o blue" style="font-size:20px;"></i>
+                                  </div>
+                                  <span class="pull-right count blue" style="margin-top: 0px;" id="Amount_UNREACHABLE"><?=$fixed_eform;?></span>
+                                  <div class="clearfix"></div>
+                                  <p class="pull-right">แก้ไข</p></a>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /Dashboard -->
+
                         <table id="tbEform" name="tbEform" class="table table-striped dt-responsive nowrap dataTable no-footer dtr-inline">
                         <thead>
                             <tr>
                             <th class="text-center">ชื่อหน่วยงาน</th>
                             <th class="text-center">จังหวัด</th>
                             <th class="text-center">ประเภทงานตรวจ</th>
+                            <th class="text-center">สาเหตุ</th>
                             <th class="text-center">ผู้ตรวจสอบ</th>
-                            <th class="text-center">วันที่ตรวจสอบ</th>
+                            <th class="text-center">วันที่ตรวจ</th>
                             <th class="text-center"></th>
                             </tr>
                         </thead>
                         
                         <tbody>
                         <? 
-                          // echo "<pre>"; print_r($eform_list); echo "</pre>";
+                          $pass_eform = $notpass_eform = $fix_eform = array();
+                                              
+                          if(!empty($passed_eform_list)){ 
+                            foreach($passed_eform_list as $pass_val):
+                              $pass_eform[]=$pass_val['eform_id'];
+                            endforeach;                        
+                          }
+
+                          if(!empty($not_passed_eform_list)){ 
+                            foreach($not_passed_eform_list as $notpass_val):
+                              $notpass_eform[]=$notpass_val['eform_id'];
+                            endforeach;                        
+                          } 
+
+                          if(!empty($fixed_eform_list)){ 
+                            foreach($fixed_eform_list as $fix_val):
+                              $fix_eform[]=$fix_val['eform_id'];
+                            endforeach;                        
+                          } 
+                          // echo "<pre>"; print_r($not_passed_cause_list); echo "</pre>";
                           if(!empty($eform_list)){ 
+                            
                             foreach($eform_list as $eform_key => $eform_val):
+
+                              if( in_array($eform_val['eform_id'], $pass_eform) ){
+                                $tr_class = NULL; 
+                              }elseif( (in_array($eform_val['eform_id'], $notpass_eform) ) && !(in_array($eform_val['eform_id'], $fix_eform)) ){
+                                $tr_class = 'danger';                          
+                              }elseif( ( in_array($eform_val['eform_id'], $notpass_eform)) && (in_array($eform_val['eform_id'], $fix_eform)) ){      
+                                $tr_class = NULL;                   
+                              }
+        
+                              if( !empty($not_passed_cause_list[$eform_val['eform_id']]) ){
+                                $cause = NULL;
+                                // for($i=0; $i < count($not_passed_cause_list[$eform_val['eform_id']]); $i++){
+                                  foreach( $not_passed_cause_list[$eform_val['eform_id']] as $cause_key => $cause_val ):
+                                  $cause = $cause.$cause_val."<BR>";
+                                  endforeach;
+                                // }
+                              }
+
                         ?>
-                            <tr>
+                            <tr class="<?=$tr_class;?>">
                               <!-- <td class="text-left"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['site_name'];?></a></td> -->
                               <td class="text-left"><?=$eform_val['site_name'];?></td>
                               <td class="text-center"><?=$eform_val['province'];?></td>
                               <td class="text-center"><?=$eform_val['asset_type'];?> [<?=$eform_val['ma_type']?>]</td>
+                              <td class="text-left"><? echo !empty($not_passed_cause_list[$eform_val['eform_id']]) ? $cause: '' ; ?></td>
                               <td class="text-center"><?=$eform_val['created_by'];?></td>
                               <td class="text-center"><?=$eform_val['created_date'];?></td>
                               <td class="text-center">
+                                <? 
+                                  if( in_array($eform_val['eform_id'], $pass_eform) ){
+                                    echo "<span class=\"hidden\">Passed</span>";
+                                  }elseif( (in_array($eform_val['eform_id'], $notpass_eform) ) && !(in_array($eform_val['eform_id'], $fix_eform)) ){
+                                    echo "<span class=\"hidden\">not</span>";                          
+                                  }elseif( ( in_array($eform_val['eform_id'], $notpass_eform)) && (in_array($eform_val['eform_id'], $fix_eform)) ){
+                                    echo "<span class=\"hidden\">NotFixed</span>";                           
+                                  }
+                                ?>                                 
                                 <? if( $permission->eform_view){?>
                                   <a href="<?=site_url('eform/view')?>/<?=$eform_val['eform_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-folder-open"></i> เรียกดู</a>
                                 <? } ?>
@@ -449,7 +551,7 @@
 
     $('#tbCommittee').removeClass('hidden');
 
-    $('#tbEform').DataTable({
+    table = $('#tbEform').DataTable({
       searching: true,
       "paging":   true,
       "ordering": true,
@@ -539,7 +641,28 @@
     //  $(this).removeData('bs.modal');
     // });
  });
-
+ function select_EformStatus (state)
+  {
+    if (state=='All')
+    {
+      result_state = '';
+    }
+    else if (state=='Passed')
+    {
+      result_state = 'Passed';
+    }
+    else if (state=='notPassed')
+    {
+      result_state = 'Not';
+    }
+    else if (state=='notFixed')
+    {
+      result_state = 'notFixed';
+    }
+    table
+        .search( result_state )
+        .draw();
+  }
 </script>
 
 

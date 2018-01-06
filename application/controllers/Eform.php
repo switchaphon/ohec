@@ -32,12 +32,14 @@ class Eform extends MY_Controller {
 			$this->data['passed_eform_list'] = $this->Eform_model->get_passed_eform_by_schedule(urldecode($schedule));	
 			$this->data['not_passed_eform_list'] = $this->Eform_model->get_not_passed_eform_by_schedule(urldecode($schedule));
 			$this->data['fixed_eform_list'] = $this->Eform_model->get_fixed_eform_by_schedule(urldecode($schedule));
+			// $this->data['not_passed_cause_list'] = $this->Eform_model->get_not_passed_cause(urldecode($schedule));
 			$this->data['schedule_title'] = str_replace('.','/',$schedule);	
 		}else{
 			$this->data['all_eform_list'] = $this->Eform_model->get_all_eform();
 			$this->data['passed_eform_list'] = $this->Eform_model->get_passed_eform();
 			$this->data['not_passed_eform_list'] = $this->Eform_model->get_not_passed_eform();
 			$this->data['fixed_eform_list'] = $this->Eform_model->get_fixed_eform();
+			
 			$this->data['schedule_title'] = "ทั้งหมด";
 		}
 
@@ -47,6 +49,7 @@ class Eform extends MY_Controller {
 		$this->data['fixed_eform'] = count($this->data['fixed_eform_list']);
 
 		$schedule_list = $this->Schedule_model->list_opened_schedule();
+		$this->data['not_passed_cause_list'] = $this->Eform_model->get_not_passed_cause();
 		$this->data['schedule_list'] = array();
 
 		//---//Select e-form list by schedule's start_date and end_date//--//
