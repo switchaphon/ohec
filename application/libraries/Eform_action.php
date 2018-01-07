@@ -78,7 +78,7 @@ class Eform_action {
                             
                             //If the question need an answer,load answer
                             // if( ($form_question[key($form)][$page_no][$panel][$question_no]['question_type'] == "radiobox") || ($form_question[key($form)][$page_no][$panel][$question_no]['question_type'] == "select") || ($form_question[key($form)][$page_no][$panel][$question_no]['question_type'] == "checkbox") ){
-                            if(  ($form_question[key($form)][$page_no][$panel][$question_no]['question_type'] == "radiobox") || ($form_question[key($form)][$page_no][$panel][$question_no]['question_type'] == "selectbox")  ){
+                            if(  ($form_question[key($form)][$page_no][$panel][$question_no]['question_type'] == "radiobox") || ($form_question[key($form)][$page_no][$panel][$question_no]['question_type'] == "selectbox") || ($form_question[key($form)][$page_no][$panel][$question_no]['question_type'] == "dynamictextbox") ){
                                 // echo "<pre>"; print_r($form_answer[key($form)][$page_no][$panel][$question_no]); echo "</pre>";
                                 for($answer = 1; $answer <= count($form_answer[key($form)][$page_no][$panel][$question_no]); $answer++ ){
 

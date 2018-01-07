@@ -110,7 +110,7 @@
                                         <div class=\"clearfix\"></div>
                                     </div>
                                     <div class=\"x_content\">";
-
+                        // echo "<pre>"; print_r($panel_val['question']); echo "</pre>";
                         foreach($panel_val['question'] as $question_no => $question_val):
                             $question_no = $question_no ;
                             $question_name = $question_val['question_name'];
@@ -193,7 +193,7 @@
                                                 </div>";      
                                             echo "
                                                 <div class=\"form-group \">
-                                                    <label class=\"control-label col-lg-3 col-md-1 col-sm-1 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                    <label class=\"control-label col-lg-3 col-md-2 col-sm-2 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
                                                 </div>";
                                             break;
                                     }
@@ -272,7 +272,7 @@
                                                 </div>";      
                                             echo "
                                                 <div class=\"form-group \">
-                                                    <label class=\"control-label col-lg-3 col-md-1 col-sm-1 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                    <label class=\"control-label col-lg-3 col-md-2 col-sm-2 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
                                                 </div>";
                                             break;
                                     }
@@ -351,7 +351,7 @@
                                                 </div>";      
                                             echo "
                                                 <div class=\"form-group \">
-                                                    <label class=\"control-label col-lg-3 col-md-1 col-sm-1 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                    <label class=\"control-label col-lg-3 col-md-2 col-sm-2 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
                                                 </div>";
                                             break;
                                     }
@@ -430,7 +430,7 @@
                                                 </div>";      
                                             echo "
                                                 <div class=\"form-group \">
-                                                    <label class=\"control-label col-lg-3 col-md-1 col-sm-1 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                    <label class=\"control-label col-lg-3 col-md-2 col-sm-2 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
                                                 </div>";
                                             break;
                                     }
@@ -510,7 +510,7 @@
                                                 </div>";      
                                             echo "
                                                 <div class=\"form-group \">
-                                                    <label class=\"control-label col-lg-3 col-md-1 col-sm-1 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                    <label class=\"control-label col-lg-3 col-md-2 col-sm-2 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
                                                 </div>";
                                             break;
                                     }
@@ -520,15 +520,45 @@
                                 case "00006":       
                                     //--/Question type--//
                                     switch( $question_type ){
+                                        case "dynamictextbox":
+                                            // echo "<pre>"; print_r($panel_val['question']); echo "</pre>";
+                                            
+                                            foreach($panel_val['question'][$question_no]['answer'] as $ans_key => $ans_val):
+                                                $answer_no = $ans_val['answer_no'];
+                                                $answer_name = $ans_val['answer_name'];
+                                                $answer_text = $ans_val['answer_text'];
+                                                $answer_value = $ans_val['answer_value'];
+        
+                                                // if($answer_name  == 'passed'){$checked = 'checked'; }else{$checked = null;}
+        
+                                                // $answer = $answer."
+                                                //     <div class=\"col-lg-2 col-lg-offset-0 col-md-2 col-md-offset-0 col-sm-2 col-sm-offset-0 col-xs-5 col-xs-offset-1\">
+                                                //         <div class=\"radio-inline\">
+                                                //             <label><input type=\"radio\" class=\"flat\" name=\"".$question_name."\" id=\"".$question_name."\" value=\"".$answer_value."\" ".$checked."> ".$answer_text."</label>
+                                                //         </div>
+                                                //     </div>";  
+                                                $answer = $answer."
+                                                    <div class=\"col-lg-2 col-md-2 col-sm-2 col-xs-3\">
+                                                        <input type=\"text\" class=\"form-control\" name=\"".$answer_name."[]\" id=\"".$answer_name."\" placeholder=\"".$answer_text."\" required>
+                                                    </div>";
+                                            endforeach;  
+                                            echo "
+                                                    <div class=\"form-group \">
+                                                        <label class=\"control-label col-lg-3 col-md-3 col-sm-3\" for=\"".$question_name."\"></label>".$answer."                                                    
+                                                        <button name=\"".$question_name."_addbtn\" id=\"".$question_name."_addbtn\" type=\"button\" class=\"btn btn-round btn-primary\"><span class=\"fa fa-plus\" aria-hidden=\"true\"></span></button>
+                                                    </div>
+                                                <span id=\"".$question_name."_field\"></span>";             
+
+                                            break;
                                         case "textbox":
-                                            $answer = "
+                                                $answer = "
                                                 <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
                                                     <input type=\"text\" class=\"form-control\" name=\"".$question_name."\" id=\"".$question_name."\" placeholder=\"".$question_text."\" required>
                                                 </div>";
-                                            echo "
+                                                echo "
                                                 <div class=\"form-group \">
                                                     <label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
-                                                </div>";                                           
+                                                </div>";  
                                             break;
                                         case "textarea":  
                                             $answer = "
@@ -589,7 +619,7 @@
                                                 </div>";      
                                             echo "
                                                 <div class=\"form-group \">
-                                                    <label class=\"control-label col-lg-3 col-md-1 col-sm-1 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
+                                                    <label class=\"control-label col-lg-3 col-md-2 col-sm-2 col-xs-1\" for=\"".$question_name."\"></label>".$answer."
                                                 </div>";
                                             break;
                                     }
@@ -649,7 +679,9 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
-
+    
+    //------Card properties--------//
+        
         $('.collapsed').css('height', 'auto');
 
         // if( ($('#form_id').val() == '00001') || ($('#form_id').val() == '00002') || ($('#form_id').val() == '00003') ){
@@ -657,7 +689,9 @@
         // }
 
         $('.collapsed').find('a .collapse-link').toggleClass('fa-chevron-up fa-chevron-down');
+    //------Card properties--------//
 
+    //------tbEformTicket properties--------//
         $('#tbEformTicket').DataTable({
             "pageLength": 5,
             "paging":   false,
@@ -666,27 +700,9 @@
             searching: false, 
             "dom": '<"toolbartbEformTicket">frtip'
         });
-    
-        // var myDropzone = {};
-        // Dropzone.options.myAwesomeDropzone = {
-        //     // autoDiscover:false,
-        //     url : 'xxxxxx',
-        //     paramName : "fileOther", // ชื่อไฟล์ปลายทางเมื่อ upload แบบ mutiple จะเป็น array
-        //     autoProcessQueue : false,// ใส่เพื่อไม่ให้อัพโหลดทันที หลังจากเลือกไฟล์
-        //     uploadMultiple : true, // อัพโหลดไฟล์หลายไฟล์
-        //     parallelUploads : 1, // ให้ทำงานพร้อมกัน 10 ไฟล์
-        //     maxFiles : 2, // ไฟล์สูงสุด 5 ไฟล์
-        //     addRemoveLinks : true, // อนุญาตให้ลบไฟล์ก่อนการอัพโหลด
-        //     // maxFilesize: 2, // MB
-        //     previewsContainer : ".dropzone", // ระบุ element เป้าหลาย
-        //     dictRemoveFile : "ลบ", // ชื่อ ปุ่ม remove
-        //     dictCancelUpload : "Cancel", // ชื่อ ปุ่ม ยกเลิก
-        //     dictDefaultMessage : "เลือกรูปภาพ", // ข้อความบนพื้นที่แสดงรูปจะแสดงหลังจากโหลดเพจเสร็จ
-        //     dictFileTooBig : "ไม่อนุญาตให้อัพโหลดไฟล์เกิน 2 MB", //ข้อความแสดงเมื่อเลือกไฟล์ขนาดเกินที่กำหนด		
-        //     acceptedFiles : "image/*", // อนุญาตให้เลือกไฟล์ประเภทรูปภาพได้
-        //     resizeWidth : "500px"
-        // }
+    //------tbEformTicket properties--------//
 
+    //------dropbox configuration--------//
         $("input[type=file]").fileinput({
             showUpload: false
             ,msgPlaceholder: 'เฉพาะ jpg , jpeg , gif , png ไม่เกิน 6 ภาพ'
@@ -710,54 +726,50 @@
             ,maxImageHeight: 1024
             ,resizePreference: 'width'
         })
+    //------dropbox configuration--------//
 
+    //------Dynamic textbox for question294--------//
+        var max_fields      = 8; //maximum input boxes allowed
+        var wrapper         = $("#question294_field"); //Fields wrapper
+        var add_button      = $("#question294_addbtn"); //Add button ID
+        
+        var x = 1; //initlal text box count
+        $(add_button).click(function(e){ //on add input button click
+            e.preventDefault();
+            if(x < max_fields){ //max input box allowed
+                x++; //text box increment
+                $(wrapper).append(' \
+                    <div class="form-group"> \
+                        <label class="control-label col-lg-3 col-md-3 col-sm-3" for="question294"></label> \
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3"> \
+                            <input type="text" class="form-control" name="core[]" id="core" placeholder="Core No." required> \
+                        </div> \
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3"> \
+                            <input type="text" class="form-control" name="distance[]" id="distance" placeholder="ระยะ (กม.)" required> \
+                        </div> \
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3"> \
+                            <input type="text" class="form-control" name="loss[]" id="loss" placeholder="Loss (dB)" required> \
+                        </div> \
+                        <button name="question294_removebtn" id="question294_removebtn" type="button" class="btn btn-round btn-danger"><span class="fa fa-minus" aria-hidden="true"></span></button> \
+                    </div> \
+                ');
+            }
+        });
+        
+        $(wrapper).on("click","#question294_removebtn", function(e){ //user click on remove text
+            e.preventDefault(); $(this).parent('div').remove(); x--;
+        })
+    //------Dynamic textbox for question294--------//
+
+    //------Waiting Modal--------//
         $("form").on('submit', function(){
         $('#waiting_modal').modal({
             backdrop: 'static',
             keyboard: false
         })
       })
-
+    //------Waiting Modal--------//
+      
     });
-
-    $(function(){
-//   Dropzone.options.myAwesomeDropzone = {
-//     maxFilesize: 5,
-//     addRemoveLinks: true,
-//     dictResponseError: 'Server not Configured',
-//     acceptedFiles: ".png,.jpg,.gif,.bmp,.jpeg",
-//     init:function(){
-//       var self = this;
-//       // config
-//       self.options.addRemoveLinks = true;
-//       self.options.dictRemoveFile = "Delete";
-//       //New file added
-//       self.on("addedfile", function (file) {
-//         console.log('new file added ', file);
-//       });
-//       // Send file starts
-//       self.on("sending", function (file) {
-//         console.log('upload started', file);
-//         $('.meter').show();
-//       });
-      
-//       // File upload Progress
-//       self.on("totaluploadprogress", function (progress) {
-//         console.log("progress ", progress);
-//         $('.roller').width(progress + '%');
-//       });
-
-//       self.on("queuecomplete", function (progress) {
-//         $('.meter').delay(999).slideUp(999);
-//       });
-      
-//       // On removing file
-//       self.on("removedfile", function (file) {
-//         console.log(file);
-//       });
-//     }
-//   };
-
-})
     
 </script>        
