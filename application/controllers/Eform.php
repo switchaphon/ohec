@@ -221,24 +221,37 @@ class Eform extends MY_Controller {
 		$res = $this->Utilities_model->_insert_array('tb_eform',$eform);
 
 		$question = $this->Eform_model->load_question($_POST['form_id']);
-		
-		foreach($question as $key => $val):
-			if($val['question_type'] != 'dropbox'){
-				if(isset($_POST[$val['question_name']])){
-					//Prepate date for insert to tb_eform_checklist
-					$eform_checklist = array(
-						'eform_id' => $eform_id
-						,'form_id' => $_POST['form_id']
-						,'page_no' => $_POST['page_no']
-						// ,'panel_no' => $val['panel_no']
-						,'question_no' => $val['question_no']
-						,'answer_value' => $_POST[$val['question_name']]
-					);
+		$answer = $this->Eform_model->load_form_answer();
 
-					// echo "<pre>"; print_r($eform_checklist); echo "</pre>";
-					$res = $this->Utilities_model->_insert_array('tb_eform_checklist',$eform_checklist);
+		foreach($question as $key => $val):
+			if($val['question_type'] == 'dynamictextbox'){
+
+				// echo "<pre>"; print_r($answer[$_POST['form_id']][$val['page_no']][$val['panel_no']][$val['question_no']]); echo "</pre>";
+				$item = $answer[$_POST['form_id']][$val['page_no']][$val['panel_no']][$val['question_no']];
+				$item_no = count( $answer[$_POST['form_id']][$val['page_no']][$val['panel_no']][$val['question_no']] )."<BR>";
+				// echo $val['question_no']."<BR>";
+				// echo count( $answer[$_POST['form_id']][$val['page_no']][$val['panel_no']][$val['question_no']] )."<BR>";
+				echo "<pre>"; print_r($_POST); echo "</pre>";
+				for($i=1; $i <= $item_no; $i++ ){
+					// echo $item[$i]['answer_name']."<BR>";
+					for( $p = 0; $p < count($_POST[$item[$i]['answer_name']]); $p++){
+						echo $eform_id." | ".$val['question_no']." | ".$item[$i]['answer_name']." | ".(int)($p + 1)." | ".$_POST[$item[$i]['answer_name']][$p]."<BR>";
+						// $core[] = $_POST[$item[$i]['answer_name']][$p];
+					}
 				}
-			}else{
+				// echo "<pre>"; print_r($core); echo "</pre>";
+				// foreach( $item as $item_key => $item_val):
+				// 	echo $item_key;
+				// endforeach;
+				// for( $p = 0; $p < count($_POST[$item['1']['answer_name']]); $p++){
+				// 	echo $_POST[$item['1']['answer_name']][$p]." ";
+				// 	echo $_POST[$item['2']['answer_name']][$p]." ";
+				// 	echo $_POST[$item['3']['answer_name']][$p]."<BR>";
+				// }
+
+				// 	// // echo "<pre>"; print_r($eform_checklist); echo "</pre>";
+				// 	// $res = $this->Utilities_model->_insert_array('tb_eform_checklist',$eform_checklist);
+			}elseif($val['question_type'] == 'dropbox'){
 				//Read each file and upload file to folder
 				if( !empty($_FILES[$val['question_name']]['name'][0]) ){
 					for($i = 0; $i < count($_FILES[$val['question_name']]['name']); $i++){
@@ -262,26 +275,6 @@ class Eform extends MY_Controller {
 
 						//Upload file
 						$alert_msg = $this->utilities->upload($uploadedFile,$config);
-						// $this->_uploaded[$i] = $this->utilities->upload($uploadedFile,$config);
-						// echo "<pre>"; print_r($this->_uploaded[$i]); echo "</pre>";
-
-						// // let's store the new created images' data inside an array for later use
-						// $created_images = array();
-						// foreach($this->_uploaded as $key => $source_image)
-						// {
-						// 	// echo $key;
-						// 	echo "<pre>"; print_r($source_image); echo "</pre>";
-							
-						// //from each source image we will create two images, the two images' data will be stored as an array for the source image's key
-						// $new_images = $this->utilities->_image_creation($source_image);
-						// $created_images[$key] = $new_images;
-						// }
-
-						// now let's verify the new images have been created
-						// echo '<pre>';
-						// print_r($created_images);
-						// echo '</pre>';
-						// exit;
 
 						$eform_attachment = array(
 							'eform_id' => $eform_id
@@ -294,17 +287,33 @@ class Eform extends MY_Controller {
 						);
 
 						// echo "<pre>"; print_r($eform_attachment); echo "</pre>";
-						$res = $this->Utilities_model->_insert_array('tb_eform_attachment',$eform_attachment);
+						// $res = $this->Utilities_model->_insert_array('tb_eform_attachment',$eform_attachment);
 
 					}
 				}
+			}elseif( ($val['question_type'] != 'dynamictextbox') && ($val['question_type'] != 'dropbox') ){
+				if(isset($_POST[$val['question_name']])){
+					//Prepate date for insert to tb_eform_checklist
+					$eform_checklist = array(
+						'eform_id' => $eform_id
+						,'form_id' => $_POST['form_id']
+						,'page_no' => $_POST['page_no']
+						// ,'panel_no' => $val['panel_no']
+						,'question_no' => $val['question_no']
+						,'answer_value' => $_POST[$val['question_name']]
+					);
+
+					// echo "<pre>"; print_r($eform_checklist); echo "</pre>";
+					// $res = $this->Utilities_model->_insert_array('tb_eform_checklist',$eform_checklist);
+				}
 			}
+
 		endforeach;
 
 		//Log
 
 		// Redirect
-		redirect( site_url('/schedule/view/'.$_POST['schedule_id']));
+		// redirect( site_url('/schedule/view/'.$_POST['schedule_id']));
 
 
 	}

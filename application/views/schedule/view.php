@@ -251,7 +251,7 @@
                             <tr>
                                 <td class="text-left"><?=$val['site_name'];?></td>
                                 <td class="text-center"><?=$val['asset_type'];?> [<?=$val['ma_type'];?>]</td>
-                                <td class="text-center">
+                                <td class="text-left">
                                 <? 
                                   if( !empty($committee_list) ){
                                     if(in_array($this->session->userdata('name')." ".$this->session->userdata('surname'), $committee_list) ){
@@ -401,6 +401,8 @@
                                 $tr_class = 'danger';                          
                               }elseif( ( in_array($eform_val['eform_id'], $notpass_eform)) && (in_array($eform_val['eform_id'], $fix_eform)) ){      
                                 $tr_class = NULL;                   
+                              }else{
+                                $tr_class = NULL;                                                                                   
                               }
         
                               if( !empty($not_passed_cause_list[$eform_val['eform_id']]) ){

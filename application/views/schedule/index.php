@@ -63,7 +63,7 @@
                               <!-- <td class="text-left"><?=$row['schedule_description'];?></td> -->
                               <td class="text-left"><?=$row['province'];?></td>
                               <td class="text-center"><?=convert_to_yyyymmdd($row['start_date']);?> - <?=convert_to_yyyymmdd($row['end_date']);?></td>
-                              <td class="text-center">
+                              <td class="text-left">
                                 <? if( $permission->schedule_view){?> 
                                   <a href="<?=site_url('schedule/view')?>/<?=$row['schedule_id'];?>" class="btn btn-round btn-default btn-xs"><i class="fa fa-folder-open"></i> เรียกดู</a>
                                 <? } ?>

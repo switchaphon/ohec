@@ -168,6 +168,8 @@
                         $tr_class = 'danger';                          
                       }elseif( ( in_array($eform_val['eform_id'], $notpass_eform)) && (in_array($eform_val['eform_id'], $fix_eform)) ){      
                         $tr_class = NULL;                   
+                      }else{
+                        $tr_class = NULL;                                           
                       }
 
                       if( !empty($not_passed_cause_list[$eform_val['eform_id']]) ){
@@ -188,7 +190,7 @@
                         <td class="text-left"><? echo !empty($not_passed_cause_list[$eform_val['eform_id']]) ? $cause: '' ; ?></td>
                         <td class="text-center"><?=$eform_val['created_by'];?></td>
                         <td class="text-center"><?=$eform_val['created_date'];?></td>
-                        <td class="text-center">
+                        <td class="text-left">
                         <? 
                           if( in_array($eform_val['eform_id'], $pass_eform) ){
                             echo "<span class=\"hidden\">Passed</span>";
