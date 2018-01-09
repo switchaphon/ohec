@@ -89,6 +89,7 @@ class Eform extends MY_Controller {
 		//--Get eform
 		$this->data['eform'] = $this->Eform_model->view_eform($eform_id);
 		$this->data['eform_checklist'] = $this->Eform_model->view_eform_checklist($eform_id);
+		$this->data['eform_checklist_dynamic'] = $this->Eform_model->view_eform_checklist_dynamic($eform_id);
 		$this->data['eform_checklist_answer'] = $this->Eform_model->view_eform_checklist_answer($eform_id);
 		$this->data['eform_attachment'] = $this->Eform_model->view_eform_attachment($eform_id);
 		$this->data['eform_note'] = $this->Eform_model->view_eform_note($eform_id);
@@ -231,26 +232,26 @@ class Eform extends MY_Controller {
 				$item_no = count( $answer[$_POST['form_id']][$val['page_no']][$val['panel_no']][$val['question_no']] )."<BR>";
 				// echo $val['question_no']."<BR>";
 				// echo count( $answer[$_POST['form_id']][$val['page_no']][$val['panel_no']][$val['question_no']] )."<BR>";
-				echo "<pre>"; print_r($_POST); echo "</pre>";
+				// echo "<pre>"; print_r($_POST); echo "</pre>";
 				for($i=1; $i <= $item_no; $i++ ){
 					// echo $item[$i]['answer_name']."<BR>";
 					for( $p = 0; $p < count($_POST[$item[$i]['answer_name']]); $p++){
-						echo $eform_id." | ".$val['question_no']." | ".$item[$i]['answer_name']." | ".(int)($p + 1)." | ".$_POST[$item[$i]['answer_name']][$p]."<BR>";
-						// $core[] = $_POST[$item[$i]['answer_name']][$p];
+						// echo $eform_id." | ".$val['question_no']." | ".$item[$i]['answer_name']." | ".(int)($p + 1)." | ".$_POST[$item[$i]['answer_name']][$p]."<BR>";
+
+						//Prepate date for insert to tb_eform_checklist
+						$eform_checklist_dynamic = array(
+							'eform_id' => $eform_id
+							,'question_no' => $val['question_no']
+							,'item_no' => (int)($p + 1)
+							,'item_name' => $item[$i]['answer_name']							
+							,'item_val' => $_POST[$item[$i]['answer_name']][$p]
+						);
+
+						// echo "<pre>"; print_r($eform_checklist_dynamic); echo "</pre>";
+						$res = $this->Utilities_model->_insert_array('tb_eform_checklist_dynamic',$eform_checklist_dynamic);
 					}
 				}
-				// echo "<pre>"; print_r($core); echo "</pre>";
-				// foreach( $item as $item_key => $item_val):
-				// 	echo $item_key;
-				// endforeach;
-				// for( $p = 0; $p < count($_POST[$item['1']['answer_name']]); $p++){
-				// 	echo $_POST[$item['1']['answer_name']][$p]." ";
-				// 	echo $_POST[$item['2']['answer_name']][$p]." ";
-				// 	echo $_POST[$item['3']['answer_name']][$p]."<BR>";
-				// }
-
-				// 	// // echo "<pre>"; print_r($eform_checklist); echo "</pre>";
-				// 	// $res = $this->Utilities_model->_insert_array('tb_eform_checklist',$eform_checklist);
+				
 			}elseif($val['question_type'] == 'dropbox'){
 				//Read each file and upload file to folder
 				if( !empty($_FILES[$val['question_name']]['name'][0]) ){
@@ -287,7 +288,7 @@ class Eform extends MY_Controller {
 						);
 
 						// echo "<pre>"; print_r($eform_attachment); echo "</pre>";
-						// $res = $this->Utilities_model->_insert_array('tb_eform_attachment',$eform_attachment);
+						$res = $this->Utilities_model->_insert_array('tb_eform_attachment',$eform_attachment);
 
 					}
 				}
@@ -304,7 +305,7 @@ class Eform extends MY_Controller {
 					);
 
 					// echo "<pre>"; print_r($eform_checklist); echo "</pre>";
-					// $res = $this->Utilities_model->_insert_array('tb_eform_checklist',$eform_checklist);
+					$res = $this->Utilities_model->_insert_array('tb_eform_checklist',$eform_checklist);
 				}
 			}
 
@@ -313,7 +314,7 @@ class Eform extends MY_Controller {
 		//Log
 
 		// Redirect
-		// redirect( site_url('/schedule/view/'.$_POST['schedule_id']));
+		redirect( site_url('/schedule/view/'.$_POST['schedule_id']));
 
 
 	}

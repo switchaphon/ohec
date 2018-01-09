@@ -970,16 +970,27 @@ class Eform_model extends CI_Model {
     }
 
     function view_eform_checklist($eform_id = null){
+        // $sql ="
+        //     SELECT panel.panel_no,checklist.question_no,panel.panel_name,panel.panel_title,question.question_no,question.question_name,question.question_text,question.question_value,question.question_type,answer_value
+        //     FROM `tb_eform_checklist` checklist
+        //     LEFT JOIN `tb_form_question` question ON checklist.question_no = question.question_no
+        //     LEFT JOIN `tb_form_panel` panel ON panel.panel_no = question.panel_no
+        //     WHERE checklist.eform_id = '$eform_id'
+        //     AND question.form_id = (SELECT form_id FROM tb_eform eform WHERE eform.eform_id = '$eform_id' )
+        //     AND panel.form_id = (SELECT form_id FROM tb_eform eform WHERE eform.eform_id = '$eform_id' )
+        //     ORDER BY panel.panel_no,question.question_order ASC
+        // ";        
+
         $sql ="
-            SELECT panel.panel_no,checklist.question_no,panel.panel_name,panel.panel_title,question.question_no,question.question_name,question.question_text,question.question_value,question.question_type,answer_value
-            FROM `tb_eform_checklist` checklist
-            LEFT JOIN `tb_form_question` question ON checklist.question_no = question.question_no
-            LEFT JOIN `tb_form_panel` panel ON panel.panel_no = question.panel_no
-            WHERE checklist.eform_id = '$eform_id'
-            AND question.form_id = (SELECT form_id FROM tb_eform eform WHERE eform.eform_id = '$eform_id' )
-            AND panel.form_id = (SELECT form_id FROM tb_eform eform WHERE eform.eform_id = '$eform_id' )
-            ORDER BY panel.panel_no,question.question_order ASC
-        ";        
+        SELECT panel.panel_no,panel.panel_name,panel.panel_title,question.question_no,question.question_name,question.question_text,question.question_value,question.question_type,answer_value
+        FROM tb_form form
+            LEFT JOIN tb_form_panel panel ON panel.form_id = form.form_id
+            LEFT JOIN tb_form_question question ON question.form_id = form.form_id AND question.panel_no = panel.panel_no
+            LEFT JOIN tb_eform_checklist checklist ON checklist.question_no = question.question_no AND checklist.eform_id = '$eform_id'
+        WHERE form.form_id = (SELECT form_id FROM tb_eform WHERE tb_eform.eform_id = '$eform_id')
+        AND question.question_status = 1
+        ORDER BY panel.panel_no,question.question_order ASC
+        ";
 
         $query = $this->db->query($sql);
 
@@ -1029,6 +1040,42 @@ class Eform_model extends CI_Model {
                 return FALSE;
             }
     } 
+    function view_eform_checklist_dynamic($eform_id = null){
+        $sql = "
+        SELECT checklist_dynamic.question_no,item_no,item_name,answer.answer_text,item_val
+        FROM tb_eform_checklist_dynamic checklist_dynamic
+            LEFT JOIN tb_form_answer answer ON answer.question_no = checklist_dynamic.question_no AND answer.answer_name = checklist_dynamic.item_name
+        WHERE eform_id = '$eform_id'
+        GROUP BY question_no,item_no,item_name
+        ORDER BY question_no,item_no ASC       
+        ";
+
+        $query = $this->db->query($sql);
+        
+        $eform_checklist_dynamic = array();
+        
+        if($query->result()){
+            foreach ($query->result_array() as $key => $value) {
+                if( empty( $eform_checklist_dynamic[$value['question_no']][$value['item_no']] ) ){
+                    $eform_checklist_dynamic[$value['question_no']][$value['item_no']][] = array(
+                        'item_name' => $value['item_name']
+                        // ,'item_text' => $value['answer_text']
+                        ,'item_value' => $value['item_val']
+                    );
+                }else{
+                    $eform_checklist_dynamic[$value['question_no']][$value['item_no']][] = array(
+                        'item_name' => $value['item_name']
+                        // ,'item_text' => $value['answer_text']
+                        ,'item_value' => $value['item_val']
+                    );
+                }
+            }        
+                return $eform_checklist_dynamic;
+                // return $query->result_array();
+            }else{
+                return FALSE;
+            }
+    }
 
     function view_eform_checklist_answer($eform_id = null){
         $sql = "
