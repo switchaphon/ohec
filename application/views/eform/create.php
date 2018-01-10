@@ -361,6 +361,27 @@
                                 case "00004":       
                                     //--/Question type--//
                                     switch( $question_type ){
+                                        case "dynamictextbox":
+
+                                            foreach($panel_val['question'][$question_no]['answer'] as $ans_key => $ans_val):
+                                                $answer_no = $ans_val['answer_no'];
+                                                $answer_name = $ans_val['answer_name'];
+                                                $answer_text = $ans_val['answer_text'];
+                                                $answer_value = $ans_val['answer_value'];
+        
+                                                $answer = $answer."
+                                                    <div class=\"col-lg-2 col-md-2 col-sm-2 col-xs-3\">
+                                                        <input type=\"text\" class=\"form-control\" name=\"".$answer_name."[]\" id=\"".$answer_name."\" placeholder=\"".$answer_text."\" required>
+                                                    </div>";
+                                            endforeach;  
+                                            echo "
+                                                    <div class=\"form-group \">
+                                                        <label class=\"control-label col-lg-3 col-md-3 col-sm-3\" for=\"".$question_name."\"></label>".$answer."                                                    
+                                                        <button name=\"".$question_name."_addbtn\" id=\"".$question_name."_addbtn\" type=\"button\" class=\"btn btn-round btn-primary\"><span class=\"fa fa-plus\" aria-hidden=\"true\"></span></button>
+                                                    </div>
+                                                <span id=\"".$question_name."_field\"></span>";             
+
+                                            break;
                                         case "textbox":
                                             $answer = "
                                                 <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
@@ -521,22 +542,13 @@
                                     //--/Question type--//
                                     switch( $question_type ){
                                         case "dynamictextbox":
-                                            // echo "<pre>"; print_r($panel_val['question']); echo "</pre>";
-                                            
+
                                             foreach($panel_val['question'][$question_no]['answer'] as $ans_key => $ans_val):
                                                 $answer_no = $ans_val['answer_no'];
                                                 $answer_name = $ans_val['answer_name'];
                                                 $answer_text = $ans_val['answer_text'];
                                                 $answer_value = $ans_val['answer_value'];
         
-                                                // if($answer_name  == 'passed'){$checked = 'checked'; }else{$checked = null;}
-        
-                                                // $answer = $answer."
-                                                //     <div class=\"col-lg-2 col-lg-offset-0 col-md-2 col-md-offset-0 col-sm-2 col-sm-offset-0 col-xs-5 col-xs-offset-1\">
-                                                //         <div class=\"radio-inline\">
-                                                //             <label><input type=\"radio\" class=\"flat\" name=\"".$question_name."\" id=\"".$question_name."\" value=\"".$answer_value."\" ".$checked."> ".$answer_text."</label>
-                                                //         </div>
-                                                //     </div>";  
                                                 $answer = $answer."
                                                     <div class=\"col-lg-2 col-md-2 col-sm-2 col-xs-3\">
                                                         <input type=\"text\" class=\"form-control\" name=\"".$answer_name."[]\" id=\"".$answer_name."\" placeholder=\"".$answer_text."\" required>
@@ -760,6 +772,39 @@
             e.preventDefault(); $(this).parent('div').remove(); x--;
         })
     //------Dynamic textbox for question294--------//
+
+    //------Dynamic textbox for question295--------//
+    var max_fields      = 8; //maximum input boxes allowed
+        var wrapper         = $("#question295_field"); //Fields wrapper
+        var add_button      = $("#question295_addbtn"); //Add button ID
+        
+        var x = 1; //initlal text box count
+        $(add_button).click(function(e){ //on add input button click
+            e.preventDefault();
+            if(x < max_fields){ //max input box allowed
+                x++; //text box increment
+                $(wrapper).append(' \
+                    <div class="form-group"> \
+                        <label class="control-label col-lg-3 col-md-3 col-sm-3" for="question295"></label> \
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3"> \
+                            <input type="text" class="form-control" name="core[]" id="core" placeholder="Core No." required> \
+                        </div> \
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3"> \
+                            <input type="text" class="form-control" name="distance[]" id="distance" placeholder="ระยะ (กม.)" required> \
+                        </div> \
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3"> \
+                            <input type="text" class="form-control" name="loss[]" id="loss" placeholder="Loss (dB)" required> \
+                        </div> \
+                        <button name="question295_removebtn" id="question295_removebtn" type="button" class="btn btn-round btn-danger"><span class="fa fa-minus" aria-hidden="true"></span></button> \
+                    </div> \
+                ');
+            }
+        });
+        
+        $(wrapper).on("click","#question295_removebtn", function(e){ //user click on remove text
+            e.preventDefault(); $(this).parent('div').remove(); x--;
+        })
+    //------Dynamic textbox for question295--------//
 
     //------Waiting Modal--------//
         $("form").on('submit', function(){

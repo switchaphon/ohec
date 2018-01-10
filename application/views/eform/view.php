@@ -104,7 +104,7 @@
                                 <div class="ln_solid"></div>
                                 <? //echo "<pre>"; print_r($eform_checklist); echo "</pre>"; ?>
                                 <? foreach($eform_checklist as $key => $val): ?>
-                                    <? if( !empty($key) ){ ?>
+
                                 <div class="row">
                                     <? 
                                         //--Checklist section--/
@@ -161,7 +161,7 @@
                                                     }
 
                                                     //--Render question and its answer--//
-                                                    if( ($question_type != 'textbox') && ($question_type != 'textarea') ){ 
+                                                    if( ($question_type != 'textbox') && ($question_type != 'textarea') && ($question_type != 'dropbox') && ($question_type != 'dynamictextbox') ){  
                                                         echo "<div class=\"row\">";
                                                         echo "<label class=\"control-label col-lg-5 col-md-6 col-sm-4 col-xs-12 \" for=\"".$question_name."\">".$question_text."</label>".$answer;
                                                         echo "</div>";
@@ -199,7 +199,7 @@
                                                     }
 
                                                     //--Render question and its answer--//
-                                                    if( ($question_type != 'textbox') && ($question_type != 'textarea') ){ 
+                                                    if( ($question_type != 'textbox') && ($question_type != 'textarea') && ($question_type != 'dropbox') && ($question_type != 'dynamictextbox') ){  
                                                         echo "<div class=\"row\">";
                                                         echo "<label class=\"control-label col-lg-3 col-md-3 col-sm-3 col-xs-12\" for=\"".$question_name."\">".$question_text."</label>".$answer;
                                                         echo "</div>";
@@ -252,7 +252,7 @@
                                                     }
 
                                                     //--Render question and its answer--//
-                                                    if( ($question_type != 'textbox') && ($question_type != 'textarea') ){ 
+                                                    if( ($question_type != 'textbox') && ($question_type != 'textarea') && ($question_type != 'dropbox') && ($question_type != 'dynamictextbox') ){ 
                                                         echo "<div class=\"row\">";
                                                         echo "<label class=\"control-label col-lg-5 col-md-6 col-sm-4 col-xs-12 \" for=\"".$question_name."\">".$question_text."</label>".$answer;
                                                         echo "</div>";
@@ -274,6 +274,34 @@
                                                             $answer = "
                                                             <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\" style=\"padding-left: 30px;\">".$answer_value."</div>";
                                                             break;
+                                                        case "dynamictextbox":
+                                                            if( !empty($eform_checklist_dynamic[$question_no]) ){ 
+                                                                echo "
+                                                                    <table id=\"".$question_name."\" name=\"".$question_name."\" class=\"table table-striped dt-responsive nowrap dataTable no-footer dtr-inline\">
+                                                                    <thead>
+                                                                        <tr>
+                                                                    ";
+                                                                    foreach($eform_checklist_answer[$key][$question_no] as $ans_key => $ans_val):
+                                                                        echo "<th class=\"text-center\">".$ans_val['answer_text']."</th>";
+                                                                    endforeach;
+                                                                echo "
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    ";
+                                                                    foreach($eform_checklist_dynamic[$question_no] as $item_key => $item_val):
+                                                                        echo "<tr>";
+                                                                            for($i = 0; $i < count($item_val); $i++ ){
+                                                                                echo "<td class=\"text-center\">".$item_val[$i]['item_value']."</td>";
+                                                                            }
+                                                                        echo "</tr>";
+                                                                    endforeach;
+                                                                echo "
+                                                                    </tbody>
+                                                                    </table>
+                                                                    ";
+                                                            }
+                                                            break;                                                            
                                                         case "textarea":  
                                                             $answer = "
                                                             <div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\" style=\"padding-left: 30px;\">".$answer_value."</div>";
@@ -306,7 +334,7 @@
                                                     }
 
                                                     //--Render question and its answer--//
-                                                    if( ($question_type != 'textbox') && ($question_type != 'textarea') ){ 
+                                                    if( ($question_type != 'textbox') && ($question_type != 'textarea') && ($question_type != 'dropbox') && ($question_type != 'dynamictextbox') ){ 
                                                         echo "<div class=\"row\">";
                                                         echo "<label class=\"control-label col-lg-5 col-md-6 col-sm-4 col-xs-12 \" for=\"".$question_name."\">".$question_text."</label>".$answer;
                                                         echo "</div>";
@@ -360,7 +388,7 @@
                                                     }
 
                                                     //--Render question and its answer--//
-                                                    if( ($question_type != 'textbox') && ($question_type != 'textarea') ){ 
+                                                    if( ($question_type != 'textbox') && ($question_type != 'textarea') && ($question_type != 'dropbox') && ($question_type != 'dynamictextbox') ){ 
                                                         echo "<div class=\"row\">";
                                                         echo "<label class=\"control-label col-lg-5 col-md-6 col-sm-4 col-xs-12 \" for=\"".$question_name."\">".$question_text."</label>".$answer;
                                                         echo "</div>";
@@ -458,8 +486,6 @@
                                                 //--Fibre-PM--//                                                  
                                             }
 
-
-
                                         }
                                         echo "</div>";
                                         //--/Checklist section--/
@@ -485,7 +511,7 @@
                                     ?>
 
                                 </div> <!--/end row-->
-                                    <?}?>
+
                                 <? endforeach; ?>
                                 <!-- /Eform note -->
                                 <div class="row">
