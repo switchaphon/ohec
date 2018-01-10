@@ -248,6 +248,14 @@
 <!-- /modal content -->  
 
 <script>
+  pdfMake.fonts = {
+   THSarabun: {
+     normal: 'THSarabun.ttf',
+     bold: 'THSarabun-Bold.ttf',
+     italics: 'THSarabun-Italic.ttf',
+     bolditalics: 'THSarabun-BoldItalic.ttf'
+   }
+  }
   var table;
   $(document).ready(function(){
     // $('input[name="eform-time"]').daterangepicker({
@@ -294,18 +302,59 @@
 
     table = $('#tbEform').DataTable({
       // "pageLength": 50,
+      "processing": true,
       "paging":   true,
       "ordering": true,
       language: { search: "_INPUT_" , searchPlaceholder: "ค้นหา..." },
-      "dom": '<"toolbar">frtip'
+      // "dom": '<"toolbar">frtip',
+      dom: 'Bfrtip',
+      buttons: [
+            {
+              "extend": 'excel', // ปุ่มสร้าง pdf ไฟล์
+              "text": '<span class="fa fa-cloud-download" aria-hidden="true"></span> Excel', // ข้อความที่แสดง
+            },     
+            { // กำหนดพิเศษเฉพาะปุ่ม pdf
+              "extend": 'pdf', // ปุ่มสร้าง pdf ไฟล์
+              "text": '<span class="fa fa-cloud-download" aria-hidden="true"></span> PDF', // ข้อความที่แสดง
+              "pageSize": 'A3',   // ขนาดหน้ากระดาษเป็น A3     
+              "customize":function(doc){ // ส่วนกำหนดเพิ่มเติม ส่วนนี้จะใช้จัดการกับ pdfmake
+                  // กำหนด style หลัก
+                  doc.defaultStyle = {
+                      font:'THSarabun',
+                      pageOrientation: 'landscape', 
+                      fontSize: 10,                                
+                  };
+                  // // กำหนดความกว้างของ header แต่ละคอลัมน์หัวข้อ
+                  doc.content[1].table.widths = [ 80 , 200 , 'auto', 'auto' , 150 , 100 , 80, 'auto' ];
+                  doc.styles.tableHeader.fontSize = 12; // กำหนดขนาด font ของ header
+                  doc.styles.tableHeader.alignment = 'center'; // กำหนดขนาด font ของ header
+                  var rowCount = doc.content[1].table.body.length; // หาจำนวนแะวทั้งหมดในตาราง
+                  // // วนลูปเพื่อกำหนดค่าแต่ละคอลัมน์ เช่นการจัดตำแหน่ง
+                  for (i = 1; i < rowCount; i++) { // i เริ่มที่ 1 เพราะ i แรกเป็นแถวของหัวข้อ
+                      doc.content[1].table.body[i][0].alignment = 'center'; // คอลัมน์แรกเริ่มที่ 0
+                      doc.content[1].table.body[i][1].alignment = 'center';
+                      doc.content[1].table.body[i][2].alignment = 'center';
+                      doc.content[1].table.body[i][3].alignment = 'center';
+                      doc.content[1].table.body[i][4].alignment = 'left';
+                      doc.content[1].table.body[i][5].alignment = 'center';
+                      doc.content[1].table.body[i][6].alignment = 'center';
+                      doc.content[1].table.body[i][7] = ''; // ไม่แสดง column ที่ 7 ใน PDF
+                  };                                  
+              }
+          }, // สิ้นสุดกำหนดพิเศษปุ่ม pdf
+        ]
       });
+
       $("div.toolbar").html('<span id="tbEform_filter2" class="dataTables_filter"></span>');
+      
+      
       //Search box
       $('#tbEform_filter').css('float','left');
       $('#tbEform_filter').css('text-align','left');
 
       $('#tbEform_filter').css('float','left','form-inline');
       $('#tbEform_filter2').css('float','right');
+      $('#tbEform_wrapper .dt-buttons').css('float','right');
       $('#tbEform_filter2').append($('#controlPanel'));
       $("div.toolbar").append($('#tbEform_filter'));
 

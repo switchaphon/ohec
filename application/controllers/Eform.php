@@ -20,7 +20,7 @@ class Eform extends MY_Controller {
 
 	public function index($schedule = null){
 		$this->_init();
-		$this->_init_assets( array('datatables','bootstrap-daterangepicker','bootstrap_select') );
+		$this->_init_assets( array('datatables','bootstrap-daterangepicker','bootstrap_select','pdfmake','jszip') );
 		$this->load->model( array('Eform_model','Schedule_model'));
 		
 		$this->data['total_eform'] = $this->data['passed_eform'] = $this->data['not_passed_eform'] = 0;
@@ -42,7 +42,7 @@ class Eform extends MY_Controller {
 			
 			$this->data['schedule_title'] = "ทั้งหมด";
 		}
-
+		$this->output->set_title('ใบตรวจงาน'.urldecode($this->data['schedule_title']) );
 		$this->data['total_eform'] = count($this->data['all_eform_list']);
 		$this->data['passed_eform'] = count($this->data['passed_eform_list']);
 		$this->data['not_passed_eform'] = count($this->data['not_passed_eform_list']);

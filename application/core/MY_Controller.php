@@ -115,7 +115,8 @@ class MY_Controller extends CI_Controller {
           
         case 'pdfmake':
           $this->load->js('assets/bower_components/pdfmake/build/pdfmake.min.js');
-          $this->load->js('assets/bower_components/pdfmake/build/vfs_fonts.js');
+          // $this->load->js('assets/bower_components/pdfmake/build/vfs_fonts.js');
+          $this->load->js('assets/js/vfs_fonts.js');
           break; 
 
         case 'smartwizard':
