@@ -102,7 +102,7 @@
                                 <!-- /.row no-print -->
 
                                 <div class="ln_solid"></div>
-                                <? echo "<pre>"; print_r($eform_checklist); echo "</pre>"; ?>
+                                <? //echo "<pre>"; print_r($eform_checklist); echo "</pre>"; ?>
                                 <? foreach($eform_checklist as $key => $val): ?>
                                     <? if( !empty($key) ){ ?>
                                 <div class="row">

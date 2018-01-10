@@ -251,6 +251,18 @@ class Eform extends MY_Controller {
 						$res = $this->Utilities_model->_insert_array('tb_eform_checklist_dynamic',$eform_checklist_dynamic);
 					}
 				}
+
+				//Prepate date for insert to tb_eform_checklist
+				$eform_checklist = array(
+					'eform_id' => $eform_id
+					// ,'form_id' => $_POST['form_id']
+					// ,'page_no' => $_POST['page_no']
+					,'question_no' => $val['question_no']
+					,'answer_value' => NULL
+				);
+
+				// echo "<pre>"; print_r($eform_checklist); echo "</pre>";
+				$res = $this->Utilities_model->_insert_array('tb_eform_checklist',$eform_checklist);
 				
 			}elseif($val['question_type'] == 'dropbox'){
 				//Read each file and upload file to folder
