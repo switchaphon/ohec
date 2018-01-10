@@ -1046,7 +1046,7 @@ class Eform_model extends CI_Model {
         FROM tb_eform_checklist_dynamic checklist_dynamic
             LEFT JOIN tb_form_answer answer ON answer.question_no = checklist_dynamic.question_no AND answer.answer_name = checklist_dynamic.item_name
         WHERE eform_id = '$eform_id'
-        GROUP BY question_no,item_no,item_name
+        GROUP BY question_no,item_no,item_name,answer_text,item_val
         ORDER BY question_no,item_no ASC       
         ";
 
