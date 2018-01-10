@@ -119,7 +119,7 @@
               <!-- /Dashboard -->
               
               <!-- <div class="ln_solid"></div> -->
-
+              <? //echo "<pre>"; print_r($fixed_eform_list); echo "</pre>"; ?>
               <span id="controlPanel"></span>
               <table id="tbEform" name="tbEform" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline">
                 <thead>
@@ -138,23 +138,23 @@
                 <tbody>
                 <? 
                     // echo "<pre>"; print_r($not_passed_cause_list); echo "</pre>";
-                    $pass_eform = $notpass_eform = $fix_eform = array();
+                    $passed_eform = $notpassed_eform = $fixed_eform = array();
                     
                     if(!empty($passed_eform_list)){ 
                       foreach($passed_eform_list as $pass_val):
-                        $pass_eform[]=$pass_val['eform_id'];
+                        $passed_eform[]=$pass_val['eform_id'];
                       endforeach;                        
                     }
 
                     if(!empty($not_passed_eform_list)){ 
                       foreach($not_passed_eform_list as $notpass_val):
-                        $notpass_eform[]=$notpass_val['eform_id'];
+                        $notpassed_eform[]=$notpass_val['eform_id'];
                       endforeach;                        
                     } 
                     
                     if(!empty($fixed_eform_list)){ 
                       foreach($fixed_eform_list as $fix_val):
-                        $fix_eform[]=$fix_val['eform_id'];
+                        $fixed_eform[]=$fix_val['eform_id'];
                       endforeach;                        
                     } 
 
@@ -162,11 +162,11 @@
 
                       foreach($all_eform_list as $eform_key => $eform_val):
 
-                      if( in_array($eform_val['eform_id'], $pass_eform) ){
+                      if( in_array($eform_val['eform_id'], $passed_eform) ){
                         $tr_class = NULL; 
-                      }elseif( (in_array($eform_val['eform_id'], $notpass_eform) ) && !(in_array($eform_val['eform_id'], $fix_eform)) ){
+                      }elseif( (in_array($eform_val['eform_id'], $notpassed_eform) ) && !(in_array($eform_val['eform_id'], $fixed_eform)) ){
                         $tr_class = 'danger';                          
-                      }elseif( ( in_array($eform_val['eform_id'], $notpass_eform)) && (in_array($eform_val['eform_id'], $fix_eform)) ){      
+                      }elseif( ( in_array($eform_val['eform_id'], $notpassed_eform)) && (in_array($eform_val['eform_id'], $fixed_eform)) ){      
                         $tr_class = NULL;                   
                       }else{
                         $tr_class = NULL;                                           
@@ -176,10 +176,11 @@
                         $cause = NULL;
                         // for($i=0; $i < count($not_passed_cause_list[$eform_val['eform_id']]); $i++){
                           foreach( $not_passed_cause_list[$eform_val['eform_id']] as $cause_key => $cause_val ):
-                          $cause = $cause.$cause_val."<BR>";
+                            $cause = $cause.$cause_val."<BR>";
                           endforeach;
                         // }
                       }
+
                   ?>
                       <tr class="<?=$tr_class;?>">
                         <!-- <td class="text-left"><a href="<?=site_url('eform/view/'.$eform_val['eform_id'])?>"><?=$eform_val['site_name'];?></a></td> -->
@@ -187,16 +188,22 @@
                         <td class="text-left"><?=$eform_val['site_name'];?></td>
                         <td class="text-center"><?=$eform_val['province'];?></td>
                         <td class="text-center"><?=$eform_val['asset_type'];?> [<?=$eform_val['ma_type'];?>]</td>
-                        <td class="text-left"><? echo !empty($not_passed_cause_list[$eform_val['eform_id']]) ? $cause: '' ; ?></td>
+                        <td class="text-left">
+                          <? 
+                            echo !empty($not_passed_cause_list[$eform_val['eform_id']]) ? $cause: '' ; 
+                            echo in_array($eform_val['eform_id'], $fixed_eform) ? '<span class="label label-primary">แก้ไขแล้ว</span>' : '' ; 
+                            
+                          ?>
+                        </td>
                         <td class="text-center"><?=$eform_val['created_by'];?></td>
                         <td class="text-center"><?=$eform_val['created_date'];?></td>
                         <td class="text-left">
                         <? 
-                          if( in_array($eform_val['eform_id'], $pass_eform) ){
+                          if( in_array($eform_val['eform_id'], $passed_eform) ){
                             echo "<span class=\"hidden\">Passed</span>";
-                          }elseif( (in_array($eform_val['eform_id'], $notpass_eform) ) && !(in_array($eform_val['eform_id'], $fix_eform)) ){
+                          }elseif( (in_array($eform_val['eform_id'], $notpassed_eform) ) && !(in_array($eform_val['eform_id'], $fixed_eform)) ){
                             echo "<span class=\"hidden\">not</span>";                          
-                          }elseif( ( in_array($eform_val['eform_id'], $notpass_eform)) && (in_array($eform_val['eform_id'], $fix_eform)) ){
+                          }elseif( ( in_array($eform_val['eform_id'], $notpassed_eform)) && (in_array($eform_val['eform_id'], $fixed_eform)) ){
                             echo "<span class=\"hidden\">NotFixed</span>";                           
                           }
                         ?>                         
