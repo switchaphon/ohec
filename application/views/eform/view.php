@@ -707,14 +707,49 @@ function pdfmaker() {
                     for($question = 0; $question < count($val['question']); $question++){
 
                     $question_no = $val['question'][$question]['question_no'];
-                    $question_name = $val['question'][$question]['question_name'];
                     $question_text = $val['question'][$question]['question_text'];
-                    $question_value = $val['question'][$question]['question_value'];
                     $question_type = $val['question'][$question]['question_type'];
                     $answer_value = $val['question'][$question]['answer_value'];
+                    
+                    if( $question_type != 'dynamictextbox'){
+                        if( $answer_value != NULL ){
                 ?>    
                         [ '','','<?=$question_text;?> :','','<?=$answer_value;?>' ],
-                <?    
+
+                <?     
+                        }
+                    }elseif( $question_type == 'dynamictextbox'){
+                        if( !empty($eform_checklist_dynamic[$question_no]) ){ 
+                ?>
+                        [ '','',
+                            [
+                                '',
+                                {
+                                    style: 'tableExample',
+                                    table: {
+                                        headerRows: 1,
+                                        body: [
+                                            [
+                                                <? foreach($eform_checklist_answer[$key][$question_no] as $ans_key => $ans_val): ?>
+                                                    '<?=$ans_val['answer_text'];?>',
+                                                <? endforeach; ?>
+                                            ],
+                                            <? foreach($eform_checklist_dynamic[$question_no] as $item_key => $item_val): ?>
+                                            [
+                                                <? for($i = 0; $i < count($item_val); $i++ ){?>
+                                                    '<?=$item_val[$i]['item_value'];?>',
+                                                <? } ?>
+                                            ],
+                                            <? endforeach; ?>
+                                        ]
+                                    },
+                                    layout: 'headerLineOnly'
+                                }
+                            ], 
+                        '','' ],
+                <?
+                        }
+                    }
                     }
                 ?>
                     ]
@@ -723,7 +758,7 @@ function pdfmaker() {
             
             },
             '\n',
-
+            // pageBreak: 'after',
             <? if(!empty($eform_attachment[$key])){ ?>
                 { text: 'ภาพประกอบ', style: 'header' },
 
@@ -734,6 +769,9 @@ function pdfmaker() {
                             <? if( !empty($eform_attachment[$key][0]['attachment_path']) ){ ?>
                                 {
                                     text : 'files/eform/<?=$eform_attachment[$key][0]['attachment_path']?>',
+                                    // image : 'data:image/png;base64,files/eform/<?=$eform_attachment[$key][0]['attachment_path']?>',
+                                    // height : 200                                
+
                                 },
                             <? } ?>
                             <? if( !empty($eform_attachment[$key][1]['attachment_path']) ){ ?>
@@ -781,8 +819,10 @@ function pdfmaker() {
                     },
                 <? } ?>
             <? } ?>
+            
             <? endforeach; ?>
             '\n\n',
+            
             
             <? if(!empty($eform_note)){ ?>
                 {text: 'บันทึกข้อความ', style: 'header'},
