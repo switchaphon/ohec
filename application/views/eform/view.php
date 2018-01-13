@@ -95,8 +95,8 @@
                                 <!-- .row no-print-->
                                 <div class="row no-print">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                                        <button class="btn btn-round btn-default" onclick="window.print();"><i class="fa fa-print"></i> พิมพ์</button> 
-                                        <!-- <button class="btn btn-round btn-success" style="margin-right: 5px;"><i class="fa fa-download"></i> PDF</button> -->
+                                        <!-- <button class="btn btn-round btn-default" onclick="window.print();"><i class="fa fa-print"></i> พิมพ์</button>  -->
+                                        <button class="btn btn-round btn-success" onclick="pdfmaker()" style="margin-right: 5px;"><i class="fa fa-download"></i> PDF</button>
                                     </div>
                                 </div>                    
                                 <!-- /.row no-print -->
@@ -622,4 +622,217 @@ $(document).ready(function(){
     });
 
 });
+
+
+
+function pdfmaker() {
+
+    pdfMake.fonts = {
+        THSarabun: {
+            normal: 'THSarabun.ttf',
+            bold: 'THSarabun-Bold.ttf',
+            italics: 'THSarabun-Italic.ttf',
+            bolditalics: 'THSarabun-BoldItalic.ttf'
+        }
+    }
+
+    var docDefinition = { 
+        
+        defaultStyle: {
+            font: 'THSarabun'
+        },
+
+        content: [
+            //-- Header --//
+            // {
+            //     image: './assets/img/uninet.png',
+            //     width: 80
+            // },
+
+            {
+                text: '<?=$eform[0]['site_name']?>',
+                style: 'header',
+                alignment: 'center'
+		    },
+
+            {
+                text: 'จังหวัด<?=$eform[0]['province']?>\n\n',
+                style: 'subheader',
+                alignment: 'center'
+		    },
+            //-- /Header --//
+            //-- Subheader --//
+            {
+                columns: [
+                    {
+                        text: [
+                            'หมายเลขการตรวจ : ',
+                            {text: '<?=$eform[0]['eform_id']?><?=$eform[0]['form_id']?>', bold: true},
+                            '\nประเภททรัพย์สิน : ',
+                            {text: '<?=$eform[0]['asset_type']?>', bold: true},
+                            '\nประเภทงานตรวจ : ',
+                            {text: '<?=$eform[0]['ma_name']?> (<?=$eform[0]['ma_type']?>)', bold: true}
+                        ],
+                        style: 'subheader',
+                        alignment: 'center'
+                    },
+                    {
+                        text: [
+                            'ตารางตรวจงาน : ',
+                            {text: '<?=$eform[0]['schedule_project']." ".$eform[0]['schedule_period']." (".$eform[0]['region'].")"?>', bold: true},
+                            '\nผู้ตรวจสอบ  : ',
+                            {text: '<?=$eform[0]['created_by']?>', bold: true},
+                            '\nวันที่ตรวจสอบ : ',
+                            {text: '<?=$eform[0]['created_date']?>', bold: true}
+                        ],
+                        style: 'subheader',
+                        alignment: 'center'
+                    }
+                ]
+		    },
+            
+            //-- /Subheader --//
+
+            '\n\n\n',
+            <? foreach($eform_checklist as $key => $val): ?>
+                            
+            {text: '<?=$val['panel_title']?>', style: 'header'},
+            {
+                style: 'tableExample',
+			    table: {
+                    headerRows: 0,
+				    body: [
+                        // [{text: 'Header 1', style: 'tableHeader'}, {text: 'Header 2', style: 'tableHeader'}],
+                <?
+                    for($question = 0; $question < count($val['question']); $question++){
+
+                    $question_no = $val['question'][$question]['question_no'];
+                    $question_name = $val['question'][$question]['question_name'];
+                    $question_text = $val['question'][$question]['question_text'];
+                    $question_value = $val['question'][$question]['question_value'];
+                    $question_type = $val['question'][$question]['question_type'];
+                    $answer_value = $val['question'][$question]['answer_value'];
+                ?>    
+                        [ '','','<?=$question_text;?> :','','<?=$answer_value;?>' ],
+                <?    
+                    }
+                ?>
+                    ]
+                },
+			    layout: 'headerLineOnly'
+            
+            },
+            '\n',
+
+            <? if(!empty($eform_attachment[$key])){ ?>
+                { text: 'ภาพประกอบ', style: 'header' },
+
+                //--Picture row 1 --//
+                <? if( !empty($eform_attachment[$key][0]['attachment_path']) ){ ?>
+                    {
+                        columns: [
+                            <? if( !empty($eform_attachment[$key][0]['attachment_path']) ){ ?>
+                                {
+                                    text : 'files/eform/<?=$eform_attachment[$key][0]['attachment_path']?>',
+                                },
+                            <? } ?>
+                            <? if( !empty($eform_attachment[$key][1]['attachment_path']) ){ ?>
+                                {
+                                    text : 'files/eform/<?=$eform_attachment[$key][1]['attachment_path']?>',
+                                },
+                            <? } ?>
+                        ],
+                    },
+                <? } ?>
+
+                //--Picture row 2 --//
+                <? if( !empty($eform_attachment[$key][2]['attachment_path']) ){ ?>
+                    {
+                        columns: [
+                            <? if( !empty($eform_attachment[$key][2]['attachment_path']) ){ ?>
+                                {
+                                    text : 'files/eform/<?=$eform_attachment[$key][2]['attachment_path']?>',
+                                },
+                            <? } ?>
+                            <? if( !empty($eform_attachment[$key][3]['attachment_path']) ){ ?>
+                                {
+                                    text : 'files/eform/<?=$eform_attachment[$key][3]['attachment_path']?>',
+                                },
+                            <? } ?>
+                        ],
+                    },
+                <? } ?>
+
+                //--Picture row 3 --//
+                <? if( !empty($eform_attachment[$key][4]['attachment_path']) ){ ?>
+                    {
+                        columns: [
+                            <? if( !empty($eform_attachment[$key][4]['attachment_path']) ){ ?>
+                                {
+                                    text : 'files/eform/<?=$eform_attachment[$key][4]['attachment_path']?>',
+                                },
+                            <? } ?>
+                            <? if( !empty($eform_attachment[$key][5]['attachment_path']) ){ ?>
+                                {
+                                    text : 'files/eform/<?=$eform_attachment[$key][5]['attachment_path']?>',
+                                },
+                            <? } ?>
+                        ],
+                    },
+                <? } ?>
+            <? } ?>
+            <? endforeach; ?>
+            '\n\n',
+            
+            <? if(!empty($eform_note)){ ?>
+                {text: 'บันทึกข้อความ', style: 'header'},
+                {
+                style: 'tableExample',
+			    table: {
+                    headerRows: 1,
+				    body: [
+                        [{text: 'วันที่', style: 'tableHeader'}, {text: 'ข้อความบันทึก', style: 'tableHeader'}, {text: 'ผู้บันทึก', style: 'tableHeader'}],
+                        <? foreach($eform_note as $note_key => $note_val): ?>
+                        [ '<?=$note_val['created_date'];?>' , '<?=$note_val['note_detail'];?>' , '<?=$note_val['created_by'];?>' ],
+                        <? endforeach; ?>
+                        ]
+                },
+			    layout: 'headerLineOnly'
+                },
+            <? } ?>
+
+        ],
+
+        // --Style -- //
+        styles: {
+            header: {
+                fontSize: 18,
+                bold: true
+            },
+            subheader: {
+                fontSize: 15,
+                // bold: true
+            },
+            quote: {
+                italics: true
+            },
+            small: {
+                fontSize: 8
+            }
+	    }
+        // -- /Style --//
+    };
+
+
+    // open the PDF in a new window
+    pdfMake.createPdf(docDefinition).open();
+
+    // print the PDF
+    pdfMake.createPdf(docDefinition).print();
+
+    // download the PDF
+    pdfMake.createPdf(docDefinition).download('optionalName.pdf');
+
+}
+
 </script>

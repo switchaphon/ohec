@@ -191,8 +191,7 @@
                         <td class="text-left">
                           <? 
                             echo !empty($not_passed_cause_list[$eform_val['eform_id']]) ? $cause: '' ; 
-                            echo in_array($eform_val['eform_id'], $fixed_eform) ? '<span class="label label-primary">แก้ไขแล้ว</span>' : '' ; 
-                            
+                            // echo in_array($eform_val['eform_id'], $fixed_eform) ? '<span class="label label-primary">แก้ไขแล้ว</span>' : '' ; 
                           ?>
                         </td>
                         <td class="text-center"><?=$eform_val['created_by'];?></td>
