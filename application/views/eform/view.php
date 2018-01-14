@@ -641,7 +641,21 @@ function pdfmaker() {
         defaultStyle: {
             font: 'THSarabun'
         },
-
+        header: {
+            margin: 10,
+            columns: [
+                // {
+                //     // usually you would use a dataUri instead of the name for client-side printing
+                //     // sampleImage.jpg however works inside playground so you can play with it
+                //     image: 'sampleImage.jpg',
+                //     width: 40
+                // },
+                {
+                    margin: [10, 0, 0, 0],
+                    text: 'Here goes the rest'
+                }
+            ]
+        },
         content: [
             //-- Header --//
             // {
@@ -693,7 +707,23 @@ function pdfmaker() {
             
             //-- /Subheader --//
 
-            '\n\n\n',
+            // ---/Add horizon line --//
+            '\n',
+            {
+                canvas: [
+                    {
+                        type: 'line',
+                        x1: 0,
+                        y1: 5,
+                        x2: 535,
+                        y2: 5,
+                        lineWidth: 1.0
+                    }
+                ]
+            },
+            '\n',
+            // ---/Add horizon line --//
+
             <? foreach($eform_checklist as $key => $val): ?>
                             
             {text: '<?=$val['panel_title']?>', style: 'header'},
@@ -758,7 +788,9 @@ function pdfmaker() {
             
             },
             '\n',
-            // pageBreak: 'after',
+            
+
+            //--Addached photo--//
             <? if(!empty($eform_attachment[$key])){ ?>
                 { text: 'ภาพประกอบ', style: 'header' },
 
@@ -770,7 +802,7 @@ function pdfmaker() {
                                 {
                                     text : 'files/eform/<?=$eform_attachment[$key][0]['attachment_path']?>',
                                     // image : 'data:image/png;base64,files/eform/<?=$eform_attachment[$key][0]['attachment_path']?>',
-                                    // height : 200                                
+                                    height : 200                                
 
                                 },
                             <? } ?>
@@ -818,12 +850,14 @@ function pdfmaker() {
                         ],
                     },
                 <? } ?>
+                '\n',
             <? } ?>
             
             <? endforeach; ?>
             '\n\n',
-            
-            
+            //--/Attached photo--/
+            // pageBreak: 'after',        
+            //--Note--//
             <? if(!empty($eform_note)){ ?>
                 {text: 'บันทึกข้อความ', style: 'header'},
                 {
@@ -840,9 +874,9 @@ function pdfmaker() {
 			    layout: 'headerLineOnly'
                 },
             <? } ?>
-
+            //--/Note--//
         ],
-
+        // pageBreak: 'after',
         // --Style -- //
         styles: {
             header: {
