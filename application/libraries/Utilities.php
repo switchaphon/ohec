@@ -56,6 +56,7 @@ class Utilities {
         return $massage;
      
     }
+
     private function _image_resize($image = null) {
         
         //Assign the CodeIgniter object to a variable for using instead "$this"
@@ -93,37 +94,27 @@ class Utilities {
 
     }
 
-/*
-    public function _image_creation($image){
-    // we make sure we receive an array. if no array is given or the array is empty, return false
-        if(!is_array($image) || empty($image))
-        {   
-            echo "x";
-            return FALSE;
-        }
-        // also let's make sure IT IS an image
-        if($image['is_image']!=1)
-        {
-            echo "o";
-            return FALSE;
-        }
-        
-        echo "z";
-        //let's have an array to return
-        $new_images = array();
-        
-        $image_width = 620;
-        $image_height = 200;
-        $thumb_width = 100;
-        $thumb_height = 100;
-        $thumb_name = '-thumb';
-        // let's put the gallery images and thumbnails in a different directory (which will be public, of course... and writable) - make sure the directory exists
-        $gallery_path = FCPATH.'media/gallery/';
-        
-        //we return the array with the new images
-        return $new_images;
+    function pdf_generate(){
+
+        require_once APPPATH.'third_party/dompdf/autoload.inc.php';
+        // echo APPPATH;
+        // reference the Dompdf namespace
+        use Dompdf\Dompdf;
+
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml('hello world');
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream();
     }
-*/
+
 }
 
 ?>

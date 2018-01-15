@@ -97,6 +97,9 @@
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                                         <!-- <button class="btn btn-round btn-default" onclick="window.print();"><i class="fa fa-print"></i> พิมพ์</button>  -->
                                         <button class="btn btn-round btn-success" onclick="pdfmaker()" style="margin-right: 5px;"><i class="fa fa-download"></i> PDF</button>
+                                        <!-- <button class="btn btn-round btn-success" style="margin-right: 5px;"><i class="fa fa-download"></i> PDF2</button> -->
+                                        <a class="btn btn-round btn-success" href="<?=site_url('eform/pdfmaker')?>" name='pdfmaker'><span class="fa fa-download" aria-hidden="true"></span> PDF2</a>
+
                                     </div>
                                 </div>                    
                                 <!-- /.row no-print -->
@@ -623,7 +626,26 @@ $(document).ready(function(){
 
 });
 
+function getBase64FromImageUrl(url) {
+    var img = new Image();
 
+    img.setAttribute('crossOrigin', 'anonymous');
+
+    img.onload = function () {
+        var canvas = document.createElement("canvas");
+        canvas.width =this.width;
+        canvas.height =this.height;
+
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(this, 0, 0);
+
+        var dataURL = canvas.toDataURL("image/png");
+
+        alert(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
+    };
+
+    img.src = url;
+}
 
 function pdfmaker() {
 
@@ -652,7 +674,7 @@ function pdfmaker() {
                 // },
                 {
                     margin: [10, 0, 0, 0],
-                    text: 'Here goes the rest'
+                    text: 'header'
                 }
             ]
         },
@@ -800,8 +822,11 @@ function pdfmaker() {
                         columns: [
                             <? if( !empty($eform_attachment[$key][0]['attachment_path']) ){ ?>
                                 {
-                                    text : 'files/eform/<?=$eform_attachment[$key][0]['attachment_path']?>',
+                                    // text : getBase64FromImageUrl('<?=$_SERVER['DOCUMENT_ROOT'];?>/files/eform/<?=$eform_attachment[$key][0]['attachment_path'];?>'),
+                                    text : '<?=$_SERVER['DOCUMENT_ROOT'];?>/files/eform/<?=$eform_attachment[$key][0]['attachment_path']?>',
                                     // image : 'data:image/png;base64,files/eform/<?=$eform_attachment[$key][0]['attachment_path']?>',
+                                    // image : '<?=$_SERVER['DOCUMENT_ROOT'];?>/files/eform/<?=$eform_attachment[$key][0]['attachment_path'];?>',
+                                    // image : 'http://<?=$_SERVER['DOCUMENT_ROOT'];?>/files/eform/<?=$eform_attachment[$key][0]['attachment_path'];?>',
                                     height : 200                                
 
                                 },
