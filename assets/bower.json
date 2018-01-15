@@ -53,7 +53,6 @@
     "cropper": "^2.3.0",
     "validator": "https://github.com/yairEO/validator.git#^1.0.6",
     "jQuery-Smart-Wizard": "^3.3.1",
-    "dropzone": "^4.3.0",
     "pnotify": "^3.0.0",
     "fullcalendar": "^2.6.1",
     "jquery.easy-pie-chart": "^2.1.6",
@@ -78,7 +77,7 @@
     "DateJS": "^1.0.0-rc3",
     "bootstrap-validator": "^0.11.5",
     "bootstrap-fileinput": "https://github.com/kartik-v/bootstrap-fileinput.git",
-    "piexifjs": "https://github.com/hMatoba/piexifjs.git"
+    "dompdf" : "0.8.2"
 
   },
   "resolutions": {
