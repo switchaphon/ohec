@@ -84,8 +84,6 @@ class Eform extends MY_Controller {
 		$this->load->library( array('Eform_action') );
 		$this->load->model( array('Schedule_model','Eform_model','Ticket_model'));
 		
-
-
 		//--Get eform
 		$this->data['eform'] = $this->Eform_model->view_eform($eform_id);
 		$this->data['eform_checklist'] = $this->Eform_model->view_eform_checklist($eform_id);
@@ -100,15 +98,6 @@ class Eform extends MY_Controller {
 
 
 		$this->load->view('eform/view',$this->data);
-	}
-
-	public function pdfmaker($eform_id = null){
-		$this->_init();
-		$this->_init_assets( array('datatables', 'icheck', 'pdfmake') );
-		$this->load->library( array('Eform_action','Utilities') );
-		$this->load->model( array('Schedule_model','Eform_model','Ticket_model'));
-		
-		$this->utilities->pdf_generate();
 	}
 
 	public function create($schedule_id = null, $site_id = null, $form_id = null){

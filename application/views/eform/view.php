@@ -29,7 +29,7 @@
 
                             <section class="content invoice">
                                 
-                                <!-- <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="80px"></center> -->
+                                <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="80px"></center>
                                 <!-- title row -->
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
@@ -644,278 +644,375 @@ function pdfmaker() {
         },
 
         content: [
-            //-- Header --//
+            //--- Header ---//
 
-            {
-                <? 
-                    $contents = file_get_contents( base_url('assets/img/uninet.png'), true);
-                    $img = base64_encode($contents);
-                ?>
-                image :  'data:image/jpeg;base64,<?=$img;?>',
-                fit: [100, 100],
-                alignment: 'center'
-            },
+                {
+                    <? 
+                        $contents = file_get_contents( base_url('assets/img/uninet.png'), true);
+                        $img = base64_encode($contents);
+                    ?>
+                    image :  'data:image/jpeg;base64,<?=$img;?>',
+                    fit: [80, 80],
+                    alignment: 'center',
+                    margin: [0, -30, 0, 0]
+                },
 
-            {
-                text: '<?=$eform[0]['site_name']?>',
-                style: 'header',
-                alignment: 'center'
-		    },
+                {
+                    text: '<?=$eform[0]['site_name']?>',
+                    style: 'header',
+                    alignment: 'center'
+                },
 
-            {
-                text: 'จังหวัด<?=$eform[0]['province']?>\n\n',
-                style: 'subheader',
-                alignment: 'center'
-		    },
-            //-- /Header --//
-            //-- Subheader --//
-            {
-                columns: [
-                    {
-                        text: [
-                            'หมายเลขการตรวจ : ',
-                            {text: '<?=$eform[0]['eform_id']?><?=$eform[0]['form_id']?>', bold: true},
-                            '\nประเภททรัพย์สิน : ',
-                            {text: '<?=$eform[0]['asset_type']?>', bold: true},
-                            '\nประเภทงานตรวจ : ',
-                            {text: '<?=$eform[0]['ma_name']?> (<?=$eform[0]['ma_type']?>)', bold: true}
-                        ],
-                        style: 'subheader',
-                        alignment: 'center'
-                    },
-                    {
-                        text: [
-                            'ตารางตรวจงาน : ',
-                            {text: '<?=$eform[0]['schedule_project']." ".$eform[0]['schedule_period']." (".$eform[0]['region'].")"?>', bold: true},
-                            '\nผู้ตรวจสอบ  : ',
-                            {text: '<?=$eform[0]['created_by']?>', bold: true},
-                            '\nวันที่ตรวจสอบ : ',
-                            {text: '<?=$eform[0]['created_date']?>', bold: true}
-                        ],
-                        style: 'subheader',
-                        alignment: 'center'
-                    }
-                ]
-		    },
-            
-            //-- /Subheader --//
+                {
+                    text: 'จังหวัด<?=$eform[0]['province']?>\n\n',
+                    style: 'subheader',
+                    alignment: 'center'
+                },
+            //--- /Header ---//
 
-            // ---/Add horizon line --//
-            '\n',
-            {
-                canvas: [
-                    {
-                        type: 'line',
-                        x1: 0,
-                        y1: 5,
-                        x2: 535,
-                        y2: 5,
-                        lineWidth: 1.0
-                    }
-                ]
-            },
-            '\n',
-            // ---/Add horizon line --//
-
-            <? foreach($eform_checklist as $key => $val): ?>
-                            
-            {text: '<?=$val['panel_title']?>', style: 'header'},
-            {
-                style: 'tableExample',
-			    table: {
-                    headerRows: 0,
-				    body: [
-                        // [{text: 'Header 1', style: 'tableHeader'}, {text: 'Header 2', style: 'tableHeader'}],
-                <?
-                    for($question = 0; $question < count($val['question']); $question++){
-
-                    $question_no = $val['question'][$question]['question_no'];
-                    $question_text = $val['question'][$question]['question_text'];
-                    $question_type = $val['question'][$question]['question_type'];
-                    $answer_value = $val['question'][$question]['answer_value'];
-                    
-                    if( $question_type != 'dynamictextbox'){
-                        if( $answer_value != NULL ){
-                ?>    
-                        [ '','','<?=$question_text;?> :','','<?=$answer_value;?>' ],
-
-                <?     
+            //--- Subheader ---//
+                {
+                    columns: [
+                        {
+                            text: [
+                                'หมายเลขการตรวจ : ',
+                                {text: '<?=$eform[0]['eform_id']?><?=$eform[0]['form_id']?>', bold: true},
+                                '\nประเภททรัพย์สิน : ',
+                                {text: '<?=$eform[0]['asset_type']?>', bold: true},
+                                '\nประเภทงานตรวจ : ',
+                                {text: '<?=$eform[0]['ma_name']?> (<?=$eform[0]['ma_type']?>)', bold: true}
+                            ],
+                            style: 'subheader',
+                            alignment: 'center'
+                        },
+                        {
+                            text: [
+                                'ตารางตรวจงาน : ',
+                                {text: '<?=$eform[0]['schedule_project']." ".$eform[0]['schedule_period']." (".$eform[0]['region'].")"?>', bold: true},
+                                '\nผู้ตรวจสอบ  : ',
+                                {text: '<?=$eform[0]['created_by']?>', bold: true},
+                                '\nวันที่ตรวจสอบ : ',
+                                {text: '<?=$eform[0]['created_date']?>', bold: true}
+                            ],
+                            style: 'subheader',
+                            alignment: 'center'
                         }
-                    }elseif( $question_type == 'dynamictextbox'){
-                        if( !empty($eform_checklist_dynamic[$question_no]) ){ 
-                ?>
-                        [ '','',
-                            [
-                                '',
-                                {
-                                    style: 'tableExample',
-                                    table: {
-                                        headerRows: 1,
-                                        body: [
-                                            [
-                                                <? foreach($eform_checklist_answer[$key][$question_no] as $ans_key => $ans_val): ?>
-                                                    '<?=$ans_val['answer_text'];?>',
-                                                <? endforeach; ?>
-                                            ],
-                                            <? foreach($eform_checklist_dynamic[$question_no] as $item_key => $item_val): ?>
-                                            [
-                                                <? for($i = 0; $i < count($item_val); $i++ ){?>
-                                                    '<?=$item_val[$i]['item_value'];?>',
-                                                <? } ?>
-                                            ],
-                                            <? endforeach; ?>
-                                        ]
-                                    },
-                                    layout: 'headerLineOnly'
-                                }
-                            ], 
-                        '','' ],
-                <?
-                        }
-                    }
-                    }
-                ?>
                     ]
                 },
-			    layout: 'headerLineOnly'
-            
-            },
-            '\n',
-            
+                
+            //--- /Subheader ---//
 
-            //--Addached photo--//
-            <? if(!empty($eform_attachment[$key])){ ?>
-                { text: 'ภาพประกอบ', style: 'header' },
-
-                //--Picture row 1 --//
-                <? if( !empty($eform_attachment[$key][0]['attachment_path']) ){ ?>
-                    {   text: '\n\n',
-                        columns: [
-                            
-                            <? if( !empty($eform_attachment[$key][0]['attachment_path']) ){ ?>
-                                {
-                                    <? 
-                                        $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files/eform/'.$eform_attachment[$key][0]['attachment_path'], true);
-                                        $img = base64_encode($contents);
-                                    ?>
-                                    image :  'data:image/jpeg;base64,<?=$img;?>',
-                                    fit: [200, 200],
-                                    alignment: 'center',
-                                },
-                            <? } ?>
-                            <? if( !empty($eform_attachment[$key][1]['attachment_path']) ){ ?>
-                                {
-                                    <? 
-                                        $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files/eform/'.$eform_attachment[$key][1]['attachment_path'], true);
-                                        $img = base64_encode($contents);
-                                    ?>
-                                    image :  'data:image/jpeg;base64,<?=$img;?>',
-                                    fit: [200, 200],
-                                    alignment: 'center',
-                                                                
-
-                                },
-                            <? } ?>
-                        ],
-                    },
-                <? } ?>
-
-                //--Picture row 2 --//
-                <? if( !empty($eform_attachment[$key][2]['attachment_path']) ){ ?>
-                    {   text: '\n\n',
-                        columns: [
-                            <? if( !empty($eform_attachment[$key][2]['attachment_path']) ){ ?>
-                                {
-                                    <? 
-                                        $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files/eform/'.$eform_attachment[$key][2]['attachment_path'], true);
-                                        $img = base64_encode($contents);
-                                    ?>
-                                    image :  'data:image/jpeg;base64,<?=$img;?>',
-                                    fit: [200, 200],
-                                    alignment: 'center',
-                                },
-                            <? } ?>
-                            <? if( !empty($eform_attachment[$key][3]['attachment_path']) ){ ?>
-                                {
-                                    <? 
-                                        $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files/eform/'.$eform_attachment[$key][3]['attachment_path'], true);
-                                        $img = base64_encode($contents);
-                                    ?>
-                                    image :  'data:image/jpeg;base64,<?=$img;?>',
-                                    fit: [200, 200],
-                                    alignment: 'center',
-                                    pageBreak: 'after', 
-                                },
-                            <? } ?>
-                        ],
-                    },
-                <? } ?>
-
-                //--Picture row 3 --//
-                <? if( !empty($eform_attachment[$key][4]['attachment_path']) ){ ?>
-                    {
-                        columns: [
-                            <? if( !empty($eform_attachment[$key][4]['attachment_path']) ){ ?>
-                                {
-                                    <? 
-                                        $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files/eform/'.$eform_attachment[$key][4]['attachment_path'], true);
-                                        $img = base64_encode($contents);
-                                    ?>
-                                    image :  'data:image/jpeg;base64,<?=$img;?>',
-                                    fit: [200, 200],
-                                    alignment: 'center',
-                                },
-                            <? } ?>
-                            <? if( !empty($eform_attachment[$key][5]['attachment_path']) ){ ?>
-                                {
-                                    <? 
-                                        $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files/eform/'.$eform_attachment[$key][5]['attachment_path'], true);
-                                        $img = base64_encode($contents);
-                                    ?>
-                                    image :  'data:image/jpeg;base64,<?=$img;?>',
-                                    fit: [200, 200],
-                                    alignment: 'center',
-                                    pageBreak: 'after',
-                                },
-                            <? } ?>
-                        ],
-                    },
-                <? } ?>
-                '\n',
-            <? } ?>
-            
-            <? endforeach; ?>
-            '\n\n',
-            //--/Attached photo--/
-            // pageBreak: 'after',        
-            //--Note--//
-            <? if(!empty($eform_note)){ ?>
-                {text: 'บันทึกข้อความ', style: 'header'},
+            // --- Add horizon line --//
+                // '\n',
                 {
-                style: 'tableExample',
-			    table: {
-                    headerRows: 1,
-				    body: [
-                        [{text: 'วันที่', style: 'tableHeader'}, {text: 'ข้อความบันทึก', style: 'tableHeader'}, {text: 'ผู้บันทึก', style: 'tableHeader'}],
-                        <? foreach($eform_note as $note_key => $note_val): ?>
-                        [ '<?=$note_val['created_date'];?>' , '<?=$note_val['note_detail'];?>' , '<?=$note_val['created_by'];?>' ],
-                        <? endforeach; ?>
-                        ]
+                    canvas: [
+                        {
+                            type: 'line',
+                            x1: 0,
+                            y1: 5,
+                            x2: 535,
+                            y2: 5,
+                            lineWidth: 1.0
+                        }
+                    ]
                 },
-			    layout: 'headerLineOnly'
-                },
-            <? } ?>
-            //--/Note--//
+                '\n',
+            // --- /Add horizon line --//
+            
+            // --- Panel ---//
+                <? 
+                    $panel = 1; 
+                    foreach($eform_checklist as $key => $val): 
+                ?>
+                                
+                    { text: '<?=$val['panel_title']?>', style: 'header' },
+
+                //--- Checklist---//    
+                    {
+                        style: 'tableExample',
+                        table: {
+                            headerRows: 0,
+                            body: [
+
+                        <?
+                            for($question = 0; $question < count($val['question']); $question++){
+
+                            $question_no = $val['question'][$question]['question_no'];
+                            $question_text = $val['question'][$question]['question_text'];
+                            $question_type = $val['question'][$question]['question_type'];
+                            $answer_value = $val['question'][$question]['answer_value'];
+                            
+                            if( $question_type != 'dynamictextbox'){
+                                if( $answer_value != NULL ){
+                        ?>    
+                                [ '','','<?=$question_text;?> :','','<?=$answer_value;?>' ],
+
+                        <?     
+                                }
+                            }elseif( $question_type == 'dynamictextbox'){
+                                if( !empty($eform_checklist_dynamic[$question_no]) ){ 
+                        ?>
+                                [ '','',
+                                    [
+                                        '',
+                                        {
+                                            style: 'tableExample',
+                                            table: {
+                                                headerRows: 1,
+                                                body: [
+                                                    [
+                                                        <? foreach($eform_checklist_answer[$key][$question_no] as $ans_key => $ans_val): ?>
+                                                            '<?=$ans_val['answer_text'];?>',
+                                                        <? endforeach; ?>
+                                                    ],
+                                                    <? foreach($eform_checklist_dynamic[$question_no] as $item_key => $item_val): ?>
+                                                    [
+                                                        <? for($i = 0; $i < count($item_val); $i++ ){?>
+                                                            '<?=$item_val[$i]['item_value'];?>',
+                                                        <? } ?>
+                                                    ],
+                                                    <? endforeach; ?>
+                                                ]
+                                            },
+                                            layout: 'headerLineOnly'
+                                        }
+                                    ], 
+                                '','' ],
+                        <?
+                                }
+                            }
+                            }
+                        ?>
+                            ]
+                        },
+                        layout: 'headerLineOnly'
+                    
+                    },
+                    '\n',
+                //--- /Checklist---//    
+
+                //--- Attached photo---//
+                    <? if(!empty($eform_attachment[$key])){ ?>
+                        { text: 'ภาพประกอบ', style: 'header' },
+
+                    //--Picture row 1 --//
+                        <? if( !empty($eform_attachment[$key][0]['attachment_path']) ){ ?>
+                            {   
+                                columns: [
+                                    
+                                    <? if( !empty($eform_attachment[$key][0]['attachment_path']) ){ ?>
+                                        {
+                                            <? 
+                                                $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files/eform/'.$eform_attachment[$key][0]['attachment_path'], true);
+                                                $img = base64_encode($contents);
+                                            ?>
+                                            image :  'data:image/jpeg;base64,<?=$img;?>',
+                                            fit: [200, 200],
+                                            alignment: 'center',
+                                        },
+                                    <? }else{ ?>
+                                        {
+                                            <? 
+                                                $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/assets/img/white_bg.jpg', true);
+                                                $img = base64_encode($contents);
+                                            ?>
+                                            image :  'data:image/jpeg;base64,<?=$img;?>',
+                                            fit: [200, 200],
+                                            alignment: 'center',
+                                        },                           
+                                    <? } ?>
+                                    <? if( !empty($eform_attachment[$key][1]['attachment_path']) ){ ?>
+                                        {
+                                            <? 
+                                                $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files/eform/'.$eform_attachment[$key][1]['attachment_path'], true);
+                                                $img = base64_encode($contents);
+                                            ?>
+                                            image :  'data:image/jpeg;base64,<?=$img;?>',
+                                            fit: [200, 200],
+                                            alignment: 'center',
+                                            // pageBreak: 'after',
+                                        },
+                                    <? }else{ ?>
+                                        {
+                                            <? 
+                                                $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/assets/img/white_bg.jpg', true);
+                                                $img = base64_encode($contents);
+                                            ?>
+                                            image :  'data:image/jpeg;base64,<?=$img;?>',
+                                            fit: [200, 200],
+                                            alignment: 'center',
+                                            // pageBreak: 'after', 
+                                        },                           
+                                    <? } ?>
+                                    
+                                ],
+                                
+                            },
+                            
+                            {
+                                text :'\n',
+                            },
+                        <? } ?>
+
+                    //--Picture row 2 --//
+                        <? if( !empty($eform_attachment[$key][2]['attachment_path']) ){ ?>
+                            {   
+                                columns: [
+                                    <? if( !empty($eform_attachment[$key][2]['attachment_path']) ){ ?>
+                                        {
+                                            <? 
+                                                $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files/eform/'.$eform_attachment[$key][2]['attachment_path'], true);
+                                                $img = base64_encode($contents);
+                                            ?>
+                                            image :  'data:image/jpeg;base64,<?=$img;?>',
+                                            fit: [200, 200],
+                                            alignment: 'center',
+                                        },
+                                    <? }else{ ?>
+                                        {
+                                            <? 
+                                                $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/assets/img/white_bg.jpg', true);
+                                                $img = base64_encode($contents);
+                                            ?>
+                                            image :  'data:image/jpeg;base64,<?=$img;?>',
+                                            fit: [200, 200],
+                                            alignment: 'center',
+                                            // pageBreak: 'after', 
+                                        },                           
+                                    <? } ?>
+                                    <? if( !empty($eform_attachment[$key][3]['attachment_path']) ){ ?>
+                                        {
+                                            <? 
+                                                $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files/eform/'.$eform_attachment[$key][3]['attachment_path'], true);
+                                                $img = base64_encode($contents);
+                                            ?>
+                                            image :  'data:image/jpeg;base64,<?=$img;?>',
+                                            fit: [200, 200],
+                                            alignment: 'center',
+                                            // pageBreak: 'after', 
+                                        },
+                                    <? }else{ ?>
+                                        {
+                                            <? 
+                                                $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/assets/img/white_bg.jpg', true);
+                                                $img = base64_encode($contents);
+                                            ?>
+                                            image :  'data:image/jpeg;base64,<?=$img;?>',
+                                            fit: [200, 200],
+                                            alignment: 'center',
+                                            // pageBreak: 'after', 
+                                        },                           
+                                    <? } ?>
+                                    
+                                ],
+                            },
+                            {
+                                text :'\n',
+                            },
+                        <? } ?>
+
+                    //--Picture row 3 --//
+                        <? if( !empty($eform_attachment[$key][4]['attachment_path']) ){ ?>
+                            {
+                                columns: [
+                                    <? if( !empty($eform_attachment[$key][4]['attachment_path']) ){ ?>
+                                        {
+                                            <? 
+                                                $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files/eform/'.$eform_attachment[$key][4]['attachment_path'], true);
+                                                $img = base64_encode($contents);
+                                            ?>
+                                            image :  'data:image/jpeg;base64,<?=$img;?>',
+                                            fit: [200, 200],
+                                            alignment: 'center',
+                                        },
+
+                                    <? }else{ ?>
+                                        {
+                                            <? 
+                                                $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/assets/img/white_bg.jpg', true);
+                                                $img = base64_encode($contents);
+                                            ?>
+                                            image :  'data:image/jpeg;base64,<?=$img;?>',
+                                            fit: [200, 200],
+                                            alignment: 'center',
+                                        },   
+                        
+                                    <? } ?>
+                                    <? if( !empty($eform_attachment[$key][5]['attachment_path']) ){ ?>
+                                        {
+                                            <? 
+                                                $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files/eform/'.$eform_attachment[$key][5]['attachment_path'], true);
+                                                $img = base64_encode($contents);
+                                            ?>
+                                            image :  'data:image/jpeg;base64,<?=$img;?>',
+                                            fit: [200, 200],
+                                            alignment: 'center',
+                                            // pageBreak: 'after',
+                                        },
+                                    <? }else{ ?>
+                                        {
+                                            <? 
+                                                $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/assets/img/white_bg.jpg', true);
+                                                $img = base64_encode($contents);
+                                            ?>
+                                            image :  'data:image/jpeg;base64,<?=$img;?>',
+                                            fit: [200, 200],
+                                            alignment: 'center',
+                                            pageBreak: 'after', 
+                                        },                           
+                                    <? } ?>
+                                ],
+                                
+                            },
+                            {
+                                text :'\n',
+                            },
+                        <? } ?>
+                    <? } ?>
+                //--- /Attached photo---/
+
+                // --- Pagebreak ---//    
+                    <? if($panel < count($eform_checklist) ){ ?>
+                    {
+                        text: '',
+                        pageBreak: "after" // or after
+                    },
+                    <? } ?>
+                // --- /Pagebreak ---//    
+                <? 
+                    $panel++;
+                    endforeach; 
+                ?>
+            //--- /Panel ---/    
+                 
+            //--- Note ---//
+                <? if(!empty($eform_note)){ ?>
+                    {text: 'บันทึกข้อความ', style: 'header'},
+                    {
+                    style: 'tableExample',
+                    table: {
+                        headerRows: 1,
+                        body: [
+                            [{text: 'วันที่', style: 'tableHeader'}, {text: 'ข้อความบันทึก', style: 'tableHeader'}, {text: 'ผู้บันทึก', style: 'tableHeader'}],
+                            <? foreach($eform_note as $note_key => $note_val): ?>
+                            [ '<?=$note_val['created_date'];?>' , '<?=$note_val['note_detail'];?>' , '<?=$note_val['created_by'];?>' ],
+                            <? endforeach; ?>
+                            ]
+                    },
+                    layout: 'headerLineOnly'
+                    },
+                <? } ?>
+            //--- /Note ---//
         ],
-        // pageBreak: 'after',
-        // --Style -- //
+
+    // --- Style --- //
         styles: {
             header: {
                 fontSize: 18,
                 bold: true
             },
             subheader: {
-                fontSize: 15,
+                fontSize: 12,
                 // bold: true
             },
             quote: {
@@ -925,7 +1022,8 @@ function pdfmaker() {
                 fontSize: 8
             }
 	    }
-        // -- /Style --//
+        
+    // --- /Style ---//
     };
 
 
