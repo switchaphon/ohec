@@ -29,7 +29,7 @@
 
                             <section class="content invoice">
                                 
-                                <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="80px"></center>
+                                <!-- <center><img src="<?=base_url('assets/img/uninet.png');?>" alt="uninet" height="80px"></center> -->
                                 <!-- title row -->
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
@@ -98,7 +98,7 @@
                                         <!-- <button class="btn btn-round btn-default" onclick="window.print();"><i class="fa fa-print"></i> พิมพ์</button>  -->
                                         <button class="btn btn-round btn-success" onclick="pdfmaker()" style="margin-right: 5px;"><i class="fa fa-download"></i> PDF</button>
                                         <!-- <button class="btn btn-round btn-success" style="margin-right: 5px;"><i class="fa fa-download"></i> PDF2</button> -->
-                                        <a class="btn btn-round btn-success" href="<?=site_url('eform/pdfmaker')?>" name='pdfmaker'><span class="fa fa-download" aria-hidden="true"></span> PDF2</a>
+                                        <!-- <a class="btn btn-round btn-success" href="<?=site_url('eform/pdfmaker')?>" name='pdfmaker'><span class="fa fa-download" aria-hidden="true"></span> PDF2</a> -->
 
                                     </div>
                                 </div>                    
@@ -626,27 +626,6 @@ $(document).ready(function(){
 
 });
 
-function getBase64FromImageUrl(url) {
-    var img = new Image();
-
-    img.setAttribute('crossOrigin', 'anonymous');
-
-    img.onload = function () {
-        var canvas = document.createElement("canvas");
-        canvas.width =this.width;
-        canvas.height =this.height;
-
-        var ctx = canvas.getContext("2d");
-        ctx.drawImage(this, 0, 0);
-
-        var dataURL = canvas.toDataURL("image/png");
-
-        alert(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
-    };
-
-    img.src = url;
-}
-
 function pdfmaker() {
 
     pdfMake.fonts = {
@@ -666,12 +645,14 @@ function pdfmaker() {
         header: {
             margin: 10,
             columns: [
-                // {
-                //     // usually you would use a dataUri instead of the name for client-side printing
-                //     // sampleImage.jpg however works inside playground so you can play with it
-                //     image: 'sampleImage.jpg',
-                //     width: 40
-                // },
+                {
+                    <? 
+                        $contents = file_get_contents( base_url('assets/img/uninet.png'), true);
+                        $img = base64_encode($contents);
+                    ?>
+                    image :  'data:image/jpeg;base64,<?=$img;?>',
+                    fit: [200, 200],
+                },
                 {
                     margin: [10, 0, 0, 0],
                     text: 'header'
@@ -822,18 +803,24 @@ function pdfmaker() {
                         columns: [
                             <? if( !empty($eform_attachment[$key][0]['attachment_path']) ){ ?>
                                 {
-                                    // text : getBase64FromImageUrl('<?=$_SERVER['DOCUMENT_ROOT'];?>/files/eform/<?=$eform_attachment[$key][0]['attachment_path'];?>'),
-                                    text : '<?=$_SERVER['DOCUMENT_ROOT'];?>/files/eform/<?=$eform_attachment[$key][0]['attachment_path']?>',
-                                    // image : 'data:image/png;base64,files/eform/<?=$eform_attachment[$key][0]['attachment_path']?>',
-                                    // image : '<?=$_SERVER['DOCUMENT_ROOT'];?>/files/eform/<?=$eform_attachment[$key][0]['attachment_path'];?>',
-                                    // image : 'http://<?=$_SERVER['DOCUMENT_ROOT'];?>/files/eform/<?=$eform_attachment[$key][0]['attachment_path'];?>',
-                                    height : 200                                
-
+                                    <? 
+                                        $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files/eform/'.$eform_attachment[$key][0]['attachment_path'], true);
+                                        $img = base64_encode($contents);
+                                    ?>
+                                    image :  'data:image/jpeg;base64,<?=$img;?>',
+                                    fit: [200, 200],
                                 },
                             <? } ?>
                             <? if( !empty($eform_attachment[$key][1]['attachment_path']) ){ ?>
                                 {
-                                    text : 'files/eform/<?=$eform_attachment[$key][1]['attachment_path']?>',
+                                    <? 
+                                        $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files/eform/'.$eform_attachment[$key][1]['attachment_path'], true);
+                                        $img = base64_encode($contents);
+                                    ?>
+                                    image :  'data:image/jpeg;base64,<?=$img;?>',
+                                    fit: [200, 200],
+                                    pageBreak: 'after'                             
+
                                 },
                             <? } ?>
                         ],
@@ -846,12 +833,22 @@ function pdfmaker() {
                         columns: [
                             <? if( !empty($eform_attachment[$key][2]['attachment_path']) ){ ?>
                                 {
-                                    text : 'files/eform/<?=$eform_attachment[$key][2]['attachment_path']?>',
+                                    <? 
+                                        $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files/eform/'.$eform_attachment[$key][2]['attachment_path'], true);
+                                        $img = base64_encode($contents);
+                                    ?>
+                                    image :  'data:image/jpeg;base64,<?=$img;?>',
+                                    fit: [200, 200],
                                 },
                             <? } ?>
                             <? if( !empty($eform_attachment[$key][3]['attachment_path']) ){ ?>
                                 {
-                                    text : 'files/eform/<?=$eform_attachment[$key][3]['attachment_path']?>',
+                                    <? 
+                                        $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files/eform/'.$eform_attachment[$key][3]['attachment_path'], true);
+                                        $img = base64_encode($contents);
+                                    ?>
+                                    image :  'data:image/jpeg;base64,<?=$img;?>',
+                                    fit: [200, 200],
                                 },
                             <? } ?>
                         ],
@@ -864,12 +861,23 @@ function pdfmaker() {
                         columns: [
                             <? if( !empty($eform_attachment[$key][4]['attachment_path']) ){ ?>
                                 {
-                                    text : 'files/eform/<?=$eform_attachment[$key][4]['attachment_path']?>',
+                                    <? 
+                                        $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files/eform/'.$eform_attachment[$key][4]['attachment_path'], true);
+                                        $img = base64_encode($contents);
+                                    ?>
+                                    image :  'data:image/jpeg;base64,<?=$img;?>',
+                                    fit: [200, 200],
                                 },
                             <? } ?>
                             <? if( !empty($eform_attachment[$key][5]['attachment_path']) ){ ?>
                                 {
-                                    text : 'files/eform/<?=$eform_attachment[$key][5]['attachment_path']?>',
+                                    <? 
+                                        $contents = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/files/eform/'.$eform_attachment[$key][5]['attachment_path'], true);
+                                        $img = base64_encode($contents);
+                                    ?>
+                                    image :  'data:image/jpeg;base64,<?=$img;?>',
+                                    fit: [200, 200],
+                                    pageBreak: 'after'    
                                 },
                             <? } ?>
                         ],
