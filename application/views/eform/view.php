@@ -642,29 +642,19 @@ function pdfmaker() {
         defaultStyle: {
             font: 'THSarabun'
         },
-        header: {
-            margin: 10,
-            columns: [
-                {
-                    <? 
-                        $contents = file_get_contents( base_url('assets/img/uninet.png'), true);
-                        $img = base64_encode($contents);
-                    ?>
-                    image :  'data:image/jpeg;base64,<?=$img;?>',
-                    fit: [200, 200],
-                },
-                {
-                    margin: [10, 0, 0, 0],
-                    text: 'header'
-                }
-            ]
-        },
+
         content: [
             //-- Header --//
-            // {
-            //     image: './assets/img/uninet.png',
-            //     width: 80
-            // },
+
+            {
+                <? 
+                    $contents = file_get_contents( base_url('assets/img/uninet.png'), true);
+                    $img = base64_encode($contents);
+                ?>
+                image :  'data:image/jpeg;base64,<?=$img;?>',
+                fit: [100, 100],
+                alignment: 'center'
+            },
 
             {
                 text: '<?=$eform[0]['site_name']?>',
@@ -799,8 +789,9 @@ function pdfmaker() {
 
                 //--Picture row 1 --//
                 <? if( !empty($eform_attachment[$key][0]['attachment_path']) ){ ?>
-                    {
+                    {   text: '\n\n',
                         columns: [
+                            
                             <? if( !empty($eform_attachment[$key][0]['attachment_path']) ){ ?>
                                 {
                                     <? 
@@ -809,6 +800,7 @@ function pdfmaker() {
                                     ?>
                                     image :  'data:image/jpeg;base64,<?=$img;?>',
                                     fit: [200, 200],
+                                    alignment: 'center',
                                 },
                             <? } ?>
                             <? if( !empty($eform_attachment[$key][1]['attachment_path']) ){ ?>
@@ -819,7 +811,8 @@ function pdfmaker() {
                                     ?>
                                     image :  'data:image/jpeg;base64,<?=$img;?>',
                                     fit: [200, 200],
-                                    pageBreak: 'after'                             
+                                    alignment: 'center',
+                                                                
 
                                 },
                             <? } ?>
@@ -829,7 +822,7 @@ function pdfmaker() {
 
                 //--Picture row 2 --//
                 <? if( !empty($eform_attachment[$key][2]['attachment_path']) ){ ?>
-                    {
+                    {   text: '\n\n',
                         columns: [
                             <? if( !empty($eform_attachment[$key][2]['attachment_path']) ){ ?>
                                 {
@@ -839,6 +832,7 @@ function pdfmaker() {
                                     ?>
                                     image :  'data:image/jpeg;base64,<?=$img;?>',
                                     fit: [200, 200],
+                                    alignment: 'center',
                                 },
                             <? } ?>
                             <? if( !empty($eform_attachment[$key][3]['attachment_path']) ){ ?>
@@ -849,6 +843,8 @@ function pdfmaker() {
                                     ?>
                                     image :  'data:image/jpeg;base64,<?=$img;?>',
                                     fit: [200, 200],
+                                    alignment: 'center',
+                                    pageBreak: 'after', 
                                 },
                             <? } ?>
                         ],
@@ -867,6 +863,7 @@ function pdfmaker() {
                                     ?>
                                     image :  'data:image/jpeg;base64,<?=$img;?>',
                                     fit: [200, 200],
+                                    alignment: 'center',
                                 },
                             <? } ?>
                             <? if( !empty($eform_attachment[$key][5]['attachment_path']) ){ ?>
@@ -877,7 +874,8 @@ function pdfmaker() {
                                     ?>
                                     image :  'data:image/jpeg;base64,<?=$img;?>',
                                     fit: [200, 200],
-                                    pageBreak: 'after'    
+                                    alignment: 'center',
+                                    pageBreak: 'after',
                                 },
                             <? } ?>
                         ],

@@ -724,7 +724,7 @@
             ,removeTitle: 'ล้างช่องแนบภาพ'
             ,allowedFileExtensions: ['jpg','jpeg', 'gif', 'png']
             ,maxFileCount: 6
-            ,autoOrientImage: false
+            ,autoOrientImage: true
             // ,previewSettings: {
             //     image: {width: "50%", height: "auto", 'max-width': "100%", 'max-height': "100%"},
             //     other: {width: "213px", height: "160px"}
