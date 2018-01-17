@@ -90,6 +90,17 @@
             <!-- /passing hidden data -->
             
             <?
+                if( ($checklist['form_id'] == '00004') || ($checklist['form_id'] == '00005') || ($checklist['form_id'] == '00006') ){
+                    $panel_toolbox = "
+                        <li><a class=\"collapse-link\"><i class=\"fa fa-chevron-up\"></i></a></li>                                          
+                    ";
+                }else{
+                    $panel_toolbox = "
+                        <li><a class=\"collapse-link\"><i class=\"fa fa-chevron-up\"></i></a></li>                           
+                        <li><a class=\"close-link\"><i class=\"fa fa-close\"></i></a></li>                  
+                    ";
+                }
+
                 //--Get page's properties
                 for($page_no = 1; $page_no <= count($checklist['page']); $page_no++){
                     
@@ -103,10 +114,7 @@
                                 <div class=\"x_panel collapsed\">
                                     <div class=\"x_title\">
                                         <h2>".$panel_val['panel_name']."</h2>
-                                        <ul class=\"nav navbar-right panel_toolbox\" style=\"padding-left: 50px;\"> 
-                                            <li><a class=\"collapse-link\"><i class=\"fa fa-chevron-up\"></i></a></li>
-                                            <li><a class=\"close-link\"><i class=\"fa fa-close\"></i></a></li>
-                                        </ul>
+                                        <ul class=\"nav navbar-right panel_toolbox\" style=\"padding-left: 50px;\">".$panel_toolbox."</ul>
                                         <div class=\"clearfix\"></div>
                                     </div>
                                     <div class=\"x_content\">";
