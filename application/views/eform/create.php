@@ -82,7 +82,6 @@
                 </div>  
             </div>      
 
-    
             <!-- passing hidden data -->
             <input type="hidden" id="schedule_id" name="schedule_id" value="<?=$schedule_id;?>" />
             <input type="hidden" id="site_id" name="site_id" value="<?=$site_id;?>" />
@@ -90,6 +89,17 @@
             <!-- /passing hidden data -->
             
             <?
+                if( ($checklist['form_id'] == '00004') || ($checklist['form_id'] == '00005') || ($checklist['form_id'] == '00006') ){
+                    $panel_toolbox = "
+                        <li><a class=\"collapse-link\"><i class=\"fa fa-chevron-up\"></i></a></li>                                          
+                    ";
+                }else{
+                    $panel_toolbox = "
+                        <li><a class=\"collapse-link\"><i class=\"fa fa-chevron-up\"></i></a></li>                           
+                        <li><a class=\"close-link\"><i class=\"fa fa-close\"></i></a></li>                  
+                    ";
+                }
+
                 //--Get page's properties
                 for($page_no = 1; $page_no <= count($checklist['page']); $page_no++){
                     
@@ -103,10 +113,7 @@
                                 <div class=\"x_panel collapsed\">
                                     <div class=\"x_title\">
                                         <h2>".$panel_val['panel_name']."</h2>
-                                        <ul class=\"nav navbar-right panel_toolbox\" style=\"padding-left: 50px;\"> 
-                                            <li><a class=\"collapse-link\"><i class=\"fa fa-chevron-up\"></i></a></li>
-                                            <li><a class=\"close-link\"><i class=\"fa fa-close\"></i></a></li>
-                                        </ul>
+                                        <ul class=\"nav navbar-right panel_toolbox\" style=\"padding-left: 50px;\">".$panel_toolbox."</ul>
                                         <div class=\"clearfix\"></div>
                                     </div>
                                     <div class=\"x_content\">";
@@ -197,11 +204,11 @@
                                                 </div>";
                                             break;
                                     }
-                                break;
+                                    break;
 
                                 //--Equipment-CM--//
                                 case "00002":       
-                                //--/Question type--//
+                                    //--/Question type--//
                                     switch( $question_type ){
                                         case "textbox":
                                             $answer = "
@@ -276,11 +283,11 @@
                                                 </div>";
                                             break;
                                     }
-                                break;
+                                    break;
 
                                 //--Equipment-PM--//
                                 case "00003":       
-                                //--/Question type--//
+                                    //--/Question type--//
                                     switch( $question_type ){
                                         case "textbox":
                                             $answer = "
@@ -355,7 +362,7 @@
                                                 </div>";
                                             break;
                                     }
-                                break;  
+                                    break;  
 
                                 //--Fibre-AM--//
                                 case "00004":       
@@ -383,9 +390,10 @@
 
                                             break;
                                         case "textbox":
+                                            if( $question_no == "296" ){ $readonly = "readonly"; }else{ $readonly = NULL; }
                                             $answer = "
                                                 <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
-                                                    <input type=\"text\" class=\"form-control\" name=\"".$question_name."\" id=\"".$question_name."\" placeholder=\"".$question_text."\" required>
+                                                    <input type=\"text\" class=\"form-control\" name=\"".$question_name."\" id=\"".$question_name."\" placeholder=\"".$question_text."\" required ".$readonly.">
                                                 </div>";
                                             echo "
                                                 <div class=\"form-group \">
@@ -455,7 +463,7 @@
                                                 </div>";
                                             break;
                                     }
-                                break;  
+                                    break;  
 
                                 //--Fibre-CM--//
                                 case "00005":       
@@ -535,7 +543,7 @@
                                                 </div>";
                                             break;
                                     }
-                                break;  
+                                    break;  
                                 
                                 //--Fibre-PM--//
                                 case "00006":       
@@ -563,9 +571,10 @@
 
                                             break;
                                         case "textbox":
+                                                if( $question_no == "297" ){ $readonly = "readonly"; }else{ $readonly = NULL; }
                                                 $answer = "
                                                 <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
-                                                    <input type=\"text\" class=\"form-control\" name=\"".$question_name."\" id=\"".$question_name."\" placeholder=\"".$question_text."\" required>
+                                                    <input type=\"text\" class=\"form-control\" name=\"".$question_name."\" id=\"".$question_name."\" placeholder=\"".$question_text."\" required ".$readonly.">
                                                 </div>";
                                                 echo "
                                                 <div class=\"form-group \">
@@ -635,9 +644,8 @@
                                                 </div>";
                                             break;
                                     }
-                                break;                                 
-                            }
-                                               
+                                    break;                                 
+                            }                    
                         endforeach;
 
                         echo "            
@@ -739,7 +747,73 @@
             ,resizePreference: 'width'
         })
     //------dropbox configuration--------//
+    
+    //------ Calculate accepted value for Fiber AM ------//
+        $('#question285').blur(function(){
 
+            var distance = $('#question285').val()
+
+            //--- Calculate accepted_value by distance ---//
+            var accepted_value = distance/2;
+
+            //--- Assign accepted_value to its field ---//
+            $('#question296').val(accepted_value);
+
+            // if($('#question285').val() == ""){
+            //     $('#question285').parents('.form-group').attr( "class", "form-group has-error has-feedback");
+            //     return false;
+            // }else{
+            //     $.ajax({
+            //     type: "POST",
+            //     dataType: 'json',
+            //     url: "<?=site_url('/eform/calculate_accepted_value');?>",
+            //     data: "loca="+ loca+"&mrtgEndFacingIPv6="+ encodeURIComponent($('#question285').val()),
+            //     success: function(result)
+                //     {
+                //         if (result == "200"){
+                //             $('#question285').parents('.form-group').attr( "class", "form-group");
+                //         } else {
+                //             $('#question285').parents('.form-group').attr( "class", "form-group has-error has-feedback");
+                //         }
+                //     } //end success
+            //     }); //end ajax
+            // }
+        }); 
+    //------ Calculate accepted value for Fiber AM ------//
+
+    //------ Calculate accepted value for Fiber PM ------//
+    $('#question284').blur(function(){
+
+            var distance = $('#question284').val()
+            //--- Calculate accepted_value by distance ---//
+            var accepted_value = distance/2;
+
+            //--- Assign accepted_value to its field ---//
+            $('#question297').val(accepted_value);
+            
+            // alert($('#question284').val());
+            // if($('#question284').val() == ""){
+            //     $('#question284').parents('.form-group').attr( "class", "form-group has-error has-feedback");
+            //     return false;
+            // }else{
+            //     $.ajax({
+            //     type: "POST",
+            //     dataType: 'json',
+            //     url: "<?=site_url('/eform/calculate_accepted_value');?>",
+            //     data: "loca="+ loca+"&mrtgEndFacingIPv6="+ encodeURIComponent($('#question284').val()),
+            //     success: function(result)
+                //     {
+                //         if (result == "200"){
+                //             $('#question284').parents('.form-group').attr( "class", "form-group");
+                //         } else {
+                //             $('#question284').parents('.form-group').attr( "class", "form-group has-error has-feedback");
+                //         }
+                //     } //end success
+            //     }); //end ajax
+            // }
+        }); 
+    //------ Calculate accepted value for Fiber PM ------//    
+    
     //------Dynamic textbox for question294--------//
         var max_fields      = 8; //maximum input boxes allowed
         var wrapper         = $("#question294_field"); //Fields wrapper
@@ -774,7 +848,7 @@
     //------Dynamic textbox for question294--------//
 
     //------Dynamic textbox for question295--------//
-    var max_fields      = 8; //maximum input boxes allowed
+        var max_fields      = 8; //maximum input boxes allowed
         var wrapper         = $("#question295_field"); //Fields wrapper
         var add_button      = $("#question295_addbtn"); //Add button ID
         
