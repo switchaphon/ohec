@@ -11,7 +11,9 @@
                 <div class="message"></div>
                 <input type="hidden" name="schedule_id" id="schedule_id" value="" />
                 <input type="hidden" name="site_id" id="site_id" value="" />
-                <input type="hidden" name="ticket_id" id="ticket_id" value="" />
+                <input type="hidden" name="form_id" id="form_id" value="" />
+                <input type="hidden" name="asset_type" id="asset_type" value="" />
+                <input type="hidden" name="ma_type" id="ma_type" value="" />
             </div>
         </div>
     </div>

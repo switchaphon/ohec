@@ -34,7 +34,7 @@ class Authen_ldap {
         // Load the session library
         $this->ci->load->library('session');
         // Load the configuration
-        $this->ci->load->config('auth_ldap');
+        $this->ci->load->config('ad_server');
         // Load the language file
         // $this->ci->lang->load('auth_ldap');
         $this->_init();
@@ -81,29 +81,21 @@ class Authen_ldap {
             log_message('info', $username." has no role to play.");
             show_error($username.' succssfully authenticated, but is not allowed because the username was not found in an allowed access group.');
         }
-
+        // echo "<pre>"; print_r($user_info); echo "</pre>";
         // Record the login
         $this->_audit("Successful login: ".$user_info['cn']."(".$username.") from ".$this->ci->input->ip_address());
-        // Set the session data
 
-        //From LDAP
+        // set session user datas
         $customdata = array(
-            'username' => $username
-            ,'cn' => $user_info['cn']
-            ,'role' => $user_info['role']
-            ,'logged_in' => TRUE
-        );      
-
-        // //Fixed value
-        // $customdata = array(
-        //     'username' => 'witchaphon.sa'
-        //     ,'cn' => 'Witchaphon Saeng-aram'
-        //     ,'role' => 'Administrator'
-        //     ,'logged_in' => TRUE
-        // );                            
-
-
+            'username' => (string)$user_info['id']
+            ,'name' => (string)explode(" ",$user_info['cn'])[0]
+            ,'surname' => (string)explode(" ",$user_info['cn'])[1]
+            ,'role' => (string)$user_info['role']
+            ,'logged_in' => (bool)true
+        );                            
         $this->ci->session->set_userdata($customdata);
+
+        // $this->ci->session->set_userdata($customdata);
 
         return TRUE;
     }
@@ -147,9 +139,11 @@ class Authen_ldap {
      * @return array 
      */
     private function _authenticate($username, $password) {
-        $needed_attrs = array('dn', 'cn', $this->login_attribute);
+
+        $needed_attrs = array('dn', 'cn', 'memberof',$this->login_attribute);
         
         foreach($this->hosts as $host) {
+
             $this->ldapconn = ldap_connect($host);
             if($this->ldapconn) {
                break;
@@ -183,24 +177,28 @@ class Authen_ldap {
         log_message('debug', 'Successfully bound to directory.  Performing dn lookup for '.$username);
         $filter = '('.$this->login_attribute.'='.$username.')';
         $search = ldap_search($this->ldapconn, $this->basedn, $filter, 
-                array('dn', $this->login_attribute, 'cn'));
+                array('dn', $this->login_attribute, 'cn','memberOf'));
         $entries = ldap_get_entries($this->ldapconn, $search);
         $binddn = $entries[0]['dn'];
-            
+
+        // echo "<pre>"; print_r($entries ); echo "</pre>";
+
         // Now actually try to bind as the user
         $bind = ldap_bind($this->ldapconn, $binddn, $password);
         if(! $bind) {
             $this->_audit("Failed login attempt: ".$username." from ".$_SERVER['REMOTE_ADDR']);
             return FALSE;
         }
+
         $cn = $entries[0]['cn'][0];
         $dn = stripslashes($entries[0]['dn']);
         $id = $entries[0][$this->login_attribute][0];
+        $role = explode("=",explode(",",$entries[0]['memberof'][0])[0])[1];
         
-        $get_role_arg = $id;               
-        
-        return array('cn' => $cn, 'dn' => $dn, 'id' => $id,
-            'role' => $this->_get_role($get_role_arg));
+        // $get_role_arg = $id;               
+        // return array('cn' => $cn, 'dn' => $dn, 'id' => $id,
+        //     'role' => $this->_get_role($get_role_arg));
+        return array('cn' => $cn, 'dn' => $dn, 'id' => $id, 'role' => $role );
     }
     /**
      * @access private
@@ -235,15 +233,28 @@ class Authen_ldap {
      * @return int
      */
     private function _get_role($username) {
-    
+
         $filter = '('.$this->member_attribute.'='.$username.')';
+
+        // echo "\$this->ldapconn : ".$this->ldapconn."<BR>";
+        // echo "\$this->basedn : ".$this->basedn."<BR>";
+        // echo "\$filter : ".$filter."<BR>";
+
         $search = ldap_search($this->ldapconn, $this->basedn, $filter, array('cn'));
+
+        // echo "\$search : ".$search;
+
         if(! $search ) {
             log_message('error', "Error searching for group:".ldap_error($this->ldapconn));
             show_error('Couldn\'t find groups: '.ldap_error($this->ldapconn));
         }
+
         $results = ldap_get_entries($this->ldapconn, $search);
+
+        // echo "<pre>"; print_r($results); echo "</pre>";
+        
         if($results['count'] != 0) {
+            // echo "xx";
             for($i = 0; $i < $results['count']; $i++) {
                 $role = array_search($results[$i]['cn'][0], $this->roles);
                 if($role !== FALSE) {
@@ -253,5 +264,12 @@ class Authen_ldap {
         }
         return false;
     }
+
+    // private function _get_group($str = null){
+    //     //CN=Admin,OU=UniNet,DC=uni,DC=net,DC=th
+    //     $cn = explode(",",$str)[0];
+    //     $group = explode("=",$cn)[1];
+    //     return $group;
+    // }
 }
 ?>

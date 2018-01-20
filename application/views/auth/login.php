@@ -58,7 +58,7 @@
 
 								<div>
 								<!-- <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1> -->
-								<p>© Office of Higher Education Commission.</p>
+								<p>สำนักงานคณะกรรมการการอุดมศึกษา</p>
 								</div>
 							</div>
 							<?php echo form_close(); ?>

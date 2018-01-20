@@ -42,16 +42,12 @@
 		
 $config['hosts'] = array('ldap://202.28.197.36');
 $config['ports'] = array(389);
-$config['basedn'] = 'UniNet';
+// $config['basedn'] = 'dc=uni,dc=net,dc=th';
+$config['basedn'] = 'OU=UniNet,DC=uni,DC=net,DC=th';
 $config['login_attribute'] = 'samaccountname';
 $config['name_attribute'] = 'CN';
-$config['proxy_user'] = 'bi_mgmt';
+$config['proxy_user'] = 'bi_mgmt@uni.net.th';
 $config['proxy_pass'] = '[uwv@UniNet';
-// $config['roles'] =
-// array(
-//   1 => 'ie',
-//   3 => 'Power User',
-//   5 => 'Administrator');
 $config['member_attribute'] = 'memberUid';
 $config['auditlog'] = 'application/logs/audit.log';  // Some place to log attempted logins (separate from message log)
 ?>

@@ -69,6 +69,7 @@
                                             <th class="text-center">หมายเลข Ticket</th>
                                             <th class="text-center">ประเภทอุปกรณ์</th>
                                             <th class="text-center">สัญญา</th>
+                                            <!-- <th class="text-center">ประเภทงานตรวจ</th> -->
                                             </tr>
                                         </thead>
                                         
@@ -81,6 +82,7 @@
                                                 <td class="text-center"><?=$ticket_val['case_id'];?></td>
                                                 <td class="text-center"><?=$ticket_val['case_sub_category'];?></td>
                                                 <td class="text-center"><?=$ticket_val['contract'];?></td>
+                                                <!-- <td class="text-center"><?=$ticket_val['case_type'];?></td> -->
                                             </tr>  
                                         <?      
                                             endforeach;
@@ -699,7 +701,10 @@ function pdfmaker() {
                         }
                     ]
                 },
-                
+                {
+                    text: '\n',
+                },
+
             //--- /Subheader ---//
 
             // --- Add horizon line --//
@@ -718,7 +723,59 @@ function pdfmaker() {
                 },
                 '\n',
             // --- /Add horizon line --//
-            
+
+            // --- Ticket table ---//
+                <? if(!empty($ticket)){ ?>
+                    {
+                        text: 'ข้อมูล Ticket',
+                        style: 'header',
+                    },
+                    {
+                        // columns: [
+                            // {
+                                style: 'tableExample',
+                                table: {
+                                    widths: ['*', '*', '*'],
+                                    headerRows: 1,
+                                    body: [
+                                        [{text: 'หมายเลข Ticket', style: 'tableHeader'}, {text: 'ประเภทอุปกรณ์', style: 'tableHeader'}, {text: 'สัญญา', style: 'tableHeader'}],
+					
+                                        <? if(!empty($ticket)){ ?>
+                                            <? foreach($ticket as $ticket_key => $ticket_val): ?>
+                                                ['<?=$ticket_val['case_id'];?>' , '<?=$ticket_val['case_sub_category'];?>' , '<?=$ticket_val['contract'];?>'],
+                                            <? endforeach; ?>
+                                        <? } ?>
+                                    ]
+                                },
+                                alignment: 'center',
+                                layout: 'headerLineOnly',
+                                margin: [10, 0, 0, 0],
+                            // },
+                        // ],
+                        
+                    },
+                    {
+                        text: '\n',
+                    },
+                <? } ?>   
+            // --- /Ticket table ---//
+
+            // --- Add horizon line --//
+                // {
+                //     canvas: [
+                //         {
+                //             type: 'line',
+                //             x1: 0,
+                //             y1: 5,
+                //             x2: 535,
+                //             y2: 5,
+                //             lineWidth: 1.0
+                //         }
+                //     ]
+                // },
+                // '\n',
+            // --- /Add horizon line --//
+
             // --- Panel ---//
                 <? 
                     $panel = 1; 
@@ -807,7 +864,7 @@ function pdfmaker() {
                                                 $img = base64_encode($contents);
                                             ?>
                                             image :  'data:image/jpeg;base64,<?=$img;?>',
-                                            fit: [200, 200],
+                                            fit: [250, 250],
                                             alignment: 'center',
                                         },
                                     <? }else{ ?>
@@ -817,7 +874,7 @@ function pdfmaker() {
                                                 $img = base64_encode($contents);
                                             ?>
                                             image :  'data:image/jpeg;base64,<?=$img;?>',
-                                            fit: [200, 200],
+                                            fit: [250, 250],
                                             alignment: 'center',
                                         },                           
                                     <? } ?>
@@ -828,7 +885,7 @@ function pdfmaker() {
                                                 $img = base64_encode($contents);
                                             ?>
                                             image :  'data:image/jpeg;base64,<?=$img;?>',
-                                            fit: [200, 200],
+                                            fit: [250, 250],
                                             alignment: 'center',
                                             // pageBreak: 'after',
                                         },
@@ -839,7 +896,7 @@ function pdfmaker() {
                                                 $img = base64_encode($contents);
                                             ?>
                                             image :  'data:image/jpeg;base64,<?=$img;?>',
-                                            fit: [200, 200],
+                                            fit: [250, 250],
                                             alignment: 'center',
                                             // pageBreak: 'after', 
                                         },                           
@@ -865,7 +922,7 @@ function pdfmaker() {
                                                 $img = base64_encode($contents);
                                             ?>
                                             image :  'data:image/jpeg;base64,<?=$img;?>',
-                                            fit: [200, 200],
+                                            fit: [250, 250],
                                             alignment: 'center',
                                         },
                                     <? }else{ ?>
@@ -875,7 +932,7 @@ function pdfmaker() {
                                                 $img = base64_encode($contents);
                                             ?>
                                             image :  'data:image/jpeg;base64,<?=$img;?>',
-                                            fit: [200, 200],
+                                            fit: [250, 250],
                                             alignment: 'center',
                                             // pageBreak: 'after', 
                                         },                           
@@ -887,7 +944,7 @@ function pdfmaker() {
                                                 $img = base64_encode($contents);
                                             ?>
                                             image :  'data:image/jpeg;base64,<?=$img;?>',
-                                            fit: [200, 200],
+                                            fit: [250, 250],
                                             alignment: 'center',
                                             // pageBreak: 'after', 
                                         },
@@ -898,7 +955,7 @@ function pdfmaker() {
                                                 $img = base64_encode($contents);
                                             ?>
                                             image :  'data:image/jpeg;base64,<?=$img;?>',
-                                            fit: [200, 200],
+                                            fit: [250, 250],
                                             alignment: 'center',
                                             // pageBreak: 'after', 
                                         },                           
@@ -922,7 +979,7 @@ function pdfmaker() {
                                                 $img = base64_encode($contents);
                                             ?>
                                             image :  'data:image/jpeg;base64,<?=$img;?>',
-                                            fit: [200, 200],
+                                            fit: [250, 250],
                                             alignment: 'center',
                                         },
 
@@ -933,7 +990,7 @@ function pdfmaker() {
                                                 $img = base64_encode($contents);
                                             ?>
                                             image :  'data:image/jpeg;base64,<?=$img;?>',
-                                            fit: [200, 200],
+                                            fit: [250, 250],
                                             alignment: 'center',
                                         },   
                         
@@ -945,7 +1002,7 @@ function pdfmaker() {
                                                 $img = base64_encode($contents);
                                             ?>
                                             image :  'data:image/jpeg;base64,<?=$img;?>',
-                                            fit: [200, 200],
+                                            fit: [250, 250],
                                             alignment: 'center',
                                             // pageBreak: 'after',
                                         },
@@ -956,7 +1013,7 @@ function pdfmaker() {
                                                 $img = base64_encode($contents);
                                             ?>
                                             image :  'data:image/jpeg;base64,<?=$img;?>',
-                                            fit: [200, 200],
+                                            fit: [250, 250],
                                             alignment: 'center',
                                             pageBreak: 'after', 
                                         },                           
@@ -989,17 +1046,20 @@ function pdfmaker() {
                 <? if(!empty($eform_note)){ ?>
                     {text: 'บันทึกข้อความ', style: 'header'},
                     {
-                    style: 'tableExample',
-                    table: {
-                        headerRows: 1,
-                        body: [
-                            [{text: 'วันที่', style: 'tableHeader'}, {text: 'ข้อความบันทึก', style: 'tableHeader'}, {text: 'ผู้บันทึก', style: 'tableHeader'}],
-                            <? foreach($eform_note as $note_key => $note_val): ?>
-                            [ '<?=$note_val['created_date'];?>' , '<?=$note_val['note_detail'];?>' , '<?=$note_val['created_by'];?>' ],
-                            <? endforeach; ?>
-                            ]
-                    },
-                    layout: 'headerLineOnly'
+                        style: 'tableExample',
+                        table: {
+                            headerRows: 1,
+                            widths: ['*', '*', '*'],
+                            body: [
+                                [{text: 'วันที่', style: 'tableHeader'}, {text: 'ข้อความบันทึก', style: 'tableHeader'}, {text: 'ผู้บันทึก', style: 'tableHeader'}],
+                                <? foreach($eform_note as $note_key => $note_val): ?>
+                                [ '<?=$note_val['created_date'];?>' , '<?=$note_val['note_detail'];?>' , '<?=$note_val['created_by'];?>' ],
+                                <? endforeach; ?>
+                                ]
+                        },
+                        alignment: 'center',
+                        layout: 'headerLineOnly',
+                        margin: [10, 0, 0, 0],
                     },
                 <? } ?>
             //--- /Note ---//

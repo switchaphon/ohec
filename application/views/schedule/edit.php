@@ -63,13 +63,6 @@
                         </div>
                     </div>
 
-                    <!-- <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" >งวดงาน <span class="required">*</span></label>
-                        <div class="col-md-8 col-sm-9 col-xs-12 text-left">
-                            <input type="text" id="period"  name="period" class="form-control" placeholder="ตัวอย่างเช่น 1/2561" value="<?=$val['schedule_period'];?>" required>
-                        </div>
-                    </div>     -->
-                      
                     <div class="form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" >งวดงาน/ปีสัญญา <span class="required">*</span></label>
                         <div class="col-md-4 col-sm-4 col-xs-6 text-left">
@@ -329,22 +322,27 @@
                             <tr>
                               <td class="text-left"><?=$val['site_name'];?></td>
                               <td class="text-center"><?=$val['asset_type'];?> [<?=$val['ma_type'];?>]</td>
-                              <td class="text-center">
-                                <? 
-                                  if( !empty($committee_list) ){
-                                    if(in_array($this->session->userdata('name')." ".$this->session->userdata('surname'), $committee_list) ){
-                                      if( !$flag ) {
-                                ?>
-                                  <a href="<?=site_url('eform/create/'.$schedule[0]['schedule_id']).'/'.$val['ticket_id'];?>" class="btn btn-round btn-success btn-xs"><i class="fa fa-file-text"></i> ตรวจ </a>
-                                <?  } 
-                                    if($permission->schedule_edit) {?>
-                                  <a href="#" class="btn btn-round btn-danger btn-xs" id='cancelTaskbtn' name='cancelTaskbtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-site_id="<?=$val['site_id'];?>" data-site_name="<?=$val['site_name'];?>" data-ticket_id="<?=$val['ticket_id'];?>" data-toggle="modal" data-target="#cancelTaskModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ยกเลิก</a>                                
-                                <? 
-                                      } 
-                                    }
+                              <td class="text-left">
+                              <? 
+                                if( !empty($committee_list) ){
+                                  if(in_array($this->session->userdata('name')." ".$this->session->userdata('surname'), $committee_list) || ($this->session->userdata('role') == "Admin") ){
+                                    if( !$flag ) {  
+                                      if( $permission->eform_add) {?>
+                                        <a href="<?=site_url('eform/create/'.$schedule[0]['schedule_id']).'/'.$val['site_id'].'/'.$val['form_id'];?>" class="btn btn-round btn-success btn-xs"><i class="fa fa-file-text"></i> ตรวจ </a>
+                                      <? } 
+                                    } 
+                                  if( $permission->schedule_delete) {?>  
+                                        <a href="#" class="btn btn-round btn-danger btn-xs" id='cancelTaskbtn' name='cancelTaskbtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-site_id="<?=$val['site_id'];?>" data-site_name="<?=$val['site_name'];?>" data-schedule_project="<?=$schedule[0]['schedule_project'];?>" data-schedule_period="<?=$schedule[0]['schedule_period'];?>" data-form_id="<?=$val['ticket_id'];?>" data-asset_type="<?=$val['asset_type'];?>" data-ma_type="<?=$val['ma_type'];?>" data-toggle="modal" data-target="#cancelTaskModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ลบ</a>                                
+                              <? 
+                                    } 
                                   }
-                                ?>
-                                </td>
+                                }elseif(($this->session->userdata('role') == "Admin")){
+                              ?>
+                                <a href="#" class="btn btn-round btn-danger btn-xs" id='cancelTaskbtn' name='cancelTaskbtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-site_id="<?=$val['site_id'];?>" data-site_name="<?=$val['site_name'];?>" data-schedule_project="<?=$schedule[0]['schedule_project'];?>" data-schedule_period="<?=$schedule[0]['schedule_period'];?>" data-form_id="<?=$val['ticket_id'];?>" data-asset_type="<?=$val['asset_type'];?>" data-ma_type="<?=$val['ma_type'];?>" data-toggle="modal" data-target="#cancelTaskModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ลบ</a>                                
+                              <?    
+                                }
+                              ?>
+                              </td>
                             </tr>
 
                           <?
@@ -752,14 +750,20 @@
       var schedule_id = $(e.relatedTarget).data('schedule_id')
       var site_id = $(e.relatedTarget).data('site_id')
       var site_name = $(e.relatedTarget).data('site_name')
-      var ticket_id = $(e.relatedTarget).data('ticket_id')
+      var form_id = $(e.relatedTarget).data('form_id')
+      var asset_type = $(e.relatedTarget).data('asset_type')
+      var ma_type = $(e.relatedTarget).data('ma_type')
+      var schedule_project = $(e.relatedTarget).data('schedule_project')
+      var schedule_period = $(e.relatedTarget).data('schedule_period')
 
-      $("#cancelTaskModal .modal-header .modal-title").html('ยกเลิกรายการตรวจงานนี้');
-      $("#cancelTaskModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกรายการการตรวจงาน<BR><BR><b>'+ticket_id+'</b><BR>ของ<BR><b>'+site_name+'</b><BR><BR>ใช่หรือไม่ ?</div>');
+      $("#cancelTaskModal .modal-header .modal-title").html('ยกเลิกการตรวจ');
+      $("#cancelTaskModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกการตรวจ<BR><BR><b>'+schedule_project+' '+schedule_period+'<BR>'+site_name+'<BR>'+asset_type+' ['+ma_type+']</b><BR><BR>ใช่หรือไม่ ?</div>');
 
       $(e.currentTarget).find('input[name="schedule_id"]').val(schedule_id);
       $(e.currentTarget).find('input[name="site_id"]').val(site_id);
-      $(e.currentTarget).find('input[name="ticket_id"]').val(ticket_id);
+      $(e.currentTarget).find('input[name="form_id"]').val(form_id);
+      $(e.currentTarget).find('input[name="asset_type"]').val(asset_type);
+      $(e.currentTarget).find('input[name="ma_type"]').val(ma_type);
     });
 
     // $('#addTaskModal').on('hidden.bs.modal', '.modal', function () {

@@ -435,7 +435,7 @@ class Schedule extends MY_Controller {
 		$task = array(
 			'schedule_id' => $_POST['schedule_id']
 			,'site_id' => $_POST['site_id']
-			,'ticket_id' => $_POST['ticket_id']
+			,'ticket_id' => $_POST['form_id']
 		);
 
 		$site = array(

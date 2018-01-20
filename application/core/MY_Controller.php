@@ -26,7 +26,7 @@ class MY_Controller extends CI_Controller {
     }
 
     // $this->only_auth_completed();
-    // $this->output->set_output_data('user', $this->auth_ldap->row());
+    // $this->output->set_output_data('user', $this->->row());
 
     $this->_init_assets( array('jquery', 'bootstrap', 'font-awesome', 'fastclick', 'nprogress','moment','custom',) );
     // $this->load->css('assets/css/custom.min.css');
@@ -260,7 +260,7 @@ class MY_Controller extends CI_Controller {
           $this->permission->user_edit = false;
           $this->permission->user_delete = false;
           break;
-      case 'Administrator':
+      case 'Admin':
           //Eform
           $this->permission->eform_add = true;
           $this->permission->eform_edit = true;

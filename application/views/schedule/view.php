@@ -79,8 +79,15 @@
                     </div>
 
                     <div class="row">
+                      <?
+                         $province = null; 
+                         $province_array = explode("," , $val['province']); 
+                         foreach($province_array as $region_key => $region_val):
+                           $province = $province.$region_val."<BR>";
+                         endforeach;                     
+                      ?>
                       <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-5 text-right">จังหวัด</label>
-                      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$val['province'];?></div>
+                      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7"><?=$province;?></div>
                     </div>
                     
                     <? if(!empty($val['schedule_description'])) { ?>
@@ -249,26 +256,29 @@
                                 }
                           ?>
                             <tr>
-                                <td class="text-left"><?=$val['site_name'];?></td>
-                                <td class="text-center"><?=$val['asset_type'];?> [<?=$val['ma_type'];?>]</td>
-                                <td class="text-left">
-                                <? 
-                                  if( !empty($committee_list) ){
-                                    if(in_array($this->session->userdata('name')." ".$this->session->userdata('surname'), $committee_list) ){
-                                      if( !$flag ) {
-                                ?>
-                                  <? if( $permission->eform_add){?>
-                                  <a href="<?=site_url('eform/create/'.$schedule[0]['schedule_id']).'/'.$val['site_id'].'/'.$val['form_id'];?>" class="btn btn-round btn-success btn-xs"><i class="fa fa-file-text"></i> ตรวจ </a>
-                                  <? } ?>
-                                <?  } 
-                                    if( $permission->schedule_delete){?>  
-                                  <a href="#" class="btn btn-round btn-danger btn-xs" id='cancelTaskbtn' name='cancelTaskbtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-site_id="<?=$val['site_id'];?>" data-site_name="<?=$val['site_name'];?>" data-schedule_project="<?=$schedule[0]['schedule_project'];?>" data-schedule_period="<?=$schedule[0]['schedule_period'];?>"data-toggle="modal" data-target="#cancelTaskModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ลบ</a>                                
-                                <? 
-                                      } 
-                                    }
+                              <td class="text-left"><?=$val['site_name'];?></td>
+                              <td class="text-center"><?=$val['asset_type'];?> [<?=$val['ma_type'];?>]</td>
+                              <td class="text-left">
+                              <? 
+                                if( !empty($committee_list) ){
+                                  if(in_array($this->session->userdata('name')." ".$this->session->userdata('surname'), $committee_list) || ($this->session->userdata('role') == "Admin") ){
+                                    if( !$flag ) {  
+                                      if( $permission->eform_add) {?>
+                                        <a href="<?=site_url('eform/create/'.$schedule[0]['schedule_id']).'/'.$val['site_id'].'/'.$val['form_id'];?>" class="btn btn-round btn-success btn-xs"><i class="fa fa-file-text"></i> ตรวจ </a>
+                                      <? } 
+                                    } 
+                                  if( $permission->schedule_delete) {?>  
+                                        <a href="#" class="btn btn-round btn-danger btn-xs" id='cancelTaskbtn' name='cancelTaskbtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-site_id="<?=$val['site_id'];?>" data-site_name="<?=$val['site_name'];?>" data-schedule_project="<?=$schedule[0]['schedule_project'];?>" data-schedule_period="<?=$schedule[0]['schedule_period'];?>" data-form_id="<?=$val['ticket_id'];?>" data-asset_type="<?=$val['asset_type'];?>" data-ma_type="<?=$val['ma_type'];?>"  data-toggle="modal" data-target="#cancelTaskModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ลบ</a>                                
+                              <? 
+                                    } 
                                   }
-                                ?>
-                                </td>
+                                }elseif(($this->session->userdata('role') == "Admin")){
+                              ?>
+                                <a href="#" class="btn btn-round btn-danger btn-xs" id='cancelTaskbtn' name='cancelTaskbtn' data-schedule_id="<?=$schedule[0]['schedule_id'];?>" data-site_id="<?=$val['site_id'];?>" data-site_name="<?=$val['site_name'];?>" data-schedule_project="<?=$schedule[0]['schedule_project'];?>" data-schedule_period="<?=$schedule[0]['schedule_period'];?>" data-form_id="<?=$val['ticket_id'];?>" data-asset_type="<?=$val['asset_type'];?>" data-ma_type="<?=$val['ma_type'];?>" data-toggle="modal" data-target="#cancelTaskModal"  ><span class="fa fa-trash-o" aria-hidden="true"></span> ลบ</a>                                
+                              <?    
+                                }
+                              ?>
+                              </td>
                             </tr>
 
                           <?
@@ -423,7 +433,7 @@
                               <td class="text-left">
                                 <? 
                                   echo !empty($not_passed_cause_list[$eform_val['eform_id']]) ? $cause: '' ; 
-                                  echo in_array($eform_val['eform_id'], $fixed_eform) ? '<span class="label label-primary">แก้ไขแล้ว</span>' : '' ; 
+                                  // echo in_array($eform_val['eform_id'], $fixed_eform) ? '<span class="label label-primary">แก้ไขแล้ว</span>' : '' ; 
                                 ?>
                               </td>
                               <td class="text-center"><?=$eform_val['created_by'];?></td>
@@ -609,16 +619,21 @@
       var schedule_id = $(e.relatedTarget).data('schedule_id')
       var site_id = $(e.relatedTarget).data('site_id')
       var site_name = $(e.relatedTarget).data('site_name')
-      // var ticket_id = $(e.relatedTarget).data('ticket_id')
+      var form_id = $(e.relatedTarget).data('form_id')
+
+      var asset_type = $(e.relatedTarget).data('asset_type')
+      var ma_type = $(e.relatedTarget).data('ma_type')
       var schedule_project = $(e.relatedTarget).data('schedule_project')
       var schedule_period = $(e.relatedTarget).data('schedule_period')
 
       $("#cancelTaskModal .modal-header .modal-title").html('ยกเลิกการตรวจ');
-      $("#cancelTaskModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกการตรวจ<BR><BR><b>'+schedule_project+' '+schedule_period+'<BR>'+site_name+'</b><BR><BR>ใช่หรือไม่ ?</div>');
+      $("#cancelTaskModal .modal-body .panel-body .message").html('<div class="text-center">ต้องการยกเลิกการตรวจ<BR><BR><b>'+schedule_project+' '+schedule_period+'<BR>'+site_name+'<BR>'+asset_type+' ['+ma_type+']</b><BR><BR>ใช่หรือไม่ ?</div>');
 
       $(e.currentTarget).find('input[name="schedule_id"]').val(schedule_id);
       $(e.currentTarget).find('input[name="site_id"]').val(site_id);
-      $(e.currentTarget).find('input[name="ticket_id"]').val(ticket_id);
+      $(e.currentTarget).find('input[name="form_id"]').val(form_id);
+      $(e.currentTarget).find('input[name="asset_type"]').val(asset_type);
+      $(e.currentTarget).find('input[name="ma_type"]').val(ma_type);
     });
 
     $('#disableEformModal').on('show.bs.modal', function(e) {
@@ -672,20 +687,4 @@
   }
 </script>
 
-
-<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTumdnMNt9AoCnkbx-YlfTHJYTj7iV6UI&sensor=TRUE"></script>
-
-<script type="text/javascript">
-    function initialize() {
-      var mapOptions = {
-        center: new google.maps.LatLng(-34.397, 150.644),
-        zoom: 8
-      };
-      var map = new google.maps.Map(document.getElementById("map-canvas"),
-          mapOptions);
-    }
-
-    google.maps.event.addDomListener(window, 'load', initialize);
-
-</script> -->
 <!-- /page script -->

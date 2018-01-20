@@ -24,15 +24,15 @@ class Authen extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->load->helper('form');
-        $this->load->library('Form_validation');
-        $this->load->library('Authen_ldap');
         $this->load->helper('url');
-        $this->load->library('table');
+        $this->load->library(array('Form_validation','Authen_ldap','session','table'));
     }
+    
     function index() {
         $this->session->keep_flashdata('tried_to');
         $this->login();
     }
+
     function login($errorMsg = NULL){
         $this->_init('login');
         $this->_init_assets( array('animate') );
@@ -56,9 +56,6 @@ class Authen extends MY_Controller {
                 }
             }else {
                 // Login FAIL
-                // $this->load->view('auth/login_form', array('login_fail_msg'
-                //                         => 'Error with LDAP authen_ldap.'));
-
                 $this->load->view('auth/login', array('login_fail_msg'
                                         => 'Error with LDAP authen_ldap.'));
             }
@@ -67,8 +64,9 @@ class Authen extends MY_Controller {
                 redirect('/schedule/');
         }
     }
+
     function logout() {
-        if($this->session->userdata('logged_in')) {
+        if( $this->session->userdata('logged_in') ) {
             $data['name'] = $this->session->userdata('cn');
             $data['username'] = $this->session->userdata('username');
             $data['logged_in'] = TRUE;
@@ -76,7 +74,37 @@ class Authen extends MY_Controller {
         } else {
             $data['logged_in'] = FALSE;
         }
-            $this->load->view('auth/login', $data);
+            // redirect('/authen/login');
+            redirect('/');
     }
+
+/*
+    function connect(){
+        // using ldap bind
+        $ldaprdn  = 'bi_mgmt@uni.net.th';     // ldap rdn or dn
+        $ldappass = '[uwv@UniNet';  // associated password
+        $ldapport = '389';
+        $ldaphost = '202.28.197.36';
+
+        // connect to ldap server
+        $ldapconn = ldap_connect($ldaphost,$ldapport)
+            or die("Could not connect to LDAP server.");
+
+        if ($ldapconn) {
+            // echo "\$ldapconn = ".$ldapconn." ".$ldaprdn." ".$ldappass;
+            // binding to ldap server
+            $ldapbind = ldap_bind($ldapconn, $ldaprdn, $ldappass);
+            echo $ldapbind;
+            // verify binding
+            if ($ldapbind) {
+                echo "LDAP bind successful...";
+            } else {
+                echo "LDAP bind failed...";
+            }
+
+        }
+    }
+*/
+
 }
 ?>

@@ -50,10 +50,10 @@ class Ticket_model extends CI_Model {
     }  
     function list_ticket_by_eform($site_id = null , $asset_type = null, $ticket_start_date = null , $ticket_end_date = null) {
         $sql="
-            SELECT case_id,case_category,case_sub_category,contract
+            SELECT case_id,case_category,case_sub_category,contract,case_type
             FROM tb_ticket
             WHERE site_id = '$site_id' AND created_date BETWEEN '$ticket_start_date' AND '$ticket_end_date' AND case_category LIKE '%$asset_type%' AND case_status = 'Closed' 
-            GROUP BY case_id,case_category,case_sub_category,contract
+            GROUP BY case_id,case_category,case_sub_category,contract,case_type
             ORDER BY case_id ASC        
         ";
 
