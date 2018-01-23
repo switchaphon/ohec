@@ -754,7 +754,7 @@
             var distance = $('#question285').val()
 
             //--- Calculate accepted_value by distance ---//
-            var accepted_value = (distance*0.125)+(distance*0.0375)+(0.8);
+            var accepted_value = (distance*0.25)+(distance*0.0375)+(0.8);
 
             //--- Assign accepted_value to its field ---//
             $('#question296').val(accepted_value);
