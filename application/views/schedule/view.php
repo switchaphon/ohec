@@ -261,7 +261,7 @@
                               <td class="text-left">
                               <? 
                                 if( !empty($committee_list) ){
-                                  if(in_array($this->session->userdata('name')." ".$this->session->userdata('surname'), $committee_list) || ($this->session->userdata('role') == "Admin") ){
+                                  if( in_array($this->session->userdata('name')." ".$this->session->userdata('surname'), $committee_list) ){
                                     if( !$flag ) {  
                                       if( $permission->eform_add) {?>
                                         <a href="<?=site_url('eform/create/'.$schedule[0]['schedule_id']).'/'.$val['site_id'].'/'.$val['form_id'];?>" class="btn btn-round btn-success btn-xs"><i class="fa fa-file-text"></i> ตรวจ </a>
