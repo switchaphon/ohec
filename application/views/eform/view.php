@@ -808,13 +808,18 @@ function pdfmaker() {
                                 }
                             }elseif( $question_type == 'dynamictextbox'){
                                 if( !empty($eform_checklist_dynamic[$question_no]) ){ 
-                        ?>
+                        ?>  
                                 [ '','',
                                     [
-                                        '',
-                                        {
+                                        {   //colSpan: 3,
                                             style: 'tableExample',
                                             table: {
+                                                // widths: ['*', '*', '*'],
+                                                widths: [
+                                                    <? foreach($eform_checklist_answer[$key][$question_no] as $ans_key => $ans_val): ?>
+                                                            '*',
+                                                    <? endforeach; ?>
+                                                    ],
                                                 headerRows: 1,
                                                 body: [
                                                     [

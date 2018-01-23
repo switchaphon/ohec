@@ -570,6 +570,7 @@
                                                 <span id=\"".$question_name."_field\"></span>";             
 
                                             break;
+                                            
                                         case "textbox":
                                                 if( $question_no == "297" ){ $readonly = "readonly"; }else{ $readonly = NULL; }
                                                 $answer = "
@@ -786,45 +787,24 @@
 
             var distance = $('#question284').val()
             //--- Calculate accepted_value by distance ---//
-            var accepted_value = distance/2;
+            var accepted_value = (distance*0.25)+(distance*0.0375)+(0.8);
 
             //--- Assign accepted_value to its field ---//
             $('#question297').val(accepted_value);
-            
-            // alert($('#question284').val());
-            // if($('#question284').val() == ""){
-            //     $('#question284').parents('.form-group').attr( "class", "form-group has-error has-feedback");
-            //     return false;
-            // }else{
-            //     $.ajax({
-            //     type: "POST",
-            //     dataType: 'json',
-            //     url: "<?=site_url('/eform/calculate_accepted_value');?>",
-            //     data: "loca="+ loca+"&mrtgEndFacingIPv6="+ encodeURIComponent($('#question284').val()),
-            //     success: function(result)
-                //     {
-                //         if (result == "200"){
-                //             $('#question284').parents('.form-group').attr( "class", "form-group");
-                //         } else {
-                //             $('#question284').parents('.form-group').attr( "class", "form-group has-error has-feedback");
-                //         }
-                //     } //end success
-            //     }); //end ajax
-            // }
         }); 
     //------ Calculate accepted value for Fiber PM ------//    
     
     //------Dynamic textbox for question294--------//
-        var max_fields      = 8; //maximum input boxes allowed
-        var wrapper         = $("#question294_field"); //Fields wrapper
-        var add_button      = $("#question294_addbtn"); //Add button ID
+        // var max_fields      = 8; //maximum input boxes allowed
+        // var wrapper         = $("#question294_field"); //Fields wrapper
+        // var add_button      = $("#question294_addbtn"); //Add button ID
         
         var x = 1; //initlal text box count
-        $(add_button).click(function(e){ //on add input button click
+        $("#question294_addbtn").click(function(e){ //on add input button click
             e.preventDefault();
-            if(x < max_fields){ //max input box allowed
+            if(x < 8){ //max input box allowed = 8
                 x++; //text box increment
-                $(wrapper).append(' \
+                $("#question294_field").append(' \
                     <div class="form-group"> \
                         <label class="control-label col-lg-3 col-md-3 col-sm-3" for="question294"></label> \
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3"> \
@@ -842,22 +822,22 @@
             }
         });
         
-        $(wrapper).on("click","#question294_removebtn", function(e){ //user click on remove text
+        $("#question294_field").on("click","#question294_removebtn", function(e){ //user click on remove text
             e.preventDefault(); $(this).parent('div').remove(); x--;
         })
     //------Dynamic textbox for question294--------//
 
     //------Dynamic textbox for question295--------//
-        var max_fields      = 8; //maximum input boxes allowed
-        var wrapper         = $("#question295_field"); //Fields wrapper
-        var add_button      = $("#question295_addbtn"); //Add button ID
+        // var max_fields      = 8; //maximum input boxes allowed
+        // var wrapper         = $("#question295_field"); //Fields wrapper
+        // var add_button      = $("#question295_addbtn"); //Add button ID
         
         var x = 1; //initlal text box count
-        $(add_button).click(function(e){ //on add input button click
+        $("#question295_addbtn").click(function(e){ //on add input button click
             e.preventDefault();
-            if(x < max_fields){ //max input box allowed
+            if(x < 8){ //max input box allowed = 8
                 x++; //text box increment
-                $(wrapper).append(' \
+                $("#question295_field").append(' \
                     <div class="form-group"> \
                         <label class="control-label col-lg-3 col-md-3 col-sm-3" for="question295"></label> \
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3"> \
@@ -875,7 +855,7 @@
             }
         });
         
-        $(wrapper).on("click","#question295_removebtn", function(e){ //user click on remove text
+        $("#question295_field").on("click","#question295_removebtn", function(e){ //user click on remove text
             e.preventDefault(); $(this).parent('div').remove(); x--;
         })
     //------Dynamic textbox for question295--------//

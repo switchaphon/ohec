@@ -102,7 +102,7 @@ class Eform extends MY_Controller {
 
 	public function create($schedule_id = null, $site_id = null, $form_id = null){
 		$this->_init();
-		$this->_init_assets( array('icheck','piexifjs','bootstrap-fileinput','datatables','bootstrap_select') );
+		$this->_init_assets( array('icheck','bootstrap-fileinput','datatables','bootstrap_select') );
 		// $this->_init_assets( array('icheck','dropzone','datatables') );
 		$this->load->library( array('Eform_action') );
 		$this->load->model( array('Eform_model','Site_model','Schedule_model','Ticket_model'));
