@@ -29,8 +29,11 @@ class Schedule extends MY_Controller {
 		//Get schedule
 		$this->data['opened_schedule'] = $this->Schedule_model->list_opened_schedule();
 		$this->data['joined_schedule'] = $this->Schedule_model->list_joined_schedule($this->session->userdata('name')." ".$this->session->userdata('surname'));
-
-        $this->load->view('schedule/index',$this->data);
+		
+		//Logging
+		log_message('info','[Schedule] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' access index page');
+		
+		$this->load->view('schedule/index',$this->data);
 	}
 	
 	public function create(){
@@ -54,6 +57,9 @@ class Schedule extends MY_Controller {
 		$this->data['project'] = $this->Schedule_model->list_project();
 		$this->data['region'] = $this->Site_model->list_region();
 
+		//Logging
+		log_message('info','[Schedule] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' access create page');
+		
 		$this->load->view('schedule/create',$this->data);
 	}  
 	
@@ -116,7 +122,8 @@ class Schedule extends MY_Controller {
 		// echo "<pre>"; print_r($data); echo "</pre>";
 		$res = $this->Utilities_model->_insert_array('tb_schedule',$data);
 		
-		//Log
+		//Logging
+		log_message('info','[Schedule] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' created ');
 
 		//Redirect
 		redirect( site_url('/schedule/view/'.$schedule_id) );
