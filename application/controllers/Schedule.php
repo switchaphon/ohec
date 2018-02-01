@@ -12,7 +12,7 @@ class Schedule extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->_only_authen_success();
-		$this->load->helper(array('form', 'url' , 'datetime_helper'));
+		$this->load->helper(array('form', 'url' , 'datetime_helper','log4php'));
 		$this->output->set_title('ตารางตรวจงาน');
 		$this->data['permission'] = $this->get_permission();	
 	}
@@ -31,7 +31,8 @@ class Schedule extends MY_Controller {
 		$this->data['joined_schedule'] = $this->Schedule_model->list_joined_schedule($this->session->userdata('name')." ".$this->session->userdata('surname'));
 		
 		//Logging
-		log_message('info','[Schedule] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' access index page');
+		// log_message('info','[Schedule] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' access index page');
+		log_info('[xoxoxox] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' access index page');
 		
 		$this->load->view('schedule/index',$this->data);
 	}
