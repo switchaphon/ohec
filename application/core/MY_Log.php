@@ -18,9 +18,9 @@ class MY_Log extends CI_Log {
 			Logger::configure($config_file);
 			$this->logger = Logger::getRootLogger();
 		}
-	}
-	
-	public function setLogger($name='')
+    }
+    
+    public function setLogger($name='')
 	{
 		if($name!=='')
 		{
@@ -40,7 +40,7 @@ class MY_Log extends CI_Log {
 		$level = strtoupper($level);
 
 		if ( ! isset($this->_levels[$level]) OR ($this->_levels[$level] > $this->_threshold) ) {
-			return FALSE;
+            return FALSE;
 		}
 		
 		switch ($level) {

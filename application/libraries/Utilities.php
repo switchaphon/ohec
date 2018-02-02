@@ -52,7 +52,7 @@ class Utilities {
                 $massage[] = array('cmd'=>'Upload', 'state'=>'danger', 'result'=> $CI->image_lib->display_errors() );                
             }
         }
-
+        
         return $massage;
      
     }

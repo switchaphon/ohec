@@ -12,7 +12,7 @@ class Schedule extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->_only_authen_success();
-		$this->load->helper(array('form', 'url' , 'datetime_helper','log4php'));
+		$this->load->helper(array('form', 'url' , 'datetime_helper' , 'log4php'));
 		$this->output->set_title('ตารางตรวจงาน');
 		$this->data['permission'] = $this->get_permission();	
 	}
@@ -31,9 +31,8 @@ class Schedule extends MY_Controller {
 		$this->data['joined_schedule'] = $this->Schedule_model->list_joined_schedule($this->session->userdata('name')." ".$this->session->userdata('surname'));
 		
 		//Logging
-		// log_message('info','[Schedule] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' access index page');
-		log_info('[xoxoxox] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' access index page');
-		
+		log_info('[Schedule] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' access index page');
+
 		$this->load->view('schedule/index',$this->data);
 	}
 	
@@ -59,7 +58,7 @@ class Schedule extends MY_Controller {
 		$this->data['region'] = $this->Site_model->list_region();
 
 		//Logging
-		log_message('info','[Schedule] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' access create page');
+		log_info('[Schedule] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' access create page');
 		
 		$this->load->view('schedule/create',$this->data);
 	}  
@@ -124,7 +123,7 @@ class Schedule extends MY_Controller {
 		$res = $this->Utilities_model->_insert_array('tb_schedule',$data);
 		
 		//Logging
-		log_message('info','[Schedule] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' created ');
+		log_info('[Schedule] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' created schedule #'.$schedule_id);
 
 		//Redirect
 		redirect( site_url('/schedule/view/'.$schedule_id) );
@@ -164,7 +163,9 @@ class Schedule extends MY_Controller {
 		$this->data['committee_list'] = $this->Schedule_model->get_schedule_committee($schedule_id);
 		$this->data['eform_list'] = $this->Eform_model->get_schedule_eform($schedule_id);
 		
-
+		//Logging
+		log_info('[Schedule] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' viewed schedule #'.$schedule_id);
+		
         $this->load->view('schedule/view',$this->data);
 	}
 
@@ -225,6 +226,9 @@ class Schedule extends MY_Controller {
 		$this->data['task_list'] = $this->Schedule_model->get_schedule_task($schedule_id);
 		$this->data['committee_list'] = $this->Schedule_model->get_schedule_committee($schedule_id);
 		$this->data['eform_list'] = $this->Eform_model->get_schedule_eform($schedule_id);
+
+		//Logging
+		log_info('[Schedule] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' accessed edit page of schedule #'.$schedule_id);
 
         $this->load->view('schedule/edit',$this->data);
 	}	
@@ -291,7 +295,8 @@ class Schedule extends MY_Controller {
 		// echo "<pre>"; print_r($data); echo "</pre>";
 		$res = $this->Schedule_model->_update_array('tb_schedule',$data);
 		
-		//Log
+		//Logging
+		log_info('[Schedule] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' edited schedule #'.$_POST['schedule_id']);
 
 		//Redirect
 		redirect( site_url('/schedule/view/'.$_POST['schedule_id']) );
@@ -386,7 +391,8 @@ class Schedule extends MY_Controller {
 
 		endforeach;
 		
-		//Log
+		//Logging
+		log_info('[Schedule] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' added task to schedule #'.$schedule_id);
 
 		//Redirect
 		redirect( site_url('/schedule/view/'.$schedule_id) );
@@ -408,7 +414,8 @@ class Schedule extends MY_Controller {
 		
 		// echo $res;
 				
-		//Log
+		//Logging
+		log_info('[Schedule] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' joined schedule #'.$_POST['schedule_id']);
 
 		//Redirect
 		redirect( site_url('/schedule/view/'.$_POST['schedule_id']) );
@@ -429,7 +436,8 @@ class Schedule extends MY_Controller {
 		
 		// echo $res;
 				
-		//Log
+		//Logging
+		log_info('[Schedule] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' disjoined schedule #'.$_POST['schedule_id']);
 
 		//Redirect
 		redirect( site_url('/schedule/view/'.$_POST['schedule_id']) );
@@ -466,7 +474,8 @@ class Schedule extends MY_Controller {
 
 		// echo $res;
 				
-		//Log
+		//Logging
+		log_info('[Schedule] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' cancelled task of schedule #'.$_POST['schedule_id']);
 
 		//Redirect
 		redirect( site_url('/schedule/view/'.$_POST['schedule_id']) );
@@ -479,6 +488,9 @@ class Schedule extends MY_Controller {
 		$this->load->model( array('Schedule_model'));
 
 		$res = $this->Schedule_model->disable_schedule($_POST['schedule_id']);
+
+		//Logging
+		log_info('[Schedule] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' cancelled schedule #'.$_POST['schedule_id']);
 
 		redirect( site_url('/schedule/index/'));
 			

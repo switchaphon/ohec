@@ -13,7 +13,7 @@ class Eform extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->_only_authen_success();
-		$this->load->helper(array('form','url','file'));
+		$this->load->helper(array('form','url','file','log4php'));
 		$this->output->set_title('ใบตรวจงาน');
 		$this->data['permission'] = $this->get_permission();
 	}
@@ -74,7 +74,9 @@ class Eform extends MY_Controller {
 
 		endforeach;
 
-		// echo "<pre>"; print_r($this->data['schedule_list']); echo "</pre>";
+		//Logging
+		log_info('[Eform] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' access index page');
+
 		$this->load->view('eform/index',$this->data);
 	}
 	
@@ -96,6 +98,8 @@ class Eform extends MY_Controller {
 		$this->data['schedule'] = $this->Schedule_model->view_schedule($this->data['eform'][0]['schedule_id']);
 		$this->data['ticket'] = $this->Ticket_model->list_ticket_by_eform($this->data['eform'][0]['site_id'],$this->data['eform'][0]['asset_type'],$this->data['schedule'][0]['ticket_start_date'],$this->data['schedule'][0]['ticket_end_date']);
 
+		//Logging
+		log_info('[Eform] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' views eform #'.$eform_id);
 
 		$this->load->view('eform/view',$this->data);
 	}
@@ -185,7 +189,10 @@ class Eform extends MY_Controller {
 
 		//Load checklist by asset_type and ma_type
 		$this->data['checklist'] = $this->eform_action->load_form($this->data['asset_type'], $this->data['ma_type']);
-		
+
+		//Logging
+		log_info('[Eform] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' access create page.');
+
 		$this->load->view('eform/create',$this->data);
 	}   
 	
@@ -297,6 +304,10 @@ class Eform extends MY_Controller {
 							,'attachment_path' => $alert_msg[0]['result']['file_name']
 						);
 
+						        
+						//Logging
+						log_info('[Eform] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' uploaded '.$alert_msg[0]['result']['file_name']);
+
 						// echo "<pre>"; print_r($eform_attachment); echo "</pre>";
 						$res = $this->Utilities_model->_insert_array('tb_eform_attachment',$eform_attachment);
 
@@ -321,12 +332,11 @@ class Eform extends MY_Controller {
 
 		endforeach;
 
-		//Log
+		//Logging
+		log_info('[Eform] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' created eform #'.$eform_id.' of schedule #'.$_POST['schedule_id']);
 
 		// Redirect
 		redirect( site_url('/schedule/view/'.$_POST['schedule_id']));
-
-
 	}
 
 	public function add_note_ops(){
@@ -344,6 +354,9 @@ class Eform extends MY_Controller {
 		// echo "<pre>"; print_r($eform); echo "</pre>";
 		$res = $this->Utilities_model->_insert_array('tb_eform_note',$eform_note);
 
+		//Logging
+		log_info('[Eform] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' added noted to eform #'.$_POST['eform_id']);
+
 		redirect( site_url('/eform/view/'.$_POST['eform_id']));
 	}
 
@@ -354,6 +367,9 @@ class Eform extends MY_Controller {
 		$this->load->model( array('Eform_model'));
 
 		$res = $this->Eform_model->disable_eform($_POST['eform_id']);
+
+		//Logging
+		log_info('[Eform] '.$this->session->userdata('name')." ".$this->session->userdata('surname').' disabled eform #'.$_POST['eform_id']);
 
 		if($_POST['called_page'] == "schedule"){
 			redirect( site_url('/schedule/view/'.$_POST['schedule_id']));

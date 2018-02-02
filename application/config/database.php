@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '127.0.0.1',
+	'hostname' => '10.20.0.22',
 	'username' => 'root',
-	'password' => 'wvjvyooN@456852',
+	'password' => 'vpjk0e@946',
 	'database' => 'ohec_eform',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
